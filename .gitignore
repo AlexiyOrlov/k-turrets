@@ -21,10 +21,13 @@ dist/
 
 # Maven
 target/
-dist/
 
 # JetBrains IDE
 .idea/
+out
+*.ipr
+*.iws
+*.iml
 
 # Unit test reports
 TEST*.xml
@@ -47,4 +50,8 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# gradle
+build
+.gradle
 
