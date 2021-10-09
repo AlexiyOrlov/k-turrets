@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -82,17 +83,27 @@ public class ArrowTurret extends Turret {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT p_70037_1_) {
-        super.readAdditionalSaveData(p_70037_1_);
-        weapon.deserializeNBT(p_70037_1_.getCompound("Weapon"));
-        ammo.deserializeNBT(p_70037_1_.getCompound("Ammo"));
+    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.readAdditionalSaveData(compoundNBT);
+        weapon.deserializeNBT(compoundNBT.getCompound("Weapon"));
+        ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
+        int size = compoundNBT.getInt("Targets");
+        for (int i = 0; i < size; i++) {
+            String type = compoundNBT.getString("Target#" + i);
+            EntityType.byString(type).ifPresent(entityType -> targets.add(entityType));
+        }
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT p_213281_1_) {
-        super.addAdditionalSaveData(p_213281_1_);
-        p_213281_1_.put("Ammo", ammo.serializeNBT());
-        p_213281_1_.put("Weapon", weapon.serializeNBT());
+    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.put("Ammo", ammo.serializeNBT());
+        compoundNBT.put("Weapon", weapon.serializeNBT());
+        for (int i = 0; i < targets.size(); i++) {
+            String type = targets.get(i).getRegistryName().toString();
+            compoundNBT.putString("Target#" + i, type);
+        }
+        compoundNBT.putInt("Targets", targets.size());
     }
 
     @Nullable
@@ -123,10 +134,12 @@ public class ArrowTurret extends Turret {
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
-        if (playerEntity instanceof ServerPlayerEntity) {
-            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-            return ActionResultType.SUCCESS;
+        if (playerEntity.isCrouching()) {
+            if (playerEntity instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                return ActionResultType.SUCCESS;
+            }
         }
-        return ActionResultType.PASS;
+        return super.mobInteract(playerEntity, p_230254_2_);
     }
 }

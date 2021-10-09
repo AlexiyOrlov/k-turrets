@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.satako.UniqueList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
@@ -19,17 +21,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * Extends Mob entity because of goals
  */
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
-    protected List<EntityType<?>> targets;
+    protected UniqueList<EntityType<?>> targets;
+    protected boolean immobile = true;
+
     public Turret(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
-        targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
+        targets = new UniqueList<>(ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList()));
     }
 
     public static AttributeModifierMap.MutableAttribute createDefaultAttributes() {
@@ -90,6 +93,27 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     @OnlyIn(Dist.CLIENT)
     private void openTargetScreen(PlayerEntity playerEntity) {
-        Minecraft.getInstance().setScreen(new TargetOptionScreen());
+        Minecraft.getInstance().setScreen(new TargetOptionScreen(this));
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return isAlive() ? immobile : super.isImmobile();
+    }
+
+    public void setImmobile(boolean immobile) {
+        this.immobile = immobile;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.putBoolean("Immobile", immobile);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.readAdditionalSaveData(compoundNBT);
+        immobile = compoundNBT.getBoolean("Immobile");
     }
 }

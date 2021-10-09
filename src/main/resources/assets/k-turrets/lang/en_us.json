@@ -1,4 +1,10 @@
 {
   "itemGroup.k-turrets": "K-Turrets",
-  "item.k-turrets.arrow_turret_item": "Arrow Turret"
+  "item.k-turrets.arrow_turret_item": "Arrow Turret",
+
+  "k-turrets.targets": "Turret targets:",
+  "k-turrets.added": "Added to targets",
+  "k-turrets.add.entity.type": "Add new entity type to target list",
+  "k-turrets.choose.tooltip": "Choose which entities to remove by pressing appropriate buttons",
+  "k-turrets.hold.alt.to.scroll": "Hold Alt and scroll the list with mouse wheel"
 }
