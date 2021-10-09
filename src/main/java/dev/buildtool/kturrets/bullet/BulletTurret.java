@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.satako.ItemHandler;
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -9,11 +10,16 @@ import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -67,7 +73,20 @@ public class BulletTurret extends Turret {
     @Nullable
     @Override
     public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return null;
+        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+        packetBuffer.writeInt(getId());
+        return new BulletTurretContainer(i, playerInventory, packetBuffer);
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+        if (playerEntity.isCrouching()) {
+            if (playerEntity instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            }
+            return ActionResultType.SUCCESS;
+        }
+        return super.mobInteract(playerEntity, p_230254_2_);
     }
 
     @Override

@@ -125,10 +125,9 @@ public class ArrowTurret extends Turret {
         if (playerEntity.isCrouching()) {
             if (playerEntity instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-                return ActionResultType.SUCCESS;
             }
+            return ActionResultType.SUCCESS;
         } else
             return super.mobInteract(playerEntity, p_230254_2_);
-        return ActionResultType.PASS;
     }
 }
