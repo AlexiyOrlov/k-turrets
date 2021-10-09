@@ -69,11 +69,11 @@ public class ArrowTurret extends Turret {
                             arrowEntity.setBaseDamage(damage);
                         } else if (weapon.getItem() instanceof CrossbowItem)
                             arrowEntity.setBaseDamage(damage * 1.2);
-//                        arrowEntity.setNoGravity(true);
-//                        Arrow2 arrow2=new Arrow2(world,arrowEntity);
+                        Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor);
+                        arrow2.setNoGravity(true);
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-                        this.level.addFreshEntity(arrowEntity);
-
+                        this.level.addFreshEntity(arrow2);
+                        arrows.shrink(1);
                         weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(Hand.MAIN_HAND));
                         break;
                     }
@@ -111,15 +111,15 @@ public class ArrowTurret extends Turret {
                 livingEntity -> livingEntity instanceof IMob) {
             @Override
             public boolean canUse() {
-                return /*!weapon.getStackInSlot(0).isEmpty() && !ammo.isEmpty() &&*/ super.canUse();
+                return !weapon.getStackInSlot(0).isEmpty() && !ammo.isEmpty() && super.canUse();
             }
         });
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity p_230254_1_, Hand p_230254_2_) {
-        if (p_230254_1_ instanceof ServerPlayerEntity) {
-            NetworkHooks.openGui((ServerPlayerEntity) p_230254_1_, this, packetBuffer -> packetBuffer.writeInt(getId()));
+    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+        if (playerEntity instanceof ServerPlayerEntity) {
+            NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             return ActionResultType.SUCCESS;
         }
         return ActionResultType.PASS;

@@ -25,7 +25,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     public static AttributeModifierMap.MutableAttribute createDefaultAttributes() {
-        return createLivingAttributes().add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 5);
+        return createLivingAttributes().add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4);
     }
 
     @Override
