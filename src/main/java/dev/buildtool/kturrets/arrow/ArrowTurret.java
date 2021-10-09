@@ -105,7 +105,7 @@ public class ArrowTurret extends Turret {
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 11, (float) getRange()));
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 13, (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, MobEntity.class, 0, true, true,
                 livingEntity -> {
                     if (livingEntity instanceof MobEntity) {

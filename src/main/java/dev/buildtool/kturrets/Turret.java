@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
  * Extends Mob entity because of goals
  */
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
-    //    protected UniqueList<EntityType<?>> targets;
     protected boolean immobile = true;
     public static DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
 
