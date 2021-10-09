@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -14,5 +15,6 @@ public class KTurrets {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         TEntities.ENTITIES.register(eventBus);
         TItems.ITEMS.register(eventBus);
+        TContainers.CONTAINERS.register(eventBus);
     }
 }

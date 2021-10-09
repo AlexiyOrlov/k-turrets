@@ -1,4 +1,4 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.satako.gui.ContainerScreen2;
 import net.minecraft.entity.player.PlayerInventory;

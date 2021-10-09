@@ -1,8 +1,8 @@
 package dev.buildtool.kturrets.registers;
 
-import dev.buildtool.kturrets.ArrowTurret;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.arrow.ArrowTurret;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
