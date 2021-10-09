@@ -4,7 +4,6 @@ import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -87,11 +86,6 @@ public class ArrowTurret extends Turret {
         super.readAdditionalSaveData(compoundNBT);
         weapon.deserializeNBT(compoundNBT.getCompound("Weapon"));
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
-        int size = compoundNBT.getInt("Targets");
-        for (int i = 0; i < size; i++) {
-            String type = compoundNBT.getString("Target#" + i);
-            EntityType.byString(type).ifPresent(entityType -> targets.add(entityType));
-        }
     }
 
     @Override
@@ -99,11 +93,6 @@ public class ArrowTurret extends Turret {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", ammo.serializeNBT());
         compoundNBT.put("Weapon", weapon.serializeNBT());
-        for (int i = 0; i < targets.size(); i++) {
-            String type = targets.get(i).getRegistryName().toString();
-            compoundNBT.putString("Target#" + i, type);
-        }
-        compoundNBT.putInt("Targets", targets.size());
     }
 
     @Nullable
@@ -121,7 +110,7 @@ public class ArrowTurret extends Turret {
                 livingEntity -> {
                     if (livingEntity instanceof MobEntity) {
                         MobEntity mobEntity = (MobEntity) livingEntity;
-                        return targets.contains(mobEntity.getType());
+                        return decodeTargets(getTargets()).contains(mobEntity.getType());
                     }
                     return false;
                 }) {
@@ -139,7 +128,8 @@ public class ArrowTurret extends Turret {
                 NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
                 return ActionResultType.SUCCESS;
             }
-        }
-        return super.mobInteract(playerEntity, p_230254_2_);
+        } else
+            return super.mobInteract(playerEntity, p_230254_2_);
+        return ActionResultType.PASS;
     }
 }
