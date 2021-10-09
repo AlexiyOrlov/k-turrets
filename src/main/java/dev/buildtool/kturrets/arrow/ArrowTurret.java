@@ -5,7 +5,6 @@ import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -106,10 +105,10 @@ public class ArrowTurret extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 13, (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, MobEntity.class, 0, true, true,
+        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
-                    if (livingEntity instanceof MobEntity) {
-                        MobEntity mobEntity = (MobEntity) livingEntity;
+                    if (livingEntity instanceof LivingEntity) {
+                        LivingEntity mobEntity = (LivingEntity) livingEntity;
                         return decodeTargets(getTargets()).contains(mobEntity.getType());
                     }
                     return false;
