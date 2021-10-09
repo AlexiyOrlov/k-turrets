@@ -8,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -108,7 +107,13 @@ public class ArrowTurret extends Turret {
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 11, (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, MobEntity.class, 0, true, true,
-                livingEntity -> livingEntity instanceof IMob) {
+                livingEntity -> {
+                    if (livingEntity instanceof MobEntity) {
+                        MobEntity mobEntity = (MobEntity) livingEntity;
+                        return targets.contains(mobEntity.getType());
+                    }
+                    return false;
+                }) {
             @Override
             public boolean canUse() {
                 return !weapon.getStackInSlot(0).isEmpty() && !ammo.isEmpty() && super.canUse();

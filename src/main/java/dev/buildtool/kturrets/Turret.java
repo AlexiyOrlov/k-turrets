@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.MobEntity;
@@ -13,15 +14,22 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Extends Mob entity because of goals
  */
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
+    protected List<EntityType<?>> targets;
     public Turret(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
+        targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
     }
 
     public static AttributeModifierMap.MutableAttribute createDefaultAttributes() {
@@ -73,5 +81,15 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    protected abstract ActionResultType mobInteract(PlayerEntity p_230254_1_, Hand p_230254_2_);
+    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+        if (level.isClientSide) {
+            openTargetScreen(playerEntity);
+        }
+        return ActionResultType.SUCCESS;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private void openTargetScreen(PlayerEntity playerEntity) {
+        Minecraft.getInstance().setScreen(new TargetOptionScreen());
+    }
 }

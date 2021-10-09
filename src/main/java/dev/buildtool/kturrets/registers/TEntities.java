@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @SuppressWarnings("unchecked")
 public class TEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, KTurrets.ID);
-    public static final EntityType<ArrowTurret> ARROW_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.5f).build("arrow_turret"));
+    public static final EntityType<ArrowTurret> ARROW_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.4f).build("arrow_turret"));
     public static final RegistryObject<EntityType<ArrowTurret>> REGISTRY_OBJECT;
 
     static {
