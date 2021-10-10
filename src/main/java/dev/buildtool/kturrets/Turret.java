@@ -110,13 +110,13 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
         if (level.isClientSide) {
-            openTargetScreen(playerEntity);
+            openTargetScreen();
         }
         return ActionResultType.SUCCESS;
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void openTargetScreen(PlayerEntity playerEntity) {
+    private void openTargetScreen() {
         Minecraft.getInstance().setScreen(new TargetOptionScreen(this));
     }
 
