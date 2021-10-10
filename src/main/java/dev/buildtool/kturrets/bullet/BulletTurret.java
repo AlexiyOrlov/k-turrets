@@ -1,11 +1,10 @@
 package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,8 +32,8 @@ public class BulletTurret extends Turret {
         }
     };
 
-    public BulletTurret(EntityType<? extends MobEntity> entityType, World world) {
-        super(entityType, world);
+    public BulletTurret(World world) {
+        super(TEntities.BULLET_TURRET, world);
     }
 
     @Override

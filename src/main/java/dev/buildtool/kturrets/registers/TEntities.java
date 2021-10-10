@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.registers;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.arrow.ArrowTurret;
+import dev.buildtool.kturrets.bullet.BulletTurret;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -19,9 +20,11 @@ public class TEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, KTurrets.ID);
     public static final EntityType<ArrowTurret> ARROW_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.4f).build("arrow_turret"));
     public static final RegistryObject<EntityType<ArrowTurret>> REGISTRY_OBJECT;
+    public static final EntityType<BulletTurret> BULLET_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BulletTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.4f).build("bullet_turret"));
 
     static {
         REGISTRY_OBJECT = ENTITIES.register("arrow_turret", () -> ARROW_TURRET);
+        ENTITIES.register("bullet_turret", () -> BULLET_TURRET);
     }
 
     private static <E extends EntityType<T>, T extends Entity> E cast(EntityType<Entity> entityType) {
