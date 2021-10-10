@@ -61,7 +61,7 @@ public class BulletTurret extends Turret {
                 double d0 = livingEntity.getX() - this.getX();
                 double d1 = livingEntity.getEyeY() - getEyeY();
                 double d2 = livingEntity.getZ() - this.getZ();
-                Bullet bullet = new Bullet(null, this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? 6 : 7);
+                Bullet bullet = new Bullet(this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? 6 : 7);
                 level.addFreshEntity(bullet);
                 item.shrink(1);
                 break;
