@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.bullet;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import dev.buildtool.satako.Functions;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -31,7 +32,7 @@ public class BulletTurretModel extends EntityModel<BulletTurret> {
 
     @Override
     public void setupAnim(BulletTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        //previously the render function, render code was moved to a method below
+        moveable_gun.yRot = Functions.getDefaultHeadPitch(headPitch);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class BulletTurret extends Turret {
                 livingEntity -> {
                     if (livingEntity instanceof LivingEntity) {
                         LivingEntity livingEntity1 = (LivingEntity) livingEntity;
-                        return decodeTargets(getTargets()).contains(livingEntity1);
+                        return decodeTargets(getTargets()).contains(livingEntity1.getType());
                     }
                     return false;
                 }) {

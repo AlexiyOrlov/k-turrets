@@ -58,8 +58,7 @@ public class ArrowTurretModel extends EntityModel<ArrowTurret> {
 
     @Override
     public void setupAnim(ArrowTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        moveable_gun.yRot = (float) (Functions.getDefaultHeadPitch(headPitch) - Math.toRadians(90));//*0.017453292F;
-//		moveable_gun.yRot=Functions.getDefaultHeadYaw(netHeadYaw);
+        moveable_gun.yRot = (float) (Functions.getDefaultHeadPitch(headPitch) - Math.toRadians(90));
     }
 
     @Override

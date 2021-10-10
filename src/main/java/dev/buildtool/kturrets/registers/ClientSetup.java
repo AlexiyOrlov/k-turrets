@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.registers;
 
+import dev.buildtool.kturrets.EntityRenderer2;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
 import dev.buildtool.kturrets.arrow.ArrowTurretModel;
 import dev.buildtool.kturrets.arrow.ArrowTurretRenderer;
@@ -7,6 +8,7 @@ import dev.buildtool.kturrets.arrow.ArrowTurretScreen;
 import dev.buildtool.kturrets.bullet.BulletRenderer;
 import dev.buildtool.kturrets.bullet.BulletScreen;
 import dev.buildtool.kturrets.bullet.BulletTurretContainer;
+import dev.buildtool.kturrets.bullet.BulletTurretModel;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,5 +26,6 @@ public class ClientSetup {
         ScreenManager.register(TContainers.BULLET_TURRET, (ScreenManager.IScreenFactory<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new ArrowTurretRenderer(manager, new ArrowTurretModel(), "arrowturret", false, 0.6f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET, BulletRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretModel(), "bulletturret", false, 0.6f));
     }
 }

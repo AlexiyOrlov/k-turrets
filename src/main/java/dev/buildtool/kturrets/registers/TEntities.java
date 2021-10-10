@@ -37,5 +37,6 @@ public class TEntities {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent attributeCreationEvent) {
         attributeCreationEvent.put(ARROW_TURRET, Turret.createDefaultAttributes().build());
+        attributeCreationEvent.put(BULLET_TURRET, Turret.createDefaultAttributes().build());
     }
 }
