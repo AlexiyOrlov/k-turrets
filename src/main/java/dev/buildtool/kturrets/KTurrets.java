@@ -43,6 +43,8 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_RANGE;
     public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue CHARGE_TURRET_DAMAGE;
+    public static ForgeConfigSpec.DoubleValue BRICK_TURRET_HEALTH, BRICK_TURRET_RANGE, BRICK_TURRET_ARMOR;
+    public static ForgeConfigSpec.IntValue BRICK_TURRET_DAMAGE;
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -72,6 +74,12 @@ public class KTurrets {
             CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
             CHARGE_TURRET_RATE = builder.defineInRange("Fire rate", 13, 10, 60);
             CHARGE_TURRET_DAMAGE = builder.defineInRange("Damage", 5, 1, 100);
+            builder.pop();
+            builder.push("Brick turret");
+            BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            BRICK_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
+            BRICK_TURRET_ARMOR = builder.defineInRange("Armor", 0, 0d, 100d);
+            BRICK_TURRET_DAMAGE = builder.defineInRange("Damage", 8, 1, 100);
             builder.pop();
             return builder.build();
         }).getRight());

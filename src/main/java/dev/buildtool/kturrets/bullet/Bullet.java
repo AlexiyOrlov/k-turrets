@@ -5,7 +5,6 @@ import dev.buildtool.kturrets.registers.TEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 public class Bullet extends PresetProjectile {
@@ -27,11 +26,4 @@ public class Bullet extends PresetProjectile {
     protected DamageSource getDamageSource() {
         return new IndirectEntityDamageSource("k-turrets.bullet", this, getOwner());
     }
-
-    @Override
-    protected void onHitBlock(BlockRayTraceResult p_230299_1_) {
-        super.onHitBlock(p_230299_1_);
-        remove();
-    }
-
 }
