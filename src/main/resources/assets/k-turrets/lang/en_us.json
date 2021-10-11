@@ -7,5 +7,7 @@
   "k-turrets.added": "Added to targets",
   "k-turrets.add.entity.type": "Add new entity type to target list",
   "k-turrets.choose.tooltip": "Choose which entities to remove by pressing appropriate buttons",
-  "k-turrets.hold.alt.to.scroll": "Hold Alt and scroll the list with mouse wheel"
+  "k-turrets.hold.alt.to.scroll": "Hold Alt and scroll the list with mouse wheel",
+
+  "death.attack.k-turrets.bullet": "%1$s was shot by a Bulllet turret"
 }

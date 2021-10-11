@@ -26,6 +26,6 @@ public class ClientSetup {
         ScreenManager.register(TContainers.BULLET_TURRET, (ScreenManager.IScreenFactory<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new ArrowTurretRenderer(manager, new ArrowTurretModel(), "arrowturret", false, 0.6f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET, BulletRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretModel(), "bulletturret", false, 0.6f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretModel(), "bulletturret", false, 0.2f));
     }
 }
