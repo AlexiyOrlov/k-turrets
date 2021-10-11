@@ -29,6 +29,7 @@ public class BulletRenderer extends EntityRenderer<Bullet> {
     @Override
     public void render(Bullet bullet, float yaw, float partialTick, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int packedLight) {
         super.render(bullet, yaw, partialTick, matrixStack, renderTypeBuffer, packedLight);
+        matrixStack.translate(0, -1, 0);
         bulletModel.setupAnim(bullet, 0, 0, partialTick, yaw, 0);
         bulletModel.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutout(getTextureLocation(bullet))), packedLight, getPackedLightCoords(bullet, 0xff0f7f), 1, 1, 1, 1);
     }
