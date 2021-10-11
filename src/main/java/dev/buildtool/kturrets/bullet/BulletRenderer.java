@@ -20,7 +20,7 @@ public class BulletRenderer extends EntityRenderer<Bullet> {
 
     @Override
     public ResourceLocation getTextureLocation(Bullet p_110775_1_) {
-        if (p_110775_1_.getDamage() == 7)
+        if (p_110775_1_.getDamage() == KTurrets.IRON_BULLET_DAMAGE.get())
             return IRON;
         else
             return GOLD;
