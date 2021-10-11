@@ -5,6 +5,7 @@ import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
@@ -17,10 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -71,7 +70,25 @@ public class FireChargeTurret extends Turret {
                     double d0 = target.getX() - this.getX();
                     double d1 = target.getEyeY() - getEyeY();
                     double d2 = target.getZ() - this.getZ();
-                    SmallFireballEntity fireballEntity = new SmallFireballEntity(level, this, d0, d1, d2);
+                    SmallFireballEntity fireballEntity = new SmallFireballEntity(level, this, d0, d1, d2) {
+                        @Override
+                        protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+                            if (!this.level.isClientSide) {
+                                Entity entity = p_213868_1_.getEntity();
+                                if (!entity.fireImmune()) {
+                                    Entity entity1 = this.getOwner();
+                                    int i = entity.getRemainingFireTicks();
+                                    entity.setSecondsOnFire(5);
+                                    boolean flag = entity.hurt(DamageSource.fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
+                                    if (!flag) {
+                                        entity.setRemainingFireTicks(i);
+                                    } else if (entity1 instanceof LivingEntity) {
+                                        this.doEnchantDamageEffects((LivingEntity) entity1, entity);
+                                    }
+                                }
+                            }
+                        }
+                    };
                     fireballEntity.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(fireballEntity);
                     level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundCategory.NEUTRAL, 1, 1);

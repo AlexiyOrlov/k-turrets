@@ -30,15 +30,19 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_RANGE;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_ARMOR;
+    public static ForgeConfigSpec.IntValue ARROW_TURRET_DAMAGE;
     public static ForgeConfigSpec.IntValue ARROW_TURRET_RATE;
     public static ForgeConfigSpec.IntValue BULLET_TURRET_RATE;
     public static ForgeConfigSpec.IntValue CHARGE_TURRET_RATE;
     public static ForgeConfigSpec.DoubleValue BULLET_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue BULLET_TURRET_RANGE;
     public static ForgeConfigSpec.DoubleValue BULLET_TURRET_ARMOR;
+    public static ForgeConfigSpec.IntValue GOLD_BULLET_DAMAGE;
+    public static ForgeConfigSpec.IntValue IRON_BULLET_DAMAGE;
     public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_RANGE;
     public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_ARMOR;
+    public static ForgeConfigSpec.IntValue CHARGE_TURRET_DAMAGE;
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -52,18 +56,22 @@ public class KTurrets {
             ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
             ARROW_TURRET_RATE = builder.defineInRange("Fire rate", 13, 10, 60);
+            ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 4, 1, 100);
             builder.pop();
             builder.push("Bullet turret");
             BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
             BULLET_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BULLET_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
             BULLET_TURRET_RATE = builder.defineInRange("Fire rate", 13, 10, 60);
+            IRON_BULLET_DAMAGE = builder.defineInRange("Iron bullet damage", 7, 1, 100);
+            GOLD_BULLET_DAMAGE = builder.defineInRange("Gold bullet damage", 6, 1, 100);
             builder.pop();
             builder.push("Fire charge turret");
             CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
             CHARGE_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
             CHARGE_TURRET_RATE = builder.defineInRange("Fire rate", 13, 10, 60);
+            CHARGE_TURRET_DAMAGE = builder.defineInRange("Damage", 5, 1, 100);
             builder.pop();
             return builder.build();
         }).getRight());

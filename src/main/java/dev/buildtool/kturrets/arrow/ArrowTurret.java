@@ -65,7 +65,7 @@ public class ArrowTurret extends Turret {
                         double d1 = target.getEyeY() - getEyeY();
                         double d2 = target.getZ() - this.getZ();
                         arrowEntity.shoot(d0, d1, d2, 1.8F, 0);
-                        double damage = getDamage();
+                        double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
                         if (weapon.getItem() instanceof BowItem) {
                             arrowEntity.setBaseDamage(damage);
                         } else if (weapon.getItem() instanceof CrossbowItem)
