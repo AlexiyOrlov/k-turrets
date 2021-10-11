@@ -5,6 +5,7 @@ import dev.buildtool.kturrets.packets.TurretTargets;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import net.minecraft.entity.EntityType;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
@@ -15,7 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TargetOptionScreen extends Screen2 {
     protected Turret turret;
@@ -72,8 +72,9 @@ public class TargetOptionScreen extends Screen2 {
             else
                 targets.remove(entityType);
         });
-        turret.setTargets(turret.encodeTargets(targets));
-        TurretTargets turretTargets = new TurretTargets(targets.stream().map(entityType -> entityType.getRegistryName().toString()).collect(Collectors.toList()), turret.getId());
+        CompoundNBT compoundNBT = turret.encodeTargets(targets);
+        turret.setTargets(compoundNBT);
+        TurretTargets turretTargets = new TurretTargets(compoundNBT, turret.getId());
         KTurrets.channel.sendToServer(turretTargets);
     }
 
