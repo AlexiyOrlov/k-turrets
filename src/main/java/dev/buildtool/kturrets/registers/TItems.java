@@ -16,5 +16,6 @@ public class TItems {
     static {
         ITEMS.register("arrow_turret_item", () -> new SpawnEggItem(TEntities.ARROW_TURRET, 0x0, 0x0, new Item.Properties().tab(ITEM_GROUP)));
         ITEMS.register("bullet_turret_item", () -> new SpawnEggItem(TEntities.BULLET_TURRET, 0x0, 0x0, new Item.Properties().tab(ITEM_GROUP)));
+        ITEMS.register("firecharge_turret_item", () -> new SpawnEggItem(TEntities.FIRE_CHARGE_TURRET, 0x0, 0x0, new Item.Properties().tab(ITEM_GROUP)));
     }
 }

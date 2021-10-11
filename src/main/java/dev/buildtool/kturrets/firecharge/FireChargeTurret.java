@@ -1,11 +1,10 @@
 package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,8 +35,8 @@ public class FireChargeTurret extends Turret {
         }
     };
 
-    public FireChargeTurret(EntityType<? extends MobEntity> entityType, World world) {
-        super(entityType, world);
+    public FireChargeTurret(World world) {
+        super(TEntities.FIRE_CHARGE_TURRET, world);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class FireChargeTurret extends Turret {
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
         PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
         packetBuffer.writeInt(getId());
-        return new FireChargeTurretContainer(null, p_createMenu_1_, p_createMenu_2_, packetBuffer);
+        return new FireChargeTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
     }
 
     @Override
