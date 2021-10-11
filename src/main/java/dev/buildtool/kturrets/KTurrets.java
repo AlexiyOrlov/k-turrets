@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.packets.ClaimTurret;
 import dev.buildtool.kturrets.packets.DismantleTurret;
 import dev.buildtool.kturrets.packets.TurretTargets;
 import dev.buildtool.kturrets.registers.TContainers;
@@ -50,7 +51,7 @@ public class KTurrets {
                 context.setPacketHandled(true);
             }
         });
-        channel.registerMessage(packetIndex, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
+        channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
                 packetBuffer -> new DismantleTurret(packetBuffer.readInt()),
                 (dismantleTurret, contextSupplier) -> {
                     ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
@@ -61,6 +62,19 @@ public class KTurrets {
                         turret.remove();
                         SpawnEggItem eggItem = SpawnEggItem.byId(turret.getType());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), new ItemStack(eggItem)));
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
+        channel.registerMessage(packetIndex, ClaimTurret.class, (claimTurret, packetBuffer) -> {
+                    packetBuffer.writeInt(claimTurret.id);
+                    packetBuffer.writeUUID(claimTurret.person);
+                }, packetBuffer -> new ClaimTurret(packetBuffer.readInt(), packetBuffer.readUUID()),
+                (claimTurret, contextSupplier) -> {
+                    ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+                    Entity entity = serverWorld.getEntity(claimTurret.id);
+                    if (entity instanceof Turret) {
+                        Turret turret = (Turret) entity;
+                        turret.setOwner(claimTurret.person);
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });

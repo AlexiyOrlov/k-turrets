@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import dev.buildtool.kturrets.packets.ClaimTurret;
 import dev.buildtool.kturrets.packets.DismantleTurret;
 import dev.buildtool.kturrets.packets.TurretTargets;
 import dev.buildtool.satako.UniqueList;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class TargetOptionScreen extends Screen2 {
+public class TurretOptionsScreen extends Screen2 {
     protected Turret turret;
     protected HashMap<EntityType<?>, Boolean> tempStatusMap;
     protected List<EntityType<?>> targets;
@@ -27,7 +28,8 @@ public class TargetOptionScreen extends Screen2 {
     private static final TranslationTextComponent SCROLL_HINT = new TranslationTextComponent("k-turrets.hold.alt.to.scroll");
     private static final TranslationTextComponent INVENTORY_HINT = new TranslationTextComponent("k-turrets.inventory.hint");
     private List<SwitchButton> targetButtons;
-    public TargetOptionScreen(Turret turret) {
+
+    public TurretOptionsScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
         this.turret = turret;
         tempStatusMap = new HashMap<>(40);
@@ -57,6 +59,12 @@ public class TargetOptionScreen extends Screen2 {
             tempStatusMap.clear();
             targetButtons.forEach(buttons::remove);
         }));
+        if (!turret.getOwner().isPresent())
+            addButton(new BetterButton(centerX, 80, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
+                KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
+                turret.setOwner(minecraft.player.getUUID());
+                minecraft.player.closeContainer();
+            }));
 
         addButton(new Label(3, 3, new TranslationTextComponent("k-turrets.targets")));
         targetButtons = new ArrayList<>(targets.size());
@@ -92,6 +100,6 @@ public class TargetOptionScreen extends Screen2 {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
-        renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY, font);
+        renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
     }
 }

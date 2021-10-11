@@ -20,22 +20,22 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Extends Mob entity because of goals
  */
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
-    public static DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
+    private static final DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
+    private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
 
     public Turret(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -55,6 +55,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         }
         compoundNBT.putInt("Count", targets.size());
         entityData.define(TARGETS, compoundNBT);
+        entityData.define(OWNER, Optional.empty());
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
@@ -63,6 +64,14 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     public CompoundNBT getTargets() {
         return entityData.get(TARGETS);
+    }
+
+    public Optional<UUID> getOwner() {
+        return entityData.get(OWNER);
+    }
+
+    public void setOwner(UUID owner) {
+        entityData.set(OWNER, Optional.of(owner));
     }
 
     @Override
@@ -111,27 +120,39 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
-        if (level.isClientSide) {
-            openTargetScreen();
-        }
-        return ActionResultType.SUCCESS;
+        if (canUse(playerEntity)) {
+            if (level.isClientSide) {
+                openTargetScreen();
+            }
+            return ActionResultType.SUCCESS;
+        } else if (level.isClientSide)
+            playerEntity.sendMessage(new TranslationTextComponent("k-turrets.turret.not.yours"), Util.NIL_UUID);
+        return ActionResultType.PASS;
+    }
+
+    protected boolean canUse(PlayerEntity playerEntity) {
+        return !getOwner().isPresent() || getOwner().get().equals(playerEntity.getUUID());
     }
 
     @OnlyIn(Dist.CLIENT)
     private void openTargetScreen() {
-        Minecraft.getInstance().setScreen(new TargetOptionScreen(this));
+        Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Targets", getTargets());
+        getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         setTargets(compoundNBT.getCompound("Targets"));
+        UUID uuid = compoundNBT.getUUID("Owner");
+        if (!uuid.equals(Util.NIL_UUID))
+            setOwner(uuid);
     }
 
     public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {

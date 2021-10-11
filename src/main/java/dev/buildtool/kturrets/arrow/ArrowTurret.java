@@ -129,7 +129,7 @@ public class ArrowTurret extends Turret {
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
-        if (playerEntity.isCrouching()) {
+        if (canUse(playerEntity) && playerEntity.isCrouching()) {
             if (playerEntity instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
