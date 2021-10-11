@@ -8,8 +8,11 @@
   "k-turrets.targets": "Turret targets:",
   "k-turrets.added": "Added to targets",
   "k-turrets.add.entity.type": "Add new entity type to target list",
-  "k-turrets.choose.tooltip": "Choose which entities to remove by pressing appropriate buttons",
-  "k-turrets.hold.alt.to.scroll": "Hold Alt and scroll the list with mouse wheel",
+  "k-turrets.choose.tooltip": "Choose which entities to remove by pressing the appropriate buttons",
+  "k-turrets.hold.alt.to.scroll": "To scroll the target list, hold Alt and use the mouse wheel",
+  "k-turrets.dismantle": "Dismantle this turret",
+  "k-turrets.clear.list": "Clear the target list",
+  "k-turrets.inventory.hint": "Sneak and right-click the turret to view its inventory",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
 
