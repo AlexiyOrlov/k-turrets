@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import dev.buildtool.kturrets.packets.DismantleTurret;
 import dev.buildtool.kturrets.packets.TurretTargets;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
@@ -13,6 +14,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +26,7 @@ public class TargetOptionScreen extends Screen2 {
     private static final TranslationTextComponent CHOOSE_HINT = new TranslationTextComponent("k-turrets.choose.tooltip");
     private static final TranslationTextComponent SCROLL_HINT = new TranslationTextComponent("k-turrets.hold.alt.to.scroll");
     private static final TranslationTextComponent INVENTORY_HINT = new TranslationTextComponent("k-turrets.inventory.hint");
-
+    private List<SwitchButton> targetButtons;
     public TargetOptionScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
         this.turret = turret;
@@ -43,13 +45,18 @@ public class TargetOptionScreen extends Screen2 {
             if (type != null) {
                 targets.add(type);
                 tempStatusMap.put(type, true);
-                minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added"), Util.NIL_UUID);
+                minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
             }
         }));
-        addButton(new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle")));
-        addButton(new BetterButton(centerX, 60, new TranslationTextComponent("k-turrets.clear.list")));
+        addButton(new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle"), p_onPress_1_ -> KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()))));
+        addButton(new BetterButton(centerX, 60, new TranslationTextComponent("k-turrets.clear.list"), p_onPress_1_ -> {
+            targets.clear();
+            tempStatusMap.clear();
+            targetButtons.forEach(buttons::remove);
+        }));
 
         addButton(new Label(3, 3, new TranslationTextComponent("k-turrets.targets")));
+        targetButtons = new ArrayList<>(targets.size());
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
             SwitchButton switchButton = new SwitchButton(3, 20 * i + 40, new StringTextComponent(entityType.getRegistryName().toString()), new StringTextComponent(TextFormatting.STRIKETHROUGH + entityType.getRegistryName().toString()), true, p_onPress_1_ -> {
@@ -60,6 +67,7 @@ public class TargetOptionScreen extends Screen2 {
             });
             switchButton.verticalScroll = true;
             addButton(switchButton);
+            targetButtons.add(switchButton);
         }
     }
 
