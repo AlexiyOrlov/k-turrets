@@ -20,9 +20,9 @@ public class TItems {
     public static RegistryObject<Item> STEEL_INGOT;
 
     static {
-        ITEMS.register("arrow_turret_item", () -> new SpawnEggItem(TEntities.ARROW_TURRET, 0x0, 0x0, defaults()));
-        ITEMS.register("bullet_turret_item", () -> new SpawnEggItem(TEntities.BULLET_TURRET, 0x0, 0x0, defaults()));
-        ITEMS.register("firecharge_turret_item", () -> new SpawnEggItem(TEntities.FIRE_CHARGE_TURRET, 0x0, 0x0, defaults()));
+        ITEMS.register("arrow_turret_item", () -> new SpawnEggItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults()));
+        ITEMS.register("bullet_turret_item", () -> new SpawnEggItem(TEntities.BULLET_TURRET, 0xA2A1A0, 0x009EA2, defaults()));
+        ITEMS.register("firecharge_turret_item", () -> new SpawnEggItem(TEntities.FIRE_CHARGE_TURRET, 0x0, 0xA20005, defaults()));
         SEMI_STEEL = ITEMS.register("semi_steel", () -> new Item(defaults()));
         STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
     }
