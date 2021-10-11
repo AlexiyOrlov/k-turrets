@@ -18,6 +18,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -69,6 +71,7 @@ public class FireChargeTurret extends Turret {
                     SmallFireballEntity fireballEntity = new SmallFireballEntity(level, this, d0, d1, d2);
                     fireballEntity.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(fireballEntity);
+                    level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundCategory.NEUTRAL, 1, 1);
                     break;
                 }
             }
