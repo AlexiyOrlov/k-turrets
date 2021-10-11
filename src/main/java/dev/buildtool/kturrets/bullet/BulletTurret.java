@@ -17,6 +17,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -64,6 +66,7 @@ public class BulletTurret extends Turret {
                     double d2 = livingEntity.getZ() - this.getZ();
                     Bullet bullet = new Bullet(this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? 6 : 7);
                     level.addFreshEntity(bullet);
+                    level.playSound(null, blockPosition(), SoundEvents.ANVIL_HIT, SoundCategory.NEUTRAL, 1, 1);
                     item.shrink(1);
                     break;
                 }
