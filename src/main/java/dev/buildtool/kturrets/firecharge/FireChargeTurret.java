@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.firecharge;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
@@ -43,7 +44,7 @@ public class FireChargeTurret extends Turret {
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 13, (float) getRange()));
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
