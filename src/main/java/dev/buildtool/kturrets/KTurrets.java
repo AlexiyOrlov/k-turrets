@@ -2,6 +2,7 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.ClaimTurret;
 import dev.buildtool.kturrets.packets.DismantleTurret;
+import dev.buildtool.kturrets.packets.ToggleMobility;
 import dev.buildtool.kturrets.packets.TurretTargets;
 import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
@@ -65,7 +66,7 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
-        channel.registerMessage(packetIndex, ClaimTurret.class, (claimTurret, packetBuffer) -> {
+        channel.registerMessage(packetIndex++, ClaimTurret.class, (claimTurret, packetBuffer) -> {
                     packetBuffer.writeInt(claimTurret.id);
                     packetBuffer.writeUUID(claimTurret.person);
                 }, packetBuffer -> new ClaimTurret(packetBuffer.readInt(), packetBuffer.readUUID()),
@@ -78,5 +79,19 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
+        channel.registerMessage(packetIndex, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
+            packetBuffer.writeInt(toggleMobility.id);
+            packetBuffer.writeBoolean(toggleMobility.mobile);
+        }, packetBuffer -> {
+            boolean mobile = packetBuffer.readBoolean();
+            return new ToggleMobility(mobile, packetBuffer.readInt());
+        }, (toggleMobility, contextSupplier) -> {
+            ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+            Entity entity = serverWorld.getEntity(toggleMobility.id);
+            if (entity instanceof Turret) {
+                ((Turret) entity).setMoveable(toggleMobility.mobile);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
     }
 }

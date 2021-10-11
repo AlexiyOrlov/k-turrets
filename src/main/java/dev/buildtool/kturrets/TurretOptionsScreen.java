@@ -3,6 +3,7 @@ package dev.buildtool.kturrets;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import dev.buildtool.kturrets.packets.ClaimTurret;
 import dev.buildtool.kturrets.packets.DismantleTurret;
+import dev.buildtool.kturrets.packets.ToggleMobility;
 import dev.buildtool.kturrets.packets.TurretTargets;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
@@ -59,8 +60,15 @@ public class TurretOptionsScreen extends Screen2 {
             tempStatusMap.clear();
             targetButtons.forEach(buttons::remove);
         }));
+        addButton(new SwitchButton(centerX, 80, new TranslationTextComponent("k-turrets.mobile"), new TranslationTextComponent("k-turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
+            KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
+            turret.setMoveable(!turret.isMoveable());
+            if (p_onPress_1_ instanceof SwitchButton) {
+                ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
+            }
+        }));
         if (!turret.getOwner().isPresent())
-            addButton(new BetterButton(centerX, 80, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
+            addButton(new BetterButton(centerX, 100, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
                 minecraft.player.closeContainer();

@@ -17,6 +17,8 @@
   "k-turrets.inventory.hint": "Sneak and right-click the turret to view its inventory",
   "k-turrets.claim.turret": "Claim this turret",
   "k-turrets.turret.not.yours": "This turret doesn't belong to you",
+  "k-turrets.mobile": "Mobile",
+  "k-turrets.immobile": "Immobile",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
 

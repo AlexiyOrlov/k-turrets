@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
     private static final DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
+    private static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
 
     public Turret(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -56,6 +57,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         compoundNBT.putInt("Count", targets.size());
         entityData.define(TARGETS, compoundNBT);
         entityData.define(OWNER, Optional.empty());
+        entityData.define(MOVEABLE, true);
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
@@ -72,6 +74,14 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     public void setOwner(UUID owner) {
         entityData.set(OWNER, Optional.of(owner));
+    }
+
+    public void setMoveable(boolean moveable) {
+        entityData.set(MOVEABLE, moveable);
+    }
+
+    public boolean isMoveable() {
+        return entityData.get(MOVEABLE);
     }
 
     @Override
@@ -144,6 +154,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Targets", getTargets());
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
+        compoundNBT.putBoolean("Mobile", isMoveable());
     }
 
     @Override
@@ -153,6 +164,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         UUID uuid = compoundNBT.getUUID("Owner");
         if (!uuid.equals(Util.NIL_UUID))
             setOwner(uuid);
+        setMoveable(compoundNBT.getBoolean("Mobile"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
@@ -200,5 +212,15 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         if (effect == Effects.POISON || effect == Effects.HEAL || effect == Effects.HEALTH_BOOST || effect == Effects.REGENERATION || effect == Effects.WITHER)
             return false;
         return super.canBeAffected(effectInstance);
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return !isMoveable();
+    }
+
+    @Override
+    public boolean isPushable() {
+        return isMoveable();
     }
 }
