@@ -9,6 +9,7 @@ import dev.buildtool.kturrets.firecharge.FireChargeTurret;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -37,8 +38,8 @@ public class TEntities {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent attributeCreationEvent) {
-        attributeCreationEvent.put(ARROW_TURRET, Turret.createDefaultAttributes().build());
-        attributeCreationEvent.put(BULLET_TURRET, Turret.createDefaultAttributes().build());
-        attributeCreationEvent.put(FIRE_CHARGE_TURRET, Turret.createDefaultAttributes().build());
+        attributeCreationEvent.put(ARROW_TURRET, Turret.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.ARROW_TURRET_RANGE.get()).add(Attributes.MAX_HEALTH, KTurrets.ARROW_TURRET_HEALTH.get()).add(Attributes.ARMOR, KTurrets.ARROW_TURRET_ARMOR.get()).build());
+        attributeCreationEvent.put(BULLET_TURRET, Turret.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.BULLET_TURRET_RANGE.get()).add(Attributes.MAX_HEALTH, KTurrets.BULLET_TURRET_HEALTH.get()).add(Attributes.ARMOR, KTurrets.BULLET_TURRET_ARMOR.get()).build());
+        attributeCreationEvent.put(FIRE_CHARGE_TURRET, Turret.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.CHARGE_TURRET_RANGE.get()).add(Attributes.MAX_HEALTH, KTurrets.CHARGE_TURRET_HEALTH.get()).add(Attributes.ARMOR, KTurrets.CHARGE_TURRET_ARMOR.get()).build());
     }
 }

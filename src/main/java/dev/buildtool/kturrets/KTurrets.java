@@ -12,8 +12,11 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -24,12 +27,41 @@ public class KTurrets {
     public static final String ID = "k-turrets";
     static private final String NP = "1.0";
     public static SimpleChannel channel;
+    public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
+    public static ForgeConfigSpec.DoubleValue ARROW_TURRET_RANGE;
+    public static ForgeConfigSpec.DoubleValue ARROW_TURRET_ARMOR;
+    public static ForgeConfigSpec.DoubleValue BULLET_TURRET_HEALTH;
+    public static ForgeConfigSpec.DoubleValue BULLET_TURRET_RANGE;
+    public static ForgeConfigSpec.DoubleValue BULLET_TURRET_ARMOR;
+    public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_HEALTH;
+    public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_RANGE;
+    public static ForgeConfigSpec.DoubleValue CHARGE_TURRET_ARMOR;
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         TEntities.ENTITIES.register(eventBus);
         TItems.ITEMS.register(eventBus);
         TContainers.CONTAINERS.register(eventBus);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, new ForgeConfigSpec.Builder().configure(builder -> {
+            builder.push("Arrow turret");
+            ARROW_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
+            ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
+            builder.pop();
+            builder.push("Bullet turret");
+            BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            BULLET_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
+            BULLET_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
+            builder.pop();
+            builder.push("Fire charge turret");
+            CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            CHARGE_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
+            CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 0d, 0d, 100d);
+            builder.pop();
+            return builder.build();
+        }).getRight());
+
         channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(ID, "network"), () -> NP, NP::equals, NP::equals);
         int packetIndex = 0;
         channel.registerMessage(packetIndex++, TurretTargets.class, (turretTargets, packetBuffer) -> {
