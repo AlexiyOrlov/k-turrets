@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
  * Extends Mob entity because of goals
  */
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
-    protected boolean immobile = true;
     public static DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
 
     public Turret(EntityType<? extends MobEntity> entityType, World world) {
@@ -121,25 +120,14 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    protected boolean isImmobile() {
-        return isAlive() ? immobile : super.isImmobile();
-    }
-
-    public void setImmobile(boolean immobile) {
-        this.immobile = immobile;
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
-        compoundNBT.putBoolean("Immobile", immobile);
         compoundNBT.put("Targets", getTargets());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
-        immobile = compoundNBT.getBoolean("Immobile");
         setTargets(compoundNBT.getCompound("Targets"));
     }
 
