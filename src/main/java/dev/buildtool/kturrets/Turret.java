@@ -22,6 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -162,4 +163,10 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     protected abstract List<ItemHandler> getContainedItems();
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
+        return SoundEvents.SHIELD_BLOCK;
+    }
 }
