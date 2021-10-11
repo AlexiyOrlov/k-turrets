@@ -150,4 +150,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         compoundNBT.putInt("Count", list.size());
         return compoundNBT;
     }
+
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
 }
