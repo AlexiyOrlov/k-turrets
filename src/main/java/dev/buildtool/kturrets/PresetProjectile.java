@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
@@ -8,6 +9,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
@@ -51,6 +53,8 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
 
     @Override
     protected void onHitEntity(EntityRayTraceResult entityRayTraceResult) {
+        Entity entity = entityRayTraceResult.getEntity();
+        entity.hurt(getDamageSource(), getDamage());
         remove();
     }
 
@@ -79,4 +83,6 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
         super.readAdditionalSaveData(compoundNBT);
         setDamage(compoundNBT.getInt("Damage"));
     }
+
+    protected abstract DamageSource getDamageSource();
 }
