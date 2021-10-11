@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 public class Bullet extends PresetProjectile {
-    private static final DamageSource damageSource = new DamageSource("k-turrets.bullet");
 
     public Bullet(World p_i50173_2_) {
         super(TEntities.BULLET, p_i50173_2_);

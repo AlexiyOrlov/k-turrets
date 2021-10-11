@@ -84,5 +84,8 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
         setDamage(compoundNBT.getInt("Damage"));
     }
 
+    /**
+     * @return preferably {@link net.minecraft.util.IndirectEntityDamageSource}
+     */
     protected abstract DamageSource getDamageSource();
 }
