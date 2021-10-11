@@ -1,7 +1,9 @@
 {
   "itemGroup.k-turrets": "K-Turrets",
+
   "item.k-turrets.arrow_turret_item": "Arrow Turret",
   "item.k-turrets.bullet_turret_item": "Bullet Turret",
+  "item.k-turrets.firecharge_turret_item": "Fire Charge Turret",
 
   "k-turrets.targets": "Turret targets:",
   "k-turrets.added": "Added to targets",

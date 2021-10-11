@@ -46,7 +46,7 @@ public class FireChargeTurret extends Turret {
                 livingEntity -> {
                     if (livingEntity instanceof LivingEntity) {
                         LivingEntity entity = (LivingEntity) livingEntity;
-                        return decodeTargets(getTargets()).contains(entity.getType());
+                        return !entity.fireImmune() && decodeTargets(getTargets()).contains(entity.getType());
                     }
                     return false;
                 }) {
@@ -67,6 +67,7 @@ public class FireChargeTurret extends Turret {
                     double d1 = target.getEyeY() - getEyeY();
                     double d2 = target.getZ() - this.getZ();
                     SmallFireballEntity fireballEntity = new SmallFireballEntity(level, this, d0, d1, d2);
+                    fireballEntity.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(fireballEntity);
                     break;
                 }
