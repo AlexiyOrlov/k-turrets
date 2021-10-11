@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.PresetProjectile;
 import dev.buildtool.kturrets.registers.TEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
@@ -25,7 +26,7 @@ public class Bullet extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return damageSource;
+        return new IndirectEntityDamageSource("k-turrets.bullet", this, getOwner());
     }
 
     @Override
