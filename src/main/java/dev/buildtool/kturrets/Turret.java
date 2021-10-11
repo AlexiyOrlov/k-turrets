@@ -161,9 +161,11 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         setTargets(compoundNBT.getCompound("Targets"));
-        UUID uuid = compoundNBT.getUUID("Owner");
-        if (!uuid.equals(Util.NIL_UUID))
-            setOwner(uuid);
+        if (compoundNBT.contains("Owner")) {
+            UUID uuid = compoundNBT.getUUID("Owner");
+            if (!uuid.equals(Util.NIL_UUID))
+                setOwner(uuid);
+        }
         setMoveable(compoundNBT.getBoolean("Mobile"));
     }
 
