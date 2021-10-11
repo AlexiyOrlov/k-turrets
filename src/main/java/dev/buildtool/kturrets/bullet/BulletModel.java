@@ -19,7 +19,7 @@ public class BulletModel extends EntityModel<Bullet> {
 
     @Override
     public void setupAnim(Bullet entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        //previously the render function, render code was moved to a method below
+
     }
 
     @Override

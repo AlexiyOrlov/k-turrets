@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,12 +19,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class TEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, KTurrets.ID);
     public static final EntityType<ArrowTurret> ARROW_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.4f).build("arrow_turret"));
-    public static final RegistryObject<EntityType<ArrowTurret>> REGISTRY_OBJECT;
     public static final EntityType<BulletTurret> BULLET_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BulletTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.2f).build("bullet_turret"));
     public static final EntityType<Bullet> BULLET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Bullet(p_create_2_), EntityClassification.MISC).sized(0.2f, 0.2f).build("bullet"));
 
     static {
-        REGISTRY_OBJECT = ENTITIES.register("arrow_turret", () -> ARROW_TURRET);
+        ENTITIES.register("arrow_turret", () -> ARROW_TURRET);
         ENTITIES.register("bullet_turret", () -> BULLET_TURRET);
         ENTITIES.register("bullet", () -> BULLET);
     }
