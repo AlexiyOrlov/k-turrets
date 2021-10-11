@@ -4,6 +4,7 @@ import dev.buildtool.satako.ItemHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -28,6 +29,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +39,12 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     private static final DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
     private static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
+    protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
+        if (getOwner().isPresent()) {
+            return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !livingEntity.isAlliedTo(level.getPlayerByUUID(getOwner().get()));
+        }
+        return false;
+    };
 
     public Turret(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
