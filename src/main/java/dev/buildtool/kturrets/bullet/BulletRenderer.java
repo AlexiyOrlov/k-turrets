@@ -15,6 +15,7 @@ public class BulletRenderer extends EntityRenderer<Bullet> {
 
     public BulletRenderer(EntityRendererManager rendererManager) {
         super(rendererManager);
+        shadowRadius = 0;
     }
 
     @Override
