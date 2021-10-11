@@ -39,6 +39,10 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     private static final DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
     private static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> PROTECTION_FROM_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
+    /**
+     * Players that are not allied to the owner
+     */
     protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
             return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !livingEntity.isAlliedTo(level.getPlayerByUUID(getOwner().get()));
@@ -66,6 +70,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.define(TARGETS, compoundNBT);
         entityData.define(OWNER, Optional.empty());
         entityData.define(MOVEABLE, true);
+        entityData.define(PROTECTION_FROM_PLAYERS, false);
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
@@ -91,6 +96,15 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     public boolean isMoveable() {
         return entityData.get(MOVEABLE);
     }
+
+    public void setProtectionFromPlayers(boolean protect) {
+        entityData.set(PROTECTION_FROM_PLAYERS, protect);
+    }
+
+    public boolean isProtectingFromPlayers() {
+        return entityData.get(PROTECTION_FROM_PLAYERS);
+    }
+
 
     @Override
     protected abstract void registerGoals();
@@ -163,6 +177,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         compoundNBT.put("Targets", getTargets());
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
         compoundNBT.putBoolean("Mobile", isMoveable());
+        compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
     }
 
     @Override
@@ -175,6 +190,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
                 setOwner(uuid);
         }
         setMoveable(compoundNBT.getBoolean("Mobile"));
+        setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {

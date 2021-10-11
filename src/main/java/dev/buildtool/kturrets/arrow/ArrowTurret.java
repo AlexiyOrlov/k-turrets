@@ -114,6 +114,8 @@ public class ArrowTurret extends Turret {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 13, (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
+                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
+                        return alienPlayers.test((LivingEntity) livingEntity);
                     if (livingEntity instanceof LivingEntity) {
                         LivingEntity mobEntity = (LivingEntity) livingEntity;
                         return decodeTargets(getTargets()).contains(mobEntity.getType());

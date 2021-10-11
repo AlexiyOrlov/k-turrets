@@ -19,6 +19,8 @@
   "k-turrets.turret.not.yours": "This turret doesn't belong to you",
   "k-turrets.mobile": "Mobile",
   "k-turrets.immobile": "Immobile",
+  "k-turrets.protect.from.players": "Protecting from alien players",
+  "k-turrets.not.protect.from.players": "Not protecting from alien players",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
 

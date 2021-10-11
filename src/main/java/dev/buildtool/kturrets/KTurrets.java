@@ -1,9 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.packets.ClaimTurret;
-import dev.buildtool.kturrets.packets.DismantleTurret;
-import dev.buildtool.kturrets.packets.ToggleMobility;
-import dev.buildtool.kturrets.packets.TurretTargets;
+import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
@@ -79,7 +76,7 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
-        channel.registerMessage(packetIndex, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
+        channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
             packetBuffer.writeInt(toggleMobility.id);
             packetBuffer.writeBoolean(toggleMobility.mobile);
         }, packetBuffer -> {
@@ -93,5 +90,18 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
+        channel.registerMessage(packetIndex, TogglePlayerProtection.class, (togglePlayerProtection, packetBuffer) -> {
+                    packetBuffer.writeBoolean(togglePlayerProtection.protect);
+                    packetBuffer.writeInt(togglePlayerProtection.id);
+                }, packetBuffer -> new TogglePlayerProtection(packetBuffer.readBoolean(), packetBuffer.readInt()),
+                (togglePlayerProtection, contextSupplier) -> {
+                    ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+                    Entity entity = serverWorld.getEntity(togglePlayerProtection.id);
+                    if (entity instanceof Turret) {
+                        Turret turret = (Turret) entity;
+                        turret.setProtectionFromPlayers(togglePlayerProtection.protect);
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
     }
 }
