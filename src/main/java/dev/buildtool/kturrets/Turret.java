@@ -16,6 +16,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -168,5 +171,13 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
         return SoundEvents.SHIELD_BLOCK;
+    }
+
+    @Override
+    public boolean canBeAffected(EffectInstance effectInstance) {
+        Effect effect = effectInstance.getEffect();
+        if (effect == Effects.POISON || effect == Effects.HEAL || effect == Effects.HEALTH_BOOST || effect == Effects.REGENERATION || effect == Effects.WITHER)
+            return false;
+        return super.canBeAffected(effectInstance);
     }
 }
