@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ada",
+    "sss",
+    "sss"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:arrow"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "s": {
+      "item": "k-turrets:steel_ingot"
+    }
+  },
+  "result": {
+    "item": "k-turrets:arrow_turret_item"
+  }
+}

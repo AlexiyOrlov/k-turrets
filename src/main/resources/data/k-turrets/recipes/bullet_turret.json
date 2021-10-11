@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gdi",
+    "sss",
+    "sss"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:gold_nugget"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "s": {
+      "item": "k-turrets:steel_ingot"
+    },
+    "i": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "result": {
+    "item": "k-turrets:bullet_turret_item"
+  }
+}
