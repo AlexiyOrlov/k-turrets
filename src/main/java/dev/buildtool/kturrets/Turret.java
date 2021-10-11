@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.satako.ItemHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
@@ -8,16 +9,14 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -155,4 +154,12 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     public boolean canBreatheUnderwater() {
         return true;
     }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        getContainedItems().forEach(itemHandler -> InventoryHelper.dropContents(level, blockPosition(), itemHandler.getItems()));
+    }
+
+    protected abstract List<ItemHandler> getContainedItems();
 }

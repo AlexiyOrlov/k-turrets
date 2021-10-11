@@ -26,6 +26,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 public class ArrowTurret extends Turret {
     protected final ItemHandler weapon = new ItemHandler(1) {
@@ -85,6 +87,11 @@ public class ArrowTurret extends Turret {
         super.readAdditionalSaveData(compoundNBT);
         weapon.deserializeNBT(compoundNBT.getCompound("Weapon"));
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
+    }
+
+    @Override
+    protected List<ItemHandler> getContainedItems() {
+        return Arrays.asList(weapon, ammo);
     }
 
     @Override

@@ -23,6 +23,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 
 public class BulletTurret extends Turret {
     protected final ItemHandler ammo = new ItemHandler(27) {
@@ -104,5 +106,10 @@ public class BulletTurret extends Turret {
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
+    }
+
+    @Override
+    protected List<ItemHandler> getContainedItems() {
+        return Collections.singletonList(ammo);
     }
 }
