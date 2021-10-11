@@ -11,5 +11,9 @@
   "k-turrets.choose.tooltip": "Choose which entities to remove by pressing appropriate buttons",
   "k-turrets.hold.alt.to.scroll": "Hold Alt and scroll the list with mouse wheel",
 
-  "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret"
+  "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
+
+  "entity.k-turrets.fire_charge_turret": "Fire Charge Turret",
+  "entity.k-turrets.arrow_turret": "Arrow Turret",
+  "entity.k-turrets.bullet_turret": "Bullet Turret"
 }
