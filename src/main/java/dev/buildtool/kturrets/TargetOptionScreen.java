@@ -48,7 +48,10 @@ public class TargetOptionScreen extends Screen2 {
                 minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
             }
         }));
-        addButton(new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle"), p_onPress_1_ -> KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()))));
+        addButton(new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle"), p_onPress_1_ -> {
+            KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
+            minecraft.player.closeContainer();
+        }));
         addButton(new BetterButton(centerX, 60, new TranslationTextComponent("k-turrets.clear.list"), p_onPress_1_ -> {
             targets.clear();
             tempStatusMap.clear();

@@ -61,6 +61,7 @@ public class KTurrets {
                         turret.remove();
                         SpawnEggItem eggItem = SpawnEggItem.byId(turret.getType());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), new ItemStack(eggItem)));
+                        contextSupplier.get().setPacketHandled(true);
                     }
                 });
     }
