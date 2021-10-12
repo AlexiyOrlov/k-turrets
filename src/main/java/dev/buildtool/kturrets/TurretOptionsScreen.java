@@ -13,10 +13,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class TurretOptionsScreen extends Screen2 {
     protected Turret turret;
@@ -111,6 +108,7 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
+        renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k-turrets.integrity").append(": " + turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
         renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
     }
 }
