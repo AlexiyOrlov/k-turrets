@@ -23,6 +23,7 @@ public class Arrow2 extends ArrowEntity {
             potion = ((ArrowEntity) abstractArrowEntity).potion;
             ((ArrowEntity) abstractArrowEntity).effects.forEach(this::addEffect);
         }
+        setOwner(abstractArrowEntity.getOwner());
 
     }
 
