@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -260,4 +261,11 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
     }
+
+    /**
+     * Can't use {@link net.minecraft.item.SpawnEggItem#byId(EntityType)}
+     *
+     * @return appropriate spawn egg
+     */
+    public abstract Item getSpawnItem();
 }

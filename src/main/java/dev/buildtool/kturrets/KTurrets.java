@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
@@ -113,8 +112,9 @@ public class KTurrets {
                         Turret turret = (Turret) entity;
                         turret.getContainedItems().forEach(itemHandler -> InventoryHelper.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
                         turret.remove();
-                        SpawnEggItem eggItem = SpawnEggItem.byId(turret.getType());
-                        serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), new ItemStack(eggItem)));
+
+                        ItemStack egg = new ItemStack(turret.getSpawnItem());
+                        serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
