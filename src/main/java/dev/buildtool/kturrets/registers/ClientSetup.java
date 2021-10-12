@@ -34,7 +34,7 @@ public class ClientSetup {
         ScreenManager.register(TContainers.BRICK_TURRET, (ScreenManager.IScreenFactory<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretModel(), "arrowturret", false, 0.6f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET, BulletRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretModel2(), "bulletturret", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretModel2(), "bulletturret", false, 0.4f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FireChargeTurretModel(), "firechargeturret", false, 0.6f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK, BrickRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModel(), "brickturret", false, 0.7f));
