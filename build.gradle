@@ -82,7 +82,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    def satakoBuilds=file(rootProject.getProperties().get('libsDir'))
+    def satakoBuilds=file(new File(rootProject.getBuildDir(),"libs"))
     flatDir{
         dirs(satakoBuilds)
     }
@@ -90,7 +90,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.8'
-    runtime(fg.deobf('dev.buildtool:Satako:4.2.10-1.16.5:'));
+    runtimeOnly fg.deobf('dev.buildtool:Satako:4.2.10-1.16.5:');
     implementation(rootProject)
 }
 
