@@ -22,7 +22,7 @@ public class BrickModel extends EntityModel<Brick> {
 
     @Override
     public void setupAnim(Brick entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        //previously the render function, render code was moved to a method below
+        bb_main.yRot = entity.yRot;
     }
 
     @Override
