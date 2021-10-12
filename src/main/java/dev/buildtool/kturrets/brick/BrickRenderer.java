@@ -28,7 +28,7 @@ public class BrickRenderer extends EntityRenderer<Brick> {
     public void render(Brick p_225623_1_, float yaw, float partialTick, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light) {
         super.render(p_225623_1_, yaw, partialTick, matrixStack, renderTypeBuffer, light);
         matrixStack.pushPose();
-//        matrixStack.translate(0, -1.4, 0);
+        matrixStack.translate(0, -1.3, 0);
         brickModel.setupAnim(p_225623_1_, 0, 0, partialTick, yaw, 0);
         brickModel.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutout(getTextureLocation(p_225623_1_))), light, getPackedLightCoords(p_225623_1_, 0xff0f7f), 1, 1, 1, 1);
         matrixStack.popPose();
