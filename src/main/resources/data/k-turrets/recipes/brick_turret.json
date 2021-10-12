@@ -1,14 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ndb",
+    "bdb",
     "sss",
     "sss"
   ],
   "key": {
-    "n": {
-      "item": "minecraft:nether_brick"
-    },
     "d": {
       "item": "minecraft:dispenser"
     },
