@@ -25,6 +25,7 @@ public class TItems {
         ITEMS.register("firecharge_turret_item", () -> new SpawnEggItem(TEntities.FIRE_CHARGE_TURRET, 0x0, 0xA20005, defaults()));
         SEMI_STEEL = ITEMS.register("semi_steel", () -> new Item(defaults()));
         STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
+        ITEMS.register("brick_turret_item", () -> new SpawnEggItem(TEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults()));
     }
 
     private static Item.Properties defaults() {
