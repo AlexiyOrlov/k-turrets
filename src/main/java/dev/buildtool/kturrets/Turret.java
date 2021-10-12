@@ -255,4 +255,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     protected SoundEvent getDeathSound() {
         return SoundEvents.DRAGON_FIREBALL_EXPLODE;
     }
+
+    @Override
+    public boolean removeWhenFarAway(double p_213397_1_) {
+        return false;
+    }
 }
