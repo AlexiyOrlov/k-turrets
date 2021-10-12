@@ -20,4 +20,10 @@ public class Brick extends PresetProjectile {
     protected DamageSource getDamageSource() {
         return new IndirectEntityDamageSource("k-turrets.brick", this, getOwner());
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+        yRot++;
+    }
 }
