@@ -108,7 +108,7 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
-        renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k-turrets.integrity").append(": " + turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
+        renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k-turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
         renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
     }
 }
