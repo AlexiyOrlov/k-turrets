@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
+import dev.buildtool.kturrets.brick.BrickTurretContainer;
 import dev.buildtool.kturrets.bullet.BulletTurretContainer;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
 import net.minecraft.inventory.container.ContainerType;
@@ -14,6 +15,7 @@ public class TContainers {
     static public ContainerType<ArrowTurretContainer> ARROW_TURRET;
     public static ContainerType<BulletTurretContainer> BULLET_TURRET;
     public static ContainerType<FireChargeTurretContainer> FIRE_CHARGE_TURRET;
+    public static ContainerType<BrickTurretContainer> BRICK_TURRET;
     static {
         ARROW_TURRET = IForgeContainerType.create(ArrowTurretContainer::new);
         CONTAINERS.register("arrow_turret", () -> ARROW_TURRET);
@@ -21,5 +23,7 @@ public class TContainers {
         CONTAINERS.register("bullet_turret", () -> BULLET_TURRET);
         FIRE_CHARGE_TURRET = IForgeContainerType.create(FireChargeTurretContainer::new);
         CONTAINERS.register("fire_charge_turret", () -> FIRE_CHARGE_TURRET);
+        BRICK_TURRET = IForgeContainerType.create(BrickTurretContainer::new);
+        CONTAINERS.register("brick_turret", () -> BRICK_TURRET);
     }
 }

@@ -2,11 +2,10 @@ package dev.buildtool.kturrets.brick;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,8 +34,8 @@ public class BrickTurret extends Turret {
         }
     };
 
-    public BrickTurret(EntityType<? extends MobEntity> entityType, World world) {
-        super(entityType, world);
+    public BrickTurret(World world) {
+        super(TEntities.BRICK_TURRET, world);
     }
 
     @Override
@@ -72,7 +71,7 @@ public class BrickTurret extends Turret {
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
-                    Brick brick = new Brick(null, this, xa, ya, za, level);
+                    Brick brick = new Brick(this, xa, ya, za, level);
                     brick.setDamage(bricksItem.getItem() == Items.BRICK ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level.addFreshEntity(brick);
                     bricksItem.shrink(1);
@@ -87,7 +86,7 @@ public class BrickTurret extends Turret {
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
         PacketBuffer buffer = Functions.emptyBuffer();
         buffer.writeInt(getId());
-        return new BrickTurretContainer(null, p_createMenu_1_, p_createMenu_2_, buffer);
+        return new BrickTurretContainer(p_createMenu_1_, p_createMenu_2_, buffer);
     }
 
     @Override
