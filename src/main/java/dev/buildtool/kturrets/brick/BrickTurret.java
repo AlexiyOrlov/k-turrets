@@ -17,6 +17,8 @@ import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -75,6 +77,7 @@ public class BrickTurret extends Turret {
                     brick.setDamage(bricksItem.getItem() == Items.BRICK ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     brick.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(brick);
+                    level.playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundCategory.NEUTRAL, 1, 0.5f);
                     bricksItem.shrink(1);
                     break;
                 }
