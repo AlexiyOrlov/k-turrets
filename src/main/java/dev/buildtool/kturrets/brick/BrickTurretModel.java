@@ -50,6 +50,7 @@ public class BrickTurretModel extends EntityModel<BrickTurret> {
     @Override
     public void setupAnim(BrickTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         moveable_gun.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
+        moveable_gun.xRot = Functions.getDefaultHeadPitch(headPitch);
     }
 
     @Override
