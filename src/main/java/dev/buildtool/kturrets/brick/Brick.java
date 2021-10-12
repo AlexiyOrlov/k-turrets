@@ -5,6 +5,9 @@ import dev.buildtool.kturrets.registers.TEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class Brick extends PresetProjectile {
@@ -25,5 +28,11 @@ public class Brick extends PresetProjectile {
     public void tick() {
         super.tick();
         yRot += 0.25f;
+    }
+
+    @Override
+    protected void onHit(RayTraceResult p_70227_1_) {
+        super.onHit(p_70227_1_);
+        level.playSound(null, blockPosition(), SoundEvents.GILDED_BLACKSTONE_BREAK, SoundCategory.NEUTRAL, 1, 1);
     }
 }
