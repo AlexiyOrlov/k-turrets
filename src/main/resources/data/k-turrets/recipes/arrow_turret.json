@@ -13,7 +13,7 @@
       "item": "minecraft:dispenser"
     },
     "s": {
-      "item": "k-turrets:steel_ingot"
+      "tag": "forge:ingots/steel"
     }
   },
   "result": {

@@ -1,22 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ada",
+    "ndb",
     "sss",
     "sss"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:fire_charge"
+    "n": {
+      "item": "minecraft:nether_brick"
     },
     "d": {
       "item": "minecraft:dispenser"
+    },
+    "b": {
+      "item": "minecraft:brick"
     },
     "s": {
       "tag": "forge:ingots/steel"
     }
   },
   "result": {
-    "item": "k-turrets:firecharge_turret_item"
+    "item": "k-turrets:brick_turret_item"
   }
 }
