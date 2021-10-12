@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.brick;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import dev.buildtool.satako.Functions;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
@@ -48,7 +49,7 @@ public class BrickTurretModel extends EntityModel<BrickTurret> {
 
     @Override
     public void setupAnim(BrickTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        //previously the render function, render code was moved to a method below
+        moveable_gun.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class BulletTurretModel extends EntityModel<BulletTurret> {
 
     @Override
     public void setupAnim(BulletTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        moveable_gun.yRot = Functions.getDefaultHeadPitch(headPitch);
+        moveable_gun.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
     }
 
     @Override

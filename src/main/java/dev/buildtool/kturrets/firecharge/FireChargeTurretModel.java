@@ -30,7 +30,7 @@ public class FireChargeTurretModel extends EntityModel<FireChargeTurret> {
 
     @Override
     public void setupAnim(FireChargeTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        moveable_gun.yRot = Functions.getDefaultHeadPitch(headPitch);
+        moveable_gun.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
         moveable_gun.xRot = Functions.getDefaultHeadPitch(headPitch);
     }
 
