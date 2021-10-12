@@ -249,4 +249,10 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     public boolean isPushable() {
         return isMoveable();
     }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.DRAGON_FIREBALL_EXPLODE;
+    }
 }
