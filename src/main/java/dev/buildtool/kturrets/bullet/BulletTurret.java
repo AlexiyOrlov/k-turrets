@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.ItemHandler;
@@ -21,7 +22,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -74,7 +74,7 @@ public class BulletTurret extends Turret {
                     Bullet bullet = new Bullet(this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
                     bullet.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(bullet);
-                    level.playSound(null, blockPosition(), SoundEvents.CROSSBOW_SHOOT, SoundCategory.NEUTRAL, 1, 1);
+                    level.playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundCategory.NEUTRAL, 1, 1);
                     item.shrink(1);
                     break;
                 }

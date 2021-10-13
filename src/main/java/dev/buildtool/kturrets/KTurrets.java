@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
@@ -50,6 +51,7 @@ public class KTurrets {
         TEntities.ENTITIES.register(eventBus);
         TItems.ITEMS.register(eventBus);
         TContainers.CONTAINERS.register(eventBus);
+        Sounds.SOUNDS.register(eventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Arrow turret");
