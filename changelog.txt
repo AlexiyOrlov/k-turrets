@@ -1,2 +1,3 @@
 0.1.1:
-fixed Brick turret not saving its inventory
+fixed Brick turret not saving its inventory;
+fixed turrets not saving immobility status
