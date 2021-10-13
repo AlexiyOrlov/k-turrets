@@ -172,6 +172,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
     }
 
+    //don't forget to save the inventory
     @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
