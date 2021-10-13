@@ -27,7 +27,7 @@ public class Brick extends PresetProjectile {
     @Override
     public void tick() {
         super.tick();
-        yRot += 0.25f;
+        yRot += 1f;
     }
 
     @Override
