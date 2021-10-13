@@ -16,6 +16,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -109,5 +110,17 @@ public class BrickTurret extends Turret {
             return ActionResultType.SUCCESS;
         } else
             return super.mobInteract(playerEntity, p_230254_2_);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.put("Ammo", bricks.serializeNBT());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.readAdditionalSaveData(compoundNBT);
+        bricks.deserializeNBT(compoundNBT);
     }
 }
