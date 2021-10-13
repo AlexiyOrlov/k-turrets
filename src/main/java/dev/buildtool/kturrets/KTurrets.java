@@ -138,8 +138,9 @@ public class KTurrets {
             packetBuffer.writeInt(toggleMobility.id);
             packetBuffer.writeBoolean(toggleMobility.mobile);
         }, packetBuffer -> {
+            int id = packetBuffer.readInt();
             boolean mobile = packetBuffer.readBoolean();
-            return new ToggleMobility(mobile, packetBuffer.readInt());
+            return new ToggleMobility(mobile, id);
         }, (toggleMobility, contextSupplier) -> {
             ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
             Entity entity = serverWorld.getEntity(toggleMobility.id);
