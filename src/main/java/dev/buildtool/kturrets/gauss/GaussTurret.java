@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
@@ -17,7 +18,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -71,7 +74,16 @@ public class GaussTurret extends Turret {
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-
+        if (target.isAlive()) {
+            for (ItemStack item : ammo.getItems()) {
+                if (item.getItem() == TItems.GAUSS_BULLET.get()) {
+                    level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundCategory.NEUTRAL, 1, 1);
+                    target.hurt(new EntityDamageSource("k-turrets.gauss.bullet", this), 15);
+                    item.shrink(1);
+                    break;
+                }
+            }
+        }
     }
 
     @Nullable
