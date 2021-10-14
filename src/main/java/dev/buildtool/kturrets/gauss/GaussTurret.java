@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.gauss;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TEntities;
@@ -44,7 +45,7 @@ public class GaussTurret extends Turret {
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, 20, (float) getRange()));
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.GAUSS_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
@@ -78,7 +79,7 @@ public class GaussTurret extends Turret {
             for (ItemStack item : ammo.getItems()) {
                 if (item.getItem() == TItems.GAUSS_BULLET.get()) {
                     level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundCategory.NEUTRAL, 1, 1);
-                    target.hurt(new EntityDamageSource("k-turrets.gauss.bullet", this), 15);
+                    target.hurt(new EntityDamageSource("k-turrets.gauss.bullet", this), KTurrets.GAUSS_TURRET_DAMAGE.get());
                     item.shrink(1);
                     break;
                 }
