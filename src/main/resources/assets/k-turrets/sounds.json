@@ -3,5 +3,10 @@
     "sounds": [
       "k-turrets:short_shoot"
     ]
+  },
+  "gauss_shoot": {
+    "sounds": [
+      "k-turrets:bzzz"
+    ]
   }
 }
