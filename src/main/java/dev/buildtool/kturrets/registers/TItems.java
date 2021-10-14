@@ -22,6 +22,7 @@ public class TItems {
     public static RegistryObject<Item> BRICK_TURRET;
     public static RegistryObject<Item> BULLET_TURRET;
     public static RegistryObject<Item> FIRECHARGE_TURRET;
+    public static RegistryObject<Item> GAUSS_BULLET;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new SpawnEggItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults()));
@@ -30,6 +31,7 @@ public class TItems {
         SEMI_STEEL = ITEMS.register("semi_steel", () -> new Item(defaults()));
         STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
         BRICK_TURRET = ITEMS.register("brick_turret_item", () -> new SpawnEggItem(TEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults()));
+        GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
     }
 
     private static Item.Properties defaults() {
