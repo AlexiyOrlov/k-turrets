@@ -1,21 +1,25 @@
 package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -31,8 +35,8 @@ public class GaussTurret extends Turret {
         }
     };
 
-    public GaussTurret(EntityType<? extends MobEntity> entityType, World world) {
-        super(entityType, world);
+    public GaussTurret(World world) {
+        super(TEntities.GAUSS_TURRET, world);
     }
 
     @Override
@@ -62,7 +66,7 @@ public class GaussTurret extends Turret {
 
     @Override
     public Item getSpawnItem() {
-        return null;
+        return TItems.GAUSS_TURRET.get();
     }
 
     @Override
@@ -75,6 +79,29 @@ public class GaussTurret extends Turret {
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
         PacketBuffer buffer = Functions.emptyBuffer();
         buffer.writeInt(getId());
-        return null;
+        return new GaussTurretContainer(p_createMenu_1_, p_createMenu_2_, buffer);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.addAdditionalSaveData(compoundNBT);
+        compoundNBT.put("Ammo", ammo.serializeNBT());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+        super.readAdditionalSaveData(compoundNBT);
+        ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
+    }
+
+    @Override
+    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+        if (canUse(playerEntity) && playerEntity.isCrouching()) {
+            if (playerEntity instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            }
+            return ActionResultType.SUCCESS;
+        } else
+            return super.mobInteract(playerEntity, p_230254_2_);
     }
 }
