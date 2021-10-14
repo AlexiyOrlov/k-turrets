@@ -38,6 +38,7 @@ public class TEntities {
         ENTITIES.register("fire_charge_turret", () -> FIRE_CHARGE_TURRET);
         ENTITIES.register("brick", () -> BRICK);
         ENTITIES.register("brick_turret", () -> BRICK_TURRET);
+        ENTITIES.register("gauss_turret", () -> GAUSS_TURRET);
     }
 
     private static <E extends EntityType<T>, T extends Entity> E cast(EntityType<Entity> entityType) {
