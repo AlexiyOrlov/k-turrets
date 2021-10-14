@@ -64,7 +64,7 @@ public class GaussTurretModel extends EntityModel<GaussTurret> {
     @Override
     public void setupAnim(GaussTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         turret_angler.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
-        turret_angler.xRot = Functions.getDefaultHeadPitch(headPitch);
+        turret_angler.xRot = Functions.getDefaultHeadPitch(headPitch) - 0.2618f;
     }
 
     @Override
