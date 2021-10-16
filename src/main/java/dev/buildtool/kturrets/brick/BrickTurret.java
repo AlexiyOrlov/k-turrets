@@ -121,6 +121,6 @@ public class BrickTurret extends Turret {
     @Override
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
-        bricks.deserializeNBT(compoundNBT);
+        bricks.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
 }

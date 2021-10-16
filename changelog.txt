@@ -1,5 +1,6 @@
 0.1.2:
 added Gauss turret;
+fixed Brick turret not saving its inventory;
 
 0.1.1:
 fixed Brick turret not saving its inventory;
