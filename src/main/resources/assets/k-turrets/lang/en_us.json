@@ -27,10 +27,12 @@
   "k-turrets.integrity": "Integrity",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
+  "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
   "death.attack.k-turrets.brick": "%1$s was hit by a Brick turret",
 
   "entity.k-turrets.fire_charge_turret": "Fire Charge Turret",
   "entity.k-turrets.arrow_turret": "Arrow Turret",
   "entity.k-turrets.bullet_turret": "Bullet Turret",
-  "entity.k-turrets.brick_turret": "Brick Turret"
+  "entity.k-turrets.brick_turret": "Brick Turret",
+  "entity.k-turrets.gauss_turret": "Gauss Turret"
 }
