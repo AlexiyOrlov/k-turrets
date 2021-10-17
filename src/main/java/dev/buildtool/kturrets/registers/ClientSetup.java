@@ -15,6 +15,7 @@ import dev.buildtool.kturrets.bullet.BulletTurretModel2;
 import dev.buildtool.kturrets.firecharge.FireChargeScreen;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretModel;
+import dev.buildtool.kturrets.gauss.GaussBulletRenderer;
 import dev.buildtool.kturrets.gauss.GaussTurretContainer;
 import dev.buildtool.kturrets.gauss.GaussTurretModel;
 import dev.buildtool.kturrets.gauss.GaussTurretScreen;
@@ -43,5 +44,6 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK, BrickRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModel(), "brickturret", false, 0.7f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModel(), "gaussturret", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_BULLET, GaussBulletRenderer::new);
     }
 }

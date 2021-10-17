@@ -77,7 +77,7 @@ public class GaussTurret extends Turret {
         if (target.isAlive()) {
             for (ItemStack item : ammo.getItems()) {
                 if (item.getItem() == TItems.GAUSS_BULLET.get()) {
-                    level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundCategory.NEUTRAL, 1, 1);
+                    level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundCategory.NEUTRAL, 1.5f, 1);
                     item.shrink(1);
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
