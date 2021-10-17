@@ -19,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
@@ -79,8 +78,14 @@ public class GaussTurret extends Turret {
             for (ItemStack item : ammo.getItems()) {
                 if (item.getItem() == TItems.GAUSS_BULLET.get()) {
                     level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundCategory.NEUTRAL, 1, 1);
-                    target.hurt(new EntityDamageSource("k-turrets.gauss.bullet", this), KTurrets.GAUSS_TURRET_DAMAGE.get());
                     item.shrink(1);
+                    double xa = target.getX() - getX();
+                    double ya = target.getEyeY() - getEyeY();
+                    double za = target.getZ() - getZ();
+                    GaussBullet gaussBullet = new GaussBullet(this, xa, ya, za, level);
+                    gaussBullet.setDamage(KTurrets.GAUSS_TURRET_DAMAGE.get());
+                    gaussBullet.setPos(getX(), getEyeY(), getZ());
+                    level.addFreshEntity(gaussBullet);
                     break;
                 }
             }
