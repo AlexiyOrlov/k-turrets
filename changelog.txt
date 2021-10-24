@@ -2,6 +2,7 @@
 increased default arrow turret damage to 6;
 increased all turrets' default fire rate to 20;
 implemented quick item transfer in turrets GUI;
+if set to be immobile, a turret will not be knocked back by attack;
 
 0.1.2:
 added Gauss turret;
