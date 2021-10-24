@@ -61,7 +61,7 @@ public class KTurrets {
             ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             ARROW_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 13, 10, 60);
-            ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 5, 1, 100);
+            ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 6, 1, 100);
             builder.pop();
             builder.push("Bullet turret");
             BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
