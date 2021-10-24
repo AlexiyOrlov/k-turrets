@@ -252,6 +252,12 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         return isMoveable();
     }
 
+    @Override
+    public void knockback(float p_233627_1_, double p_233627_2_, double p_233627_4_) {
+        if (isMoveable())
+            super.knockback(p_233627_1_, p_233627_2_, p_233627_4_);
+    }
+
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
