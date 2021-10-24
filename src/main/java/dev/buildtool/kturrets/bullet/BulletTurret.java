@@ -72,7 +72,6 @@ public class BulletTurret extends Turret {
                     double d1 = livingEntity.getEyeY() - getEyeY();
                     double d2 = livingEntity.getZ() - this.getZ();
                     Bullet bullet = new Bullet(this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
-                    bullet.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(bullet);
                     level.playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundCategory.NEUTRAL, 1, 1);
                     item.shrink(1);

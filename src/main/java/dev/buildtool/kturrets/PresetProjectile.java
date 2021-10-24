@@ -32,6 +32,7 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
 
     public PresetProjectile(EntityType<? extends DamagingProjectileEntity> p_i50175_1_, LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, World world) {
         super(p_i50175_1_, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
+        setPos(shooter.getX(), shooter.getEyeY(), shooter.getZ());
     }
 
     @Override
