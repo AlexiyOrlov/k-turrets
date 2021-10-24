@@ -3,7 +3,10 @@ package dev.buildtool.kturrets.brick;
 import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 
 public class BrickTurretContainer extends Container2 {
@@ -18,5 +21,18 @@ public class BrickTurretContainer extends Container2 {
         }
 
         addPlayerInventory(0, 4 * 18, playerInventory);
+    }
+
+    @Override
+    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+        ItemStack itemStack = getSlot(index).getItem();
+        if (index > 26) {
+            if ((itemStack.getItem() == Items.BRICK || itemStack.getItem() == Items.NETHER_BRICK) && !moveItemStackTo(itemStack, 0, 27, false))
+                return ItemStack.EMPTY;
+        } else {
+            if (!moveItemStackTo(itemStack, 27, 63, false))
+                return ItemStack.EMPTY;
+        }
+        return super.quickMoveStack(playerIn, index);
     }
 }
