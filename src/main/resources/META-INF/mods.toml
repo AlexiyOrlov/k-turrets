@@ -42,3 +42,8 @@ versionRange = "[36,)" #mandatory
 ordering = "NONE"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
+[[dependencies.k-turrets]]
+modId = "satako"
+mandatory = true
+versionRange = "[4,)"
+side = "BOTH"
