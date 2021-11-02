@@ -14,6 +14,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TurretOptionsScreen extends Screen2 {
     protected Turret turret;
@@ -23,6 +24,7 @@ public class TurretOptionsScreen extends Screen2 {
     private static final TranslationTextComponent SCROLL_HINT = new TranslationTextComponent("k-turrets.hold.alt.to.scroll");
     private static final TranslationTextComponent INVENTORY_HINT = new TranslationTextComponent("k-turrets.inventory.hint");
     private List<SwitchButton> targetButtons;
+    private TextField addEntityField;
 
     public TurretOptionsScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
@@ -35,14 +37,18 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void init() {
         super.init();
-        TextField addEntityField = addButton(new TextField(centerX, 3, 100));
+        addEntityField = addButton(new TextField(centerX, 3, 100));
         addButton(new BetterButton(centerX, 20, new TranslationTextComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
             String entityType = addEntityField.getValue();
             EntityType<?> type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityType));
             if (type != null) {
-                targets.add(type);
-                tempStatusMap.put(type, true);
-                minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
+                if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
+                    minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.incorrect.entry"), Util.NIL_UUID);
+                } else {
+                    targets.add(type);
+                    tempStatusMap.put(type, true);
+                    minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
+                }
             }
         }));
         addButton(new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle"), p_onPress_1_ -> {
@@ -110,5 +116,12 @@ public class TurretOptionsScreen extends Screen2 {
         super.render(matrixStack, mouseX, mouseY, tick);
         renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k-turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
         renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
+        String targetEntry = addEntityField.getValue();
+        if (targetEntry.contains(":") && targetEntry.indexOf(":") + 1 < targetEntry.length()) {
+            List<ResourceLocation> entityTypes = ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(targetEntry)).collect(Collectors.toList());
+            if (!entityTypes.isEmpty()) {
+                renderComponentTooltip(matrixStack, entityTypes.subList(0, Math.min(entityTypes.size(), 12)).stream().map(resourceLocation -> new StringTextComponent(TextFormatting.YELLOW + resourceLocation.toString())).collect(Collectors.toList()), addEntityField.x, addEntityField.y + addEntityField.getHeight() + 20);
+            }
+        }
     }
 }

@@ -1,3 +1,7 @@
+0.1.4:
+added dependency on Satako;
+implemented entity suggestion list for adding target types;
+
 0.1.3:
 increased default arrow turret damage to 6;
 increased all turrets' default fire rate to 20;
