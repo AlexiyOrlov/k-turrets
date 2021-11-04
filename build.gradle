@@ -57,7 +57,7 @@ minecraft {
         }
 
         data {
-            workingDirectory project.file('data')
+            workingDirectory project.file('dat')
 
             // "SCAN": For mods scan.
             // "REGISTRIES": For firing of registry events.
