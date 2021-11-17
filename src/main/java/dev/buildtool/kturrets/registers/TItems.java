@@ -24,6 +24,7 @@ public class TItems {
     public static RegistryObject<Item> FIRECHARGE_TURRET;
     public static RegistryObject<Item> GAUSS_BULLET;
     public static RegistryObject<Item> GAUSS_TURRET;
+    public static RegistryObject<Item> COBBLE_TURRET;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new SpawnEggItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults()));
@@ -34,6 +35,7 @@ public class TItems {
         BRICK_TURRET = ITEMS.register("brick_turret_item", () -> new SpawnEggItem(TEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults()));
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new SpawnEggItem(TEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults()));
+        COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new SpawnEggItem(TEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults()));
     }
 
     private static Item.Properties defaults() {

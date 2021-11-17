@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.cobble;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -67,7 +68,7 @@ public class CobbleTurret extends Turret {
 
     @Override
     public Item getSpawnItem() {
-        return null;
+        return TItems.COBBLE_TURRET.get();
     }
 
     @Override
