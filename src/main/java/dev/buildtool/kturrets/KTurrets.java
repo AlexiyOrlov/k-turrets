@@ -47,6 +47,8 @@ public class KTurrets {
     public static ForgeConfigSpec.IntValue BRICK_DAMAGE, NETHERBRICK_DAMAGE, BRICK_TURRET_RATE;
     public static ForgeConfigSpec.DoubleValue GAUSS_TURRET_HEALTH, GAUSS_TURRET_RANGE, GAUSS_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue GAUSS_TURRET_DAMAGE, GAUSS_TURRET_RATE;
+    public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
+    public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -92,6 +94,14 @@ public class KTurrets {
             GAUSS_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             GAUSS_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
             GAUSS_TURRET_DAMAGE = builder.defineInRange("Damage", 12, 1, 100);
+            builder.pop();
+            builder.push("Cobble turret");
+            COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            COBBLE_TURRET_RANGE = builder.defineInRange("Range", 32d, 0, 100d);
+            COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
+            COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
+            COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
+            builder.pop();
             return builder.build();
         }).getRight());
 

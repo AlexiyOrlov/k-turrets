@@ -1,10 +1,12 @@
 package dev.buildtool.kturrets.cobble;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -28,13 +30,28 @@ public class CobbleTurret extends Turret {
         }
     };
 
-    public CobbleTurret(EntityType<? extends MobEntity> entityType, World world) {
-        super(entityType, world);
+    public CobbleTurret(World world) {
+        super(TEntities.COBBLE_TURRET, world);
     }
 
     @Override
     protected void registerGoals() {
-
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.COBBLE_TURRET_RATE.get(), (float) getRange()));
+        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
+                livingEntity -> {
+                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
+                        return alienPlayers.test((LivingEntity) livingEntity);
+                    if (livingEntity instanceof LivingEntity) {
+                        LivingEntity mobEntity = (LivingEntity) livingEntity;
+                        return decodeTargets(getTargets()).contains(mobEntity.getType());
+                    }
+                    return false;
+                }) {
+            @Override
+            public boolean canUse() {
+                return !cobblestone.isEmpty() && super.canUse();
+            }
+        });
     }
 
     @Override
@@ -49,7 +66,20 @@ public class CobbleTurret extends Turret {
 
     @Override
     public void performRangedAttack(LivingEntity target, float p_82196_2_) {
-
+        if (target.isAlive()) {
+            for (ItemStack cobblestoneItem : cobblestone.getItems()) {
+                if (cobblestoneItem.getItem() == Items.COBBLESTONE) {
+                    double xa = target.getX() - getX();
+                    double ya = target.getEyeY() - getEyeY();
+                    double za = target.getZ() - getZ();
+                    Cobblestone cobblestone = new Cobblestone(this, xa, ya, za, level);
+                    cobblestone.setDamage(KTurrets.COBBLE_TURRET_DAMAGE.get());
+                    level.addFreshEntity(cobblestone);
+                    cobblestoneItem.shrink(1);
+                    break;
+                }
+            }
+        }
     }
 
     @Nullable
