@@ -12,6 +12,8 @@ import dev.buildtool.kturrets.bullet.BulletRenderer;
 import dev.buildtool.kturrets.bullet.BulletScreen;
 import dev.buildtool.kturrets.bullet.BulletTurretContainer;
 import dev.buildtool.kturrets.bullet.BulletTurretModel2;
+import dev.buildtool.kturrets.cobble.CobbleTurretContainer;
+import dev.buildtool.kturrets.cobble.CobbleTurretScreen;
 import dev.buildtool.kturrets.firecharge.FireChargeScreen;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretModel;
@@ -37,6 +39,7 @@ public class ClientSetup {
         ScreenManager.register(TContainers.FIRE_CHARGE_TURRET, (ScreenManager.IScreenFactory<FireChargeTurretContainer, FireChargeScreen>) (p1, p2, p3) -> new FireChargeScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.BRICK_TURRET, (ScreenManager.IScreenFactory<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.GAUSS_TURRET, (ScreenManager.IScreenFactory<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
+        ScreenManager.register(TContainers.COBBLE_TURRET, (ScreenManager.IScreenFactory<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretModel(), "arrowturret", false, 0.6f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET, BulletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretModel2(), "bulletturret", false, 0.4f));
