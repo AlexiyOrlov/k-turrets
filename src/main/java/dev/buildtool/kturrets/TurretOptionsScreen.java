@@ -48,6 +48,7 @@ public class TurretOptionsScreen extends Screen2 {
                     targets.add(type);
                     tempStatusMap.put(type, true);
                     minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
+                    addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
                 }
             }
         }));
