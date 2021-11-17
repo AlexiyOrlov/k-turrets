@@ -9,6 +9,7 @@
   "item.k-turrets.semi_steel": "Semi-finished Steel Ingot",
   "item.k-turrets.gauss_bullet": "Gauss Bullet",
   "item.k-turrets.gauss_turret_item": "Gauss Turret",
+  "item.k-turrets.cobble_turret_item": "Cobble Turret",
 
   "k-turrets.targets": "Turret targets:",
   "k-turrets.added": "Added to targets",
@@ -30,10 +31,12 @@
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
   "death.attack.k-turrets.brick": "%1$s was hit by a Brick turret",
+  "death.attack.k-turrets.cobblestone": "%1$s was stoned by a Cobble turret",
 
   "entity.k-turrets.fire_charge_turret": "Fire Charge Turret",
   "entity.k-turrets.arrow_turret": "Arrow Turret",
   "entity.k-turrets.bullet_turret": "Bullet Turret",
   "entity.k-turrets.brick_turret": "Brick Turret",
-  "entity.k-turrets.gauss_turret": "Gauss Turret"
+  "entity.k-turrets.gauss_turret": "Gauss Turret",
+  "entity.k-turrets.cobble_turret": "Cobble Turret"
 }
