@@ -8,5 +8,10 @@
     "sounds": [
       "k-turrets:bzzz"
     ]
+  },
+  "cobble_shoot": {
+    "sounds": [
+      "k-turrets:cobble_shoot"
+    ]
   }
 }
