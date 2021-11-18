@@ -237,7 +237,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     @Override
     public boolean canBeAffected(EffectInstance effectInstance) {
         Effect effect = effectInstance.getEffect();
-        if (effect == Effects.POISON || effect == Effects.HEAL || effect == Effects.HEALTH_BOOST || effect == Effects.REGENERATION || effect == Effects.WITHER)
+        if (effect == Effects.POISON || effect == Effects.HEAL || effect == Effects.HEALTH_BOOST || effect == Effects.REGENERATION || effect == Effects.WITHER || effect == Effects.HUNGER)
             return false;
         return super.canBeAffected(effectInstance);
     }
