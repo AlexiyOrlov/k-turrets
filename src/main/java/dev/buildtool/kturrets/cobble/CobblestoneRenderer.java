@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class CobblestoneRenderer extends EntityRenderer<Cobblestone> {
     private final CobblestoneModel cobblestoneModel = new CobblestoneModel();
-    private ResourceLocation TEXTURE = new ResourceLocation(KTurrets.ID, "textures/entity/cobblestone.png");
+    private final ResourceLocation TEXTURE = new ResourceLocation(KTurrets.ID, "textures/entity/cobblestone.png");
 
     public CobblestoneRenderer(EntityRendererManager p_i46179_1_) {
         super(p_i46179_1_);
