@@ -34,8 +34,8 @@ public class TEntities {
     public static final EntityType<BrickTurret> BRICK_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BrickTurret(p_create_2_), EntityClassification.MISC).sized(0.7f, 0.7f).build("brick_turret"));
     public static final EntityType<GaussTurret> GAUSS_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new GaussTurret(p_create_2_), EntityClassification.MISC).sized(0.8f, 1f).build("gauss_turret"));
     public static final EntityType<GaussBullet> GAUSS_BULLET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new GaussBullet(p_create_2_), EntityClassification.MISC).sized(0.2f, 0.2f).build("gauss_bullet"));
-    public static final EntityType<CobbleTurret> COBBLE_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new CobbleTurret(p_create_2_), EntityClassification.MISC).sized(0.5f, 1.56f).build("cobble_turret"));
-    public static final EntityType<Cobblestone> COBBLESTONE = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Cobblestone(p_create_2_), EntityClassification.MISC).sized(0.25f, 0.25f).build("coblestone"));
+    public static final EntityType<CobbleTurret> COBBLE_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new CobbleTurret(p_create_2_), EntityClassification.MISC).sized(0.5f, 0.7f).build("cobble_turret"));
+    public static final EntityType<Cobblestone> COBBLESTONE = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Cobblestone(p_create_2_), EntityClassification.MISC).sized(0.25f, 0.25f).build("cobblestone"));
 
     static {
         ENTITIES.register("arrow_turret", () -> ARROW_TURRET);

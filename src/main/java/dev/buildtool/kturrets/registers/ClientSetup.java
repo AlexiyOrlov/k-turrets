@@ -13,8 +13,8 @@ import dev.buildtool.kturrets.bullet.BulletScreen;
 import dev.buildtool.kturrets.bullet.BulletTurretContainer;
 import dev.buildtool.kturrets.bullet.BulletTurretModel2;
 import dev.buildtool.kturrets.cobble.CobbleTurretContainer;
-import dev.buildtool.kturrets.cobble.CobbleTurretModel;
 import dev.buildtool.kturrets.cobble.CobbleTurretScreen;
+import dev.buildtool.kturrets.cobble.CobbleTurretv2;
 import dev.buildtool.kturrets.cobble.CobblestoneRenderer;
 import dev.buildtool.kturrets.firecharge.FireChargeScreen;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
@@ -50,7 +50,7 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2(), "brick_turret", false, 0.4f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2(), "gaussturret", false, 0.2f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_BULLET, GaussBulletRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLE_TURRET, manager -> new EntityRenderer2<>(manager, new CobbleTurretModel(), "cobbleturret", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLE_TURRET, manager -> new EntityRenderer2<>(manager, new CobbleTurretv2(), "cobble_turret", false, 0.2f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLESTONE, CobblestoneRenderer::new);
     }
 }
