@@ -1,6 +1,6 @@
 0.1.5:
 removed one barrel from the Gauss Turret;
-improved turret model
+improved turret models;
 
 0.1.4:
 added dependency on Satako;
