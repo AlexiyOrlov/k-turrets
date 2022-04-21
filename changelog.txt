@@ -1,3 +1,6 @@
+0.1.5:
+removed one barrel from the Gauss Turret;
+
 0.1.4:
 added dependency on Satako;
 implemented entity suggestion list for adding target types;

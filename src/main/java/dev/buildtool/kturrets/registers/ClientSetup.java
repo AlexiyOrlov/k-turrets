@@ -21,7 +21,7 @@ import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretModel;
 import dev.buildtool.kturrets.gauss.GaussBulletRenderer;
 import dev.buildtool.kturrets.gauss.GaussTurretContainer;
-import dev.buildtool.kturrets.gauss.GaussTurretModel;
+import dev.buildtool.kturrets.gauss.GaussTurretModelv2;
 import dev.buildtool.kturrets.gauss.GaussTurretScreen;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.api.distmarker.Dist;
@@ -48,7 +48,7 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(TEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FireChargeTurretModel(), "firechargeturret", false, 0.6f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK, BrickRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModel(), "brickturret", false, 0.7f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModel(), "gaussturret", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2(), "gaussturret", false, 0.2f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_BULLET, GaussBulletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLE_TURRET, manager -> new EntityRenderer2<>(manager, new CobbleTurretModel(), "cobbleturret", false, 0.2f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLESTONE, CobblestoneRenderer::new);
