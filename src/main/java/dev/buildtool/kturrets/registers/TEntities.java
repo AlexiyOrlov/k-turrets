@@ -29,7 +29,7 @@ public class TEntities {
     public static final EntityType<ArrowTurret> ARROW_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), EntityClassification.MISC).sized(0.6f, 1.4f).build("arrow_turret"));
     public static final EntityType<BulletTurret> BULLET_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BulletTurret(p_create_2_), EntityClassification.MISC).sized(0.8f, 0.8f).build("bullet_turret"));
     public static final EntityType<Bullet> BULLET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Bullet(p_create_2_), EntityClassification.MISC).sized(0.2f, 0.2f).build("bullet"));
-    public static final EntityType<FireChargeTurret> FIRE_CHARGE_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new FireChargeTurret(p_create_2_), EntityClassification.MISC).sized(0.8f, 1.7f).build("fire_charge"));
+    public static final EntityType<FireChargeTurret> FIRE_CHARGE_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new FireChargeTurret(p_create_2_), EntityClassification.MISC).sized(0.8f, 0.7f).build("fire_charge"));
     public static final EntityType<Brick> BRICK = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Brick(p_create_2_), EntityClassification.MISC).sized(0.4f, 0.4f).build("brick"));
     public static final EntityType<BrickTurret> BRICK_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BrickTurret(p_create_2_), EntityClassification.MISC).sized(0.7f, 0.7f).build("brick_turret"));
     public static final EntityType<GaussTurret> GAUSS_TURRET = cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new GaussTurret(p_create_2_), EntityClassification.MISC).sized(0.8f, 1f).build("gauss_turret"));
