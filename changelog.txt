@@ -1,6 +1,6 @@
 0.1.5:
 removed one barrel from the Gauss Turret;
-improved 4 turret models;
+improved 5 turret models;
 added Russian translation.
 
 0.1.4:
