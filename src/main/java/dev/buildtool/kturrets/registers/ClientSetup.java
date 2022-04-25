@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.EntityRenderer2;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
-import dev.buildtool.kturrets.arrow.ArrowTurretModel;
 import dev.buildtool.kturrets.arrow.ArrowTurretScreen;
+import dev.buildtool.kturrets.arrow.ArrowTurretv2;
 import dev.buildtool.kturrets.brick.BrickRenderer;
 import dev.buildtool.kturrets.brick.BrickTurretContainer;
 import dev.buildtool.kturrets.brick.BrickTurretModelv2;
@@ -42,10 +42,10 @@ public class ClientSetup {
         ScreenManager.register(TContainers.BRICK_TURRET, (ScreenManager.IScreenFactory<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.GAUSS_TURRET, (ScreenManager.IScreenFactory<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.COBBLE_TURRET, (ScreenManager.IScreenFactory<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretModel(), "arrowturret", false, 0.6f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretv2(), "arrow_turret", false, 0.4f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET, BulletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretv2(), "bullet_turret", false, 0.4f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FirechargeTurretv2(), "firecharge_turret", false, 0.6f));
+        RenderingRegistry.registerEntityRenderingHandler(TEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FirechargeTurretv2(), "firecharge_turret", false, 0.3f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK, BrickRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2(), "brick_turret", false, 0.4f));
         RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2(), "gaussturret", false, 0.2f));
