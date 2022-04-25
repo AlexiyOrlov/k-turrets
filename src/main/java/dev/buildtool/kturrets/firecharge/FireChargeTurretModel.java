@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import dev.buildtool.satako.Functions;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-
+@Deprecated
 public class FireChargeTurretModel extends EntityModel<FireChargeTurret> {
     private final ModelRenderer moveable_gun;
     private final ModelRenderer base;
