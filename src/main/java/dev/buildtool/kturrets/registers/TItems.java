@@ -13,7 +13,7 @@ public class TItems {
     public static final ItemGroup ITEM_GROUP = new ItemGroup("k-turrets") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(SEMI_STEEL.get());
+            return new ItemStack(GAUSS_BULLET.get());
         }
     };
     public static RegistryObject<Item> SEMI_STEEL;
