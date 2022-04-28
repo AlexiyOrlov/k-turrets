@@ -5,6 +5,7 @@ package dev.buildtool.kturrets.arrow;// Made with Blockbench 4.2.3
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.satako.Functions;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -16,7 +17,7 @@ import net.minecraft.world.entity.Entity;
 
 public class ArrowTurretv2<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "arrowturretv2"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "arrow_turret"), "main");
     private final ModelPart rotating_base;
     private final ModelPart bb_main;
     private final ModelPart rotating_gun;

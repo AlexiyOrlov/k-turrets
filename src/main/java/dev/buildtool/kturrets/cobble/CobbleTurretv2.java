@@ -6,6 +6,7 @@ package dev.buildtool.kturrets.cobble;// Made with Blockbench 4.2.2
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.satako.Functions;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -17,7 +18,7 @@ import net.minecraft.world.entity.Entity;
 
 public class CobbleTurretv2<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "cobbleturretv2"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "cobble_turret"), "main");
     private final ModelPart bone;
     private final ModelPart bone2;
     private final ModelPart bone3;

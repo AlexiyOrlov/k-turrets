@@ -6,6 +6,7 @@ package dev.buildtool.kturrets.gauss;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.satako.Functions;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -17,7 +18,7 @@ import net.minecraft.world.entity.Entity;
 
 public class GaussTurretModelv2<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "turret"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "gaussturret"), "main");
     private final ModelPart turret_base;
     private final ModelPart turret_angler;
 
