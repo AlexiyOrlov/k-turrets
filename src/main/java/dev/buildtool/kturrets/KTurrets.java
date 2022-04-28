@@ -24,7 +24,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
-    public static final String ID = "k-turrets";
+    public static final String ID = "k_turrets";
     static private final String NP = "1.0";
     public static SimpleChannel channel;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
