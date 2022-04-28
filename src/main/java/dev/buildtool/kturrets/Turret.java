@@ -1,31 +1,35 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.satako.ItemHandler;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.*;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -36,33 +40,33 @@ import java.util.stream.Collectors;
 /**
  * Extends Mob entity because of goals
  */
-public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
-    private static final DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
-    private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
-    private static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> PROTECTION_FROM_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
+public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider {
+    private static final EntityDataAccessor<CompoundTag> TARGETS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PROTECTION_FROM_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     /**
      * Players that are not allied to the owner
      */
     protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
-            return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !livingEntity.isAlliedTo(level.getPlayerByUUID(getOwner().get()));
+            return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && !livingEntity.isAlliedTo(level.getPlayerByUUID(getOwner().get()));
         }
         return false;
     };
 
-    public Turret(EntityType<? extends MobEntity> entityType, World world) {
+    public Turret(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
     }
 
-    public static AttributeModifierMap.MutableAttribute createDefaultAttributes() {
+    public static AttributeSupplier.Builder createDefaultAttributes() {
         return createLivingAttributes().add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        CompoundNBT compoundNBT = new CompoundNBT();
+        CompoundTag compoundNBT = new CompoundTag();
         List<EntityType<?>> targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
         for (int i = 0; i < targets.size(); i++) {
             compoundNBT.putString("Target#" + i, targets.get(i).getRegistryName().toString());
@@ -74,11 +78,11 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.define(PROTECTION_FROM_PLAYERS, false);
     }
 
-    public void setTargets(CompoundNBT compoundNBT) {
+    public void setTargets(CompoundTag compoundNBT) {
         entityData.set(TARGETS, compoundNBT);
     }
 
-    public CompoundNBT getTargets() {
+    public CompoundTag getTargets() {
         return entityData.get(TARGETS);
     }
 
@@ -129,18 +133,18 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    public ItemStack getItemBySlot(EquipmentSlotType p_184582_1_) {
+    public ItemStack getItemBySlot(EquipmentSlot p_184582_1_) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void setItemSlot(EquipmentSlotType p_184201_1_, ItemStack p_184201_2_) {
+    public void setItemSlot(EquipmentSlot p_184201_1_, ItemStack p_184201_2_) {
 
     }
 
     @Override
-    public HandSide getMainArm() {
-        return HandSide.RIGHT;
+    public HumanoidArm getMainArm() {
+        return HumanoidArm.RIGHT;
     }
 
     protected double getRange() {
@@ -152,18 +156,18 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
         if (canUse(playerEntity)) {
             if (level.isClientSide) {
                 openTargetScreen();
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.sendMessage(new TranslationTextComponent("k-turrets.turret.not.yours"), Util.NIL_UUID);
-        return ActionResultType.PASS;
+            playerEntity.sendMessage(new TextComponent("k-turrets.turret.not.yours"), Util.NIL_UUID);
+        return InteractionResult.PASS;
     }
 
-    protected boolean canUse(PlayerEntity playerEntity) {
+    protected boolean canUse(Player playerEntity) {
         return !getOwner().isPresent() || getOwner().get().equals(playerEntity.getUUID());
     }
 
@@ -174,7 +178,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     //don't forget to save the inventory
     @Override
-    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Targets", getTargets());
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
@@ -183,7 +187,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         setTargets(compoundNBT.getCompound("Targets"));
         if (compoundNBT.contains("Owner")) {
@@ -195,7 +199,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
     }
 
-    public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
+    public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
         int count = compoundNBT.getInt("Count");
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
@@ -205,8 +209,8 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         return list;
     }
 
-    public CompoundNBT encodeTargets(List<EntityType<?>> list) {
-        CompoundNBT compoundNBT = new CompoundNBT();
+    public CompoundTag encodeTargets(List<EntityType<?>> list) {
+        CompoundTag compoundNBT = new CompoundTag();
         for (int i = 0; i < list.size(); i++) {
             EntityType<?> entityType = list.get(i);
             compoundNBT.putString("Target#" + i, entityType.getRegistryName().toString());
@@ -223,7 +227,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     @Override
     public void die(DamageSource damageSource) {
         super.die(damageSource);
-        getContainedItems().forEach(itemHandler -> InventoryHelper.dropContents(level, blockPosition(), itemHandler.getItems()));
+        getContainedItems().forEach(itemHandler -> Containers.dropContents(level, blockPosition(), itemHandler.getItems()));
     }
 
     protected abstract List<ItemHandler> getContainedItems();
@@ -235,9 +239,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    public boolean canBeAffected(EffectInstance effectInstance) {
-        Effect effect = effectInstance.getEffect();
-        if (effect == Effects.POISON || effect == Effects.HEAL || effect == Effects.HEALTH_BOOST || effect == Effects.REGENERATION || effect == Effects.WITHER || effect == Effects.HUNGER)
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        MobEffect effect = effectInstance.getEffect();
+        if (effect == MobEffects.POISON || effect == MobEffects.HEAL || effect == MobEffects.HEALTH_BOOST || effect == MobEffects.REGENERATION || effect == MobEffects.WITHER || effect == MobEffects.HUNGER)
             return false;
         return super.canBeAffected(effectInstance);
     }
@@ -253,9 +257,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     @Override
-    public void knockback(float p_233627_1_, double p_233627_2_, double p_233627_4_) {
+    public void knockback(double p_147241_, double p_147242_, double p_147243_) {
         if (isMoveable())
-            super.knockback(p_233627_1_, p_233627_2_, p_233627_4_);
+            super.knockback(p_147241_, p_147242_, p_147243_);
     }
 
     @Nullable
@@ -270,9 +274,11 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     }
 
     /**
-     * Can't use {@link net.minecraft.item.SpawnEggItem#byId(EntityType)}
+     * Can't use {@link net.minecraft.world.item.SpawnEggItem#}
      *
      * @return appropriate spawn egg
      */
-    public abstract Item getSpawnItem();
+    public Item getSpawnItem() {
+        return ForgeSpawnEggItem.fromEntityType(getType());
+    }
 }

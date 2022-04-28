@@ -3,27 +3,25 @@ package dev.buildtool.kturrets.brick;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -39,7 +37,7 @@ public class BrickTurret extends Turret {
         }
     };
 
-    public BrickTurret(World world) {
+    public BrickTurret(Level world) {
         super(TEntities.BRICK_TURRET, world);
     }
 
@@ -48,10 +46,9 @@ public class BrickTurret extends Turret {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
+                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
                         return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity) {
-                        LivingEntity mobEntity = (LivingEntity) livingEntity;
+                    if (livingEntity instanceof LivingEntity mobEntity) {
                         return decodeTargets(getTargets()).contains(mobEntity.getType());
                     }
                     return false;
@@ -68,10 +65,10 @@ public class BrickTurret extends Turret {
         return Collections.singletonList(bricks);
     }
 
-    @Override
-    public Item getSpawnItem() {
-        return TItems.BRICK_TURRET.get();
-    }
+//    @Override
+//    public Item getSpawnItem() {
+//        return TItems.BRICK_TURRET.get();
+//    }
 
     @Override
     public void performRangedAttack(LivingEntity target, float distFactor) {
@@ -84,7 +81,7 @@ public class BrickTurret extends Turret {
                     Brick brick = new Brick(this, xa, ya, za, level);
                     brick.setDamage(bricksItem.getItem() == Items.BRICK ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level.addFreshEntity(brick);
-                    level.playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundCategory.NEUTRAL, 1, 0.5f);
+                    level.playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundSource.NEUTRAL, 1, 0.5f);
                     bricksItem.shrink(1);
                     break;
                 }
@@ -94,31 +91,31 @@ public class BrickTurret extends Turret {
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-        PacketBuffer buffer = Functions.emptyBuffer();
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
+        FriendlyByteBuf buffer = Functions.emptyBuffer();
         buffer.writeInt(getId());
         return new BrickTurretContainer(p_createMenu_1_, p_createMenu_2_, buffer);
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
         if (canUse(playerEntity) && playerEntity.isCrouching()) {
-            if (playerEntity instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            if (playerEntity instanceof ServerPlayer) {
+                NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else
             return super.mobInteract(playerEntity, p_230254_2_);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", bricks.serializeNBT());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         bricks.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }

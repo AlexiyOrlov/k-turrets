@@ -3,26 +3,28 @@ package dev.buildtool.kturrets.arrow;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import io.netty.buffer.Unpooled;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -47,7 +49,7 @@ public class ArrowTurret extends Turret {
         }
     };
 
-    public ArrowTurret(World world) {
+    public ArrowTurret(Level world) {
         super(TEntities.ARROW_TURRET, world);
     }
 
@@ -58,7 +60,7 @@ public class ArrowTurret extends Turret {
             if (!weapon.isEmpty()) {
                 for (ItemStack arrows : ammo.getItems()) {
                     if (arrows.getItem() instanceof ArrowItem) {
-                        AbstractArrowEntity arrowEntity = ProjectileHelper.getMobArrow(this, arrows, distanceFactor);
+                        AbstractArrow arrowEntity = ProjectileUtil.getMobArrow(this, arrows, distanceFactor);
                         double d0 = target.getX() - this.getX();
                         double d1 = target.getEyeY() - getEyeY();
                         double d2 = target.getZ() - this.getZ();
@@ -73,7 +75,7 @@ public class ArrowTurret extends Turret {
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                         this.level.addFreshEntity(arrow2);
                         arrows.shrink(1);
-                        weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(Hand.MAIN_HAND));
+                        weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(InteractionHand.MAIN_HAND));
                         break;
                     }
                 }
@@ -82,7 +84,7 @@ public class ArrowTurret extends Turret {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         weapon.deserializeNBT(compoundNBT.getCompound("Weapon"));
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
@@ -93,13 +95,13 @@ public class ArrowTurret extends Turret {
         return Arrays.asList(weapon, ammo);
     }
 
-    @Override
-    public Item getSpawnItem() {
-        return TItems.ARROW_TURRET.get();
-    }
+//    @Override
+//    public Item getSpawnItem() {
+//        return TItems.ARROW_TURRET.get();
+//    }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", ammo.serializeNBT());
         compoundNBT.put("Weapon", weapon.serializeNBT());
@@ -107,8 +109,8 @@ public class ArrowTurret extends Turret {
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
+        FriendlyByteBuf packetBuffer = Functions.emptyBuffer();
         packetBuffer.writeInt(getId());
         return new ArrowTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
     }
@@ -118,10 +120,9 @@ public class ArrowTurret extends Turret {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.ARROW_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
+                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
                         return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity) {
-                        LivingEntity mobEntity = (LivingEntity) livingEntity;
+                    if (livingEntity instanceof LivingEntity mobEntity) {
                         return decodeTargets(getTargets()).contains(mobEntity.getType());
                     }
                     return false;
@@ -134,12 +135,12 @@ public class ArrowTurret extends Turret {
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
         if (canUse(playerEntity) && playerEntity.isCrouching()) {
-            if (playerEntity instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            if (playerEntity instanceof ServerPlayer) {
+                NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         } else
             return super.mobInteract(playerEntity, p_230254_2_);
     }

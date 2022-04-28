@@ -5,22 +5,22 @@ import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -112,11 +112,11 @@ public class KTurrets {
             packetBuffer.writeNbt(turretTargets.targets);
         }, packetBuffer -> {
             int id = packetBuffer.readInt();
-            CompoundNBT compoundNBT = packetBuffer.readNbt();
+            CompoundTag compoundNBT = packetBuffer.readNbt();
             return new TurretTargets(compoundNBT, id);
         }, (turretTargets, contextSupplier) -> {
             NetworkEvent.Context context = contextSupplier.get();
-            ServerWorld serverWorld = context.getSender().getLevel();
+            ServerLevel serverWorld = context.getSender().getLevel();
             Entity entity = serverWorld.getEntity(turretTargets.turretID);
             if (entity instanceof Turret) {
                 Turret turret = (Turret) entity;
@@ -127,12 +127,12 @@ public class KTurrets {
         channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
                 packetBuffer -> new DismantleTurret(packetBuffer.readInt()),
                 (dismantleTurret, contextSupplier) -> {
-                    ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(dismantleTurret.id);
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;
-                        turret.getContainedItems().forEach(itemHandler -> InventoryHelper.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
-                        turret.remove();
+                        turret.getContainedItems().forEach(itemHandler -> Containers.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
+                        turret.discard();
 
                         ItemStack egg = new ItemStack(turret.getSpawnItem());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
@@ -144,7 +144,7 @@ public class KTurrets {
                     packetBuffer.writeUUID(claimTurret.person);
                 }, packetBuffer -> new ClaimTurret(packetBuffer.readInt(), packetBuffer.readUUID()),
                 (claimTurret, contextSupplier) -> {
-                    ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(claimTurret.id);
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;
@@ -160,7 +160,7 @@ public class KTurrets {
             boolean mobile = packetBuffer.readBoolean();
             return new ToggleMobility(mobile, id);
         }, (toggleMobility, contextSupplier) -> {
-            ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+            ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
             Entity entity = serverWorld.getEntity(toggleMobility.id);
             if (entity instanceof Turret) {
                 ((Turret) entity).setMoveable(toggleMobility.mobile);
@@ -172,7 +172,7 @@ public class KTurrets {
                     packetBuffer.writeInt(togglePlayerProtection.id);
                 }, packetBuffer -> new TogglePlayerProtection(packetBuffer.readBoolean(), packetBuffer.readInt()),
                 (togglePlayerProtection, contextSupplier) -> {
-                    ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(togglePlayerProtection.id);
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;

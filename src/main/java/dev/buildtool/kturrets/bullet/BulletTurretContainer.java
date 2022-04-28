@@ -3,14 +3,14 @@ package dev.buildtool.kturrets.bullet;
 import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class BulletTurretContainer extends Container2 {
-    public BulletTurretContainer(int i, PlayerInventory playerInventory, PacketBuffer packetBuffer) {
+    public BulletTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
         super(TContainers.BULLET_TURRET, i);
         BulletTurret bulletTurret = (BulletTurret) playerInventory.player.level.getEntity(packetBuffer.readInt());
         int slot = 0;
@@ -23,7 +23,7 @@ public class BulletTurretContainer extends Container2 {
     }
 
     @Override
-    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
             if ((itemStack.getItem() == Items.IRON_NUGGET || itemStack.getItem() == Items.GOLD_NUGGET) && !moveItemStackTo(itemStack, 0, 27, false))

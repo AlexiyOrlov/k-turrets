@@ -3,27 +3,29 @@ package dev.buildtool.kturrets.firecharge;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import io.netty.buffer.Unpooled;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.*;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.SmallFireball;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -39,7 +41,7 @@ public class FireChargeTurret extends Turret {
         }
     };
 
-    public FireChargeTurret(World world) {
+    public FireChargeTurret(Level world) {
         super(TEntities.FIRE_CHARGE_TURRET, world);
     }
 
@@ -48,10 +50,9 @@ public class FireChargeTurret extends Turret {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
+                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
                         return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity) {
-                        LivingEntity entity = (LivingEntity) livingEntity;
+                    if (livingEntity instanceof LivingEntity entity) {
                         return !entity.fireImmune() && decodeTargets(getTargets()).contains(entity.getType());
                     }
                     return false;
@@ -72,9 +73,9 @@ public class FireChargeTurret extends Turret {
                     double d0 = target.getX() - this.getX();
                     double d1 = target.getEyeY() - getEyeY();
                     double d2 = target.getZ() - this.getZ();
-                    SmallFireballEntity fireballEntity = new SmallFireballEntity(level, this, d0, d1, d2) {
+                    SmallFireball fireballEntity = new SmallFireball(level, this, d0, d1, d2) {
                         @Override
-                        protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+                        protected void onHitEntity(EntityHitResult p_213868_1_) {
                             if (!this.level.isClientSide) {
                                 Entity entity = p_213868_1_.getEntity();
                                 if (!entity.fireImmune()) {
@@ -93,7 +94,7 @@ public class FireChargeTurret extends Turret {
                     };
                     fireballEntity.setPos(getX(), getEyeY(), getZ());
                     level.addFreshEntity(fireballEntity);
-                    level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundCategory.NEUTRAL, 1, 1);
+                    level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL, 1, 1);
                     break;
                 }
             }
@@ -102,31 +103,31 @@ public class FireChargeTurret extends Turret {
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
+        FriendlyByteBuf packetBuffer = Functions.emptyBuffer();
         packetBuffer.writeInt(getId());
         return new FireChargeTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
         if (canUse(playerEntity) && playerEntity.isCrouching()) {
-            if (playerEntity instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            if (playerEntity instanceof ServerPlayer) {
+                NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(playerEntity, p_230254_2_);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", ammo.serializeNBT());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
@@ -136,8 +137,8 @@ public class FireChargeTurret extends Turret {
         return Collections.singletonList(ammo);
     }
 
-    @Override
-    public Item getSpawnItem() {
-        return TItems.FIRECHARGE_TURRET.get();
-    }
+//    @Override
+//    public Item getSpawnItem() {
+//        return TItems.FIRECHARGE_TURRET.get();
+//    }
 }

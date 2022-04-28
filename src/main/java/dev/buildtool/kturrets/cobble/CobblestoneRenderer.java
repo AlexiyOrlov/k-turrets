@@ -1,19 +1,21 @@
 package dev.buildtool.kturrets.cobble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.buildtool.kturrets.KTurrets;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 
 public class CobblestoneRenderer extends EntityRenderer<Cobblestone> {
-    private final CobblestoneModel cobblestoneModel = new CobblestoneModel();
+    private final CobblestoneModel<Cobblestone> cobblestoneModel;
     private final ResourceLocation TEXTURE = new ResourceLocation(KTurrets.ID, "textures/entity/cobblestone.png");
 
-    public CobblestoneRenderer(EntityRendererManager p_i46179_1_) {
+    public CobblestoneRenderer(EntityRendererProvider.Context p_i46179_1_) {
         super(p_i46179_1_);
+        cobblestoneModel = new CobblestoneModel<>(p_i46179_1_.bakeLayer(new ModelLayerLocation(TEXTURE, "main")));
     }
 
     @Override
@@ -22,7 +24,7 @@ public class CobblestoneRenderer extends EntityRenderer<Cobblestone> {
     }
 
     @Override
-    public void render(Cobblestone p_225623_1_, float yaw, float partialTick, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light) {
+    public void render(Cobblestone p_225623_1_, float yaw, float partialTick, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
         super.render(p_225623_1_, yaw, partialTick, matrixStack, renderTypeBuffer, light);
         matrixStack.pushPose();
         matrixStack.translate(0, -1.3, 0);

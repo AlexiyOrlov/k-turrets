@@ -4,13 +4,13 @@ import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class GaussTurretContainer extends Container2 {
-    public GaussTurretContainer(int i, PlayerInventory inventory, PacketBuffer buffer) {
+    public GaussTurretContainer(int i, Inventory inventory, FriendlyByteBuf buffer) {
         super(TContainers.GAUSS_TURRET, i);
         GaussTurret turret = (GaussTurret) inventory.player.level.getEntity(buffer.readInt());
         int ind = 0;
@@ -24,7 +24,7 @@ public class GaussTurretContainer extends Container2 {
     }
 
     @Override
-    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack stack = getSlot(index).getItem();
         ItemStack stack1 = ItemStack.EMPTY;
         if (stack.getItem() == TItems.GAUSS_BULLET.get() && index > 26) {

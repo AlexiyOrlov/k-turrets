@@ -1,15 +1,15 @@
 package dev.buildtool.kturrets.packets;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 
 public class TurretTargets {
-    public CompoundNBT targets;
+    public CompoundTag targets;
     public int turretID;
 
     public TurretTargets() {
     }
 
-    public TurretTargets(CompoundNBT targets, int id) {
+    public TurretTargets(CompoundTag targets, int id) {
         this.targets = targets;
         turretID = id;
     }

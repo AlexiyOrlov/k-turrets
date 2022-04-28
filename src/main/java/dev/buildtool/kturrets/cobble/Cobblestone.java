@@ -2,20 +2,20 @@ package dev.buildtool.kturrets.cobble;
 
 import dev.buildtool.kturrets.PresetProjectile;
 import dev.buildtool.kturrets.registers.TEntities;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.IndirectEntityDamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
 
 public class Cobblestone extends PresetProjectile {
-    public Cobblestone(World p_i50173_2_) {
+    public Cobblestone(Level p_i50173_2_) {
         super(TEntities.COBBLESTONE, p_i50173_2_);
     }
 
-    public Cobblestone(LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, World world) {
+    public Cobblestone(LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, Level world) {
         super(TEntities.COBBLESTONE, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
     }
 
@@ -25,8 +25,8 @@ public class Cobblestone extends PresetProjectile {
     }
 
     @Override
-    protected void onHit(RayTraceResult p_70227_1_) {
+    protected void onHit(HitResult p_70227_1_) {
         super.onHit(p_70227_1_);
-        level.playSound(null, blockPosition(), SoundEvents.NETHER_BRICKS_BREAK, SoundCategory.NEUTRAL, 1, 1);
+        level.playSound(null, blockPosition(), SoundEvents.NETHER_BRICKS_BREAK, SoundSource.NEUTRAL, 1, 1);
     }
 }

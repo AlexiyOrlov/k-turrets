@@ -4,26 +4,24 @@ import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import io.netty.buffer.Unpooled;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -39,7 +37,7 @@ public class BulletTurret extends Turret {
         }
     };
 
-    public BulletTurret(World world) {
+    public BulletTurret(Level world) {
         super(TEntities.BULLET_TURRET, world);
     }
 
@@ -48,10 +46,9 @@ public class BulletTurret extends Turret {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.BULLET_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
+                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
                         return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity) {
-                        LivingEntity livingEntity1 = (LivingEntity) livingEntity;
+                    if (livingEntity instanceof LivingEntity livingEntity1) {
                         return decodeTargets(getTargets()).contains(livingEntity1.getType());
                     }
                     return false;
@@ -73,7 +70,7 @@ public class BulletTurret extends Turret {
                     double d2 = livingEntity.getZ() - this.getZ();
                     Bullet bullet = new Bullet(this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
                     level.addFreshEntity(bullet);
-                    level.playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundCategory.NEUTRAL, 1, 1);
+                    level.playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
                     item.shrink(1);
                     break;
                 }
@@ -83,31 +80,31 @@ public class BulletTurret extends Turret {
 
     @Nullable
     @Override
-    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+    public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
+        FriendlyByteBuf packetBuffer = Functions.emptyBuffer();
         packetBuffer.writeInt(getId());
         return new BulletTurretContainer(i, playerInventory, packetBuffer);
     }
 
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
         if (canUse(playerEntity) && playerEntity.isCrouching()) {
-            if (playerEntity instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            if (playerEntity instanceof ServerPlayer) {
+                NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(playerEntity, p_230254_2_);
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", ammo.serializeNBT());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compoundNBT) {
+    public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
@@ -117,8 +114,8 @@ public class BulletTurret extends Turret {
         return Collections.singletonList(ammo);
     }
 
-    @Override
-    public Item getSpawnItem() {
-        return TItems.BULLET_TURRET.get();
-    }
+//    @Override
+//    public Item getSpawnItem() {
+//        return TItems.BULLET_TURRET.get();
+//    }
 }
