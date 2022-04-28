@@ -12,17 +12,17 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.1.5-1.16.5'
+version = '2.0.0-1.16.5'
 group = 'dev.buildtool'
 archivesBaseName = 'K-Turrets'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
+    mappings channel: 'official', version: '1.18.2'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    
+
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -82,16 +82,18 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    def satakoBuilds=file(new File(rootProject.getBuildDir(),"libs"))
-    flatDir{
-        dirs(satakoBuilds)
-    }
+    mavenLocal()
+//    def satakoBuilds=file(new File(rootProject.getBuildDir(),"libs"))
+//    flatDir{
+//        dirs(satakoBuilds)
+//    }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.8'
-    runtimeOnly fg.deobf('dev.buildtool:Satako:4.2.10-1.16.5:');
-    implementation(rootProject)
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+    implementation 'dev.buildtool:satako:5.0.0-1.18.2'
+//    runtimeOnly fg.deobf('dev.buildtool:Satako:4.2.10-1.16.5:');
+//    implementation(rootProject)
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
