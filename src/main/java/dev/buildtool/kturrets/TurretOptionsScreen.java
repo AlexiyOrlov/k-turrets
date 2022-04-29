@@ -20,14 +20,14 @@ public class TurretOptionsScreen extends Screen2 {
     protected Turret turret;
     protected HashMap<EntityType<?>, Boolean> tempStatusMap;
     protected List<EntityType<?>> targets;
-    private static final TranslatableComponent CHOOSE_HINT = new TranslatableComponent("k-turrets.choose.tooltip");
-    private static final TranslatableComponent SCROLL_HINT = new TranslatableComponent("k-turrets.hold.alt.to.scroll");
-    private static final TranslatableComponent INVENTORY_HINT = new TranslatableComponent("k-turrets.inventory.hint");
+    private static final TranslatableComponent CHOOSE_HINT = new TranslatableComponent("k_turrets.choose.tooltip");
+    private static final TranslatableComponent SCROLL_HINT = new TranslatableComponent("k_turrets.hold.alt.to.scroll");
+    private static final TranslatableComponent INVENTORY_HINT = new TranslatableComponent("k_turrets.inventory.hint");
     private List<SwitchButton> targetButtons;
     private TextField addEntityField;
 
     public TurretOptionsScreen(Turret turret) {
-        super(new TranslatableComponent("k-turrets.targets"));
+        super(new TranslatableComponent("k_turrets.targets"));
         this.turret = turret;
         tempStatusMap = new HashMap<>(40);
         targets = new UniqueList<>(turret.decodeTargets(turret.getTargets()));
@@ -37,51 +37,51 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void init() {
         super.init();
-        addEntityField = addWidget(new TextField(centerX, 3, 100));
-        addWidget(new BetterButton(centerX, 20, new TranslatableComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
+        addEntityField = addRenderableWidget(new TextField(centerX, 3, 100));
+        addRenderableWidget(new BetterButton(centerX, 20, new TranslatableComponent("k_turrets.add.entity.type"), p_onPress_1_ -> {
             String entityType = addEntityField.getValue();
             EntityType<?> type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityType));
             if (type != null) {
                 if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
-                    minecraft.player.sendMessage(new TranslatableComponent("k-turrets.incorrect.entry"), Util.NIL_UUID);
+                    minecraft.player.sendMessage(new TranslatableComponent("k_turrets.incorrect.entry"), Util.NIL_UUID);
                 } else {
                     targets.add(type);
                     tempStatusMap.put(type, true);
-                    minecraft.player.sendMessage(new TranslatableComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
+                    minecraft.player.sendMessage(new TranslatableComponent("k_turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
                     addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
                 }
             }
         }));
-        addWidget(new BetterButton(centerX, 40, new TranslatableComponent("k-turrets.dismantle"), p_onPress_1_ -> {
+        addRenderableWidget(new BetterButton(centerX, 40, new TranslatableComponent("k_turrets.dismantle"), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
             minecraft.player.closeContainer();
         }));
-        addWidget(new BetterButton(centerX, 60, new TranslatableComponent("k-turrets.clear.list"), p_onPress_1_ -> {
+        addRenderableWidget(new BetterButton(centerX, 60, new TranslatableComponent("k_turrets.clear.list"), p_onPress_1_ -> {
             targets.clear();
             tempStatusMap.clear();
             targetButtons.forEach(children()::remove);
         }));
-        addWidget(new SwitchButton(centerX, 80, new TranslatableComponent("k-turrets.mobile"), new TranslatableComponent("k-turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
+        addRenderableWidget(new SwitchButton(centerX, 80, new TranslatableComponent("k_turrets.mobile"), new TranslatableComponent("k_turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
             turret.setMoveable(!turret.isMoveable());
             if (p_onPress_1_ instanceof SwitchButton) {
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
             }
         }));
-        addWidget(new SwitchButton(centerX, 100, new TranslatableComponent("k-turrets.protect.from.players"), new TranslatableComponent("k-turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), p_onPress_1_ -> {
+        addRenderableWidget(new SwitchButton(centerX, 100, new TranslatableComponent("k_turrets.protect.from.players"), new TranslatableComponent("k_turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new TogglePlayerProtection(!turret.isProtectingFromPlayers(), turret.getId()));
             turret.setProtectionFromPlayers(!turret.isProtectingFromPlayers());
             if (p_onPress_1_ instanceof SwitchButton)
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
         }));
         if (!turret.getOwner().isPresent())
-            addWidget(new BetterButton(centerX, 120, new TranslatableComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
+            addRenderableWidget(new BetterButton(centerX, 120, new TranslatableComponent("k_turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
                 minecraft.player.closeContainer();
             }));
 
-        addWidget(new Label(3, 3, new TranslatableComponent("k-turrets.targets")));
+        addRenderableWidget(new Label(3, 3, new TranslatableComponent("k_turrets.targets")));
         targetButtons = new ArrayList<>(targets.size());
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
@@ -92,7 +92,7 @@ public class TurretOptionsScreen extends Screen2 {
                 }
             });
             switchButton.verticalScroll = true;
-            addWidget(switchButton);
+            addRenderableWidget(switchButton);
             targetButtons.add(switchButton);
         }
     }
@@ -115,7 +115,7 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
-        renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k-turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
+        renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
         renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
         String targetEntry = addEntityField.getValue();
         if (targetEntry.length() > 0) {
