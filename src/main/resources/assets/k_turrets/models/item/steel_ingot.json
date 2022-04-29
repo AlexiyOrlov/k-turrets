@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "k-turrets:item/steel_ingot"
+    "layer0": "k_turrets:item/steel_ingot"
   }
 }

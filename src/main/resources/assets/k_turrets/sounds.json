@@ -1,17 +1,17 @@
 {
   "bullet_shoot": {
     "sounds": [
-      "k-turrets:short_shoot"
+      "k_turrets:short_shoot"
     ]
   },
   "gauss_shoot": {
     "sounds": [
-      "k-turrets:bzzz"
+      "k_turrets:bzzz"
     ]
   },
   "cobble_shoot": {
     "sounds": [
-      "k-turrets:cobble_shoot"
+      "k_turrets:cobble_shoot"
     ]
   }
 }

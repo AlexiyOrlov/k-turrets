@@ -1,22 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "bdb",
+    "gdi",
     "sss",
     "sss"
   ],
   "key": {
+    "g": {
+      "item": "minecraft:gold_nugget"
+    },
     "d": {
       "item": "minecraft:dispenser"
     },
-    "b": {
-      "item": "minecraft:cobblestone"
-    },
     "s": {
       "tag": "forge:ingots/steel"
+    },
+    "i": {
+      "item": "minecraft:iron_nugget"
     }
   },
   "result": {
-    "item": "k-turrets:cobble_turret_item"
+    "item": "k_turrets:bullet_turret_item"
   }
 }

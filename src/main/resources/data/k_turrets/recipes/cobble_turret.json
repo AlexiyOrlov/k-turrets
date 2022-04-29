@@ -10,13 +10,13 @@
       "item": "minecraft:dispenser"
     },
     "b": {
-      "item": "minecraft:brick"
+      "item": "minecraft:cobblestone"
     },
     "s": {
       "tag": "forge:ingots/steel"
     }
   },
   "result": {
-    "item": "k-turrets:brick_turret_item"
+    "item": "k_turrets:cobble_turret_item"
   }
 }

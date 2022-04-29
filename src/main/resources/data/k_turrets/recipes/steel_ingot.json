@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "k-turrets:semi_steel"
+    "item": "k_turrets:semi_steel"
   },
-  "result": "k-turrets:steel_ingot",
+  "result": "k_turrets:steel_ingot",
   "experience": 2,
   "cookingtime": 100
 }

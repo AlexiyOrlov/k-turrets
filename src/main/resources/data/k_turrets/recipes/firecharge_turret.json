@@ -1,25 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "gdi",
+    "ada",
     "sss",
     "sss"
   ],
   "key": {
-    "g": {
-      "item": "minecraft:gold_nugget"
+    "a": {
+      "item": "minecraft:fire_charge"
     },
     "d": {
       "item": "minecraft:dispenser"
     },
     "s": {
       "tag": "forge:ingots/steel"
-    },
-    "i": {
-      "item": "minecraft:iron_nugget"
     }
   },
   "result": {
-    "item": "k-turrets:bullet_turret_item"
+    "item": "k_turrets:firecharge_turret_item"
   }
 }

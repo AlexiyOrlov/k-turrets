@@ -1,0 +1,42 @@
+{
+  "itemGroup.k_turrets": "K-Турели",
+
+  "item.k_turrets.arrow_turret_item": "Стрельная Турель",
+  "item.k_turrets.bullet_turret_item": "Пулевая Турель",
+  "item.k_turrets.brick_turret_item": "Кирпичная Турель",
+  "item.k_turrets.firecharge_turret_item": "Огненно-шаровая Турель",
+  "item.k_turrets.steel_ingot": "Стальной Слиток",
+  "item.k_turrets.semi_steel": "Полуготовый Стальной Слиток",
+  "item.k_turrets.gauss_bullet": "Гаусс-пуля",
+  "item.k_turrets.gauss_turret_item": "Гаусс-турель",
+  "item.k_turrets.cobble_turret_item": "Каменная турель",
+
+  "k_turrets.targets": "Цели:",
+  "k_turrets.added": "Цель добавлена",
+  "k_turrets.add.entity.type": "Добавить новый тип моба к списку целей",
+  "k_turrets.choose.tooltip": "Выбирайте мобов для удаления с помощью соответствующих кнопок",
+  "k_turrets.hold.alt.to.scroll": "Чтобы прокрутить список целей, держи Alt и используй колесо мышки",
+  "k_turrets.dismantle": "Снести эту турель",
+  "k_turrets.clear.list": "Очистить список целей",
+  "k_turrets.inventory.hint": "Чтобы просмотреть инвентарь турели, жми Shift и нажми на неё правой конпкой",
+  "k_turrets.claim.turret": "Присвоить эту турель",
+  "k_turrets.turret.not.yours": "Эта турель не принадлежит тебе",
+  "k_turrets.mobile": "Подвижная",
+  "k_turrets.immobile": "Неподвижная",
+  "k_turrets.protect.from.players": "Защищает от чужих игроков",
+  "k_turrets.not.protect.from.players": "Не защищает от чужих игроков",
+  "k_turrets.integrity": "Целостность",
+  "k_turrets.incorrect.entry": "Неправильная запись",
+
+  "death.attack.k_turrets.bullet": "%1$s был застрелен Пулевой Турелью",
+  "death.attack.k_turrets.gauss_bullet": "%1$s был застрелен Гаусс-турелью",
+  "death.attack.k_turrets.brick": "%1$s был застрелен Кирпичной Турелью",
+  "death.attack.k_turrets.cobblestone": "%1$s был забит Каменной Турелью",
+
+  "entity.k_turrets.fire_charge_turret": "Огненно-шаровая Турель",
+  "entity.k_turrets.arrow_turret": "Стрельная Турель",
+  "entity.k_turrets.bullet_turret": "Пулевая Турель",
+  "entity.k_turrets.brick_turret": "Кирпичная турель",
+  "entity.k_turrets.gauss_turret": "Гаусс-турель",
+  "entity.k_turrets.cobble_turret": "Каменная Турель"
+}

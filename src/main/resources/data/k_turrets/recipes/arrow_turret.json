@@ -7,7 +7,7 @@
   ],
   "key": {
     "a": {
-      "item": "minecraft:fire_charge"
+      "item": "minecraft:arrow"
     },
     "d": {
       "item": "minecraft:dispenser"
@@ -17,6 +17,6 @@
     }
   },
   "result": {
-    "item": "k-turrets:firecharge_turret_item"
+    "item": "k_turrets:arrow_turret_item"
   }
 }

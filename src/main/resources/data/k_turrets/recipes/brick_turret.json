@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ada",
+    "bdb",
     "sss",
     "sss"
   ],
   "key": {
-    "a": {
-      "item": "minecraft:arrow"
-    },
     "d": {
       "item": "minecraft:dispenser"
+    },
+    "b": {
+      "item": "minecraft:brick"
     },
     "s": {
       "tag": "forge:ingots/steel"
     }
   },
   "result": {
-    "item": "k-turrets:arrow_turret_item"
+    "item": "k_turrets:brick_turret_item"
   }
 }
