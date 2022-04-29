@@ -12,11 +12,11 @@ import net.minecraft.world.phys.HitResult;
 
 public class Cobblestone extends PresetProjectile {
     public Cobblestone(Level p_i50173_2_) {
-        super(TEntities.COBBLESTONE, p_i50173_2_);
+        super(TEntities.COBBLESTONE.get(), p_i50173_2_);
     }
 
     public Cobblestone(LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, Level world) {
-        super(TEntities.COBBLESTONE, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
+        super(TEntities.COBBLESTONE.get(), shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class CobbleTurret extends Turret {
     };
 
     public CobbleTurret(Level world) {
-        super(TEntities.COBBLE_TURRET, world);
+        super(TEntities.COBBLE_TURRET.get(), world);
     }
 
     @Override

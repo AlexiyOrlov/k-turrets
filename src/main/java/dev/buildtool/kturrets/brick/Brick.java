@@ -12,11 +12,11 @@ import net.minecraft.world.phys.HitResult;
 
 public class Brick extends PresetProjectile {
     public Brick(Level p_i50173_2_) {
-        super(TEntities.BRICK, p_i50173_2_);
+        super(TEntities.BRICK.get(), p_i50173_2_);
     }
 
     public Brick(LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, Level world) {
-        super(TEntities.BRICK, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
+        super(TEntities.BRICK.get(), shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
     }
 
     @Override

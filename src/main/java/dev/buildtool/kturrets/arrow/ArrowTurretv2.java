@@ -25,7 +25,7 @@ public class ArrowTurretv2<T extends Entity> extends EntityModel<T> {
     public ArrowTurretv2(ModelPart root) {
         this.rotating_base = root.getChild("rotating_base");
         this.bb_main = root.getChild("bb_main");
-        rotating_gun = root.getChild("rotating_gun");
+        rotating_gun = rotating_base.getChild("rotating_gun");
     }
 
     public static LayerDefinition createBodyLayer() {

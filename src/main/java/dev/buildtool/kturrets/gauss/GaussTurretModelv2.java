@@ -24,7 +24,7 @@ public class GaussTurretModelv2<T extends Entity> extends EntityModel<T> {
 
     public GaussTurretModelv2(ModelPart root) {
         this.turret_base = root.getChild("turret_base");
-        turret_angler = root.getChild("turret_angler");
+        turret_angler = turret_base.getChild("turret_angler");
     }
 
     public static LayerDefinition createBodyLayer() {

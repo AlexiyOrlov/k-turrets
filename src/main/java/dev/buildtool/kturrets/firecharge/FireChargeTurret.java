@@ -42,7 +42,7 @@ public class FireChargeTurret extends Turret {
     };
 
     public FireChargeTurret(Level world) {
-        super(TEntities.FIRE_CHARGE_TURRET, world);
+        super(TEntities.FIRE_CHARGE_TURRET.get(), world);
     }
 
     @Override

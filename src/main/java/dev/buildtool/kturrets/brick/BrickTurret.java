@@ -38,7 +38,7 @@ public class BrickTurret extends Turret {
     };
 
     public BrickTurret(Level world) {
-        super(TEntities.BRICK_TURRET, world);
+        super(TEntities.BRICK_TURRET.get(), world);
     }
 
     @Override

@@ -38,7 +38,7 @@ public class GaussTurret extends Turret {
     };
 
     public GaussTurret(Level world) {
-        super(TEntities.GAUSS_TURRET, world);
+        super(TEntities.GAUSS_TURRET.get(), world);
     }
 
     @Override

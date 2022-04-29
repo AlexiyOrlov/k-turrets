@@ -50,7 +50,7 @@ public class ArrowTurret extends Turret {
     };
 
     public ArrowTurret(Level world) {
-        super(TEntities.ARROW_TURRET, world);
+        super(TEntities.ARROW_TURRET.get(), world);
     }
 
     @Override

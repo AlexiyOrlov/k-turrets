@@ -38,7 +38,7 @@ public class BulletTurret extends Turret {
     };
 
     public BulletTurret(Level world) {
-        super(TEntities.BULLET_TURRET, world);
+        super(TEntities.BULLET_TURRET.get(), world);
     }
 
     @Override
