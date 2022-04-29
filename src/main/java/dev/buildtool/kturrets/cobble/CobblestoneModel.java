@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class CobblestoneModel<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "cobblestone"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "textures/entity/cobblestone.png"), "main");
     private final ModelPart bb_main;
 
     public CobblestoneModel(ModelPart root) {
