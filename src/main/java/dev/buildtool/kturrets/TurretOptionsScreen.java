@@ -59,7 +59,7 @@ public class TurretOptionsScreen extends Screen2 {
         addRenderableWidget(new BetterButton(centerX, 60, new TranslatableComponent("k_turrets.clear.list"), p_onPress_1_ -> {
             targets.clear();
             tempStatusMap.clear();
-            targetButtons.forEach(children()::remove);
+            targetButtons.forEach(renderables::remove);
         }));
         addRenderableWidget(new SwitchButton(centerX, 80, new TranslatableComponent("k_turrets.mobile"), new TranslatableComponent("k_turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
