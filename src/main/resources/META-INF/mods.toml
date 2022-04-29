@@ -31,7 +31,7 @@ Adds some configurable turrets to shoot down enemies.
 All turrets are crafted from steel ingots.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.k-turrets]] #optional
+[[dependencies.k_turrets]] #optional
 # the modid of the dependency
 modId = "forge" #mandatory
 # Does this dependency have to exist - if not, ordering below must be specified
@@ -42,7 +42,7 @@ versionRange = "[40,)" #mandatory
 ordering = "NONE"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
-[[dependencies.k-turrets]]
+[[dependencies.k_turrets]]
 modId = "satako"
 mandatory = true
 versionRange = "[5,)"
