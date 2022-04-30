@@ -3,7 +3,7 @@ package dev.buildtool.kturrets.registers;
 import dev.buildtool.kturrets.EntityRenderer2;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
 import dev.buildtool.kturrets.arrow.ArrowTurretScreen;
-import dev.buildtool.kturrets.arrow.ArrowTurretv2;
+import dev.buildtool.kturrets.arrow.ArrowTurretv3;
 import dev.buildtool.kturrets.brick.*;
 import dev.buildtool.kturrets.bullet.*;
 import dev.buildtool.kturrets.cobble.*;
@@ -33,31 +33,31 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
-    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions registerLayerDefinitions) {
-        registerLayerDefinitions.registerLayerDefinition(ArrowTurretv2.LAYER_LOCATION, ArrowTurretv2::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(BrickTurretModelv2.LAYER_LOCATION, BrickTurretModelv2::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(BulletTurretv3.LAYER_LOCATION, BulletTurretv3::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(CobbleTurretv2.LAYER_LOCATION, CobbleTurretv2::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(FirechargeTurretv2.LAYER_LOCATION, FirechargeTurretv2::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(GaussTurretModelv2.LAYER_LOCATION, GaussTurretModelv2::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(BrickModel.LAYER_LOCATION, BrickModel::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(BulletModel.LAYER_LOCATION, BulletModel::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(CobblestoneModel.LAYER_LOCATION, CobblestoneModel::createBodyLayer);
-        registerLayerDefinitions.registerLayerDefinition(GaussBulletModel.LAYER_LOCATION, GaussBulletModel::createBodyLayer);
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions definitions) {
+        definitions.registerLayerDefinition(ArrowTurretv3.LAYER_LOCATION, ArrowTurretv3::createBodyLayer);
+        definitions.registerLayerDefinition(BrickTurretModelv2.LAYER_LOCATION, BrickTurretModelv2::createBodyLayer);
+        definitions.registerLayerDefinition(BulletTurretv3.LAYER_LOCATION, BulletTurretv3::createBodyLayer);
+        definitions.registerLayerDefinition(CobbleTurretv2.LAYER_LOCATION, CobbleTurretv2::createBodyLayer);
+        definitions.registerLayerDefinition(FirechargeTurretv2.LAYER_LOCATION, FirechargeTurretv2::createBodyLayer);
+        definitions.registerLayerDefinition(GaussTurretModelv2.LAYER_LOCATION, GaussTurretModelv2::createBodyLayer);
+        definitions.registerLayerDefinition(BrickModel.LAYER_LOCATION, BrickModel::createBodyLayer);
+        definitions.registerLayerDefinition(BulletModel.LAYER_LOCATION, BulletModel::createBodyLayer);
+        definitions.registerLayerDefinition(CobblestoneModel.LAYER_LOCATION, CobblestoneModel::createBodyLayer);
+        definitions.registerLayerDefinition(GaussBulletModel.LAYER_LOCATION, GaussBulletModel::createBodyLayer);
     }
 
     @SubscribeEvent
-    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers registerRenderers) {
-        registerRenderers.registerEntityRenderer(TEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretv2<>(manager.bakeLayer(ArrowTurretv2.LAYER_LOCATION)), "arrow_turret", false, 0.4f));
-        registerRenderers.registerEntityRenderer(TEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretv2<>(manager.bakeLayer(CobbleTurretv2.LAYER_LOCATION)), "cobble_turret", false, 0.2f));
-        registerRenderers.registerEntityRenderer(TEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", false, 0.2f));
-        registerRenderers.registerEntityRenderer(TEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", false, 0.4f));
-        registerRenderers.registerEntityRenderer(TEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FirechargeTurretv2<>(manager.bakeLayer(FirechargeTurretv2.LAYER_LOCATION)), "firecharge_turret", false, 0.3f));
-        registerRenderers.registerEntityRenderer(TEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretv3<>(manager.bakeLayer(BulletTurretv3.LAYER_LOCATION)), "bullet_turret2", false, 0.4f));
+    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers renderers) {
+        renderers.registerEntityRenderer(TEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretv3<>(manager.bakeLayer(ArrowTurretv3.LAYER_LOCATION)), "arrow_turret2", false, 0.4f));
+        renderers.registerEntityRenderer(TEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretv2<>(manager.bakeLayer(CobbleTurretv2.LAYER_LOCATION)), "cobble_turret", false, 0.2f));
+        renderers.registerEntityRenderer(TEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", false, 0.2f));
+        renderers.registerEntityRenderer(TEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", false, 0.4f));
+        renderers.registerEntityRenderer(TEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FirechargeTurretv2<>(manager.bakeLayer(FirechargeTurretv2.LAYER_LOCATION)), "firecharge_turret", false, 0.3f));
+        renderers.registerEntityRenderer(TEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretv3<>(manager.bakeLayer(BulletTurretv3.LAYER_LOCATION)), "bullet_turret2", false, 0.4f));
 
-        registerRenderers.registerEntityRenderer(TEntities.BRICK.get(), BrickRenderer::new);
-        registerRenderers.registerEntityRenderer(TEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);
-        registerRenderers.registerEntityRenderer(TEntities.COBBLESTONE.get(), CobblestoneRenderer::new);
-        registerRenderers.registerEntityRenderer(TEntities.BULLET.get(), BulletRenderer::new);
+        renderers.registerEntityRenderer(TEntities.BRICK.get(), BrickRenderer::new);
+        renderers.registerEntityRenderer(TEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);
+        renderers.registerEntityRenderer(TEntities.COBBLESTONE.get(), CobblestoneRenderer::new);
+        renderers.registerEntityRenderer(TEntities.BULLET.get(), BulletRenderer::new);
     }
 }
