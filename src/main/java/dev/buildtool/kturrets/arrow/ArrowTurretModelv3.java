@@ -15,14 +15,14 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-public class ArrowTurretv3<T extends Entity> extends EntityModel<T> {
+public class ArrowTurretModelv3<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "arrow_turret2"), "main");
     private final ModelPart rotating_base;
     private final ModelPart bb_main;
     private final ModelPart rotating_gun;
 
-    public ArrowTurretv3(ModelPart root) {
+    public ArrowTurretModelv3(ModelPart root) {
         this.rotating_base = root.getChild("rotating_base");
         this.bb_main = root.getChild("bb_main");
         rotating_gun = rotating_base.getChild("rotating_gun");

@@ -15,7 +15,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-public class BulletTurretv3<T extends Entity> extends EntityModel<T> {
+public class BulletTurretModelv3<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "textures/entity/bullet_turret2.png"), "main");
     private final ModelPart bone;
@@ -23,7 +23,7 @@ public class BulletTurretv3<T extends Entity> extends EntityModel<T> {
     private final ModelPart bb_main;
     private final ModelPart vertical;
 
-    public BulletTurretv3(ModelPart root) {
+    public BulletTurretModelv3(ModelPart root) {
         this.bone = root.getChild("bone");
         this.rotating = root.getChild("rotating");
         this.bb_main = root.getChild("bb_main");

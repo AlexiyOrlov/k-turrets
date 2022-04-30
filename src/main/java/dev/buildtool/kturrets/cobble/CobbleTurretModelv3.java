@@ -15,7 +15,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-public class CobbleTurretv3<T extends Entity> extends EntityModel<T> {
+public class CobbleTurretModelv3<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "cobble_turret2"), "main");
     private final ModelPart bone;
@@ -25,7 +25,7 @@ public class CobbleTurretv3<T extends Entity> extends EntityModel<T> {
     private final ModelPart rotating;
     private final ModelPart bb_main;
 
-    public CobbleTurretv3(ModelPart root) {
+    public CobbleTurretModelv3(ModelPart root) {
         this.bone = root.getChild("bone");
         this.bone2 = root.getChild("bone2");
         this.bone3 = root.getChild("bone3");

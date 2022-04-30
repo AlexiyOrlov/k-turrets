@@ -2,14 +2,14 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.EntityRenderer2;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
+import dev.buildtool.kturrets.arrow.ArrowTurretModelv3;
 import dev.buildtool.kturrets.arrow.ArrowTurretScreen;
-import dev.buildtool.kturrets.arrow.ArrowTurretv3;
 import dev.buildtool.kturrets.brick.*;
 import dev.buildtool.kturrets.bullet.*;
 import dev.buildtool.kturrets.cobble.*;
 import dev.buildtool.kturrets.firecharge.FireChargeScreen;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
-import dev.buildtool.kturrets.firecharge.FirechargeTurretv3;
+import dev.buildtool.kturrets.firecharge.FirechargeTurretModelv3;
 import dev.buildtool.kturrets.gauss.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,11 +34,11 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions definitions) {
-        definitions.registerLayerDefinition(ArrowTurretv3.LAYER_LOCATION, ArrowTurretv3::createBodyLayer);
+        definitions.registerLayerDefinition(ArrowTurretModelv3.LAYER_LOCATION, ArrowTurretModelv3::createBodyLayer);
         definitions.registerLayerDefinition(BrickTurretModelv2.LAYER_LOCATION, BrickTurretModelv2::createBodyLayer);
-        definitions.registerLayerDefinition(BulletTurretv3.LAYER_LOCATION, BulletTurretv3::createBodyLayer);
-        definitions.registerLayerDefinition(CobbleTurretv3.LAYER_LOCATION, CobbleTurretv3::createBodyLayer);
-        definitions.registerLayerDefinition(FirechargeTurretv3.LAYER_LOCATION, FirechargeTurretv3::createBodyLayer);
+        definitions.registerLayerDefinition(BulletTurretModelv3.LAYER_LOCATION, BulletTurretModelv3::createBodyLayer);
+        definitions.registerLayerDefinition(CobbleTurretModelv3.LAYER_LOCATION, CobbleTurretModelv3::createBodyLayer);
+        definitions.registerLayerDefinition(FirechargeTurretModelv3.LAYER_LOCATION, FirechargeTurretModelv3::createBodyLayer);
         definitions.registerLayerDefinition(GaussTurretModelv2.LAYER_LOCATION, GaussTurretModelv2::createBodyLayer);
         definitions.registerLayerDefinition(BrickModel.LAYER_LOCATION, BrickModel::createBodyLayer);
         definitions.registerLayerDefinition(BulletModel.LAYER_LOCATION, BulletModel::createBodyLayer);
@@ -48,12 +48,12 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers renderers) {
-        renderers.registerEntityRenderer(TEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretv3<>(manager.bakeLayer(ArrowTurretv3.LAYER_LOCATION)), "arrow_turret2", false, 0.4f));
-        renderers.registerEntityRenderer(TEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretv3<>(manager.bakeLayer(CobbleTurretv3.LAYER_LOCATION)), "cobble_turret2", false, 0.2f));
+        renderers.registerEntityRenderer(TEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretModelv3<>(manager.bakeLayer(ArrowTurretModelv3.LAYER_LOCATION)), "arrow_turret2", false, 0.4f));
+        renderers.registerEntityRenderer(TEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretModelv3<>(manager.bakeLayer(CobbleTurretModelv3.LAYER_LOCATION)), "cobble_turret2", false, 0.2f));
         renderers.registerEntityRenderer(TEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", false, 0.2f));
         renderers.registerEntityRenderer(TEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", false, 0.4f));
-        renderers.registerEntityRenderer(TEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FirechargeTurretv3<>(manager.bakeLayer(FirechargeTurretv3.LAYER_LOCATION)), "firecharge_turret2", false, 0.3f));
-        renderers.registerEntityRenderer(TEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretv3<>(manager.bakeLayer(BulletTurretv3.LAYER_LOCATION)), "bullet_turret2", false, 0.4f));
+        renderers.registerEntityRenderer(TEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FirechargeTurretModelv3<>(manager.bakeLayer(FirechargeTurretModelv3.LAYER_LOCATION)), "firecharge_turret2", false, 0.3f));
+        renderers.registerEntityRenderer(TEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretModelv3<>(manager.bakeLayer(BulletTurretModelv3.LAYER_LOCATION)), "bullet_turret2", false, 0.4f));
 
         renderers.registerEntityRenderer(TEntities.BRICK.get(), BrickRenderer::new);
         renderers.registerEntityRenderer(TEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);
