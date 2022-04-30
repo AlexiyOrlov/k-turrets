@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public class GaussBulletRenderer extends EntityRenderer<GaussBullet> {
@@ -30,7 +31,7 @@ public class GaussBulletRenderer extends EntityRenderer<GaussBullet> {
         matrixStack.pushPose();
         matrixStack.translate(0, -1.4, 0);
         bulletModel.setupAnim(bullet, 0, 0, partialTick, yaw, 0);
-        bulletModel.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutout(getTextureLocation(bullet))), packedLight, getPackedLightCoords(bullet, 0xff0f7f), 1, 1, 1, 1);
+        bulletModel.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutout(getTextureLocation(bullet))), packedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         matrixStack.popPose();
     }
 }
