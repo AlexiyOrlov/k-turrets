@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class TItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, KTurrets.ID);
-    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("k-turrets") {
+    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("k_turrets") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(GAUSS_BULLET.get());
