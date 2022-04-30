@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 public class CobblestoneRenderer extends EntityRenderer<Cobblestone> {
@@ -29,7 +30,7 @@ public class CobblestoneRenderer extends EntityRenderer<Cobblestone> {
         matrixStack.pushPose();
         matrixStack.translate(0, -1.3, 0);
         cobblestoneModel.setupAnim(p_225623_1_, 0, 0, partialTick, yaw, 0);
-        cobblestoneModel.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutout(getTextureLocation(p_225623_1_))), light, getPackedLightCoords(p_225623_1_, 0xff0f7f), 1, 1, 1, 1);
+        cobblestoneModel.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutout(getTextureLocation(p_225623_1_))), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         matrixStack.popPose();
     }
 }
