@@ -22,7 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class TEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, KTurrets.ID);
     //    public static final EntityType<ArrowTurret> ARROW_TURRET = ;
-    public static final RegistryObject<EntityType<ArrowTurret>> ARROW_TURRET = ENTITIES.register("arrow_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), MobCategory.MISC).sized(0.6f, 0.7f).build("arrow_turret")));
+    public static final RegistryObject<EntityType<ArrowTurret>> ARROW_TURRET = ENTITIES.register("arrow_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), MobCategory.MISC).sized(0.6f, 0.8f).build("arrow_turret")));
     public static final RegistryObject<EntityType<BulletTurret>> BULLET_TURRET = ENTITIES.register("bullet_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BulletTurret(p_create_2_), MobCategory.MISC).sized(0.8f, 0.8f).build("bullet_turret")));
     public static final RegistryObject<EntityType<Bullet>> BULLET = ENTITIES.register("bullet", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Bullet(p_create_2_), MobCategory.MISC).sized(0.2f, 0.2f).build("bullet")));
     public static final RegistryObject<EntityType<FireChargeTurret>> FIRE_CHARGE_TURRET = ENTITIES.register("fire_charge_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new FireChargeTurret(p_create_2_), MobCategory.MISC).sized(0.8f, 0.7f).build("fire_charge")));
