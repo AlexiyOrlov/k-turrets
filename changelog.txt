@@ -1,3 +1,7 @@
+1.0.1-1.18.2:
+fixed too low arrow turret damage;
+fixed Punch, Power, and Flame enchantments not being used by arrow turret;
+
 1.0.0-1.18.2:
 update to 1.18;
 improved 4 turret models.
