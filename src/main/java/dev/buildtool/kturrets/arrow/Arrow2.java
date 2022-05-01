@@ -21,9 +21,8 @@ public class Arrow2 extends Arrow {
         if (abstractArrowEntity instanceof SpectralArrow) {
             addEffect(new MobEffectInstance(MobEffects.GLOWING, 200));
         } else if (abstractArrowEntity instanceof Arrow) {
-//            FIXME
-//            potion = ((Arrow) abstractArrowEntity).potion;
-//            ((Arrow) abstractArrowEntity).effects.forEach(this::addEffect);
+            potion = ((Arrow) abstractArrowEntity).potion;
+            ((Arrow) abstractArrowEntity).effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
 
