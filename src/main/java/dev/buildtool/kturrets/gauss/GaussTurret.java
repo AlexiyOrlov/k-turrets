@@ -65,11 +65,6 @@ public class GaussTurret extends Turret {
         return Collections.singletonList(ammo);
     }
 
-//    @Override
-//    public Item getSpawnItem() {
-//        return TItems.GAUSS_TURRET.get();
-//    }
-
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         if (target.isAlive()) {

@@ -136,9 +136,4 @@ public class FireChargeTurret extends Turret {
     protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(ammo);
     }
-
-//    @Override
-//    public Item getSpawnItem() {
-//        return TItems.FIRECHARGE_TURRET.get();
-//    }
 }

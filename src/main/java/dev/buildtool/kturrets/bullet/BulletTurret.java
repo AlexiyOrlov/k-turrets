@@ -113,9 +113,4 @@ public class BulletTurret extends Turret {
     protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(ammo);
     }
-
-//    @Override
-//    public Item getSpawnItem() {
-//        return TItems.BULLET_TURRET.get();
-//    }
 }

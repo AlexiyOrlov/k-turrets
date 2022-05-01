@@ -65,11 +65,6 @@ public class BrickTurret extends Turret {
         return Collections.singletonList(bricks);
     }
 
-//    @Override
-//    public Item getSpawnItem() {
-//        return TItems.BRICK_TURRET.get();
-//    }
-
     @Override
     public void performRangedAttack(LivingEntity target, float distFactor) {
         if (target.isAlive()) {

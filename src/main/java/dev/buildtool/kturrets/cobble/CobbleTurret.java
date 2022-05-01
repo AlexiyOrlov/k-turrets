@@ -65,11 +65,6 @@ public class CobbleTurret extends Turret {
         return Collections.singletonList(cobblestone);
     }
 
-//    @Override
-//    public Item getSpawnItem() {
-//        return TItems.COBBLE_TURRET.get();
-//    }
-
     @Override
     public void performRangedAttack(LivingEntity target, float p_82196_2_) {
         if (target.isAlive()) {

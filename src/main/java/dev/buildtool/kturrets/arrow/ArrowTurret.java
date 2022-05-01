@@ -95,11 +95,6 @@ public class ArrowTurret extends Turret {
         return Arrays.asList(weapon, ammo);
     }
 
-//    @Override
-//    public Item getSpawnItem() {
-//        return TItems.ARROW_TURRET.get();
-//    }
-
     @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
