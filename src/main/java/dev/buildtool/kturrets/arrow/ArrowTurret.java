@@ -6,6 +6,8 @@ import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
@@ -14,6 +16,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -64,11 +67,18 @@ public class ArrowTurret extends Turret {
                         double d2 = target.getZ() - this.getZ();
                         arrowEntity.shoot(d0, d1, d2, 1.8F, 0);
                         double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
-                        if (weapon.getItem() instanceof BowItem) {
-                            arrowEntity.setBaseDamage(damage);
-                        } else if (weapon.getItem() instanceof CrossbowItem)
-                            arrowEntity.setBaseDamage(damage * 1.2);
+                        arrowEntity.setBaseDamage(damage);
                         Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor);
+                        if (weapon.getItem() instanceof BowItem) {
+                            arrow2.setBaseDamage(arrowEntity.getBaseDamage());
+                        } else if (weapon.getItem() instanceof CrossbowItem) {
+                            arrow2.setBaseDamage(arrowEntity.getBaseDamage() * 1.2);
+                            arrow2.setShotFromCrossbow(true);
+                            int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, weapon);
+                            if (i > 0)
+                                arrow2.setPierceLevel((byte) i);
+                        }
+                        arrow2.setEnchantmentEffectsFromEntity(this, distanceFactor);
                         arrow2.setNoGravity(true);
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                         this.level.addFreshEntity(arrow2);
@@ -142,5 +152,10 @@ public class ArrowTurret extends Turret {
             return ActionResultType.SUCCESS;
         } else
             return super.mobInteract(playerEntity, p_230254_2_);
+    }
+
+    @Override
+    public ItemStack getItemBySlot(EquipmentSlotType p_184582_1_) {
+        return weapon.getStackInSlot(0);
     }
 }
