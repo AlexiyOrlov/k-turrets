@@ -1,3 +1,6 @@
+0.1.6:
+fixed Arrow turret damage calculation and enchantment application
+
 0.1.5:
 removed one barrel from the Gauss Turret;
 improved 5 turret models;
