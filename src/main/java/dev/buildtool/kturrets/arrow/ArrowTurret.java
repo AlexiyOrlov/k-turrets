@@ -72,9 +72,9 @@ public class ArrowTurret extends Turret {
 
                         Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor);
                         if (weapon.getItem() instanceof BowItem) {
-                            arrow2.setBaseDamage(damage);
+                            arrow2.setBaseDamage(arrowEntity.getBaseDamage());
                         } else if (weapon.getItem() instanceof CrossbowItem) {
-                            arrow2.setBaseDamage(damage * 1.2);
+                            arrow2.setBaseDamage(arrowEntity.getBaseDamage() * 1.2);
                             arrow2.setShotFromCrossbow(true);
                             int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, weapon);
                             if (i > 0)

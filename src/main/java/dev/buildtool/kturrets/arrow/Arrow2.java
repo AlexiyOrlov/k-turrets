@@ -63,22 +63,6 @@ public class Arrow2 extends Arrow {
         Entity entity = p_36757_.getEntity();
         float f = (float) this.getDeltaMovement().length();
         int i = Mth.ceil(getBaseDamage());
-//        if (this.getPierceLevel() > 0) {
-//            if (this.piercingIgnoreEntityIds == null) {
-//                this.piercingIgnoreEntityIds = new IntOpenHashSet(5);
-//            }
-//
-//            if (this.piercedAndKilledEntities == null) {
-//                this.piercedAndKilledEntities = Lists.newArrayListWithCapacity(5);
-//            }
-//
-//            if (this.piercingIgnoreEntityIds.size() >= this.getPierceLevel() + 1) {
-//                this.discard();
-//                return;
-//            }
-//
-//            this.piercingIgnoreEntityIds.add(entity.getId());
-//        }
 
         if (this.isCritArrow()) {
             long j = (long) this.random.nextInt(i / 2 + 2);
@@ -128,10 +112,6 @@ public class Arrow2 extends Arrow {
                 if (livingentity != entity1 && livingentity instanceof Player && entity1 instanceof ServerPlayer && !this.isSilent()) {
                     ((ServerPlayer) entity1).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
                 }
-
-//                if (!entity.isAlive() && this.piercedAndKilledEntities != null) {
-//                    this.piercedAndKilledEntities.add(livingentity);
-//                }
             }
 
             this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
