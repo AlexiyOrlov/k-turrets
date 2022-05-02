@@ -2,7 +2,6 @@ package dev.buildtool.kturrets.arrow;
 
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -26,7 +25,7 @@ public class Arrow2 extends Arrow {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
         setDeltaMovement(abstractArrowEntity.getDeltaMovement());
-        setEnchantmentEffectsFromEntity(shooter, f);
+//        setEnchantmentEffectsFromEntity(shooter, f);
         setPierceLevel(abstractArrowEntity.getPierceLevel());
         if (abstractArrowEntity instanceof SpectralArrow) {
             addEffect(new MobEffectInstance(MobEffects.GLOWING, 200));
@@ -61,11 +60,10 @@ public class Arrow2 extends Arrow {
     protected void onHitEntity(EntityHitResult p_36757_) {
         super.onHitEntity(p_36757_);
         Entity entity = p_36757_.getEntity();
-        float f = (float) this.getDeltaMovement().length();
-        int i = Mth.ceil(getBaseDamage());
+        double i = getBaseDamage();
 
         if (this.isCritArrow()) {
-            long j = (long) this.random.nextInt(i / 2 + 2);
+            long j = this.random.nextInt((int) (i / 2 + 2));
             i = (int) Math.min(j + (long) i, 2147483647L);
         }
 
