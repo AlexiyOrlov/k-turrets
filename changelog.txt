@@ -1,3 +1,11 @@
+1.0.2-1.18.2:
+added a text message when a turret is claimed;
+claimed turrets won't damage their owner or another turret with the same owner;
+fixed arrow turret's double hit and damage;
+added a text message on removing targets;
+prevent Endermen and similar entities from escaping the turret projectiles;
+increased velocity of Fireball, Brick, Cobblestone, and Bullet projectiles;
+
 1.0.1-1.18.2:
 fixed too low arrow turret damage;
 fixed Punch, Power, and Flame enchantments not being used by arrow turret;
