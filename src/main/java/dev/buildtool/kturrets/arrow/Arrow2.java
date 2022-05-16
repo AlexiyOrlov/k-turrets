@@ -58,7 +58,6 @@ public class Arrow2 extends Arrow {
     }
 
     protected void onHitEntity(EntityHitResult p_36757_) {
-        super.onHitEntity(p_36757_);
         Entity entity = p_36757_.getEntity();
         double i = getBaseDamage();
 
@@ -69,56 +68,57 @@ public class Arrow2 extends Arrow {
 
         Entity entity1 = this.getOwner();
         DamageSource damagesource;
-        if (entity1 == null) {
-            damagesource = new IndirectDamageSource("arrow", this, this);
-        } else {
-            damagesource = new IndirectDamageSource("arrow", this, entity1);
-            if (entity1 instanceof LivingEntity) {
-                ((LivingEntity) entity1).setLastHurtMob(entity);
-            }
-        }
-
-        int k = entity.getRemainingFireTicks();
-        if (this.isOnFire()) {
-            entity.setSecondsOnFire(5);
-        }
-
-        if (entity.hurt(damagesource, (float) i)) {
-
-            if (entity instanceof LivingEntity livingentity) {
-                if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
-                    livingentity.setArrowCount(livingentity.getArrowCount() + 1);
+        if (entity1 == null || !entity1.isAlliedTo(entity)) {
+            if (entity1 == null) {
+                damagesource = new IndirectDamageSource("arrow", this, this);
+            } else {
+                damagesource = new IndirectDamageSource("arrow", this, entity1);
+                if (entity1 instanceof LivingEntity) {
+                    ((LivingEntity) entity1).setLastHurtMob(entity);
                 }
+            }
+            int k = entity.getRemainingFireTicks();
+            if (this.isOnFire()) {
+                entity.setSecondsOnFire(5);
+            }
 
-                if (this.getKnockback() > 0) {
-                    Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale((double) this.getKnockback() * 0.6D);
-                    if (vec3.lengthSqr() > 0.0D) {
-                        livingentity.push(vec3.x, 0.1D, vec3.z);
+            if (entity.hurt(damagesource, (float) i)) {
+
+                if (entity instanceof LivingEntity livingentity) {
+                    if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
+                        livingentity.setArrowCount(livingentity.getArrowCount() + 1);
+                    }
+
+                    if (this.getKnockback() > 0) {
+                        Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale((double) this.getKnockback() * 0.6D);
+                        if (vec3.lengthSqr() > 0.0D) {
+                            livingentity.push(vec3.x, 0.1D, vec3.z);
+                        }
+                    }
+
+                    if (!this.level.isClientSide && entity1 instanceof LivingEntity) {
+                        EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
+                        EnchantmentHelper.doPostDamageEffects((LivingEntity) entity1, livingentity);
+                    }
+
+                    this.doPostHurtEffects(livingentity);
+                    if (livingentity != entity1 && livingentity instanceof Player && entity1 instanceof ServerPlayer && !this.isSilent()) {
+                        ((ServerPlayer) entity1).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
                     }
                 }
 
-                if (!this.level.isClientSide && entity1 instanceof LivingEntity) {
-                    EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity) entity1, livingentity);
+                this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                if (this.getPierceLevel() <= 0) {
+                    this.discard();
                 }
-
-                this.doPostHurtEffects(livingentity);
-                if (livingentity != entity1 && livingentity instanceof Player && entity1 instanceof ServerPlayer && !this.isSilent()) {
-                    ((ServerPlayer) entity1).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+            } else {
+                entity.setRemainingFireTicks(k);
+                this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
+                this.setYRot(this.getYRot() + 180.0F);
+                this.yRotO += 180.0F;
+                if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+                    this.discard();
                 }
-            }
-
-            this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-            if (this.getPierceLevel() <= 0) {
-                this.discard();
-            }
-        } else {
-            entity.setRemainingFireTicks(k);
-            this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
-            this.setYRot(this.getYRot() + 180.0F);
-            this.yRotO += 180.0F;
-            if (!this.level.isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-                this.discard();
             }
         }
     }
