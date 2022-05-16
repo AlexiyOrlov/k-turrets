@@ -41,14 +41,18 @@ public class TurretOptionsScreen extends Screen2 {
         addRenderableWidget(new BetterButton(centerX, 20, new TranslatableComponent("k_turrets.add.entity.type"), p_onPress_1_ -> {
             String entityType = addEntityField.getValue();
             EntityType<?> type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityType));
-            if (type != null) {
-                if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
-                    minecraft.player.sendMessage(new TranslatableComponent("k_turrets.incorrect.entry"), Util.NIL_UUID);
-                } else {
-                    targets.add(type);
-                    tempStatusMap.put(type, true);
-                    minecraft.player.sendMessage(new TranslatableComponent("k_turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
-                    addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
+            if (entityType.length() > 2) {
+                if (type != null) {
+                    if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
+                        minecraft.player.sendMessage(new TranslatableComponent("k_turrets.incorrect.entry"), Util.NIL_UUID);
+                    } else {
+
+                        targets.add(type);
+                        tempStatusMap.put(type, true);
+                        minecraft.player.sendMessage(new TranslatableComponent("k_turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
+                        if (entityType.contains(":"))
+                            addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
+                    }
                 }
             }
         }));
