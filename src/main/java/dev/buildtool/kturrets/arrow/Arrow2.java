@@ -29,9 +29,9 @@ public class Arrow2 extends Arrow {
         setPierceLevel(abstractArrowEntity.getPierceLevel());
         if (abstractArrowEntity instanceof SpectralArrow) {
             addEffect(new MobEffectInstance(MobEffects.GLOWING, 200));
-        } else if (abstractArrowEntity instanceof Arrow) {
-            potion = ((Arrow) abstractArrowEntity).potion;
-            ((Arrow) abstractArrowEntity).effects.forEach(this::addEffect);
+        } else if (abstractArrowEntity instanceof Arrow arrow) {
+            potion = arrow.potion;
+            arrow.effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
     }
