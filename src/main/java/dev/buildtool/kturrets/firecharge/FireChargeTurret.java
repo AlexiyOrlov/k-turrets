@@ -135,13 +135,15 @@ public class FireChargeTurret extends Turret {
                 Entity entity = p_213868_1_.getEntity();
                 if (!entity.fireImmune()) {
                     Entity entity1 = this.getOwner();
-                    int i = entity.getRemainingFireTicks();
-                    entity.setSecondsOnFire(5);
-                    boolean flag = entity.hurt(DamageSource.fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
-                    if (!flag) {
-                        entity.setRemainingFireTicks(i);
-                    } else if (entity1 instanceof LivingEntity) {
-                        this.doEnchantDamageEffects((LivingEntity) entity1, entity);
+                    if (entity1 == null || !entity1.isAlliedTo(entity)) {
+                        int i = entity.getRemainingFireTicks();
+                        entity.setSecondsOnFire(5);
+                        boolean flag = entity.hurt(DamageSource.fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
+                        if (!flag) {
+                            entity.setRemainingFireTicks(i);
+                        } else if (entity1 instanceof LivingEntity) {
+                            this.doEnchantDamageEffects((LivingEntity) entity1, entity);
+                        }
                     }
                 }
             }
@@ -184,7 +186,7 @@ public class FireChargeTurret extends Turret {
                     f = 0.8F;
                 }
 
-                this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double) f));
+                this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale(f));
                 this.level.addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
                 this.setPos(d0, d1, d2);
             } else {
