@@ -9,6 +9,9 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
+/**
+ * Copy of {@link net.minecraft.world.damagesource.IndirectEntityDamageSource}
+ */
 public class IndirectDamageSource extends EntityDamageSource {
     @Nullable
     private final Entity owner;

@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.arrow;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -69,24 +70,20 @@ public class Arrow2 extends Arrow {
         Entity entity1 = this.getOwner();
         DamageSource damagesource;
         if (entity1 == null) {
-            damagesource = DamageSource.arrow(this, this);
+            damagesource = new IndirectDamageSource("arrow", this, this);
         } else {
-            damagesource = DamageSource.arrow(this, entity1);
+            damagesource = new IndirectDamageSource("arrow", this, entity1);
             if (entity1 instanceof LivingEntity) {
                 ((LivingEntity) entity1).setLastHurtMob(entity);
             }
         }
 
-        boolean flag = entity.getType() == EntityType.ENDERMAN;
         int k = entity.getRemainingFireTicks();
-        if (this.isOnFire() && !flag) {
+        if (this.isOnFire()) {
             entity.setSecondsOnFire(5);
         }
 
         if (entity.hurt(damagesource, (float) i)) {
-            if (flag) {
-                return;
-            }
 
             if (entity instanceof LivingEntity livingentity) {
                 if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
@@ -124,6 +121,7 @@ public class Arrow2 extends Arrow {
                 this.discard();
             }
         }
-
     }
+
+
 }
