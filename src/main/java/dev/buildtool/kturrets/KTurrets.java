@@ -6,6 +6,7 @@ import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
@@ -149,6 +150,7 @@ public class KTurrets {
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;
                         turret.setOwner(claimTurret.person);
+                        contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.turret_claimed"), turret.getUUID());
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });

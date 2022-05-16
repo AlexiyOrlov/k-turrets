@@ -28,6 +28,7 @@
   "k_turrets.integrity": "Integrity",
   "k_turrets.incorrect.entry": "Incorrect entry",
   "k_turrets.removed": "Removed %1$s targets",
+  "k_turrets.turret_claimed": "Turret claimed",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
