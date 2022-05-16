@@ -25,6 +25,5 @@ public class GaussBullet extends PresetProjectile {
     public void tick() {
         super.tick();
         step();
-        step();
     }
 }

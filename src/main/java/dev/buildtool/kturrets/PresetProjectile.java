@@ -94,6 +94,12 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
      */
     protected abstract DamageSource getDamageSource();
 
+    @Override
+    public void tick() {
+        super.tick();
+        step();
+    }
+
     /**
      * Copy of {@link AbstractHurtingProjectile#tick()}
      */

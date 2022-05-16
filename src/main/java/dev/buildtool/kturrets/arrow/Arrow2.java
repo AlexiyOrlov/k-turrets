@@ -25,7 +25,6 @@ public class Arrow2 extends Arrow {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
         setDeltaMovement(abstractArrowEntity.getDeltaMovement());
-//        setEnchantmentEffectsFromEntity(shooter, f);
         setPierceLevel(abstractArrowEntity.getPierceLevel());
         if (abstractArrowEntity instanceof SpectralArrow) {
             addEffect(new MobEffectInstance(MobEffects.GLOWING, 200));
