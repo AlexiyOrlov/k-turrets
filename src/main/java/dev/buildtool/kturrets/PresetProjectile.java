@@ -41,7 +41,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     }
 
     @Override
-    protected float getInertia() {
+    public float getInertia() {
         return 1;
     }
 
