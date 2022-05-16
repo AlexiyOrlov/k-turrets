@@ -27,6 +27,8 @@
   "k_turrets.not.protect.from.players": "Не защищает от чужих игроков",
   "k_turrets.integrity": "Целостность",
   "k_turrets.incorrect.entry": "Неправильная запись",
+  "k_turrets.removed": "Удалено %1$s целей",
+  "k_turrets.turret_claimed": "Турель присвоена",
 
   "death.attack.k_turrets.bullet": "%1$s был застрелен Пулевой Турелью",
   "death.attack.k_turrets.gauss_bullet": "%1$s был застрелен Гаусс-турелью",
