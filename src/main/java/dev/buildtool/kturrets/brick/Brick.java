@@ -1,11 +1,11 @@
 package dev.buildtool.kturrets.brick;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.PresetProjectile;
 import dev.buildtool.kturrets.registers.TEntities;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
@@ -21,7 +21,7 @@ public class Brick extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectEntityDamageSource("k-turrets.brick", this, getOwner());
+        return new IndirectDamageSource("k-turrets.brick", this, getOwner());
     }
 
     @Override

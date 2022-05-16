@@ -191,6 +191,5 @@ public class FireChargeTurret extends Turret {
                 this.discard();
             }
         }
-
     }
 }
