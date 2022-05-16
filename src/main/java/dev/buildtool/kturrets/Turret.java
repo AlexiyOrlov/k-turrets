@@ -274,11 +274,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     /**
-     * Can't use {@link net.minecraft.world.item.SpawnEggItem#}
-     *
      * @return appropriate spawn egg
      */
     public Item getSpawnItem() {
         return ForgeSpawnEggItem.fromEntityType(getType());
+    }
+
+    @Override
+    public boolean isAlliedTo(Entity target) {
+        return super.isAlliedTo(target) || (getOwner().isPresent() && target.getUUID().equals(getOwner().get()));
     }
 }
