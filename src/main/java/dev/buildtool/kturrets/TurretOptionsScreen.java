@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class TurretOptionsScreen extends Screen2 {
@@ -104,16 +105,21 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void onClose() {
         super.onClose();
+        AtomicInteger removed = new AtomicInteger();
         tempStatusMap.forEach((entityType, aBoolean) -> {
             if (aBoolean)
                 targets.add(entityType);
-            else
+            else {
                 targets.remove(entityType);
+                removed.getAndIncrement();
+            }
         });
         CompoundTag compoundNBT = turret.encodeTargets(targets);
         turret.setTargets(compoundNBT);
         TurretTargets turretTargets = new TurretTargets(compoundNBT, turret.getId());
         KTurrets.channel.sendToServer(turretTargets);
+        if (removed.get() > 0)
+            minecraft.player.sendMessage(new TranslatableComponent("k_turrets.removed", removed.get()), turret.getUUID());
     }
 
     @Override
