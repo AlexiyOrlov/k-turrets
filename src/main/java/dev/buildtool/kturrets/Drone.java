@@ -14,6 +14,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Drone must carry less ammo than a turret
+ */
 public abstract class Drone extends Turret {
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);

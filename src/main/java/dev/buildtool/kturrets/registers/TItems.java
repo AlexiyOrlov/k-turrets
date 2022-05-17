@@ -37,6 +37,8 @@ public class TItems {
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ForgeSpawnEggItem(TEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults()));
         COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ForgeSpawnEggItem(TEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults()));
+
+        ITEMS.register("brick_drone_item", () -> new ForgeSpawnEggItem(TEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults()));
     }
 
     private static Item.Properties defaults() {

@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
+import dev.buildtool.kturrets.brick.BrickDroneContainer;
 import dev.buildtool.kturrets.brick.BrickTurretContainer;
 import dev.buildtool.kturrets.bullet.BulletTurretContainer;
 import dev.buildtool.kturrets.cobble.CobbleTurretContainer;
@@ -21,6 +22,8 @@ public class TContainers {
     public static MenuType<GaussTurretContainer> GAUSS_TURRET;
     public static MenuType<CobbleTurretContainer> COBBLE_TURRET;
 
+    public static MenuType<BrickDroneContainer> BRICK_DRONE;
+
     static {
         ARROW_TURRET = IForgeMenuType.create(ArrowTurretContainer::new);
         CONTAINERS.register("arrow_turret", () -> ARROW_TURRET);
@@ -34,5 +37,8 @@ public class TContainers {
         CONTAINERS.register("gauss_turret", () -> GAUSS_TURRET);
         COBBLE_TURRET = IForgeMenuType.create(CobbleTurretContainer::new);
         CONTAINERS.register("cobble_turret", () -> COBBLE_TURRET);
+
+        BRICK_DRONE = IForgeMenuType.create(BrickDroneContainer::new);
+        CONTAINERS.register("brick_drone", () -> BRICK_DRONE);
     }
 }
