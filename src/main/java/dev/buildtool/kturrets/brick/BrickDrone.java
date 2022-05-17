@@ -89,12 +89,12 @@ public class BrickDrone extends Drone {
     public AbstractContainerMenu createMenu(int p_39954_, Inventory p_39955_, Player p_39956_) {
         FriendlyByteBuf buffer = Functions.emptyBuffer();
         buffer.writeInt(getId());
-        return null;
+        return new BrickDroneContainer(p_39954_, p_39955_, buffer);
     }
 
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
-        if (canUse(playerEntity)) {
+        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
             if (playerEntity instanceof ServerPlayer) {
                 NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
