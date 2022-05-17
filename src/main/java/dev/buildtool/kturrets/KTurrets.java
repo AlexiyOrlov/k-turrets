@@ -119,8 +119,7 @@ public class KTurrets {
             NetworkEvent.Context context = contextSupplier.get();
             ServerLevel serverWorld = context.getSender().getLevel();
             Entity entity = serverWorld.getEntity(turretTargets.turretID);
-            if (entity instanceof Turret) {
-                Turret turret = (Turret) entity;
+            if (entity instanceof Turret turret) {
                 turret.setTargets(turretTargets.targets);
                 context.setPacketHandled(true);
             }
@@ -130,8 +129,7 @@ public class KTurrets {
                 (dismantleTurret, contextSupplier) -> {
                     ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(dismantleTurret.id);
-                    if (entity instanceof Turret) {
-                        Turret turret = (Turret) entity;
+                    if (entity instanceof Turret turret) {
                         turret.getContainedItems().forEach(itemHandler -> Containers.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
                         turret.discard();
 
@@ -147,10 +145,12 @@ public class KTurrets {
                 (claimTurret, contextSupplier) -> {
                     ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(claimTurret.id);
-                    if (entity instanceof Turret) {
-                        Turret turret = (Turret) entity;
+                    if (entity instanceof Turret turret) {
                         turret.setOwner(claimTurret.person);
-                        contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.turret_claimed"), turret.getUUID());
+                        if (turret instanceof Drone)
+                            contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.drone_claimed"), turret.getUUID());
+                        else
+                            contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.turret_claimed"), turret.getUUID());
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
@@ -169,18 +169,31 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
-        channel.registerMessage(packetIndex, TogglePlayerProtection.class, (togglePlayerProtection, packetBuffer) -> {
+        channel.registerMessage(packetIndex++, TogglePlayerProtection.class, (togglePlayerProtection, packetBuffer) -> {
                     packetBuffer.writeBoolean(togglePlayerProtection.protect);
                     packetBuffer.writeInt(togglePlayerProtection.id);
                 }, packetBuffer -> new TogglePlayerProtection(packetBuffer.readBoolean(), packetBuffer.readInt()),
                 (togglePlayerProtection, contextSupplier) -> {
                     ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(togglePlayerProtection.id);
-                    if (entity instanceof Turret) {
-                        Turret turret = (Turret) entity;
+                    if (entity instanceof Turret turret) {
                         turret.setProtectionFromPlayers(togglePlayerProtection.protect);
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
+        channel.registerMessage(packetIndex, ToggleDroneFollow.class, (toggleDroneFollow, friendlyByteBuf) -> {
+            friendlyByteBuf.writeInt(toggleDroneFollow.id);
+            friendlyByteBuf.writeBoolean(toggleDroneFollow.follow);
+        }, friendlyByteBuf -> {
+            int id = friendlyByteBuf.readInt();
+            return new ToggleDroneFollow(friendlyByteBuf.readBoolean(), id);
+        }, (toggleDroneFollow, contextSupplier) -> {
+            ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+            Entity entity = serverLevel.getEntity(toggleDroneFollow.id);
+            if (entity instanceof Drone drone) {
+                drone.followOwner(toggleDroneFollow.follow);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
     }
 }

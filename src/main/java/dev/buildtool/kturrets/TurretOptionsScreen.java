@@ -80,11 +80,19 @@ public class TurretOptionsScreen extends Screen2 {
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
         }));
         if (!turret.getOwner().isPresent())
-            addRenderableWidget(new BetterButton(centerX, 120, new TranslatableComponent("k_turrets.claim.turret"), p_onPress_1_ -> {
+            addRenderableWidget(new BetterButton(centerX, 120, new TranslatableComponent(turret instanceof Drone ? "k_turrets.claim.drone" : "k_turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
                 minecraft.player.closeContainer();
             }));
+        else if (turret instanceof Drone drone) {
+            addRenderableWidget(new SwitchButton(centerX, 120, new TranslatableComponent("k_turrets.following.owner"), new TranslatableComponent("k_turrets.staying"), drone.isFollowingOwner(), p_93751_ -> {
+                KTurrets.channel.sendToServer(new ToggleDroneFollow(!drone.isFollowingOwner(), drone.getId()));
+                drone.followOwner(!drone.isFollowingOwner());
+                if (p_93751_ instanceof SwitchButton switchButton)
+                    switchButton.state = !switchButton.state;
+            }));
+        }
 
         addRenderableWidget(new Label(3, 3, new TranslatableComponent("k_turrets.targets")));
         targetButtons = new ArrayList<>(targets.size());
