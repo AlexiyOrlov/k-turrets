@@ -172,7 +172,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void openTargetScreen() {
+    void openTargetScreen() {
         Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
     }
 
