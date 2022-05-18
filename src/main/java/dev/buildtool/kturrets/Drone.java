@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -28,6 +29,9 @@ public abstract class Drone extends Turret {
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
         moveControl = new FlyingMoveControl(this, 20, true);
+        setPathfindingMalus(BlockPathTypes.FENCE, -1);
+        setPathfindingMalus(BlockPathTypes.DAMAGE_CACTUS, -1);
+        setPathfindingMalus(BlockPathTypes.DANGER_CACTUS, -1);
     }
 
     @Override
