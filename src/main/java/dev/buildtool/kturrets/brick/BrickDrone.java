@@ -44,7 +44,8 @@ public class BrickDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
+        //TODO disable moving to target?
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (isProtectingFromPlayers() && livingEntity instanceof Player)
@@ -56,6 +57,7 @@ public class BrickDrone extends Drone {
                 }) {
             @Override
             public boolean canUse() {
+                if (target != null) System.out.println(hasLineOfSight(target));
                 return !bricks.isEmpty() && super.canUse();
             }
         });
