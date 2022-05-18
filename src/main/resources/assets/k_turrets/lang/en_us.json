@@ -12,13 +12,14 @@
   "item.k_turrets.cobble_turret_item": "Cobble Turret",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
+  "item.k_turrets.bullet_drone_item": "Bullet Drone",
 
   "k_turrets.targets": "Targets:",
   "k_turrets.added": "Added to targets",
   "k_turrets.add.entity.type": "Add new entity type to target list",
   "k_turrets.choose.tooltip": "Choose which entities to remove by pressing the appropriate buttons",
   "k_turrets.hold.alt.to.scroll": "To scroll the target list, hold Alt and use the mouse wheel",
-  "k_turrets.dismantle": "Dismantle this turret/drone",
+  "k_turrets.dismantle": "Dismantle",
   "k_turrets.clear.list": "Clear the target list",
   "k_turrets.inventory.hint": "Sneak and right-click the turret/drone to view its inventory",
   "k_turrets.claim.turret": "Claim this turret",
@@ -49,5 +50,6 @@
   "entity.k_turrets.gauss_turret": "Gauss Turret",
   "entity.k_turrets.cobble_turret": "Cobble Turret",
 
-  "entity.k_turrets.brick_drone": "Brick Drone"
+  "entity.k_turrets.brick_drone": "Brick Drone",
+  "entity.k_turrets.bullet_drone": "Bullet Drone"
 }

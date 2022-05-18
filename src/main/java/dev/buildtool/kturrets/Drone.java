@@ -93,6 +93,7 @@ public abstract class Drone extends Turret {
     protected void defineSynchedData() {
         super.defineSynchedData();
         entityData.define(FOLLOWING_OWNER, true);
+        entityData.define(MOVEABLE, true);
     }
 
     public boolean isFollowingOwner() {
