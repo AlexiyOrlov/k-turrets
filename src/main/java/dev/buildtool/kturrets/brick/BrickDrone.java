@@ -57,7 +57,6 @@ public class BrickDrone extends Drone {
                 }) {
             @Override
             public boolean canUse() {
-                if (target != null) System.out.println(hasLineOfSight(target));
                 return !bricks.isEmpty() && super.canUse();
             }
         });

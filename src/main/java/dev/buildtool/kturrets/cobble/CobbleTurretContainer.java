@@ -4,10 +4,11 @@ import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class CobbleTurretContainer extends Container2 {
     public CobbleTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
@@ -27,7 +28,7 @@ public class CobbleTurretContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if (itemStack.getItem() == Items.COBBLESTONE && !moveItemStackTo(itemStack, 0, 27, false))
+            if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.STONE_TOOL_MATERIALS).contains(itemStack.getItem()) && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))
