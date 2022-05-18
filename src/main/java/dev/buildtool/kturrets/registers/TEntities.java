@@ -6,6 +6,7 @@ import dev.buildtool.kturrets.brick.Brick;
 import dev.buildtool.kturrets.brick.BrickDrone;
 import dev.buildtool.kturrets.brick.BrickTurret;
 import dev.buildtool.kturrets.bullet.Bullet;
+import dev.buildtool.kturrets.bullet.BulletDrone;
 import dev.buildtool.kturrets.bullet.BulletTurret;
 import dev.buildtool.kturrets.cobble.CobbleTurret;
 import dev.buildtool.kturrets.cobble.Cobblestone;
@@ -34,6 +35,7 @@ public class TEntities {
     public static final RegistryObject<EntityType<Cobblestone>> COBBLESTONE = ENTITIES.register("cobblestone", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new Cobblestone(p_create_2_), MobCategory.MISC).sized(0.25f, 0.25f).build("cobblestone")));
 
     public static final RegistryObject<EntityType<BrickDrone>> BRICK_DRONE = ENTITIES.register("brick_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BrickDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("brick_drone")));
+    public static final RegistryObject<EntityType<BulletDrone>> BULLET_DRONE = ENTITIES.register("bullet_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BulletDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("bullet_drone")));
     private static EntityType cast(EntityType<Entity> entityType) {
         return entityType;
     }
