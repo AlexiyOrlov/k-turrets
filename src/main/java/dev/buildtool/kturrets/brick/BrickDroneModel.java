@@ -71,10 +71,10 @@ public class BrickDroneModel<T extends Entity> extends EntityModel<T> {
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         sides.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
         muzzle.xRot = Functions.getDefaultHeadPitch(headPitch);
-        rotor1.yRot = ageInTicks;
-        rotor2.yRot = -ageInTicks;
-        rotor3.yRot = ageInTicks;
-        rotor4.yRot = -ageInTicks;
+        rotor1.yRot = ageInTicks * 2;
+        rotor2.yRot = -ageInTicks * 2;
+        rotor3.yRot = ageInTicks * 2;
+        rotor4.yRot = -ageInTicks * 2;
     }
 
     @Override
