@@ -39,10 +39,10 @@
   "k_turrets.claim.drone": "Claim this drone",
   "k-turrets.drone.not.yours": "This drone doesn't belong to you",
 
-  "death.attack.k_turrets.bullet": "%1$s was shot by a Bullet turret",
-  "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
-  "death.attack.k_turrets.brick": "%1$s was hit by a Brick turret",
-  "death.attack.k_turrets.cobblestone": "%1$s was stoned by a Cobble turret",
+  "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
+  "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
+  "death.attack.k_turrets.brick": "%1$s was hit by a brick",
+  "death.attack.k_turrets.cobblestone": "%1$s was stoned by cobblestone",
 
   "entity.k_turrets.fire_charge_turret": "Fire Charge Turret",
   "entity.k_turrets.arrow_turret": "Arrow Turret",
