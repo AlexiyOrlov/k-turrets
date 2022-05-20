@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Drone must carry less ammo than a turret
+ * Drone must carry less ammo than a turret; has lower range, health and armor
  */
 public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Boolean> FOLLOWING_OWNER = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
