@@ -6,6 +6,7 @@ import dev.buildtool.kturrets.brick.BrickDroneContainer;
 import dev.buildtool.kturrets.brick.BrickTurretContainer;
 import dev.buildtool.kturrets.bullet.BulletDroneContainer;
 import dev.buildtool.kturrets.bullet.BulletTurretContainer;
+import dev.buildtool.kturrets.cobble.CobbleDroneContainer;
 import dev.buildtool.kturrets.cobble.CobbleTurretContainer;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
 import dev.buildtool.kturrets.gauss.GaussTurretContainer;
@@ -26,7 +27,8 @@ public class TContainers {
 
     public static MenuType<BrickDroneContainer> BRICK_DRONE;
 
-    public static RegistryObject<MenuType<BulletDroneContainer>> BULLET_DRONE = CONTAINERS.register("bullet_drone", () -> IForgeMenuType.create(BulletDroneContainer::new));
+    public static final RegistryObject<MenuType<BulletDroneContainer>> BULLET_DRONE = CONTAINERS.register("bullet_drone", () -> IForgeMenuType.create(BulletDroneContainer::new));
+    public static final RegistryObject<MenuType<CobbleDroneContainer>> COBBLE_DRONE = CONTAINERS.register("cobble_drone", () -> IForgeMenuType.create(CobbleDroneContainer::new));
 
     static {
         ARROW_TURRET = IForgeMenuType.create(ArrowTurretContainer::new);

@@ -21,5 +21,6 @@ public class EntityAttributes {
 
         attributeCreationEvent.put(TEntities.BRICK_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.BRICK_TURRET_RANGE.get()).add(Attributes.MAX_HEALTH, Math.max(KTurrets.BRICK_TURRET_HEALTH.get() - 20, 10)).add(Attributes.ARMOR, Math.max(0, KTurrets.BRICK_TURRET_ARMOR.get() - 2)).build());
         attributeCreationEvent.put(TEntities.BULLET_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.BULLET_TURRET_RANGE.get()).add(Attributes.MAX_HEALTH, Math.max(10, KTurrets.BULLET_TURRET_HEALTH.get() - 20)).add(Attributes.ARMOR, Math.max(0, KTurrets.BULLET_TURRET_ARMOR.get() - 2)).build());
+        attributeCreationEvent.put(TEntities.COBBLE_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.COBBLE_TURRET_RANGE.get()).add(Attributes.MAX_HEALTH, Math.max(10, KTurrets.COBBLE_TURRET_HEALTH.get() - 20)).add(Attributes.ARMOR, Math.max(0, KTurrets.COBBLE_TURRET_ARMOR.get() - 2)).build());
     }
 }

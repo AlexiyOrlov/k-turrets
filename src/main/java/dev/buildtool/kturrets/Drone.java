@@ -57,11 +57,11 @@ public abstract class Drone extends Turret {
     public void travel(Vec3 vector) {
         float flyingSpeed = getSpeed();
         if (this.isInWater()) {
-            this.moveRelative((float) (flyingSpeed / 2), vector);
+            this.moveRelative(flyingSpeed / 2, vector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
         } else if (this.isInLava()) {
-            this.moveRelative((float) (flyingSpeed / 2), vector);
+            this.moveRelative(flyingSpeed / 2, vector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
         } else {
@@ -77,7 +77,7 @@ public abstract class Drone extends Turret {
                 f = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
             }
 
-            this.moveRelative(this.onGround ? 0.1F * f1 : (float) flyingSpeed, vector);
+            this.moveRelative(this.onGround ? 0.1F * f1 : flyingSpeed, vector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(f));
         }
