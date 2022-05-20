@@ -14,6 +14,7 @@
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
   "item.k_turrets.cobble_drone_item": "Cobble Drone",
+  "item.k_turrets.arrow_drone_item": "Arrow Drone",
 
   "k_turrets.targets": "Targets:",
   "k_turrets.added": "Added to targets",
@@ -53,5 +54,6 @@
 
   "entity.k_turrets.brick_drone": "Brick Drone",
   "entity.k_turrets.bullet_drone": "Bullet Drone",
-  "entity.k_turrets.cobble_drone": "Cobble Drone"
+  "entity.k_turrets.cobble_drone": "Cobble Drone",
+  "entity.k_turrets.arrow_drone": "Arrow Drone"
 }

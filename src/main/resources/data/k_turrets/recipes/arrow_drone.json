@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ada",
+    "sfs",
+    "sfs"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:arrow"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "s": {
+      "tag": "forge:ingots/steel"
+    },
+    "f": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "item": "k_turrets:arrow_drone_item"
+  }
+}

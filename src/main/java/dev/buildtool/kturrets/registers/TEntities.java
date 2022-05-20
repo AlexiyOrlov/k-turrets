@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.arrow.ArrowDrone;
 import dev.buildtool.kturrets.arrow.ArrowTurret;
 import dev.buildtool.kturrets.brick.Brick;
 import dev.buildtool.kturrets.brick.BrickDrone;
@@ -38,6 +39,7 @@ public class TEntities {
     public static final RegistryObject<EntityType<BrickDrone>> BRICK_DRONE = ENTITIES.register("brick_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BrickDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("brick_drone")));
     public static final RegistryObject<EntityType<BulletDrone>> BULLET_DRONE = ENTITIES.register("bullet_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BulletDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("bullet_drone")));
     public static final RegistryObject<EntityType<CobbleDrone>> COBBLE_DRONE = ENTITIES.register("cobble_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new CobbleDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("cobble_drone")));
+    public static final RegistryObject<EntityType<ArrowDrone>> ARROW_DRONE = ENTITIES.register("arrow_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new ArrowDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("arrow_drone")));
     private static EntityType cast(EntityType<Entity> entityType) {
         return entityType;
     }
