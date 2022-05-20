@@ -32,9 +32,9 @@ public abstract class Drone extends Turret {
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
         moveControl = new FlyingMoveControl(this, 20, true);
-        setPathfindingMalus(BlockPathTypes.FENCE, -1);
-        setPathfindingMalus(BlockPathTypes.DAMAGE_CACTUS, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_CACTUS, -1);
+        setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
+        setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
     }
 
     @Override
