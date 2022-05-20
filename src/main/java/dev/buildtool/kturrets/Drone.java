@@ -146,6 +146,6 @@ public abstract class Drone extends Turret {
 
     @Override
     public int getAmbientSoundInterval() {
-        return 440;
+        return 330;
     }
 }
