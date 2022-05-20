@@ -43,6 +43,7 @@ public class TItems {
         ITEMS.register("cobble_drone_item", () -> new ForgeSpawnEggItem(TEntities.COBBLE_DRONE, 0x2d4c59, 0x46778b, defaults()));
         ITEMS.register("arrow_drone_item", () -> new ForgeSpawnEggItem(TEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults()));
         ITEMS.register("gauss_drone_item", () -> new ForgeSpawnEggItem(TEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults()));
+        ITEMS.register("firecharge_drone_item", () -> new ForgeSpawnEggItem(TEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults()));
     }
 
     private static Item.Properties defaults() {

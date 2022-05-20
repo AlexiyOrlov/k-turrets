@@ -10,6 +10,7 @@ import dev.buildtool.kturrets.bullet.BulletTurretContainer;
 import dev.buildtool.kturrets.cobble.CobbleDroneContainer;
 import dev.buildtool.kturrets.cobble.CobbleTurretContainer;
 import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
+import dev.buildtool.kturrets.firecharge.FirechargeDroneContainer;
 import dev.buildtool.kturrets.gauss.GaussDroneContainer;
 import dev.buildtool.kturrets.gauss.GaussTurretContainer;
 import net.minecraft.world.inventory.MenuType;
@@ -33,6 +34,7 @@ public class TContainers {
     public static final RegistryObject<MenuType<CobbleDroneContainer>> COBBLE_DRONE = CONTAINERS.register("cobble_drone", () -> IForgeMenuType.create(CobbleDroneContainer::new));
     public static final RegistryObject<MenuType<ArrowDroneContainer>> ARROW_DRONE = CONTAINERS.register("arrow_drone", () -> IForgeMenuType.create(ArrowDroneContainer::new));
     public static final RegistryObject<MenuType<GaussDroneContainer>> GAUSS_DRONE = CONTAINERS.register("gauss_drone", () -> IForgeMenuType.create(GaussDroneContainer::new));
+    public static final RegistryObject<MenuType<FirechargeDroneContainer>> FIRECHARGE_DRONE = CONTAINERS.register("firecharge_drone", () -> IForgeMenuType.create(FirechargeDroneContainer::new));
 
     static {
         ARROW_TURRET = IForgeMenuType.create(ArrowTurretContainer::new);

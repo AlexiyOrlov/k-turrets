@@ -24,5 +24,6 @@ public class EntityAttributes {
         attributeCreationEvent.put(TEntities.COBBLE_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.COBBLE_TURRET_RANGE.get() - 5).add(Attributes.MAX_HEALTH, Math.max(10, KTurrets.COBBLE_TURRET_HEALTH.get() - 20)).add(Attributes.ARMOR, Math.max(0, KTurrets.COBBLE_TURRET_ARMOR.get() - 2)).build());
         attributeCreationEvent.put(TEntities.ARROW_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.ARROW_TURRET_RANGE.get() - 5).add(Attributes.MAX_HEALTH, Math.max(10, KTurrets.ARROW_TURRET_HEALTH.get() - 20)).add(Attributes.ARMOR, Math.max(0, KTurrets.ARROW_TURRET_ARMOR.get() - 2)).build());
         attributeCreationEvent.put(TEntities.GAUSS_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.GAUSS_TURRET_RANGE.get() - 5).add(Attributes.MAX_HEALTH, Math.max(10, KTurrets.GAUSS_TURRET_HEALTH.get() - 20)).add(Attributes.ARMOR, Math.max(0, KTurrets.GAUSS_TURRET_ARMOR.get() - 2)).build());
+        attributeCreationEvent.put(TEntities.FIRECHARGE_DRONE.get(), Drone.createDefaultAttributes().add(Attributes.FOLLOW_RANGE, KTurrets.CHARGE_TURRET_RANGE.get() - 5).add(Attributes.MAX_HEALTH, Math.max(10, KTurrets.CHARGE_TURRET_HEALTH.get() - 20)).add(Attributes.ARMOR, Math.max(0, KTurrets.CHARGE_TURRET_ARMOR.get() - 2)).build());
     }
 }
