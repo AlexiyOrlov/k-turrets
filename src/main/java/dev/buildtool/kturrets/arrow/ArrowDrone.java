@@ -42,7 +42,7 @@ public class ArrowDrone extends Drone {
         }
     };
 
-    protected final ItemHandler ammo = new ItemHandler(27) {
+    protected final ItemHandler ammo = new ItemHandler(18) {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
             if (stack.getItem() instanceof ArrowItem)

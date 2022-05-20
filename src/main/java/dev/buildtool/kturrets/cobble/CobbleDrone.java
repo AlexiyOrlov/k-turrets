@@ -30,7 +30,7 @@ import java.util.List;
 
 public class CobbleDrone extends Drone {
 
-    protected ItemHandler stone = new ItemHandler(27) {
+    protected ItemHandler stone = new ItemHandler(18) {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
             if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.STONE_TOOL_MATERIALS).contains(stack.getItem()))

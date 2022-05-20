@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class GaussDrone extends Drone {
-    protected ItemHandler ammo = new ItemHandler(27) {
+    protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
             if (stack.getItem() == TItems.GAUSS_BULLET.get())
