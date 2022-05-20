@@ -50,6 +50,7 @@ public class KTurrets {
     public static ForgeConfigSpec.IntValue GAUSS_TURRET_DAMAGE, GAUSS_TURRET_RATE;
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
+    public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -195,5 +196,10 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
+            ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
+            return builder.build();
+        }).getRight());
     }
 }
