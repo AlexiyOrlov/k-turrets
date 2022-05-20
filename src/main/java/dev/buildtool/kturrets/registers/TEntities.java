@@ -14,6 +14,7 @@ import dev.buildtool.kturrets.cobble.CobbleTurret;
 import dev.buildtool.kturrets.cobble.Cobblestone;
 import dev.buildtool.kturrets.firecharge.FireChargeTurret;
 import dev.buildtool.kturrets.gauss.GaussBullet;
+import dev.buildtool.kturrets.gauss.GaussDrone;
 import dev.buildtool.kturrets.gauss.GaussTurret;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,6 +41,7 @@ public class TEntities {
     public static final RegistryObject<EntityType<BulletDrone>> BULLET_DRONE = ENTITIES.register("bullet_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BulletDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("bullet_drone")));
     public static final RegistryObject<EntityType<CobbleDrone>> COBBLE_DRONE = ENTITIES.register("cobble_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new CobbleDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("cobble_drone")));
     public static final RegistryObject<EntityType<ArrowDrone>> ARROW_DRONE = ENTITIES.register("arrow_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new ArrowDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("arrow_drone")));
+    public static final RegistryObject<EntityType<GaussDrone>> GAUSS_DRONE = ENTITIES.register("gauss_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new GaussDrone(p_20723_), MobCategory.MISC).sized(0.6f, 0.6f).build("gauss_drone")));
     private static EntityType cast(EntityType<Entity> entityType) {
         return entityType;
     }
