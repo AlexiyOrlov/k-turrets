@@ -44,7 +44,7 @@ public class BulletDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.BULLET_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (isProtectingFromPlayers() && livingEntity instanceof Player)
