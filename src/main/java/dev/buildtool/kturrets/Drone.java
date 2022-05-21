@@ -5,6 +5,7 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -147,5 +148,17 @@ public abstract class Drone extends Turret {
     @Override
     public int getAmbientSoundInterval() {
         return 330;
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        getOwner().ifPresent(uuid1 -> {
+            if (!level.isClientSide) {
+                Player player = level.getPlayerByUUID(uuid1);
+                if (player != null)
+                    player.sendMessage(new TranslatableComponent("k_turrets.drone.destroyed", getDisplayName()), getUUID());
+            }
+        });
     }
 }
