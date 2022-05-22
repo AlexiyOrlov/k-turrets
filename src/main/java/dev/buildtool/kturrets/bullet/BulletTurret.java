@@ -88,7 +88,7 @@ public class BulletTurret extends Turret {
 
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
-        if (canUse(playerEntity) && playerEntity.isCrouching()) {
+        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
             if (playerEntity instanceof ServerPlayer) {
                 NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }

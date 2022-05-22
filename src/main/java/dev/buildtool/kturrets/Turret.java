@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider {
     private static final EntityDataAccessor<CompoundTag> TARGETS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PROTECTION_FROM_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     /**
      * Players that are not allied to the owner
@@ -60,7 +60,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     public static AttributeSupplier.Builder createDefaultAttributes() {
-        return createLivingAttributes().add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
+        return createLivingAttributes().add(Attributes.FLYING_SPEED, 0.2).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
     }
 
     @Override
@@ -74,7 +74,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.putInt("Count", targets.size());
         entityData.define(TARGETS, compoundNBT);
         entityData.define(OWNER, Optional.empty());
-        entityData.define(MOVEABLE, true);
+        entityData.define(MOVEABLE, false);
         entityData.define(PROTECTION_FROM_PLAYERS, false);
     }
 
@@ -172,7 +172,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void openTargetScreen() {
+    void openTargetScreen() {
         Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
     }
 

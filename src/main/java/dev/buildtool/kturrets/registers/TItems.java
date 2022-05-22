@@ -37,6 +37,13 @@ public class TItems {
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ForgeSpawnEggItem(TEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults()));
         COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ForgeSpawnEggItem(TEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults()));
+
+        ITEMS.register("brick_drone_item", () -> new ForgeSpawnEggItem(TEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults()));
+        ITEMS.register("bullet_drone_item", () -> new ForgeSpawnEggItem(TEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults()));
+        ITEMS.register("cobble_drone_item", () -> new ForgeSpawnEggItem(TEntities.COBBLE_DRONE, 0x2d4c59, 0x46778b, defaults()));
+        ITEMS.register("arrow_drone_item", () -> new ForgeSpawnEggItem(TEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults()));
+        ITEMS.register("gauss_drone_item", () -> new ForgeSpawnEggItem(TEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults()));
+        ITEMS.register("firecharge_drone_item", () -> new ForgeSpawnEggItem(TEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults()));
     }
 
     private static Item.Properties defaults() {

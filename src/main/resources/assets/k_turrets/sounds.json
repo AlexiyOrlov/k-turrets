@@ -13,5 +13,10 @@
     "sounds": [
       "k_turrets:cobble_shoot"
     ]
+  },
+  "drone_fly": {
+    "sounds": [
+      "k_turrets:fan"
+    ]
   }
 }

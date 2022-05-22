@@ -11,6 +11,13 @@
   "item.k_turrets.gauss_turret_item": "Гаусс-турель",
   "item.k_turrets.cobble_turret_item": "Каменная турель",
 
+  "item.k_turrets.brick_drone_item": "Кирпичный Дрон",
+  "item.k_turrets.bullet_drone_item": "Пулевой Дрон",
+  "item.k_turrets.cobble_drone_item": "Каменный Дрон",
+  "item.k_turrets.arrow_drone_item": "Стрельный Дрон",
+  "item.k_turrets.gauss_drone_item": "Гаусс-дрон",
+  "item.k_turrets.firecharge_drone_item": "Огненно-шаровой Дрон",
+
   "k_turrets.targets": "Цели:",
   "k_turrets.added": "Цель добавлена",
   "k_turrets.add.entity.type": "Добавить новый тип моба к списку целей",
@@ -29,6 +36,11 @@
   "k_turrets.incorrect.entry": "Неправильная запись",
   "k_turrets.removed": "Удалено %1$s целей",
   "k_turrets.turret_claimed": "Турель присвоена",
+  "k_turrets.following.owner": "Следует за владельцем",
+  "k_turrets.staying": "Остаётся",
+  "k_turrets.drone_claimed": "Дрон присвоен",
+  "k_turrets.claim.drone": "Присвоить дрон",
+  "k-turrets.drone.not.yours": "Этот дрон не принадлежит тебе",
 
   "death.attack.k_turrets.bullet": "%1$s был застрелен Пулевой Турелью",
   "death.attack.k_turrets.gauss_bullet": "%1$s был застрелен Гаусс-турелью",
@@ -40,5 +52,12 @@
   "entity.k_turrets.bullet_turret": "Пулевая Турель",
   "entity.k_turrets.brick_turret": "Кирпичная турель",
   "entity.k_turrets.gauss_turret": "Гаусс-турель",
-  "entity.k_turrets.cobble_turret": "Каменная Турель"
+  "entity.k_turrets.cobble_turret": "Каменная Турель",
+
+  "entity.k_turrets.brick_drone": "Кирпичный Дрон",
+  "entity.k_turrets.bullet_drone": "Пулевой Дрон",
+  "entity.k_turrets.cobble_drone": "Каменный Дрон",
+  "entity.k_turrets.arrow_drone": "Стрельный Дрон",
+  "entity.k_turrets.gauss_drone": "Гаусс-дрон",
+  "entity.k_turrets.firecharge_drone": "Огненно-шаровой Дрон"
 }

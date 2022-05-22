@@ -10,14 +10,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class CobbleTurretContainer extends Container2 {
-    public CobbleTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
-        super(TContainers.COBBLE_TURRET, i);
-        CobbleTurret cobbleTurret = (CobbleTurret) playerInventory.player.level.getEntity(packetBuffer.readInt());
+public class CobbleDroneContainer extends Container2 {
+    public CobbleDroneContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
+        super(TContainers.COBBLE_DRONE.get(), i);
+        CobbleDrone cobbleDrone = (CobbleDrone) playerInventory.player.level.getEntity(buffer.readInt());
         int index = 0;
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 9; k++) {
-                addSlot(new ItemHandlerSlot(cobbleTurret.cobblestone, index++, k * 18, j * 18));
+                addSlot(new ItemHandlerSlot(cobbleDrone.stone, index++, k * 18, j * 18));
             }
         }
 
@@ -27,11 +27,11 @@ public class CobbleTurretContainer extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 26) {
-            if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.STONE_TOOL_MATERIALS).contains(itemStack.getItem()) && !moveItemStackTo(itemStack, 0, 27, false))
+        if (index > 17) {
+            if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.STONE_TOOL_MATERIALS).contains(itemStack.getItem()) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
-            if (!moveItemStackTo(itemStack, 27, 63, false))
+            if (!moveItemStackTo(itemStack, 18, 54, false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);
