@@ -134,7 +134,7 @@ public class TurretOptionsScreen extends Screen2 {
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
         renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-        renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
+        renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 60, font);
         String targetEntry = addEntityField.getValue();
         if (targetEntry.length() > 0) {
             List<ResourceLocation> entityTypes;
