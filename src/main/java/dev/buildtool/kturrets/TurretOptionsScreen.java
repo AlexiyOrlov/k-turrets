@@ -61,10 +61,17 @@ public class TurretOptionsScreen extends Screen2 {
             KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
             minecraft.player.closeContainer();
         }));
-        addRenderableWidget(new BetterButton(centerX, 60, new TranslatableComponent("k_turrets.clear.list"), p_onPress_1_ -> {
+        BetterButton clearTargets = new BetterButton(centerX, 60, new TranslatableComponent("k_turrets.clear.list"), p_onPress_1_ -> {
             targets.clear();
             tempStatusMap.clear();
             targetButtons.forEach(renderables::remove);
+        });
+        addRenderableWidget(clearTargets);
+        addRenderableWidget(new BetterButton(clearTargets.x + clearTargets.getWidth(), 60, new TranslatableComponent("k_turrets.reset.list"), p_93751_ -> {
+            targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
+            targets.forEach(entityType -> tempStatusMap.put(entityType, true));
+            minecraft.screen.onClose();
+            minecraft.player.closeContainer();
         }));
         addRenderableWidget(new SwitchButton(centerX, 80, new TranslatableComponent("k_turrets.mobile"), new TranslatableComponent("k_turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));

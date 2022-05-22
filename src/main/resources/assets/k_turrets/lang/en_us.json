@@ -42,6 +42,7 @@
   "k_turrets.claim.drone": "Claim this drone",
   "k-turrets.drone.not.yours": "This drone doesn't belong to you",
   "k_turrets.drone.destroyed": "%1$s was destroyed",
+  "k_turrets.reset.list": "Reset targets",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
