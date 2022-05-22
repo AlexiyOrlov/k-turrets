@@ -27,8 +27,8 @@ credits = "" #optional
 authors = "Alexiy" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-Adds some configurable turrets to shoot down enemies.
-All turrets are crafted from steel ingots.
+Adds some configurable turrets and drones to shoot down enemies.
+All of them are crafted from steel ingots.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.k_turrets]] #optional
