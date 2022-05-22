@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -39,7 +40,13 @@ public abstract class Drone extends Turret {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
+        ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
+        if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.STEEL_INGOT))) {
+            heal(getMaxHealth() / 4);
+            itemInHand.shrink(1);
+            return InteractionResult.SUCCESS;
+        }
         if (canUse(playerEntity)) {
             if (level.isClientSide) {
                 openTargetScreen();

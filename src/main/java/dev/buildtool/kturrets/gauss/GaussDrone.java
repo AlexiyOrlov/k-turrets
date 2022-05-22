@@ -95,14 +95,14 @@ public class GaussDrone extends Drone {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player playerEntity, InteractionHand p_230254_2_) {
+    protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
             if (playerEntity instanceof ServerPlayer) {
                 NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
             return InteractionResult.SUCCESS;
         }
-        return super.mobInteract(playerEntity, p_230254_2_);
+        return super.mobInteract(playerEntity, interactionHand);
     }
 
     @Override
