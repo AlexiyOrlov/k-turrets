@@ -41,6 +41,7 @@
   "k_turrets.drone_claimed": "Дрон присвоен",
   "k_turrets.claim.drone": "Присвоить дрон",
   "k-turrets.drone.not.yours": "Этот дрон не принадлежит тебе",
+  "k_turrets.drone.destroyed": "%1$s был уничтожен",
 
   "death.attack.k_turrets.bullet": "%1$s был застрелен Пулевой Турелью",
   "death.attack.k_turrets.gauss_bullet": "%1$s был застрелен Гаусс-турелью",
