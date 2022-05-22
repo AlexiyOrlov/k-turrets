@@ -1,9 +1,9 @@
 # This is a...
 
-Minecraft Forge mod which adds several turrets.
-All turrets are configurable. Turrets by default shoot at
-hostile mobs. Turrets are placed from respective spawn eggs, which are craftable.
-Their recipes require standard steel ingots.
+Minecraft Forge mod which adds several turrets and combat drones.
+All turrets are configurable. Turrets and drones by default shoot at
+hostile mobs. They are placed from the respective spawn eggs, which are craftable.
+Egg recipes require standard steel ingots.
 
 ## Dependencies
 

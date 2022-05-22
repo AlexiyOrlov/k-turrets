@@ -1,3 +1,11 @@
+1.1.0-1.18.2:
+all items with the tag "stone tool materials" are valid for cobble turret ammo now;
+made turrets unmovable by default;
+reversed UI opening order (item UI first);
+removed shaped steel ingot recipe;
+made fire charge turret immune to fire;
+made 6 drones.
+
 1.0.2-1.18.2:
 added a text message when a turret is claimed;
 claimed turrets won't damage their owner or another turret with the same owner;
