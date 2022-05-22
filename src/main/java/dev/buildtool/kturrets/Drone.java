@@ -161,4 +161,9 @@ public abstract class Drone extends Turret {
             }
         });
     }
+
+    @Override
+    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+
+    }
 }
