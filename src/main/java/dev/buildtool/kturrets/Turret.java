@@ -290,4 +290,12 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     public boolean isAlliedTo(Entity target) {
         return super.isAlliedTo(target) || (getOwner().isPresent() && (target.getUUID().equals(getOwner().get())) || target instanceof Turret turret && turret.getOwner().isPresent() && turret.getOwner().equals(getOwner()));
     }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource p_20122_) {
+        Entity source = p_20122_.getEntity();
+        if (source instanceof Player player && getOwner().isPresent() && player.getUUID().equals(getOwner().get()))
+            return true;
+        return super.isInvulnerableTo(p_20122_);
+    }
 }
