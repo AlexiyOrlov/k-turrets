@@ -1,8 +1,9 @@
-1.1.1-1.18.2:
+1.1.3-1.18.2:
 turrets/drones are now saved onto the spawn egg when dismantled;
 added target list reset button;
 added an ability to repair a drone/turret with a steel ingot by Shift+right click;
-claimed turrets/drones can't be damaged by player;
+claimed turrets/drones can't be damaged by owner;
+fixed turret/drone being stuck in attack mode when its ammo or weapon is empty;
 
 1.1.0-1.18.2:
 all items with the tag "stone tool materials" are valid for cobble turret ammo now;
