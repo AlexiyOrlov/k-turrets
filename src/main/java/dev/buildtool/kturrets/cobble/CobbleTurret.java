@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.cobble;
 
+import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.Sounds;
@@ -15,7 +16,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -45,25 +45,17 @@ public class CobbleTurret extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.COBBLE_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
-                        return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity mobEntity) {
-                        return decodeTargets(getTargets()).contains(mobEntity.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return !cobblestone.isEmpty() && super.canUse();
-            }
-        });
+        targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
     @Override
     protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(cobblestone);
+    }
+
+    @Override
+    public boolean isArmed() {
+        return !cobblestone.isEmpty();
     }
 
     @Override

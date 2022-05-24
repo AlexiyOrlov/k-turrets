@@ -298,4 +298,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             return true;
         return super.isInvulnerableTo(p_20122_);
     }
+
+    /**
+     * @return ready to shoot
+     */
+    public abstract boolean isArmed();
 }

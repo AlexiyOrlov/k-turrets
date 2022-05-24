@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.bullet;
 
+import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.Sounds;
@@ -14,7 +15,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -44,20 +44,7 @@ public class BulletTurret extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.BULLET_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
-                        return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity livingEntity1) {
-                        return decodeTargets(getTargets()).contains(livingEntity1.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return !ammo.isEmpty() && super.canUse();
-            }
-        });
+        targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
     @Override
@@ -112,5 +99,10 @@ public class BulletTurret extends Turret {
     @Override
     protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(ammo);
+    }
+
+    @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty();
     }
 }

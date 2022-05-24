@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.arrow;
 
+import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
@@ -14,7 +15,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -106,6 +106,11 @@ public class ArrowTurret extends Turret {
     }
 
     @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty() && !weapon.isEmpty();
+    }
+
+    @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", ammo.serializeNBT());
@@ -123,20 +128,7 @@ public class ArrowTurret extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.ARROW_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
-                        return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity mobEntity) {
-                        return decodeTargets(getTargets()).contains(mobEntity.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return !weapon.getStackInSlot(0).isEmpty() && !ammo.isEmpty() && super.canUse();
-            }
-        });
+        targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
     @Override
@@ -154,4 +146,5 @@ public class ArrowTurret extends Turret {
     public ItemStack getItemBySlot(EquipmentSlot p_184582_1_) {
         return weapon.getStackInSlot(0);
     }
+
 }
