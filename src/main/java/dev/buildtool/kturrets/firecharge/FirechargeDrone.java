@@ -1,6 +1,5 @@
 package dev.buildtool.kturrets.firecharge;
 
-import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.TEntities;
@@ -15,6 +14,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
@@ -46,7 +46,25 @@ public class FirechargeDrone extends Drone {
     protected void registerGoals() {
         super.registerGoals();
         goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new AttackTargetGoal(this));
+        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
+                livingEntity -> {
+                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
+                        return alienPlayers.test((LivingEntity) livingEntity);
+                    if (livingEntity instanceof LivingEntity entity) {
+                        return !entity.fireImmune() && decodeTargets(getTargets()).contains(entity.getType());
+                    }
+                    return false;
+                }) {
+            @Override
+            public boolean canUse() {
+                return isArmed() && super.canUse();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return isArmed() && super.canContinueToUse();
+            }
+        });
     }
 
     @Override
