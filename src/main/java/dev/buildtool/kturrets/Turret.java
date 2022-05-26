@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.satako.ItemHandler;
+import dev.buildtool.satako.Ownable;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
 /**
  * Extends Mob entity because of goals
  */
-public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider {
+public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider, Ownable {
     private static final EntityDataAccessor<CompoundTag> TARGETS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
@@ -288,7 +289,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     @Override
     public boolean isAlliedTo(Entity target) {
-        return super.isAlliedTo(target) || (getOwner().isPresent() && (target.getUUID().equals(getOwner().get())) || target instanceof Turret turret && turret.getOwner().isPresent() && turret.getOwner().equals(getOwner()));
+        return super.isAlliedTo(target) || (getOwner().isPresent() && (target.getUUID().equals(getOwner().get())) || target instanceof Turret turret && turret.getOwner().isPresent() && turret.getOwner().equals(getOwner())) || target instanceof Ownable ownable && ownable.isAlly(this);
     }
 
     @Override
@@ -303,4 +304,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
      * @return ready to shoot
      */
     public abstract boolean isArmed();
+
+    @Override
+    public UUID getOwnerUUID() {
+        return getOwner().isPresent() ? getOwner().get() : null;
+    }
 }
