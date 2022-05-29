@@ -1,5 +1,5 @@
 0.1.7:
-achieve parity with the 1.18 version except drones
+achieve parity with the 1.18 version except drones and target list reset
 
 0.1.6:
 fixed Arrow turret damage calculation and enchantment application
