@@ -150,6 +150,12 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
+        ItemStack itemStack = playerEntity.getItemInHand(p_230254_2_);
+        if (getHealth() < getMaxHealth() && itemStack.getItem().getTags().stream().anyMatch(resourceLocation -> resourceLocation.equals(KTurrets.STEEL_INGOT))) {
+            heal(getMaxHealth() / 6);
+            itemStack.shrink(1);
+            return ActionResultType.SUCCESS;
+        }
         if (canUse(playerEntity)) {
             if (level.isClientSide) {
                 openTargetScreen();
