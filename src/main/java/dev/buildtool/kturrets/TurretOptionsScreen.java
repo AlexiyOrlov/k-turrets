@@ -41,14 +41,15 @@ public class TurretOptionsScreen extends Screen2 {
         addButton(new BetterButton(centerX, 20, new TranslationTextComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
             String entityType = addEntityField.getValue();
             EntityType<?> type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityType));
-            if (type != null) {
+            if (entityType.length() > 2 && type != null) {
                 if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
                     minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.incorrect.entry"), Util.NIL_UUID);
                 } else {
                     targets.add(type);
                     tempStatusMap.put(type, true);
                     minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
-                    addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
+                    if (entityType.contains(":"))
+                        addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
                 }
             }
         }));
