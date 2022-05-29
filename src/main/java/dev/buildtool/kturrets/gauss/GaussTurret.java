@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.gauss;
 
+import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.Sounds;
@@ -8,7 +9,6 @@ import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -45,21 +45,7 @@ public class GaussTurret extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.GAUSS_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
-                        return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity) {
-                        LivingEntity entity = (LivingEntity) livingEntity;
-                        return decodeTargets(getTargets()).contains(entity.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return !ammo.isEmpty() && super.canUse();
-            }
-        });
+        targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
     @Override

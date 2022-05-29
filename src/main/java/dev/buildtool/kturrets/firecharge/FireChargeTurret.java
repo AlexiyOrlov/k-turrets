@@ -60,6 +60,11 @@ public class FireChargeTurret extends Turret {
             public boolean canUse() {
                 return !ammo.isEmpty() && super.canUse();
             }
+
+            @Override
+            public boolean canContinueToUse() {
+                return isArmed() && super.canContinueToUse();
+            }
         });
     }
 

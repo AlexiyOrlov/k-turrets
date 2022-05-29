@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.brick;
 
+import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
@@ -7,7 +8,6 @@ import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -46,21 +46,7 @@ public class BrickTurret extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
-                        return alienPlayers.test((LivingEntity) livingEntity);
-                    if (livingEntity instanceof LivingEntity) {
-                        LivingEntity mobEntity = (LivingEntity) livingEntity;
-                        return decodeTargets(getTargets()).contains(mobEntity.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return !bricks.isEmpty() && super.canUse();
-            }
-        });
+        targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
     @Override
