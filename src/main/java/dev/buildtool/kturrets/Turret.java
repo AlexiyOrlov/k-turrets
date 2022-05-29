@@ -23,6 +23,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -277,7 +278,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
      *
      * @return appropriate spawn egg
      */
-    public abstract Item getSpawnItem();
+    public Item getSpawnItem() {
+        return ForgeSpawnEggItem.fromEntityType(getType());
+    }
 
     public abstract boolean isArmed();
 

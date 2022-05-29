@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -51,11 +50,6 @@ public class GaussTurret extends Turret {
     @Override
     protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(ammo);
-    }
-
-    @Override
-    public Item getSpawnItem() {
-        return TItems.GAUSS_TURRET.get();
     }
 
     @Override

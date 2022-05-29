@@ -4,7 +4,6 @@ import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,7 +17,10 @@ import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.*;
+import net.minecraft.item.ArrowItem;
+import net.minecraft.item.BowItem;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ActionResultType;
@@ -101,11 +103,6 @@ public class ArrowTurret extends Turret {
     @Override
     protected List<ItemHandler> getContainedItems() {
         return Arrays.asList(weapon, ammo);
-    }
-
-    @Override
-    public Item getSpawnItem() {
-        return TItems.ARROW_TURRET.get();
     }
 
     @Override

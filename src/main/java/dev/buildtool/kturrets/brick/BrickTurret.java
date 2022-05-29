@@ -4,7 +4,6 @@ import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -52,11 +50,6 @@ public class BrickTurret extends Turret {
     @Override
     protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(bricks);
-    }
-
-    @Override
-    public Item getSpawnItem() {
-        return TItems.BRICK_TURRET.get();
     }
 
     @Override
