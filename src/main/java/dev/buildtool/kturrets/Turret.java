@@ -290,4 +290,15 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         }
         return super.isInvulnerableTo(p_180431_1_);
     }
+
+    @Override
+    public boolean isAlliedTo(Entity target) {
+        if (target instanceof Turret) {
+            Turret turret = (Turret) target;
+            return turret.getOwner().isPresent() && turret.getOwner().equals(getOwner());
+        }
+        if (getOwner().isPresent() && getOwner().get().equals(target.getUUID()))
+            return true;
+        return super.isAlliedTo(target);
+    }
 }
