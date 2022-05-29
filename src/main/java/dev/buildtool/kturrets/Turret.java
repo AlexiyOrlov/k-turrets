@@ -275,4 +275,6 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
      * @return appropriate spawn egg
      */
     public abstract Item getSpawnItem();
+
+    public abstract boolean isArmed();
 }

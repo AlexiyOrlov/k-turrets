@@ -73,6 +73,11 @@ public class GaussTurret extends Turret {
     }
 
     @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty();
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         if (target.isAlive()) {
             for (ItemStack item : ammo.getItems()) {

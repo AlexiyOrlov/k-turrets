@@ -109,6 +109,11 @@ public class ArrowTurret extends Turret {
     }
 
     @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty() && !weapon.isEmpty();
+    }
+
+    @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Ammo", ammo.serializeNBT());

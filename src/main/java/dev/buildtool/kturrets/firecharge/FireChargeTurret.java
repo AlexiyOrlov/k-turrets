@@ -140,4 +140,9 @@ public class FireChargeTurret extends Turret {
     public Item getSpawnItem() {
         return TItems.FIRECHARGE_TURRET.get();
     }
+
+    @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty();
+    }
 }

@@ -121,4 +121,9 @@ public class BulletTurret extends Turret {
     public Item getSpawnItem() {
         return TItems.BULLET_TURRET.get();
     }
+
+    @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty();
+    }
 }

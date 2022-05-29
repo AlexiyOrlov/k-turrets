@@ -74,6 +74,11 @@ public class CobbleTurret extends Turret {
     }
 
     @Override
+    public boolean isArmed() {
+        return !cobblestone.isEmpty();
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity target, float p_82196_2_) {
         if (target.isAlive()) {
             for (ItemStack cobblestoneItem : cobblestone.getItems()) {

@@ -74,6 +74,11 @@ public class BrickTurret extends Turret {
     }
 
     @Override
+    public boolean isArmed() {
+        return !bricks.isEmpty();
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity target, float distFactor) {
         if (target.isAlive()) {
             for (ItemStack bricksItem : bricks.getItems()) {
