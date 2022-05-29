@@ -22,7 +22,7 @@ displayName = "K-Turrets" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile = "k-turrets.png" #optional
 # A text field displayed in the mod UI
-credits = "" #optional
+credits = "Mapping_bl (French tr.)" #optional
 # A text field displayed in the mod UI
 authors = "Alexiy" #optional
 # The description text for the mod (multi line!) (#mandatory)

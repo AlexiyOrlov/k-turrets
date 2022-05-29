@@ -1,0 +1,42 @@
+{
+  "itemGroup.k-turrets": "K-Tourelle",
+
+  "item.k-turrets.arrow_turret_item": "Tourelle à flèche",
+  "item.k-turrets.bullet_turret_item": "Tourelle à balle",
+  "item.k-turrets.brick_turret_item": "Tourelle à brique",
+  "item.k-turrets.firecharge_turret_item": "Tourelle lance flame",
+  "item.k-turrets.steel_ingot": "Lingot d'acier",
+  "item.k-turrets.semi_steel": "Semi Lingot d'acier",
+  "item.k-turrets.gauss_bullet": "Balle de Gauss",
+  "item.k-turrets.gauss_turret_item": "Tourelle à balle de Gauss",
+  "item.k-turrets.cobble_turret_item": "Tourelle lapideuse",
+
+  "k-turrets.targets": "Cible:",
+  "k-turrets.added": "Ajouter au cibles",
+  "k-turrets.add.entity.type": "Ajouter une nouvelle entité à la liste",
+  "k-turrets.choose.tooltip": "Choisie l'entité que tu veux retirer en appuient sur son boutton",
+  "k-turrets.hold.alt.to.scroll": "Pour parcourir la liste des cibles, maintien Alt et utilise la molette de la sourie",
+  "k-turrets.dismantle": "Démonter",
+  "k-turrets.clear.list": "Supprimer la liste des cible",
+  "k-turrets.inventory.hint": "Appuie sur la touche maj et fait un clic droit sur la tourelle/le drone pour voir son inventaire",
+  "k-turrets.claim.turret": "Revendiquez la tourelle",
+  "k-turrets.turret.not.yours": "Cette tourelle ne t'appartien pas",
+  "k-turrets.mobile": "Mobile",
+  "k-turrets.immobile": "Immobile",
+  "k-turrets.protect.from.players": "Protège les étranger",
+  "k-turrets.not.protect.from.players": "Ne Protège pas les étranger",
+  "k-turrets.integrity": "Integrité",
+  "k-turrets.incorrect.entry": "Entrée incorrecte",
+
+  "death.attack.k-turrets.bullet": "%1$s a été toucher par une balle",
+  "death.attack.k-turrets.gauss_bullet": "%1$s a été toucher par une balle de Gauss",
+  "death.attack.k-turrets.brick": "%1$s a été frapper par une brick",
+  "death.attack.k-turrets.cobblestone": "%1$s c'est fais lapidé",
+
+  "entity.k-turrets.fire_charge_turret": "Tourelle lance flame",
+  "entity.k-turrets.arrow_turret": "Tourelle à flèchet",
+  "entity.k-turrets.bullet_turret": "Tourelle à balle",
+  "entity.k-turrets.brick_turret": "Tourelle à brique",
+  "entity.k-turrets.gauss_turret": "Tourelle à balle de Gauss",
+  "entity.k-turrets.cobble_turret": "Tourelle lapideuse"
+}
