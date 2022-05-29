@@ -1,10 +1,10 @@
 package dev.buildtool.kturrets.gauss;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.PresetProjectile;
 import dev.buildtool.kturrets.registers.TEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.world.World;
 
 public class GaussBullet extends PresetProjectile {
@@ -18,7 +18,7 @@ public class GaussBullet extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectEntityDamageSource("k-turrets.gauss_bullet", this, getOwner());
+        return new IndirectDamageSource("k-turrets.gauss_bullet", this, getOwner());
     }
 
     @Override

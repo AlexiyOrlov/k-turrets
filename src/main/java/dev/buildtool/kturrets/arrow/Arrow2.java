@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.arrow;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -81,9 +82,9 @@ public class Arrow2 extends ArrowEntity {
         DamageSource damagesource;
         if (entity1 == null || !entity1.isAlliedTo(entity)) {
             if (entity1 == null) {
-                damagesource = DamageSource.arrow(this, this);
+                damagesource = new IndirectDamageSource("arrow", this, this);
             } else {
-                damagesource = DamageSource.arrow(this, entity1);
+                damagesource = new IndirectDamageSource("arrow", this, entity1);
                 if (entity1 instanceof LivingEntity) {
                     ((LivingEntity) entity1).setLastHurtMob(entity);
                 }

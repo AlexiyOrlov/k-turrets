@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.firecharge;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
@@ -18,7 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -85,7 +89,7 @@ public class FireChargeTurret extends Turret {
                                     if (entity1 == null || !entity1.isAlliedTo(entity)) {
                                         int i = entity.getRemainingFireTicks();
                                         entity.setSecondsOnFire(5);
-                                        boolean flag = entity.hurt(DamageSource.fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
+                                        boolean flag = entity.hurt(new IndirectDamageSource("onFire", this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
                                         if (!flag) {
                                             entity.setRemainingFireTicks(i);
                                         } else if (entity1 instanceof LivingEntity) {

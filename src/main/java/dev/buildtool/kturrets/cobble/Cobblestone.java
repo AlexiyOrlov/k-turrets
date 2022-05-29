@@ -1,10 +1,10 @@
 package dev.buildtool.kturrets.cobble;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.PresetProjectile;
 import dev.buildtool.kturrets.registers.TEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.RayTraceResult;
@@ -21,7 +21,7 @@ public class Cobblestone extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectEntityDamageSource("k-turrets.cobblestone", this, getOwner());
+        return new IndirectDamageSource("k-turrets.cobblestone", this, getOwner());
     }
 
     @Override

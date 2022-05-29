@@ -93,7 +93,7 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
     }
 
     /**
-     * @return preferably {@link net.minecraft.util.IndirectEntityDamageSource}
+     * @return preferably {@link IndirectDamageSource}
      */
     protected abstract DamageSource getDamageSource();
 
