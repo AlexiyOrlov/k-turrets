@@ -2,10 +2,7 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -277,4 +274,14 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     public abstract Item getSpawnItem();
 
     public abstract boolean isArmed();
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource p_180431_1_) {
+        Entity source = p_180431_1_.getEntity();
+        if (source instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) source;
+            return getOwner().isPresent() && getOwner().get().equals(player.getUUID());
+        }
+        return super.isInvulnerableTo(p_180431_1_);
+    }
 }
