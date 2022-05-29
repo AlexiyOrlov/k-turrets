@@ -8,7 +8,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -19,14 +18,18 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.spawner.AbstractSpawner;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
-public class ContainerItem extends SpawnEggItem {
-    public ContainerItem(EntityType<?> p_i48465_1_, int p_i48465_2_, int p_i48465_3_, Properties p_i48465_4_) {
-        super(p_i48465_1_, p_i48465_2_, p_i48465_3_, p_i48465_4_);
+public class ContainerItem extends ForgeSpawnEggItem {
+
+
+    public ContainerItem(Supplier<? extends EntityType<?>> type, int backgroundColor, int highlightColor, Properties props) {
+        super(type, backgroundColor, highlightColor, props);
     }
 
     @Override

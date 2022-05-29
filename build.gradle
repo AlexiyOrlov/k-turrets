@@ -89,7 +89,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.8'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
     runtimeOnly fg.deobf('dev.buildtool:Satako:4.2.10-1.16.5:');
     implementation(rootProject)
 }
