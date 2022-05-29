@@ -136,6 +136,8 @@ public class KTurrets {
                         turret.remove();
 
                         ItemStack egg = new ItemStack(turret.getSpawnItem());
+                        egg.getOrCreateTag().put("Contained", turret.serializeNBT());
+                        egg.getTag().putUUID("UUID", turret.getUUID());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
                         contextSupplier.get().setPacketHandled(true);
                     }
