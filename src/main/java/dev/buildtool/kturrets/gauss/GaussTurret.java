@@ -105,7 +105,7 @@ public class GaussTurret extends Turret {
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
-        if (canUse(playerEntity) && playerEntity.isCrouching()) {
+        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
             if (playerEntity instanceof ServerPlayerEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
