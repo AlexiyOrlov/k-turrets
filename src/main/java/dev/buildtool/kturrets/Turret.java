@@ -319,7 +319,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return LazyOptional.of(() -> getContainedItems().get(0)).cast();
         }
-        return super.getCapability(cap);
+        return super.getCapability(cap, direction);
     }
 
     @Override
