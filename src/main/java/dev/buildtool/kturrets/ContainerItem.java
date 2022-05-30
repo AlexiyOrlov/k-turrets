@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +72,6 @@ public class ContainerItem extends ForgeSpawnEggItem {
                     entity.setPosRaw(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
                 }
                 itemstack.shrink(1);
-                level.gameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
             }
 
             return InteractionResult.CONSUME;
