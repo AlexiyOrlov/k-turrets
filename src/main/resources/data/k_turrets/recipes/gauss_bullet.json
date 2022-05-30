@@ -13,7 +13,7 @@
       "item": "minecraft:ender_pearl"
     },
     "s": {
-      "tag": "forge:ingots/steel"
+      "item": "minecraft:iron_ingot"
     }
   },
   "result": {
