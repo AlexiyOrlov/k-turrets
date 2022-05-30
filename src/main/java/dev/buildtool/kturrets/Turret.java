@@ -4,6 +4,7 @@ import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,10 +13,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,7 +29,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -41,7 +43,7 @@ import java.util.stream.Collectors;
 /**
  * Extends Mob entity because of goals
  */
-public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider, Ownable {
+public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider, Ownable, Container {
     private static final EntityDataAccessor<CompoundTag> TARGETS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
@@ -308,5 +310,65 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     public UUID getOwnerUUID() {
         return getOwner().isPresent() ? getOwner().get() : null;
+    }
+
+    //assume below that the ammo items is contained in the first item handler
+    @NotNull
+    @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction direction) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return LazyOptional.of(() -> getContainedItems().get(0)).cast();
+        }
+        return super.getCapability(cap);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return getContainedItems().get(0).getSlots();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return getContainedItems().get(0).isEmpty();
+    }
+
+    @Override
+    public ItemStack getItem(int p_18941_) {
+        return getContainedItems().get(0).getStackInSlot(p_18941_);
+    }
+
+    @Override
+    public ItemStack removeItem(int p_18942_, int p_18943_) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int p_18951_) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void setItem(int p_18944_, ItemStack p_18945_) {
+        getContainedItems().get(0).setStackInSlot(p_18944_, p_18945_);
+    }
+
+    @Override
+    public void setChanged() {
+
+    }
+
+    @Override
+    public boolean stillValid(Player p_18946_) {
+        return true;
+    }
+
+    @Override
+    public void clearContent() {
+        getContainedItems().get(0).getItems().clear();
+    }
+
+    @Override
+    public boolean canPlaceItem(int p_18952_, ItemStack p_18953_) {
+        return getContainedItems().get(0).isItemValid(p_18952_, p_18953_);
     }
 }

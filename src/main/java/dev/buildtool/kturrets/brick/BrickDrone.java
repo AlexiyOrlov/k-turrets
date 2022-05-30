@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -34,10 +35,8 @@ public class BrickDrone extends Drone {
 
     protected ItemHandler bricks = new ItemHandler(18) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == Items.BRICK || stack.getItem() == Items.NETHER_BRICK)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.is(Items.BRICK) || stack.is(Items.NETHER_BRICK);
         }
     };
 

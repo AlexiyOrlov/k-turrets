@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -30,10 +31,8 @@ import java.util.List;
 public class BulletTurret extends Turret {
     protected final ItemHandler ammo = new ItemHandler(27) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == Items.IRON_NUGGET || stack.getItem() == Items.GOLD_NUGGET)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.is(Items.GOLD_NUGGET) || stack.is(Items.IRON_NUGGET);
         }
     };
 

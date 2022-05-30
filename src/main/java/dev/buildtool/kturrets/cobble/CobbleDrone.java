@@ -22,7 +22,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -32,10 +32,8 @@ public class CobbleDrone extends Drone {
 
     protected ItemHandler stone = new ItemHandler(18) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (ForgeRegistries.ITEMS.tags().getTag(ItemTags.STONE_TOOL_MATERIALS).contains(stack.getItem()))
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return Functions.isItemIn(stack.getItem(), ItemTags.STONE_TOOL_MATERIALS);
         }
     };
 

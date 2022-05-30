@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -31,10 +32,8 @@ import java.util.List;
 public class FireChargeTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == Items.FIRE_CHARGE)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.is(Items.FIRE_CHARGE);
         }
     };
 

@@ -28,6 +28,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -36,19 +37,15 @@ import java.util.List;
 public class ArrowTurret extends Turret {
     protected final ItemHandler weapon = new ItemHandler(1) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() instanceof BowItem || stack.getItem() instanceof CrossbowItem)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.getItem() instanceof CrossbowItem || stack.getItem() instanceof BowItem;
         }
     };
 
     protected final ItemHandler ammo = new ItemHandler(27) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() instanceof ArrowItem)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.getItem() instanceof ArrowItem;
         }
     };
 
@@ -102,7 +99,7 @@ public class ArrowTurret extends Turret {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Arrays.asList(weapon, ammo);
+        return Arrays.asList(ammo, weapon);
     }
 
     @Override
