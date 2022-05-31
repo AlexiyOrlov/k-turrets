@@ -1,5 +1,6 @@
 1.1.6-1.18.2:
-turrets and drones can now receive ammo externally
+turrets and drones can now receive ammo externally;
+made shot bricks, bullets and cobblestone more visible
 
 1.1.5-1.18.2:
 changed gauss bullet recipe;
