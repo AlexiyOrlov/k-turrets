@@ -40,7 +40,7 @@
   "k_turrets.staying": "Остаётся",
   "k_turrets.drone_claimed": "Дрон присвоен",
   "k_turrets.claim.drone": "Присвоить дрон",
-  "k-turrets.drone.not.yours": "Этот дрон не принадлежит тебе",
+  "k_turrets.drone.not.yours": "Этот дрон не принадлежит тебе",
   "k_turrets.drone.destroyed": "%1$s был уничтожен",
   "k_turrets.reset.list": "Переставить цели",
 
