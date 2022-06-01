@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.scores.Team;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -53,8 +54,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
      */
     protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
-            Player playerByUUID = level.getPlayerByUUID(getOwner().get());
-            return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && (playerByUUID != null && !livingEntity.isAlliedTo(playerByUUID));
+            return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && !isAlliedTo(livingEntity);
         }
         return false;
     };
@@ -371,5 +371,20 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     public boolean canPlaceItem(int p_18952_, ItemStack p_18953_) {
         return getContainedItems().get(0).isItemValid(p_18952_, p_18953_);
+    }
+
+    /**
+     * Will belong to team only if the owner is online
+     */
+    @Nullable
+    @Override
+    public Team getTeam() {
+        if (getOwner().isPresent()) {
+            Player owner = level.getPlayerByUUID(getOwner().get());
+            if (owner != null) {
+                return owner.getTeam();
+            }
+        }
+        return super.getTeam();
     }
 }
