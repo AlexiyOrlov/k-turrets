@@ -164,6 +164,8 @@ public class KTurrets {
                         ServerPlayer player = contextSupplier.get().getSender();
                         if (player.getTeam() != null) {
                             turret.setManualTeam(player.getTeam().getName());
+                        } else {
+                            turret.setManualTeam("");
                         }
                     }
                 });

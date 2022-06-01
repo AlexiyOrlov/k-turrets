@@ -3,6 +3,7 @@ turrets and drones can now receive ammo externally;
 made shot bricks, bullets and cobblestone more visible;
 fixed server crash;
 fixed some localization messages;
+turret will store owner's team name when he opens its configuration screen;
 
 1.1.5-1.18.2:
 changed gauss bullet recipe;

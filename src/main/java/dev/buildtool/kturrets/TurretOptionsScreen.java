@@ -137,7 +137,7 @@ public class TurretOptionsScreen extends Screen2 {
             minecraft.player.sendMessage(new TranslatableComponent("k_turrets.removed", removed.get()), turret.getUUID());
         if (minecraft.player.getTeam() != null) {
             turret.setManualTeam(minecraft.player.getTeam().getName());
-        }
+        } else turret.setManualTeam("");
     }
 
     @Override
