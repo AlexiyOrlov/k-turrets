@@ -4,7 +4,6 @@ import dev.buildtool.kturrets.registers.Sounds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -53,7 +52,7 @@ public abstract class Drone extends Turret {
             }
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.sendMessage(new TextComponent("k_turrets.drone.not.yours"), Util.NIL_UUID);
+            playerEntity.sendMessage(new TranslatableComponent("k_turrets.drone.not.yours"), Util.NIL_UUID);
         return InteractionResult.PASS;
     }
 
