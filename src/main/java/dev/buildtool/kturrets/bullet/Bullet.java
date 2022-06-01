@@ -20,6 +20,6 @@ public class Bullet extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectDamageSource("k-turrets.bullet", this, getOwner());
+        return new IndirectDamageSource("k_turrets.bullet", this, getOwner());
     }
 }

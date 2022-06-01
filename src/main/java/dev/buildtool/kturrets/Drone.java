@@ -53,7 +53,7 @@ public abstract class Drone extends Turret {
             }
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.sendMessage(new TextComponent("k-turrets.drone.not.yours"), Util.NIL_UUID);
+            playerEntity.sendMessage(new TextComponent("k_turrets.drone.not.yours"), Util.NIL_UUID);
         return InteractionResult.PASS;
     }
 

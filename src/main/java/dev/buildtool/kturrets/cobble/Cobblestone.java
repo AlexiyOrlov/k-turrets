@@ -21,7 +21,7 @@ public class Cobblestone extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectDamageSource("k-turrets.cobblestone", this, getOwner());
+        return new IndirectDamageSource("k_turrets.cobblestone", this, getOwner());
     }
 
     @Override

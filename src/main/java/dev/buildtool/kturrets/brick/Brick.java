@@ -21,7 +21,7 @@ public class Brick extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectDamageSource("k-turrets.brick", this, getOwner());
+        return new IndirectDamageSource("k_turrets.brick", this, getOwner());
     }
 
     @Override

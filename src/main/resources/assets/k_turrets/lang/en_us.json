@@ -40,7 +40,7 @@
   "k_turrets.staying": "Staying",
   "k_turrets.drone_claimed": "Drone claimed",
   "k_turrets.claim.drone": "Claim this drone",
-  "k-turrets.drone.not.yours": "This drone doesn't belong to you",
+  "k_turrets.drone.not.yours": "This drone doesn't belong to you",
   "k_turrets.drone.destroyed": "%1$s was destroyed",
   "k_turrets.reset.list": "Reset targets",
 

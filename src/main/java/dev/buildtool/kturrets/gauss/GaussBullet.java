@@ -18,7 +18,7 @@ public class GaussBullet extends PresetProjectile {
 
     @Override
     protected DamageSource getDamageSource() {
-        return new IndirectDamageSource("k-turrets.gauss_bullet", this, getOwner());
+        return new IndirectDamageSource("k_turrets.gauss_bullet", this, getOwner());
     }
 
     @Override
