@@ -49,6 +49,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PROTECTION_FROM_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
+
     /**
      * Players that are not allied to the owner
      */
@@ -80,6 +83,15 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(OWNER, Optional.empty());
         entityData.define(MOVEABLE, false);
         entityData.define(PROTECTION_FROM_PLAYERS, false);
+        entityData.define(TEAM, "");
+    }
+
+    public String getManualTeam() {
+        return entityData.get(TEAM);
+    }
+
+    public void setManualTeam(String team) {
+        entityData.set(TEAM, team);
     }
 
     public void setTargets(CompoundTag compoundNBT) {
@@ -194,6 +206,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
+        compoundNBT.putString("Team", getManualTeam());
     }
 
     @Override
@@ -207,6 +220,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         }
         setMoveable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
+        setManualTeam(compoundNBT.getString("Team"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
@@ -374,7 +388,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     /**
-     * Will belong to team only if the owner is online
+     * Will belong to owner team
      */
     @Nullable
     @Override
@@ -383,6 +397,8 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             Player owner = level.getPlayerByUUID(getOwner().get());
             if (owner != null) {
                 return owner.getTeam();
+            } else {
+                return level.getScoreboard().getPlayerTeam(getManualTeam());
             }
         }
         return super.getTeam();

@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -119,11 +120,15 @@ public class KTurrets {
             return new TurretTargets(compoundNBT, id);
         }, (turretTargets, contextSupplier) -> {
             NetworkEvent.Context context = contextSupplier.get();
-            ServerLevel serverWorld = context.getSender().getLevel();
+            ServerPlayer sender = context.getSender();
+            ServerLevel serverWorld = sender.getLevel();
             Entity entity = serverWorld.getEntity(turretTargets.turretID);
             if (entity instanceof Turret turret) {
                 turret.setTargets(turretTargets.targets);
                 context.setPacketHandled(true);
+                if (sender.getTeam() != null) {
+                    turret.setManualTeam(sender.getTeam().getName());
+                }
             }
         });
         channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
@@ -156,6 +161,10 @@ public class KTurrets {
                         else
                             contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.turret_claimed"), turret.getUUID());
                         contextSupplier.get().setPacketHandled(true);
+                        ServerPlayer player = contextSupplier.get().getSender();
+                        if (player.getTeam() != null) {
+                            turret.setManualTeam(player.getTeam().getName());
+                        }
                     }
                 });
         channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {

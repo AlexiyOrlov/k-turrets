@@ -43,6 +43,8 @@
   "k_turrets.drone.not.yours": "Ce drone ne t'appartien pas",
   "k_turrets.drone.destroyed": "%1$s a été detruit",
   "k_turrets.reset.list": "Réinitialiser les cibles",
+  "k_turrets.no.team": "Pas d'équipe",
+  "k_turrets.team": "Équipe",
 
   "death.attack.k_turrets.bullet": "%1$s a été toucher par une balle",
   "death.attack.k_turrets.gauss_bullet": "%1$s a été toucher par une balle de Gauss",

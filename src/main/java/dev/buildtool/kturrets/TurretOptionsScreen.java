@@ -135,13 +135,21 @@ public class TurretOptionsScreen extends Screen2 {
         KTurrets.channel.sendToServer(turretTargets);
         if (removed.get() > 0)
             minecraft.player.sendMessage(new TranslatableComponent("k_turrets.removed", removed.get()), turret.getUUID());
+        if (minecraft.player.getTeam() != null) {
+            turret.setManualTeam(minecraft.player.getTeam().getName());
+        }
     }
 
     @Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
         renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-        renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 60, font);
+        renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
+        if (turret.getManualTeam().isEmpty()) {
+            renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.no.team")), centerX, centerY + 60, font);
+        } else {
+            renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.team").append(": " + turret.getManualTeam())), centerX, centerY + 60, font);
+        }
         String targetEntry = addEntityField.getValue();
         if (targetEntry.length() > 0) {
             List<ResourceLocation> entityTypes;
