@@ -6,7 +6,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -53,7 +53,8 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
      */
     protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
-            return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && !livingEntity.isAlliedTo(level.getPlayerByUUID(getOwner().get()));
+            Player playerByUUID = level.getPlayerByUUID(getOwner().get());
+            return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && (playerByUUID != null && !livingEntity.isAlliedTo(playerByUUID));
         }
         return false;
     };
@@ -172,7 +173,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.sendMessage(new TextComponent("k_turrets.turret.not.yours"), Util.NIL_UUID);
+            playerEntity.sendMessage(new TranslatableComponent("k_turrets.turret.not.yours"), Util.NIL_UUID);
         return InteractionResult.PASS;
     }
 
