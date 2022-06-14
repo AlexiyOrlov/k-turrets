@@ -123,5 +123,9 @@ public class Arrow2 extends Arrow {
         }
     }
 
-
+    @Override
+    public void tick() {
+        super.tick();
+        tickDespawn();
+    }
 }
