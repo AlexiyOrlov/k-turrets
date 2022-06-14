@@ -1,3 +1,5 @@
+fixed shot arrows staying in the air forever;
+
 1.1.8-1.18.2:
 turrets and drones can now receive ammo externally;
 made shot bricks, bullets and cobblestone more visible;
