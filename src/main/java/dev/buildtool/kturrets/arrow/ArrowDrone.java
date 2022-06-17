@@ -93,7 +93,6 @@ public class ArrowDrone extends Drone {
                             if (i > 0)
                                 arrow2.setPierceLevel((byte) i);
                         }
-                        arrow2.setEnchantmentEffectsFromEntity(this, distanceFactor);
                         arrow2.setNoGravity(true);
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                         this.level.addFreshEntity(arrow2);
