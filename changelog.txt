@@ -1,4 +1,5 @@
-fixed shot arrows staying in the air forever;
+fixed arrows shot by turrets staying in the air forever;
+turret won't reduce durability of a bow if it has Infinity and a crossbow if it has Multishot;
 
 1.1.8-1.18.2:
 turrets and drones can now receive ammo externally;
