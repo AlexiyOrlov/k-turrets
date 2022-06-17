@@ -127,6 +127,7 @@ public class Arrow2 extends Arrow {
     @Override
     public void tick() {
         super.tick();
-        tickDespawn();
+        if (this.getDeltaMovement().length() < 1)
+            discard();
     }
 }
