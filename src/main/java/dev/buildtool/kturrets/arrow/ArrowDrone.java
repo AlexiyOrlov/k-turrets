@@ -98,7 +98,8 @@ public class ArrowDrone extends Drone {
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                         this.level.addFreshEntity(arrow2);
                         arrows.shrink(1);
-                        weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY_ARROWS, this) == 0 && EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, this) == 0)
+                            weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(InteractionHand.MAIN_HAND));
                         break;
                     }
                 }
