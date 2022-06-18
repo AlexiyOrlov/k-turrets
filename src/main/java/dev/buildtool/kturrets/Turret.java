@@ -398,7 +398,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (owner != null) {
                 return owner.getTeam();
             } else {
-                return level.getScoreboard().getPlayerTeam(getManualTeam());
+                return getManualTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getManualTeam());
             }
         }
         return super.getTeam();
