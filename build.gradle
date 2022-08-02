@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.1.10-1.18.2'
+version = '2.0.0-1.19'
 group = 'dev.buildtool'
 archivesBaseName = 'K-Turrets'
 
@@ -20,7 +20,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17) // Mojang ships Java
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'official', version: '1.19'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -86,8 +86,8 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
-    implementation fg.deobf('dev.buildtool:satako:5.0.4-1.18.2')
+    minecraft 'net.minecraftforge:forge:1.19-41.1.0'
+    implementation fg.deobf('dev.buildtool:satako:6.0.0-1.19')
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
