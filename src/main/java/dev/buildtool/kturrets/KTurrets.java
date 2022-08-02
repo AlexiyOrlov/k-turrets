@@ -6,7 +6,7 @@ import dev.buildtool.kturrets.registers.TContainers;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -157,9 +157,9 @@ public class KTurrets {
                     if (entity instanceof Turret turret) {
                         turret.setOwner(claimTurret.person);
                         if (turret instanceof Drone)
-                            contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.drone_claimed"), turret.getUUID());
+                            contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.drone_claimed"), true);
                         else
-                            contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.turret_claimed"), turret.getUUID());
+                            contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.turret_claimed"), true);
                         contextSupplier.get().setPacketHandled(true);
                         ServerPlayer player = contextSupplier.get().getSender();
                         if (player.getTeam() != null) {

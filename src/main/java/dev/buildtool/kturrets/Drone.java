@@ -1,10 +1,9 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.Sounds;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -52,7 +51,7 @@ public abstract class Drone extends Turret {
             }
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.sendMessage(new TranslatableComponent("k_turrets.drone.not.yours"), Util.NIL_UUID);
+            playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
         return InteractionResult.PASS;
     }
 
@@ -163,7 +162,7 @@ public abstract class Drone extends Turret {
             if (!level.isClientSide) {
                 Player player = level.getPlayerByUUID(uuid1);
                 if (player != null)
-                    player.sendMessage(new TranslatableComponent("k_turrets.drone.destroyed", getDisplayName()), getUUID());
+                    player.displayClientMessage(Component.translatable("k_turrets.drone.destroyed", getDisplayName()), false);
             }
         });
     }

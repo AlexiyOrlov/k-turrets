@@ -20,7 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class TContainers {
-    public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, KTurrets.ID);
+    public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, KTurrets.ID);
     static public MenuType<ArrowTurretContainer> ARROW_TURRET;
     public static MenuType<BulletTurretContainer> BULLET_TURRET;
     public static MenuType<FireChargeTurretContainer> FIRE_CHARGE_TURRET;

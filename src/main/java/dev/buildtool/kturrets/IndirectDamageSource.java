@@ -1,7 +1,6 @@
 package dev.buildtool.kturrets;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -36,6 +35,6 @@ public class IndirectDamageSource extends EntityDamageSource {
         ItemStack itemstack = this.owner instanceof LivingEntity ? ((LivingEntity) this.owner).getMainHandItem() : ItemStack.EMPTY;
         String s = "death.attack." + this.msgId;
         String s1 = s + ".item";
-        return !itemstack.isEmpty() && itemstack.hasCustomHoverName() ? new TranslatableComponent(s1, p_19410_.getDisplayName(), component, itemstack.getDisplayName()) : new TranslatableComponent(s, p_19410_.getDisplayName(), component);
+        return !itemstack.isEmpty() && itemstack.hasCustomHoverName() ? Component.translatable(s1, p_19410_.getDisplayName(), component, itemstack.getDisplayName()) : Component.translatable(s, p_19410_.getDisplayName(), component);
     }
 }

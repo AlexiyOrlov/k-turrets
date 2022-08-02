@@ -119,7 +119,7 @@ public class ArrowDrone extends Drone {
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
             if (playerEntity instanceof ServerPlayer) {
-                NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
             return InteractionResult.SUCCESS;
         }

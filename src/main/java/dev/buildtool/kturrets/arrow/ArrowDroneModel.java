@@ -1,8 +1,4 @@
-package dev.buildtool.kturrets.arrow;// Made with Blockbench 4.2.4
-// Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
-
+package dev.buildtool.kturrets.arrow;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.buildtool.kturrets.KTurrets;
@@ -16,7 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 public class ArrowDroneModel<T extends Entity> extends EntityModel<T> {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "arrow_drone"), "main");
     private final ModelPart rotor1;
     private final ModelPart rotor2;

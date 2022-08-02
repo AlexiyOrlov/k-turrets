@@ -6,7 +6,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -74,9 +74,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     protected void defineSynchedData() {
         super.defineSynchedData();
         CompoundTag compoundNBT = new CompoundTag();
-        List<EntityType<?>> targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
+        List<EntityType<?>> targets = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
         for (int i = 0; i < targets.size(); i++) {
-            compoundNBT.putString("Target#" + i, targets.get(i).getRegistryName().toString());
+            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(targets.get(i)).toString());
         }
         compoundNBT.putInt("Count", targets.size());
         entityData.define(TARGETS, compoundNBT);
@@ -185,7 +185,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.sendMessage(new TranslatableComponent("k_turrets.turret.not.yours"), Util.NIL_UUID);
+            playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), false);
         return InteractionResult.PASS;
     }
 
@@ -228,7 +228,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             String next = compoundNBT.getString("Target#" + i);
-            list.add(ForgeRegistries.ENTITIES.getValue(new ResourceLocation(next)));
+            list.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(next)));
         }
         return list;
     }
@@ -237,7 +237,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         CompoundTag compoundNBT = new CompoundTag();
         for (int i = 0; i < list.size(); i++) {
             EntityType<?> entityType = list.get(i);
-            compoundNBT.putString("Target#" + i, entityType.getRegistryName().toString());
+            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
         }
         compoundNBT.putInt("Count", list.size());
         return compoundNBT;

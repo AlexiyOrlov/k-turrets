@@ -26,7 +26,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unchecked")
 public class TEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, KTurrets.ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, KTurrets.ID);
     public static final float DRONE_WIDTH = 0.6f;
     public static final RegistryObject<EntityType<ArrowTurret>> ARROW_TURRET = ENTITIES.register("arrow_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), MobCategory.MISC).sized(DRONE_WIDTH, 0.8f).build("arrow_turret")));
     public static final RegistryObject<EntityType<BulletTurret>> BULLET_TURRET = ENTITIES.register("bullet_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new BulletTurret(p_create_2_), MobCategory.MISC).sized(0.8f, 0.8f).build("bullet_turret")));

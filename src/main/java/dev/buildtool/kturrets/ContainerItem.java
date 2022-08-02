@@ -3,7 +3,6 @@ package dev.buildtool.kturrets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -82,7 +81,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
     public void appendHoverText(ItemStack itemStack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
         super.appendHoverText(itemStack, p_41422_, components, p_41424_);
         if (itemStack.hasTag()) {
-            components.add(new TextComponent("" + itemStack.getTag().getUUID("UUID")));
+            components.add(Component.literal("" + itemStack.getTag().getUUID("UUID")));
         }
 
     }
