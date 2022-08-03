@@ -185,7 +185,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), false);
+            playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
         return InteractionResult.PASS;
     }
 

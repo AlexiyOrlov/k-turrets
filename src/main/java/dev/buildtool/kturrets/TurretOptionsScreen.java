@@ -43,12 +43,12 @@ public class TurretOptionsScreen extends Screen2 {
             if (entityType.length() > 2) {
                 if (type != null) {
                     if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
-                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.incorrect.entry"), false);
+                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.incorrect.entry"), true);
                     } else {
 
                         targets.add(type);
                         tempStatusMap.put(type, true);
-                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.added").append(" ").append(type.getDescription()), false);
+                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.added").append(" ").append(type.getDescription()), true);
                         if (entityType.contains(":"))
                             addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
                     }
