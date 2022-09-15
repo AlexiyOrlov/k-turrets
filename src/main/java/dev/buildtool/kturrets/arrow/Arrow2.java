@@ -34,7 +34,6 @@ public class Arrow2 extends Arrow {
             arrow.effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
-        setEnchantmentEffectsFromEntity(shooter, f);
     }
 
     @Override
