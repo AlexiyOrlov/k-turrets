@@ -1,3 +1,6 @@
+2.0.1-1.19:
+fixed Power, Flame and Punch not being applied to arrow turret/drone.
+
 2.0.0-1.19:
 update to 1.19;
 
