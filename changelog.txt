@@ -1,3 +1,7 @@
+1.1.12-1.18.2:
+added Chinese translation;
+removed ability to set spawner entity from turret eggs.
+
 1.1.11-1.18.2:
 fixed application of Power, Flame and Punch enchantments
 
