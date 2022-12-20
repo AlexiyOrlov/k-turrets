@@ -1,0 +1,42 @@
+{
+  "itemGroup.k_turrets": "K-炮塔",
+
+  "item.k_turrets.arrow_turret_item": "箭塔",
+  "item.k_turrets.bullet_turret_item": "炮塔",
+  "item.k_turrets.brick_turret_item": "掷砖炮塔",
+  "item.k_turrets.firecharge_turret_item": "火焰弹炮塔",
+  "item.k_turrets.steel_ingot": "钢锭",
+  "item.k_turrets.semi_steel": "半制成钢锭",
+  "item.k_turrets.gauss_bullet": "高斯子弹",
+  "item.k_turrets.gauss_turret_item": "高斯炮塔",
+  "item.k_turrets.cobble_turret_item": "掷石炮塔",
+
+  "k_turrets.targets": "炮塔目标：",
+  "k_turrets.added": "已添加至目标",
+  "k_turrets.add.entity.type": "为炮塔目标列表增加生物",
+  "k_turrets.choose.tooltip": "按下特定键位时移除特定生物",
+  "k_turrets.hold.alt.to.scroll": "按住[alt]并使用鼠标滚轮来滚动查看目标列表",
+  "k_turrets.dismantle": "解除炮塔",
+  "k_turrets.clear.list": "清空目标列表",
+  "k_turrets.inventory.hint": "潜行右键以查看其仓储空间",
+  "k_turrets.claim.turret": "认领炮塔",
+  "k_turrets.turret.not.yours": "这个炮塔不属于你",
+  "k_turrets.mobile": "可移动",
+  "k_turrets.immobile": "不可动",
+  "k_turrets.protect.from.players": "攻击未知玩家",
+  "k_turrets.not.protect.from.players": "不攻击未知玩家",
+  "k_turrets.integrity": "完整性",
+  "k_turrets.incorrect.entry": "非法输入",
+
+  "death.attack.k_turrets.bullet": "%1$s被炮塔消灭",
+  "death.attack.k_turrets.gauss_bullet": "%1$s被高斯炮塔消灭",
+  "death.attack.k_turrets.brick": "%1$s被掷砖炮塔消灭",
+  "death.attack.k_turrets.cobblestone": "%1$s被掷石炮塔消灭",
+
+  "entity.k_turrets.fire_charge_turret": "火焰弹炮塔",
+  "entity.k_turrets.arrow_turret": "箭塔",
+  "entity.k_turrets.bullet_turret": "炮塔",
+  "entity.k_turrets.brick_turret": "掷砖炮塔",
+  "entity.k_turrets.gauss_turret": "高斯炮塔",
+  "entity.k_turrets.cobble_turret": "掷石炮塔"
+}
