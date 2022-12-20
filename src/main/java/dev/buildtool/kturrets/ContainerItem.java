@@ -13,11 +13,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.jetbrains.annotations.Nullable;
@@ -43,18 +39,6 @@ public class ContainerItem extends ForgeSpawnEggItem {
             BlockPos blockpos = context.getClickedPos();
             Direction direction = context.getClickedFace();
             BlockState blockstate = level.getBlockState(blockpos);
-            if (blockstate.is(Blocks.SPAWNER)) {
-                BlockEntity blockentity = level.getBlockEntity(blockpos);
-                if (blockentity instanceof SpawnerBlockEntity) {
-                    BaseSpawner basespawner = ((SpawnerBlockEntity) blockentity).getSpawner();
-                    EntityType<?> entitytype1 = this.getType(itemstack.getTag());
-                    basespawner.setEntityId(entitytype1);
-                    blockentity.setChanged();
-                    level.sendBlockUpdated(blockpos, blockstate, blockstate, 3);
-                    itemstack.shrink(1);
-                    return InteractionResult.CONSUME;
-                }
-            }
 
             BlockPos blockpos1;
             if (blockstate.getCollisionShape(level, blockpos).isEmpty()) {
