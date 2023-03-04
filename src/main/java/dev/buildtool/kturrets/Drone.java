@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -147,7 +148,10 @@ public abstract class Drone extends Turret {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return KTurrets.ENABLE_DRONE_SOUND.get() ? Sounds.DRONE_FLY.get() : null;
+        if (FMLEnvironment.dist.isClient()) {
+            return KTurrets.ENABLE_DRONE_SOUND.get() ? Sounds.DRONE_FLY.get() : null;
+        }
+        return null;
     }
 
     @Override

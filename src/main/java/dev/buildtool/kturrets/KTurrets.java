@@ -3,10 +3,7 @@ package dev.buildtool.kturrets;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
-import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TContainers;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.kturrets.registers.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -59,6 +56,8 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
+
+    public static ForgeConfigSpec.IntValue TURRET_LIMIT_PER_PLAYER, DRONE_LIMIT_PER_PLAYER;
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -152,6 +151,11 @@ public class KTurrets {
                         egg.getOrCreateTag().put("Contained", turret.serializeNBT());
                         egg.getTag().putUUID("UUID", turret.getUUID());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
+                        UnitLimitCapability limitCapability = contextSupplier.get().getSender().getCapability(RegisterCapability.unitCapability, null).orElse(null);
+                        if (entity instanceof Drone)
+                            limitCapability.setDroneCount(limitCapability.getDroneCount() - 1);
+                        else
+                            limitCapability.setTurretCount(limitCapability.getTurretCount() - 1);
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
@@ -221,6 +225,12 @@ public class KTurrets {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
+            return builder.build();
+        }).getRight());
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, new ForgeConfigSpec.Builder().configure(builder -> {
+            TURRET_LIMIT_PER_PLAYER = builder.defineInRange("Turret limit per player", () -> 50, 1, 300);
+            DRONE_LIMIT_PER_PLAYER = builder.defineInRange("Drone limit per player", () -> 30, 1, 300);
             return builder.build();
         }).getRight());
     }
