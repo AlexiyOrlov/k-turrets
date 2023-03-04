@@ -65,7 +65,7 @@ public class TurretOptionsScreen extends Screen2 {
             targetButtons.forEach(renderables::remove);
         });
         addRenderableWidget(clearTargets);
-        addRenderableWidget(new BetterButton(clearTargets.x + clearTargets.getWidth(), 60, Component.translatable("k_turrets.reset.list"), p_93751_ -> {
+        addRenderableWidget(new BetterButton(clearTargets.getX() + clearTargets.getWidth(), 60, Component.translatable("k_turrets.reset.list"), p_93751_ -> {
             targets = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
             targets.forEach(entityType -> tempStatusMap.put(entityType, true));
             minecraft.screen.onClose();
@@ -156,7 +156,7 @@ public class TurretOptionsScreen extends Screen2 {
             else
                 entityTypes = ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(targetEntry)).collect(Collectors.toList());
             if (!entityTypes.isEmpty()) {
-                renderComponentTooltip(matrixStack, entityTypes.subList(0, Math.min(entityTypes.size(), 12)).stream().map(resourceLocation -> Component.literal(ChatFormatting.YELLOW + resourceLocation.toString())).collect(Collectors.toList()), addEntityField.x, addEntityField.y + addEntityField.getHeight() + 20);
+                renderComponentTooltip(matrixStack, entityTypes.subList(0, Math.min(entityTypes.size(), 12)).stream().map(resourceLocation -> Component.literal(ChatFormatting.YELLOW + resourceLocation.toString())).collect(Collectors.toList()), addEntityField.getX(), addEntityField.getY() + addEntityField.getHeight() + 20);
             }
         }
     }

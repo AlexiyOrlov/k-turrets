@@ -2,21 +2,13 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.ContainerItem;
 import dev.buildtool.kturrets.KTurrets;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class TItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, KTurrets.ID);
-    public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("k_turrets") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(GAUSS_BULLET.get());
-        }
-    };
     public static RegistryObject<Item> SEMI_STEEL;
     public static RegistryObject<Item> STEEL_INGOT;
     public static RegistryObject<Item> ARROW_TURRET;
@@ -26,6 +18,12 @@ public class TItems {
     public static RegistryObject<Item> GAUSS_BULLET;
     public static RegistryObject<Item> GAUSS_TURRET;
     public static RegistryObject<Item> COBBLE_TURRET;
+    public static RegistryObject<Item> COBBLE_DRONE;
+    public static RegistryObject<Item> ARROW_DRONE;
+    public static RegistryObject<Item> FIRE_CHARGE_DRONE;
+    public static RegistryObject<Item> BULLET_DRONE;
+    public static RegistryObject<Item> BRICK_DRONE;
+    public static RegistryObject<Item> GAUSS_DRONE;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
@@ -38,15 +36,15 @@ public class TItems {
         GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ContainerItem(TEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults(), ContainerItem.Unit.TURRET));
         COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ContainerItem(TEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults(), ContainerItem.Unit.TURRET));
 
-        ITEMS.register("brick_drone_item", () -> new ContainerItem(TEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults(), ContainerItem.Unit.DRONE));
-        ITEMS.register("bullet_drone_item", () -> new ContainerItem(TEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults(), ContainerItem.Unit.DRONE));
-        ITEMS.register("cobble_drone_item", () -> new ContainerItem(TEntities.COBBLE_DRONE, 0x2d4c59, 0x46778b, defaults(), ContainerItem.Unit.DRONE));
-        ITEMS.register("arrow_drone_item", () -> new ContainerItem(TEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE));
-        ITEMS.register("gauss_drone_item", () -> new ContainerItem(TEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE));
-        ITEMS.register("firecharge_drone_item", () -> new ContainerItem(TEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE));
+        BRICK_DRONE = ITEMS.register("brick_drone_item", () -> new ContainerItem(TEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults(), ContainerItem.Unit.DRONE));
+        BULLET_DRONE = ITEMS.register("bullet_drone_item", () -> new ContainerItem(TEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults(), ContainerItem.Unit.DRONE));
+        COBBLE_DRONE = ITEMS.register("cobble_drone_item", () -> new ContainerItem(TEntities.COBBLE_DRONE, 0x2d4c59, 0x46778b, defaults(), ContainerItem.Unit.DRONE));
+        ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new ContainerItem(TEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE));
+        GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(TEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE));
+        FIRE_CHARGE_DRONE = ITEMS.register("firecharge_drone_item", () -> new ContainerItem(TEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE));
     }
 
     private static Item.Properties defaults() {
-        return new Item.Properties().tab(ITEM_GROUP);
+        return new Item.Properties();
     }
 }

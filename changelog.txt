@@ -1,3 +1,6 @@
+2.2.0-1.19.3:
+updated to 1.19.3;
+
 2.0.3-1.19:
 implemented drone and turret limits on server;
 
