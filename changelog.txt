@@ -1,5 +1,6 @@
 2.0.3-1.19:
 implemented drone and turret limits on server;
+turrets and drones now show their owner's name when accessed by alien player;
 
 2.0.2-1.19:
 added Chinese translation;
