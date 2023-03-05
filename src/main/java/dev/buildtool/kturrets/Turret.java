@@ -52,6 +52,8 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
 
+    private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
+
     /**
      * Players that are not allied to the owner
      */
@@ -84,6 +86,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(MOVEABLE, false);
         entityData.define(PROTECTION_FROM_PLAYERS, false);
         entityData.define(TEAM, "");
+        entityData.define(OWNER_NAME, "");
     }
 
     public String getAutomaticTeam() {
@@ -186,9 +189,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (playerEntity.getTeam() != null)
                 setTeamAutomatically(playerEntity.getTeam().getName());
             else setTeamAutomatically("");
+            if (getOwnerName().isEmpty())
+                setOwnerName(playerEntity.getName().getString());
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
-            playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
+            if (getOwnerName().isEmpty())
+                playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
+            else
+                playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
         return InteractionResult.PASS;
     }
 
@@ -210,6 +218,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
         compoundNBT.putString("Team", getAutomaticTeam());
+        compoundNBT.putString("Owner name", getOwnerName());
     }
 
     @Override
@@ -224,6 +233,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         setMoveable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
         setTeamAutomatically(compoundNBT.getString("Team"));
+        if (compoundNBT.contains("Owner name")) {
+            setOwnerName(compoundNBT.getString("Owner name"));
+        }
     }
 
     public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
@@ -398,12 +410,20 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     public Team getTeam() {
         if (getOwner().isPresent()) {
             Player owner = level.getPlayerByUUID(getOwner().get());
-            if (owner != null) {
+            if (owner != null && owner.getTeam() != null) {
                 return owner.getTeam();
             } else {
                 return getAutomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAutomaticTeam());
             }
         }
         return super.getTeam();
+    }
+
+    public void setOwnerName(String name) {
+        entityData.set(OWNER_NAME, name);
+    }
+
+    public String getOwnerName() {
+        return entityData.get(OWNER_NAME);
     }
 }
