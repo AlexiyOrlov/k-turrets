@@ -133,9 +133,6 @@ public class KTurrets {
             if (entity instanceof Turret turret) {
                 turret.setTargets(turretTargets.targets);
                 context.setPacketHandled(true);
-                if (sender.getTeam() != null) {
-                    turret.setManualTeam(sender.getTeam().getName());
-                }
             }
         });
         channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
@@ -174,11 +171,6 @@ public class KTurrets {
                             contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.turret_claimed"), true);
                         contextSupplier.get().setPacketHandled(true);
                         ServerPlayer player = contextSupplier.get().getSender();
-                        if (player.getTeam() != null) {
-                            turret.setManualTeam(player.getTeam().getName());
-                        } else {
-                            turret.setManualTeam("");
-                        }
                     }
                 });
         channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {

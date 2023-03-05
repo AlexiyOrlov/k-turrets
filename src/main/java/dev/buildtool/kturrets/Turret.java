@@ -86,11 +86,11 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(TEAM, "");
     }
 
-    public String getManualTeam() {
+    public String getAutomaticTeam() {
         return entityData.get(TEAM);
     }
 
-    public void setManualTeam(String team) {
+    public void setTeamAUtomatically(String team) {
         entityData.set(TEAM, team);
     }
 
@@ -183,6 +183,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (level.isClientSide) {
                 openTargetScreen();
             }
+            if (playerEntity.getTeam() != null)
+                setTeamAUtomatically(playerEntity.getTeam().getName());
+            else setTeamAUtomatically("");
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
             playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
@@ -206,7 +209,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
-        compoundNBT.putString("Team", getManualTeam());
+        compoundNBT.putString("Team", getAutomaticTeam());
     }
 
     @Override
@@ -220,7 +223,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         }
         setMoveable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
-        setManualTeam(compoundNBT.getString("Team"));
+        setTeamAUtomatically(compoundNBT.getString("Team"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
@@ -398,7 +401,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (owner != null) {
                 return owner.getTeam();
             } else {
-                return getManualTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getManualTeam());
+                return getAutomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAutomaticTeam());
             }
         }
         return super.getTeam();
