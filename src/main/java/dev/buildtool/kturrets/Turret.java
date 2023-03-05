@@ -88,7 +88,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(OWNER_NAME, "");
     }
 
-    public String getAUtomaticTeam() {
+    public String getAutomaticTeam() {
         return entityData.get(TEAM);
     }
 
@@ -219,7 +219,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
-        compoundNBT.putString("Team", getAUtomaticTeam());
+        compoundNBT.putString("Team", getAutomaticTeam());
         compoundNBT.putString("Owner name", getOwnerName());
     }
 
@@ -415,7 +415,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (owner != null) {
                 return owner.getTeam();
             } else {
-                return getAUtomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAUtomaticTeam());
+                return getAutomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAutomaticTeam());
             }
         }
         return super.getTeam();
