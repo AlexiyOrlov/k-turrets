@@ -90,7 +90,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return entityData.get(TEAM);
     }
 
-    public void setTeamAUtomatically(String team) {
+    public void setTeamAutomatically(String team) {
         entityData.set(TEAM, team);
     }
 
@@ -184,8 +184,8 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 openTargetScreen();
             }
             if (playerEntity.getTeam() != null)
-                setTeamAUtomatically(playerEntity.getTeam().getName());
-            else setTeamAUtomatically("");
+                setTeamAutomatically(playerEntity.getTeam().getName());
+            else setTeamAutomatically("");
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
             playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
@@ -223,7 +223,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         }
         setMoveable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
-        setTeamAUtomatically(compoundNBT.getString("Team"));
+        setTeamAutomatically(compoundNBT.getString("Team"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
