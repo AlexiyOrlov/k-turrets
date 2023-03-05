@@ -46,6 +46,7 @@
   "k_turrets.no.team": "Без команды",
   "k_turrets.team": "Команда",
   "k_turrets.belongs.to": "Эта турель принадлежит",
+  "k-turrets.drone.belongs.to": "Этот дрон принадлежит",
 
   "death.attack.k_turrets.bullet": "%1$s был застрелен пулей",
   "death.attack.k_turrets.gauss_bullet": "%1$s был застрелен Гаусс-пулей",
