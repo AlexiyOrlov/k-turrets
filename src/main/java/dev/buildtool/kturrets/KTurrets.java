@@ -165,6 +165,7 @@ public class KTurrets {
                     Entity entity = serverWorld.getEntity(claimTurret.id);
                     if (entity instanceof Turret turret) {
                         turret.setOwner(claimTurret.person);
+                        turret.setOwnerName(contextSupplier.get().getSender().getName().getString());
                         if (turret instanceof Drone)
                             contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.drone_claimed"), true);
                         else

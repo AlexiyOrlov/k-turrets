@@ -50,9 +50,20 @@ public abstract class Drone extends Turret {
             if (level.isClientSide) {
                 openTargetScreen();
             }
+            if (playerEntity.getTeam() != null) {
+                setTeamAutomatically(playerEntity.getTeam().getName());
+            } else {
+                setTeamAutomatically("");
+            }
+            if (getOwnerName().isEmpty())
+                setOwnerName(playerEntity.getName().getString());
             return InteractionResult.SUCCESS;
-        } else if (level.isClientSide)
-            playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
+        } else if (level.isClientSide) {
+            if (getOwnerName().isEmpty())
+                playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
+            else
+                playerEntity.displayClientMessage(Component.translatable("k-turrets.drone.belongs.to").append(" " + getOwnerName()), true);
+        }
         return InteractionResult.PASS;
     }
 
