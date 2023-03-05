@@ -50,6 +50,9 @@ public abstract class Drone extends Turret {
             if (level.isClientSide) {
                 openTargetScreen();
             }
+            if (playerEntity.getTeam() != null)
+                setTeamAUtomatically(playerEntity.getTeam().getName());
+            else setTeamAUtomatically("");
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide)
             playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
