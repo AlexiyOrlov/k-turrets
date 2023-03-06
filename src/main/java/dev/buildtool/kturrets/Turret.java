@@ -267,6 +267,13 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     public void die(DamageSource damageSource) {
         super.die(damageSource);
         getContainedItems().forEach(itemHandler -> Containers.dropContents(level, blockPosition(), itemHandler.getItems()));
+        getOwner().ifPresent(uuid1 -> {
+            if (!level.isClientSide) {
+                Player player = level.getPlayerByUUID(uuid1);
+                if (player != null)
+                    player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity() != null ? damageSource.getDirectEntity().getDisplayName() : damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+            }
+        });
     }
 
     protected abstract List<ItemHandler> getContainedItems();
