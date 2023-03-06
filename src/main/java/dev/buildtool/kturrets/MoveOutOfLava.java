@@ -26,7 +26,7 @@ public class MoveOutOfLava extends Goal {
             for (Direction direction : Direction.values()) {
                 BlockPos nextCheck = dronePos.relative(direction, counter);
                 if (drone.level.getBlockState(nextCheck).isAir()) {
-                    drone.moveTo(nextCheck.relative(direction), 1, 1);
+                    drone.moveTo(nextCheck, 1, 1);
                     break loop;
                 }
             }
