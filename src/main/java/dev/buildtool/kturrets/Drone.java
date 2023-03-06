@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.Nullable;
 
@@ -137,6 +138,7 @@ public abstract class Drone extends Turret {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(4, new FollowOwnerGoal(this));
+        goalSelector.addGoal(5, new MoveOutOfLava(this));
     }
 
     @Override
@@ -182,5 +184,10 @@ public abstract class Drone extends Turret {
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
 
+    }
+
+    @Override
+    public boolean canSwimInFluidType(FluidType type) {
+        return true;
     }
 }
