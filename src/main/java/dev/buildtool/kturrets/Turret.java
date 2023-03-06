@@ -426,4 +426,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     public String getOwnerName() {
         return entityData.get(OWNER_NAME);
     }
+
+    @Override
+    public boolean isInWall() {
+        return false;
+    }
 }
