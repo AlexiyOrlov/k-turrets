@@ -11,6 +11,7 @@ public class TItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, KTurrets.ID);
     public static RegistryObject<Item> SEMI_STEEL;
     public static RegistryObject<Item> STEEL_INGOT;
+    public static RegistryObject<Item> EXPLOSIVE_POWDER;
     public static RegistryObject<Item> ARROW_TURRET;
     public static RegistryObject<Item> BRICK_TURRET;
     public static RegistryObject<Item> BULLET_TURRET;
@@ -42,6 +43,8 @@ public class TItems {
         ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new ContainerItem(TEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE));
         GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(TEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE));
         FIRE_CHARGE_DRONE = ITEMS.register("firecharge_drone_item", () -> new ContainerItem(TEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE));
+
+        EXPLOSIVE_POWDER = ITEMS.register("explosive_powder", () -> new Item(defaults()));
     }
 
     private static Item.Properties defaults() {
