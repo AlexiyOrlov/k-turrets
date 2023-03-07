@@ -5,6 +5,7 @@ player will be notified what destroyed its drone or turret and where;
 changed bullet turret model and texture a bit;
 drones will move away from attacking mobs if they are too close;
 drones will move sideways while attacking;
+fire charge turret and drone now uses new item - explosive powder - instead of fire charges;
 
 2.2.0-1.19.3:
 updated to 1.19.3;
