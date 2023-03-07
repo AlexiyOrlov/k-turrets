@@ -1,4 +1,4 @@
-2.2.6-1.19.3:
+2.2.7-1.19.3:
 drones will move out of lava if submerged;
 turrets and drones can't suffocate inside blocks anymore;
 player will be notified what destroyed its drone or turret and where;
