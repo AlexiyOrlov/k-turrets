@@ -1,5 +1,6 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.tasks;
 
+import dev.buildtool.kturrets.Drone;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

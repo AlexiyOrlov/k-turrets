@@ -1,5 +1,6 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.tasks;
 
+import dev.buildtool.kturrets.Drone;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.ai.goal.Goal;

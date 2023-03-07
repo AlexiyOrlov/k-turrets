@@ -1,6 +1,8 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.Sounds;
+import dev.buildtool.kturrets.tasks.FollowOwnerGoal;
+import dev.buildtool.kturrets.tasks.MoveOutOfLava;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
