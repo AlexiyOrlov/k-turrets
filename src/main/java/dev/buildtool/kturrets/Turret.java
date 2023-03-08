@@ -53,6 +53,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
 
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
+    public static final String TARGET_NUMBER = "Target#";
 
     /**
      * Players that are not allied to the owner
@@ -78,7 +79,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         CompoundTag compoundNBT = new CompoundTag();
         List<EntityType<?>> targets = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
         for (int i = 0; i < targets.size(); i++) {
-            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(targets.get(i)).toString());
+            compoundNBT.putString(TARGET_NUMBER + i, ForgeRegistries.ENTITY_TYPES.getKey(targets.get(i)).toString());
         }
         compoundNBT.putInt("Count", targets.size());
         entityData.define(TARGETS, compoundNBT);
@@ -242,7 +243,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         int count = compoundNBT.getInt("Count");
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            String next = compoundNBT.getString("Target#" + i);
+            String next = compoundNBT.getString(TARGET_NUMBER + i);
             list.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(next)));
         }
         return list;
@@ -252,7 +253,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         CompoundTag compoundNBT = new CompoundTag();
         for (int i = 0; i < list.size(); i++) {
             EntityType<?> entityType = list.get(i);
-            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
+            compoundNBT.putString(TARGET_NUMBER + i, ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
         }
         compoundNBT.putInt("Count", list.size());
         return compoundNBT;
