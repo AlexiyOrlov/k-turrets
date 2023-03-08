@@ -25,7 +25,6 @@ public class StrafeAroundTarget extends Goal {
         else
             timer--;
         drone.getMoveControl().strafe(0, Math.signum(timer) * 0.1f);
-        drone.getLookControl().setLookAt(drone.getTarget(), 90, 90);
     }
 
     @Override
