@@ -3,20 +3,17 @@ package dev.buildtool.kturrets.tasks;
 import dev.buildtool.kturrets.Drone;
 import net.minecraft.world.entity.ai.goal.Goal;
 
-import java.util.EnumSet;
-
 public class StrafeAroundTarget extends Goal {
     private final Drone drone;
     private int timer;
 
     public StrafeAroundTarget(Drone drone) {
         this.drone = drone;
-        setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
     public boolean canUse() {
-        return drone.getTarget() != null && drone.getTarget().isAlive();
+        return drone.getTarget() != null && drone.getTarget().isAlive() && drone.hasLineOfSight(drone.getTarget());
     }
 
     @Override
