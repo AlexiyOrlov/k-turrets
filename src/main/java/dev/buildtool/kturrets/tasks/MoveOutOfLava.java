@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.Drone;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.ai.goal.Goal;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class MoveOutOfLava extends Goal {
     private final Drone drone;
@@ -24,7 +25,7 @@ public class MoveOutOfLava extends Goal {
         loop:
         do {
 
-            for (Direction direction : Direction.values()) {
+            for (Direction direction : ArrayUtils.removeElement(Direction.values(), Direction.DOWN)) {
                 BlockPos nextCheck = dronePos.relative(direction, counter);
                 if (drone.level.getBlockState(nextCheck).isAir()) {
                     drone.moveTo(nextCheck, 1, 1);
