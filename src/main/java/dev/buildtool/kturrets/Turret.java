@@ -271,8 +271,16 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         getOwner().ifPresent(uuid1 -> {
             if (!level.isClientSide) {
                 Player player = level.getPlayerByUUID(uuid1);
-                if (player != null)
-                    player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity() != null ? damageSource.getDirectEntity().getDisplayName() : (damageSource.getEntity() != null ? damageSource.getEntity().getDisplayName() : damageSource.getLocalizedDeathMessage(this))).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                if (player != null) {
+                    if (damageSource.getDirectEntity() != null)
+                        player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                    else {
+                        if (damageSource.getEntity() != null)
+                            player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                        else
+                            player.displayClientMessage(damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())), false);
+                    }
+                }
             }
         });
     }
