@@ -1,7 +1,12 @@
-2.2.2-1.19.3:
+2.2.10-1.19.3:
 drones will move out of lava if submerged;
 turrets and drones can't suffocate inside blocks anymore;
 player will be notified what destroyed its drone or turret and where;
+changed bullet turret model and texture a bit;
+drones will move away from attacking mobs if they are too close;
+drones will move sideways while attacking;
+fire charge turret and drone now uses new item - explosive powder - instead of fire charges;
+changed cobble drone model and texture a bit;
 
 2.2.0-1.19.3:
 updated to 1.19.3;
