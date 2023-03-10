@@ -50,7 +50,6 @@ public class TurretOptionsScreen extends Screen2 {
                     if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
                         minecraft.player.displayClientMessage(Component.translatable("k_turrets.incorrect.entry"), true);
                     } else {
-
                         targets.add(type);
                         tempStatusMap.put(type, true);
                         minecraft.player.displayClientMessage(Component.translatable("k_turrets.added").append(" ").append(type.getDescription()), true);
@@ -164,10 +163,11 @@ public class TurretOptionsScreen extends Screen2 {
             if (text.length() > 0) {
                 List<ResourceLocation> entityTypes;
                 if (text.contains(":"))
-                    entityTypes = ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList();
+                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
                 else
-                    entityTypes = ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).toList();
+                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).toList());
                 int yOffset = 20;
+                entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITY_TYPES::getKey).toList());
                 for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
                     Label hint = new Label(addEntityField.getX(), addEntityField.getY() + yOffset, Component.literal(ChatFormatting.YELLOW + entityType.toString()), this, p_93751_ -> {
                         addEntityField.setValue(p_93751_.getMessage().getString().substring(2));
