@@ -1,5 +1,5 @@
 2.2.11-1.19.3:
-entity type suggestion list items in turret/drone UI are now clickable;
+entity type suggestion list items in turret/drone UI is now clickable;
 
 2.2.10-1.19.3:
 drones will move out of lava if submerged;
