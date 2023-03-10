@@ -25,7 +25,6 @@
   "k_turrets.hold.alt.to.scroll": "To scroll the target list, hold Alt and use the mouse wheel",
   "k_turrets.dismantle": "Dismantle",
   "k_turrets.clear.list": "Clear the target list",
-  "k_turrets.inventory.hint": "Sneak and right-click the turret/drone to view its inventory",
   "k_turrets.claim.turret": "Claim this turret",
   "k_turrets.turret.not.yours": "This turret doesn't belong to you",
   "k_turrets.mobile": "Mobile",
