@@ -106,6 +106,7 @@ public class TurretOptionsScreen extends Screen2 {
 
         addRenderableWidget(new Label(3, 3, Component.translatable("k_turrets.targets")));
         targetButtons = new ArrayList<>(targets.size());
+        targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
             SwitchButton switchButton = new SwitchButton(3, 20 * i + 40, Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), Component.literal(ChatFormatting.STRIKETHROUGH + ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), true, p_onPress_1_ -> {
@@ -180,7 +181,8 @@ public class TurretOptionsScreen extends Screen2 {
                 }
                 if (!entityTypes.isEmpty()) {
                     this.addTarget.setHidden();
-                    this.claimTurret.setHidden();
+                    if (claimTurret != null)
+                        this.claimTurret.setHidden();
                     this.clearTargets.setHidden();
                     this.dismantle.setHidden();
                     if (followSwitch != null)
@@ -201,7 +203,8 @@ public class TurretOptionsScreen extends Screen2 {
 
     private void showButtonsAndHints() {
         this.addTarget.setVisible();
-        this.claimTurret.setVisible();
+        if (claimTurret != null)
+            this.claimTurret.setVisible();
         this.clearTargets.setVisible();
         this.dismantle.setVisible();
         if (followSwitch != null)
