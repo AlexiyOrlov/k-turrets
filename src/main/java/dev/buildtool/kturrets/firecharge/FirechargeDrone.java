@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.firecharge;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +33,7 @@ public class FirechargeDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(Items.FIRE_CHARGE);
+            return stack.is(TItems.EXPLOSIVE_POWDER.get());
         }
     };
 
@@ -80,7 +80,7 @@ public class FirechargeDrone extends Drone {
     public void performRangedAttack(LivingEntity target, float p_33318_) {
         if (target.isAlive()) {
             for (ItemStack ammoItem : ammo.getItems()) {
-                if (ammoItem.getItem() == Items.FIRE_CHARGE) {
+                if (ammoItem.getItem() == TItems.EXPLOSIVE_POWDER.get()) {
                     ammoItem.shrink(1);
                     double d0 = target.getX() - this.getX();
                     double d1 = target.getEyeY() - getEyeY();

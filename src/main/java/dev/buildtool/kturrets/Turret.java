@@ -53,11 +53,12 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
 
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
+    public static final String TARGET_NUMBER = "Target#";
 
     /**
      * Players that are not allied to the owner
      */
-    protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
+    public Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
             return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && !isAlliedTo(livingEntity);
         }
@@ -69,7 +70,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     public static AttributeSupplier.Builder createDefaultAttributes() {
-        return createLivingAttributes().add(Attributes.FLYING_SPEED, 0.2).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
+        return createLivingAttributes().add(Attributes.FLYING_SPEED, 0.2).add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
     }
 
     @Override
@@ -78,7 +79,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         CompoundTag compoundNBT = new CompoundTag();
         List<EntityType<?>> targets = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
         for (int i = 0; i < targets.size(); i++) {
-            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(targets.get(i)).toString());
+            compoundNBT.putString(TARGET_NUMBER + i, ForgeRegistries.ENTITY_TYPES.getKey(targets.get(i)).toString());
         }
         compoundNBT.putInt("Count", targets.size());
         entityData.define(TARGETS, compoundNBT);
@@ -242,7 +243,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         int count = compoundNBT.getInt("Count");
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            String next = compoundNBT.getString("Target#" + i);
+            String next = compoundNBT.getString(TARGET_NUMBER + i);
             list.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(next)));
         }
         return list;
@@ -252,7 +253,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         CompoundTag compoundNBT = new CompoundTag();
         for (int i = 0; i < list.size(); i++) {
             EntityType<?> entityType = list.get(i);
-            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
+            compoundNBT.putString(TARGET_NUMBER + i, ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
         }
         compoundNBT.putInt("Count", list.size());
         return compoundNBT;
@@ -270,8 +271,16 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         getOwner().ifPresent(uuid1 -> {
             if (!level.isClientSide) {
                 Player player = level.getPlayerByUUID(uuid1);
-                if (player != null)
-                    player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity() != null ? damageSource.getDirectEntity().getDisplayName() : damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                if (player != null) {
+                    if (damageSource.getDirectEntity() != null)
+                        player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                    else {
+                        if (damageSource.getEntity() != null)
+                            player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                        else
+                            player.displayClientMessage(damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())), false);
+                    }
+                }
             }
         });
     }

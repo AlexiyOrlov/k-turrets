@@ -1,6 +1,10 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.Sounds;
+import dev.buildtool.kturrets.tasks.AvoidAggressors;
+import dev.buildtool.kturrets.tasks.FollowOwnerGoal;
+import dev.buildtool.kturrets.tasks.MoveOutOfLava;
+import dev.buildtool.kturrets.tasks.StrafeAroundTarget;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -13,7 +17,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
@@ -33,7 +36,7 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Boolean> FOLLOWING_OWNER = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
-        moveControl = new FlyingMoveControl(this, 20, true);
+        moveControl = new DroneMovementControl(this, 20, true);
         setPathfindingMalus(BlockPathTypes.DANGER_CACTUS, -1);
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
@@ -139,6 +142,8 @@ public abstract class Drone extends Turret {
     protected void registerGoals() {
         goalSelector.addGoal(4, new FollowOwnerGoal(this));
         goalSelector.addGoal(5, new MoveOutOfLava(this));
+        goalSelector.addGoal(6, new AvoidAggressors(this));
+        goalSelector.addGoal(7, new StrafeAroundTarget(this));
     }
 
     @Override
