@@ -1,7 +1,8 @@
-2.2.14-1.19.3:
+2.2.15-1.19.3:
 entity type suggestion list in turret/drone UI is now clickable;
 suggestion list won't contain entities that are already in the targets list;
 drone will follow the owner at 1 meter higher altitude;
+turrets/drones will retaliate if attacked;
 
 2.2.10-1.19.3:
 drones will move out of lava if submerged;

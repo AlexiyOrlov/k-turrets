@@ -125,6 +125,7 @@ public class ArrowTurret extends Turret {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.ARROW_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new AttackTargetGoal(this));
     }

@@ -43,7 +43,6 @@ public class BrickDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        //TODO disable moving to target?
         goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new AttackTargetGoal(this));
     }

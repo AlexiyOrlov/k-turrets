@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
 import net.minecraft.Util;
@@ -132,7 +133,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
 
     @Override
-    protected abstract void registerGoals();
+    protected void registerGoals() {
+        targetSelector.addGoal(1, new RevengeTask(this));
+    }
 
     @Override
     public boolean attackable() {
