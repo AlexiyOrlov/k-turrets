@@ -56,9 +56,9 @@ class SmallFireball2 extends SmallFireball {
                 this.setSecondsOnFire(1);
             }
 
-            HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
-            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-                this.onHit(raytraceresult);
+            HitResult raytraceResult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            if (raytraceResult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceResult)) {
+                this.onHit(raytraceResult);
             }
 
             this.checkInsideBlocks();
