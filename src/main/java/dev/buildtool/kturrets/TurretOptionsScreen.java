@@ -114,6 +114,7 @@ public class TurretOptionsScreen extends Screen2 {
             addRenderableWidget(claimTurret = new BetterButton(centerX, 120, Component.translatable(turret instanceof Drone ? "k_turrets.claim.drone" : "k_turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
+                minecraft.screen.onClose();
                 minecraft.player.closeContainer();
             }));
         else if (turret instanceof Drone drone) {
