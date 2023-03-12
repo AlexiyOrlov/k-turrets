@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "k_turrets:item/background",
+    "layer1": "k_turrets:item/foreground"
+  }
+}
