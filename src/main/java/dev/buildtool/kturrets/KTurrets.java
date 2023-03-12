@@ -171,12 +171,6 @@ public class KTurrets {
                         else
                             contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.turret_claimed"), true);
                         contextSupplier.get().setPacketHandled(true);
-                        ServerPlayer player = contextSupplier.get().getSender();
-                        if (player.getTeam() != null) {
-                            turret.setTeamAutomatically(player.getTeam().getName());
-                        } else {
-                            turret.setTeamAutomatically("");
-                        }
                     }
                 });
         channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
