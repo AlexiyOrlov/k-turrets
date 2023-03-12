@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.IndirectDamageSource;
+import dev.buildtool.kturrets.Turret;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -16,13 +17,15 @@ import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 
 public class Arrow2 extends Arrow {
-    public Arrow2(Level world, AbstractArrow abstractArrowEntity, LivingEntity shooter, float f) {
+    private final Turret turret;
+
+    public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f) {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
         setDeltaMovement(abstractArrowEntity.getDeltaMovement());
@@ -34,12 +37,7 @@ public class Arrow2 extends Arrow {
             arrow.effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
-    }
-
-    @Override
-    protected void onHit(HitResult hitResult) {
-        super.onHit(hitResult);
-        discard();
+        turret = shooter;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class Arrow2 extends Arrow {
 
         Entity entity1 = this.getOwner();
         DamageSource damagesource;
-        if (entity1 == null || !entity1.isAlliedTo(entity)) {
+        if ((turret != null && entity.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(entity.getType())) || (entity1 == null || !entity1.isAlliedTo(entity) && !entity.getType().getCategory().isFriendly())) {
             if (entity1 == null) {
                 damagesource = new IndirectDamageSource("arrow", this, this);
             } else {
@@ -121,6 +119,12 @@ public class Arrow2 extends Arrow {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onHitBlock(BlockHitResult p_36755_) {
+        super.onHitBlock(p_36755_);
+        discard();
     }
 
     @Override
