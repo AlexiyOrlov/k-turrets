@@ -2,6 +2,7 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.FollowOwnerGoal;
+import dev.buildtool.kturrets.tasks.MoveOutOfLava;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -142,6 +143,7 @@ public abstract class Drone extends Turret {
     protected void registerGoals() {
         super.registerGoals();
         goalSelector.addGoal(4, new FollowOwnerGoal(this));
+        goalSelector.addGoal(5, new MoveOutOfLava(this));
     }
 
     @Override
