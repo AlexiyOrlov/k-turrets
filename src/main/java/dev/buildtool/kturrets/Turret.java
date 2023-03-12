@@ -474,4 +474,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundTag.getAllKeys().forEach(s -> exceptions.add(compoundTag.getString(s)));
         return exceptions;
     }
+
+    @Override
+    public boolean isInWall() {
+        return false;
+    }
 }
