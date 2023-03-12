@@ -124,12 +124,14 @@ public class TurretOptionsScreen extends Screen2 {
                     switchButton.state = !switchButton.state;
             }));
         }
+//        ScrollPane scrollPane=new ScrollPane(minecraft,centerX-6,height-3,3,3);
+//        addRenderableWidget(scrollPane);
         exceptionButtons = new ArrayList<>(19);
         if (exceptions.size() > 0) {
             Label label = new Label(3, 3, Component.translatable("k_turrets.exceptions").append(":"));
             addRenderableWidget(label);
             label.setScrollable(true, true);
-
+//            scrollPane.addItems(label);
             for (int i = 0; i < exceptions.size(); i++) {
                 String next = exceptions.get(i);
                 SwitchButton switchButton = new SwitchButton(3, 20 * i + label.getY() + label.getHeight(), Component.literal(next), Component.literal(ChatFormatting.STRIKETHROUGH + next), true, p_93751_ -> {
@@ -141,11 +143,13 @@ public class TurretOptionsScreen extends Screen2 {
                 switchButton.verticalScroll = true;
                 addRenderableWidget(switchButton);
                 exceptionButtons.add(switchButton);
+//                scrollPane.addItems(switchButton);
             }
         }
 
         Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(0).getY() + exceptionButtons.get(0).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
         targetButtons = new ArrayList<>(targets.size());
+//        scrollPane.addItems(label);
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
@@ -158,6 +162,7 @@ public class TurretOptionsScreen extends Screen2 {
             switchButton.verticalScroll = true;
             addRenderableWidget(switchButton);
             targetButtons.add(switchButton);
+//            scrollPane.addItems(switchButton);
         }
     }
 
@@ -232,16 +237,16 @@ public class TurretOptionsScreen extends Screen2 {
                     yOffset += 14;
                 }
                 if (!entityTypes.isEmpty()) {
-                    this.addTarget.setHidden();
+                    this.addTarget.setHidden(true);
                     if (claimTurret != null)
-                        this.claimTurret.setHidden();
-                    this.clearTargets.setHidden();
-                    this.dismantle.setHidden();
+                        this.claimTurret.setHidden(true);
+                    this.clearTargets.setHidden(true);
+                    this.dismantle.setHidden(true);
                     if (followSwitch != null)
-                        this.followSwitch.setHidden();
-                    this.mobilitySwitch.setHidden();
-                    this.protectionFromPlayers.setHidden();
-                    this.resetList.setHidden();
+                        this.followSwitch.setHidden(true);
+                    this.mobilitySwitch.setHidden(true);
+                    this.protectionFromPlayers.setHidden(true);
+                    this.resetList.setHidden(true);
                     renderLabels = false;
                 } else {
                     showButtonsAndHints();
@@ -254,16 +259,16 @@ public class TurretOptionsScreen extends Screen2 {
     }
 
     private void showButtonsAndHints() {
-        this.addTarget.setVisible();
+        this.addTarget.setHidden(false);
         if (claimTurret != null)
-            this.claimTurret.setVisible();
-        this.clearTargets.setVisible();
-        this.dismantle.setVisible();
+            this.claimTurret.setHidden(false);
+        this.clearTargets.setHidden(false);
+        this.dismantle.setHidden(false);
         if (followSwitch != null)
-            this.followSwitch.setVisible();
-        this.mobilitySwitch.setVisible();
-        this.protectionFromPlayers.setVisible();
-        this.resetList.setVisible();
+            this.followSwitch.setHidden(false);
+        this.mobilitySwitch.setHidden(false);
+        this.protectionFromPlayers.setHidden(false);
+        this.resetList.setHidden(false);
         renderLabels = true;
     }
 }
