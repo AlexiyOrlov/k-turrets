@@ -175,18 +175,6 @@ public abstract class Drone extends Turret {
     }
 
     @Override
-    public void die(DamageSource damageSource) {
-        super.die(damageSource);
-        getOwner().ifPresent(uuid1 -> {
-            if (!level.isClientSide) {
-                Player player = level.getPlayerByUUID(uuid1);
-                if (player != null)
-                    player.displayClientMessage(Component.translatable("k_turrets.drone.destroyed", getDisplayName()), false);
-            }
-        });
-    }
-
-    @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
 
     }
