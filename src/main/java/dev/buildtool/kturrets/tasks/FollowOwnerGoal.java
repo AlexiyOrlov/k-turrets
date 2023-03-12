@@ -25,7 +25,7 @@ public class FollowOwnerGoal extends Goal {
             Player player = level.getPlayerByUUID(uuid);
             if (player != null) {
                 if (drone.distanceToSqr(player) > 5 * 5)
-                    drone.getNavigation().moveTo(player.getX(), player.getY() + 1, player.getZ(), 1);
+                    drone.getNavigation().moveTo(player.getX(), player.getY() + 2, player.getZ(), 1);
                 else drone.getNavigation().stop();
             }
         });
