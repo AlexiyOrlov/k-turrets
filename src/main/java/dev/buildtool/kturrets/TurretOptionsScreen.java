@@ -22,6 +22,7 @@ public class TurretOptionsScreen extends Screen2 {
     private static final Component CHOOSE_HINT = Component.translatable("k_turrets.choose.tooltip");
     private static final Component SCROLL_HINT = Component.translatable("k_turrets.hold.alt.to.scroll");
     private List<SwitchButton> targetButtons;
+    private List<SwitchButton> exceptionButtons;
     private TextField addEntityField;
 
     private final List<Label> suggestions;
@@ -123,25 +124,9 @@ public class TurretOptionsScreen extends Screen2 {
                     switchButton.state = !switchButton.state;
             }));
         }
-
-        addRenderableWidget(new Label(3, 3, Component.translatable("k_turrets.targets")));
-        targetButtons = new ArrayList<>(targets.size());
-        targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
-        for (int i = 0; i < targets.size(); i++) {
-            EntityType<?> entityType = targets.get(i);
-            SwitchButton switchButton = new SwitchButton(3, 20 * i + 40, Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), Component.literal(ChatFormatting.STRIKETHROUGH + ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), true, p_onPress_1_ -> {
-                if (p_onPress_1_ instanceof SwitchButton) {
-                    ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
-                    tempStatusMap.put(entityType, ((SwitchButton) p_onPress_1_).state);
-                }
-            });
-            switchButton.verticalScroll = true;
-            addRenderableWidget(switchButton);
-            targetButtons.add(switchButton);
-        }
-
+        exceptionButtons = new ArrayList<>(19);
         if (exceptions.size() > 0) {
-            Label label = new Label(3, targetButtons.size() > 0 ? targetButtons.get(targetButtons.size() - 1).getY() + targetButtons.get(targetButtons.size() - 1).getHeight() : 20, Component.translatable("k_turrets.exceptions").append(":"));
+            Label label = new Label(3, 3, Component.translatable("k_turrets.exceptions").append(":"));
             addRenderableWidget(label);
             label.setScrollable(true, true);
 
@@ -155,7 +140,24 @@ public class TurretOptionsScreen extends Screen2 {
                 });
                 switchButton.verticalScroll = true;
                 addRenderableWidget(switchButton);
+                exceptionButtons.add(switchButton);
             }
+        }
+
+        Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(0).getY() + exceptionButtons.get(0).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
+        targetButtons = new ArrayList<>(targets.size());
+        targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
+        for (int i = 0; i < targets.size(); i++) {
+            EntityType<?> entityType = targets.get(i);
+            SwitchButton switchButton = new SwitchButton(3, 20 * i + label.getY() + label.getHeight(), Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), Component.literal(ChatFormatting.STRIKETHROUGH + ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), true, p_onPress_1_ -> {
+                if (p_onPress_1_ instanceof SwitchButton) {
+                    ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
+                    tempStatusMap.put(entityType, ((SwitchButton) p_onPress_1_).state);
+                }
+            });
+            switchButton.verticalScroll = true;
+            addRenderableWidget(switchButton);
+            targetButtons.add(switchButton);
         }
     }
 
