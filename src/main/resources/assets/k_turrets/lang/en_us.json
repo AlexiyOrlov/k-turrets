@@ -48,6 +48,10 @@
   "k_turrets.team": "Team",
   "k_turrets.turret.belongs.to": "This turret belongs to",
   "k_turrets.drone.belongs.to": "This drone belongs to",
+  "k_turrets.added.player.to.exceptions": "Added player %1$s to exceptions",
+  "k_turrets.removed.player.from.exceptions": "Removed player %1$s from exceptions",
+  "k_turrets.exceptions": "Ignored players",
+  "k_turrets.player.is.already.in.exceptions": "Player %1$s is already being ignored",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",

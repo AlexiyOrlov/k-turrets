@@ -28,6 +28,8 @@ public class TurretOptionsScreen extends Screen2 {
     private BetterButton addTarget, dismantle, clearTargets, resetList, mobilitySwitch, protectionFromPlayers, claimTurret,
             followSwitch;
     private boolean renderLabels = true;
+    private final List<String> exceptions;
+    private HashMap<String, Boolean> tempExceptionStatus;
 
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
@@ -36,6 +38,9 @@ public class TurretOptionsScreen extends Screen2 {
         targets = new UniqueList<>(turret.decodeTargets(turret.getTargets()));
         targets.forEach(entityType -> tempStatusMap.put(entityType, true));
         suggestions = new ArrayList<>(12);
+        exceptions = turret.getExceptions();
+        tempExceptionStatus = new HashMap<>(1);
+        exceptions.forEach(s -> tempExceptionStatus.put(s, true));
     }
 
     @Override
@@ -43,22 +48,38 @@ public class TurretOptionsScreen extends Screen2 {
         super.init();
         addEntityField = addRenderableWidget(new TextField(centerX, 3, 180));
         addRenderableWidget(addTarget = new BetterButton(centerX, 20, Component.translatable("k_turrets.add.entity.type"), p_onPress_1_ -> {
-            String entityType = addEntityField.getValue();
-            EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(entityType));
-            if (entityType.length() > 2) {
-                if (type != null) {
-                    if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
-                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.incorrect.entry"), true);
-                    } else {
-                        targets.add(type);
-                        tempStatusMap.put(type, true);
-                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.added").append(" ").append(type.getDescription()), true);
-                        if (entityType.contains(":"))
-                            addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
+            String s = addEntityField.getValue();
+            if (s.startsWith("!")) {
+                if (s.length() > 1) {
+                    String playerName = s.substring(1);
+                    if (exceptions.contains(playerName))
+                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.player.is.already.in.exceptions", playerName), true);
+                    else {
+                        turret.addPlayerToExceptions(playerName);
+                        tempExceptionStatus.put(playerName, true);
+                        KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), playerName));
+                        addEntityField.setValue("");
+                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.added.player.to.exceptions", playerName), false);
+                    }
+                }
+            } else {
+                EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(s));
+                if (s.length() > 2) {
+                    if (type != null) {
+                        if (type == EntityType.PIG && !s.equals("minecraft:pig") && !s.equals("pig")) {
+                            minecraft.player.displayClientMessage(Component.translatable("k_turrets.incorrect.entry"), true);
+                        } else {
+                            targets.add(type);
+                            tempStatusMap.put(type, true);
+                            minecraft.player.displayClientMessage(Component.translatable("k_turrets.added").append(" ").append(type.getDescription()), true);
+                            if (s.contains(":"))
+                                addEntityField.setValue(s.substring(0, s.indexOf(':')));
+                        }
                     }
                 }
             }
         }));
+
         addRenderableWidget(dismantle = new BetterButton(centerX, 40, Component.translatable("k_turrets.dismantle"), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
             minecraft.player.closeContainer();
@@ -118,6 +139,24 @@ public class TurretOptionsScreen extends Screen2 {
             addRenderableWidget(switchButton);
             targetButtons.add(switchButton);
         }
+
+        if (exceptions.size() > 0) {
+            Label label = new Label(3, targetButtons.size() > 0 ? targetButtons.get(targetButtons.size() - 1).getY() + targetButtons.get(targetButtons.size() - 1).getHeight() : 20, Component.translatable("k_turrets.exceptions").append(":"));
+            addRenderableWidget(label);
+            label.setScrollable(true, true);
+
+            for (int i = 0; i < exceptions.size(); i++) {
+                String next = exceptions.get(i);
+                SwitchButton switchButton = new SwitchButton(3, 20 * i + label.getY() + label.getHeight(), Component.literal(next), Component.literal(ChatFormatting.STRIKETHROUGH + next), true, p_93751_ -> {
+                    if (p_93751_ instanceof SwitchButton switchButton1) {
+                        switchButton1.state = !switchButton1.state;
+                        tempExceptionStatus.put(next, switchButton1.state);
+                    }
+                });
+                switchButton.verticalScroll = true;
+                addRenderableWidget(switchButton);
+            }
+        }
     }
 
     @Override
@@ -138,6 +177,17 @@ public class TurretOptionsScreen extends Screen2 {
         KTurrets.channel.sendToServer(turretTargets);
         if (removed.get() > 0)
             minecraft.player.displayClientMessage(Component.translatable("k_turrets.removed", removed.get()), false);
+        tempExceptionStatus.forEach((s, aBoolean) -> {
+            if (aBoolean) {
+                if (!exceptions.contains(s)) {
+                    turret.addPlayerToExceptions(s);
+                    KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), s));
+                }
+            } else {
+                turret.removePlayerFromExceptions(s);
+                KTurrets.channel.sendToServer(new RemovePlayerException(turret.getId(), s));
+            }
+        });
     }
 
     @Override
