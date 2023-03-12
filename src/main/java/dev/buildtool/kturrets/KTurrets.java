@@ -31,7 +31,7 @@ import java.io.File;
 public class KTurrets {
     public static final String ID = "k_turrets";
     public static final ResourceLocation STEEL_INGOT = new ResourceLocation("forge", "ingots/steel");
-    static private final String NP = "1.0";
+    static private final String NP = "1.1";
     public static SimpleChannel channel;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_RANGE;

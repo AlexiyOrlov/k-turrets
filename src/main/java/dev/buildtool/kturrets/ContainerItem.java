@@ -74,20 +74,20 @@ public class ContainerItem extends ForgeSpawnEggItem {
             Direction direction = context.getClickedFace();
             BlockState blockstate = level.getBlockState(blockpos);
 
-            BlockPos blockpos1;
+            BlockPos blockPos1;
             if (blockstate.getCollisionShape(level, blockpos).isEmpty()) {
-                blockpos1 = blockpos;
+                blockPos1 = blockpos;
             } else {
-                blockpos1 = blockpos.relative(direction);
+                blockPos1 = blockpos.relative(direction);
             }
 
             EntityType<?> entitytype = this.getType(itemstack.getTag());
-            Entity entity = entitytype.spawn((ServerLevel) level, itemstack, context.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP);
+            Entity entity = entitytype.spawn((ServerLevel) level, itemstack, context.getPlayer(), blockPos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockPos1) && direction == Direction.UP);
             if (entity != null) {
                 //the difference
                 if (itemstack.hasTag()) {
                     entity.deserializeNBT(itemstack.getTag().getCompound("Contained"));
-                    entity.setPosRaw(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
+                    entity.setPosRaw(blockPos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
                 }
                 itemstack.shrink(1);
             }
