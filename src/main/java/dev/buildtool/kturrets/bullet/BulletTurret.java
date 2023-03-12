@@ -1,10 +1,10 @@
 package dev.buildtool.kturrets.bullet;
 
-import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -42,6 +42,7 @@ public class BulletTurret extends Turret {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.BULLET_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new AttackTargetGoal(this));
     }

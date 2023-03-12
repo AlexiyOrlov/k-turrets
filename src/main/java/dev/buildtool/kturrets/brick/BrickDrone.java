@@ -1,9 +1,9 @@
 package dev.buildtool.kturrets.brick;
 
-import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -43,7 +43,6 @@ public class BrickDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        //TODO disable moving to target?
         goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.BRICK_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new AttackTargetGoal(this));
     }

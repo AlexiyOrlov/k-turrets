@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
 import dev.buildtool.satako.UniqueList;
@@ -57,7 +58,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     /**
      * Players that are not allied to the owner
      */
-    protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
+    public Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
             if (livingEntity instanceof Player player) {
                 CompoundTag compoundTag = entityData.get(IGNORED_PLAYERS);
@@ -140,7 +141,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
 
     @Override
-    protected abstract void registerGoals();
+    protected void registerGoals() {
+        targetSelector.addGoal(1, new RevengeTask(this));
+    }
 
     @Override
     public boolean attackable() {
