@@ -1,4 +1,4 @@
-2.2.20-1.19.3:
+2.2.21-1.19.3:
 entity type suggestion list in turret/drone UI is now clickable;
 suggestion list won't contain entities that are already in the targets list;
 drone will follow the owner at 1 meter higher altitude;
@@ -8,6 +8,7 @@ turrets/drones can be set to ignore a player from attacking;
 spawn eggs are using custom model now;
 drones will trail the followed owner behind;
 increased turret/drone detection range along Y axis;
+
 
 2.2.10-1.19.3:
 drones will move out of lava if submerged;
