@@ -18,5 +18,17 @@
     "sounds": [
       "k_turrets:fan"
     ]
+  },
+  "turret_hit": {
+    "sounds": [
+      {
+        "name": "k_turrets:metal_ting_1",
+        "pitch": 0.5
+      },
+      {
+        "name": "k_turrets:metal_ting_2",
+        "pitch": 0.5
+      }
+    ]
   }
 }
