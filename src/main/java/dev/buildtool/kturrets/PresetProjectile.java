@@ -1,6 +1,5 @@
 package dev.buildtool.kturrets;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -120,11 +119,6 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
             ProjectileUtil.rotateTowardsMovement(this, 0.2F);
             float f = this.getInertia();
             if (this.isInWater()) {
-                for (int i = 0; i < 4; ++i) {
-                    float f1 = 0.25F;
-                    this.level.addParticle(ParticleTypes.BUBBLE, d0 - vec3.x * f1, d1 - vec3.y * f1, d2 - vec3.z * f1, vec3.x, vec3.y, vec3.z);
-                }
-
                 f = 0.8F;
             }
             this.setDeltaMovement(vec3.add(this.xPower * movementMultiplier, this.yPower * movementMultiplier, this.zPower * movementMultiplier).scale(f));
