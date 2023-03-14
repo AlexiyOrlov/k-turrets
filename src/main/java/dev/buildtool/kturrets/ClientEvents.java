@@ -20,7 +20,7 @@ public class ClientEvents {
             if (livingEntity instanceof Turret) {
                 PoseStack poseStack = renderLivingEvent.getPoseStack();
                 poseStack.pushPose();
-                String health = (int) livingEntity.getHealth() + "/" + (int) livingEntity.getMaxHealth();
+                String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
                 poseStack.scale(0.03f, 0.03f, 0.03f);
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                 poseStack.mulPose(Vector3f.YP.rotationDegrees(180));
