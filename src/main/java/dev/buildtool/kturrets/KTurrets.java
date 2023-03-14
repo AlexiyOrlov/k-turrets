@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -58,7 +59,7 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
 
     public static ForgeConfigSpec.IntValue TURRET_LIMIT_PER_PLAYER, DRONE_LIMIT_PER_PLAYER;
-
+    static boolean neatIsPresent;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         TEntities.ENTITIES.register(eventBus);
@@ -249,6 +250,7 @@ public class KTurrets {
             DRONE_LIMIT_PER_PLAYER = builder.defineInRange("Drone limit per player", () -> 30, 1, 300);
             return builder.build();
         }).getRight());
+        neatIsPresent = LoadingModList.get().getModFileById("neat") != null;
     }
 
     public static void loadConfig(ForgeConfigSpec config, String path) {
