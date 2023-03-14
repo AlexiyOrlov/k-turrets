@@ -1,6 +1,5 @@
 package dev.buildtool.kturrets;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,6 +20,7 @@ import net.minecraftforge.network.NetworkHooks;
 public abstract class PresetProjectile extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Integer> DAMAGE = SynchedEntityData.defineId(PresetProjectile.class, EntityDataSerializers.INT);
     protected Turret turret;
+    protected int movementMultiplier = 3;
 
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, net.minecraft.world.level.Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
@@ -104,43 +104,27 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
 
     @Override
     public void tick() {
-        super.tick();
-        step();
-    }
-
-    /**
-     * Copy of {@link AbstractHurtingProjectile#tick()}
-     */
-    protected void step() {
         Entity entity = this.getOwner();
         if (this.level.isClientSide || (entity == null || !entity.isRemoved()) && this.level.hasChunkAt(this.blockPosition())) {
             super.tick();
             if (this.shouldBurn()) {
                 this.setSecondsOnFire(1);
             }
-
-            HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
-            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-                this.onHit(raytraceresult);
+            HitResult hitresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+            if (hitresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+                this.onHit(hitresult);
             }
-
             this.checkInsideBlocks();
-            Vec3 vector3d = this.getDeltaMovement();
-            double d0 = this.getX() + vector3d.x;
-            double d1 = this.getY() + vector3d.y;
-            double d2 = this.getZ() + vector3d.z;
+            Vec3 vec3 = this.getDeltaMovement();
+            double d0 = this.getX() + vec3.x;
+            double d1 = this.getY() + vec3.y;
+            double d2 = this.getZ() + vec3.z;
             ProjectileUtil.rotateTowardsMovement(this, 0.2F);
             float f = this.getInertia();
             if (this.isInWater()) {
-                for (int i = 0; i < 4; ++i) {
-                    this.level.addParticle(ParticleTypes.BUBBLE, d0 - vector3d.x * 0.25D, d1 - vector3d.y * 0.25D, d2 - vector3d.z * 0.25D, vector3d.x, vector3d.y, vector3d.z);
-                }
-
                 f = 0.8F;
             }
-
-            this.setDeltaMovement(vector3d.add(this.xPower, this.yPower, this.zPower).scale((double) f));
-            this.level.addParticle(this.getTrailParticle(), d0, d1 + 0.5D, d2, 0.0D, 0.0D, 0.0D);
+            this.setDeltaMovement(vec3.add(this.xPower * movementMultiplier, this.yPower * movementMultiplier, this.zPower * movementMultiplier).scale((double) f));
             this.setPos(d0, d1, d2);
         } else {
             this.discard();
