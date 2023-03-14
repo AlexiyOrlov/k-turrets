@@ -9,7 +9,6 @@ spawn eggs are using custom model now;
 drones will trail the followed owner behind;
 increased turret/drone detection range along Y axis;
 turret/drone health will be shown above it;
-changed turret damage sound;
 fixed projectiles not hitting mobs right in front of the turret/drone;
 
 2.2.10-1.19.3:

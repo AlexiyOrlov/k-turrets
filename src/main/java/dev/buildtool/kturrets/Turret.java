@@ -1,6 +1,5 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
@@ -307,7 +306,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return Sounds.METAL_HIT.get();
+        return SoundEvents.SHIELD_BLOCK;
     }
 
     @Override
