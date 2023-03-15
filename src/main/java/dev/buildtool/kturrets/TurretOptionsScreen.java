@@ -202,17 +202,6 @@ public class TurretOptionsScreen extends Screen2 {
         } else {
             renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())), centerX, centerY + 60, font);
         }
-        String targetEntry = addEntityField.getValue();
-        if (targetEntry.length() > 0) {
-            List<ResourceLocation> entityTypes;
-            if (targetEntry.contains(":"))
-                entityTypes = ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(targetEntry)).collect(Collectors.toList());
-            else
-                entityTypes = ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(targetEntry)).collect(Collectors.toList());
-            if (!entityTypes.isEmpty()) {
-                renderComponentTooltip(matrixStack, entityTypes.subList(0, Math.min(entityTypes.size(), 12)).stream().map(resourceLocation -> Component.literal(ChatFormatting.YELLOW + resourceLocation.toString())).collect(Collectors.toList()), addEntityField.x, addEntityField.y + addEntityField.getHeight() + 20);
-            }
-        }
     }
 
     @Override
