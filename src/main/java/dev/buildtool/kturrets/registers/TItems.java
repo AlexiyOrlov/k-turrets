@@ -26,6 +26,7 @@ public class TItems {
     public static RegistryObject<Item> GAUSS_BULLET;
     public static RegistryObject<Item> GAUSS_TURRET;
     public static RegistryObject<Item> COBBLE_TURRET;
+    public static RegistryObject<Item> EXPLOSIVE_POWDER;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
@@ -44,6 +45,7 @@ public class TItems {
         ITEMS.register("arrow_drone_item", () -> new ContainerItem(TEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE));
         ITEMS.register("gauss_drone_item", () -> new ContainerItem(TEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE));
         ITEMS.register("firecharge_drone_item", () -> new ContainerItem(TEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE));
+        EXPLOSIVE_POWDER = ITEMS.register("explosive_powder", () -> new Item(defaults()));
     }
 
     private static Item.Properties defaults() {
