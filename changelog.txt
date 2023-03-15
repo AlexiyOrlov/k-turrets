@@ -5,7 +5,7 @@ drone will follow the owner at 1 meter higher altitude;
 turrets/drones will retaliate if attacked;
 turrets/drones won't hurt friendly or neutral mobs unless they are in their target list;
 turrets/drones can be set to ignore a player from attacking;
-spawn eggs are using custom model now;
+spawn eggs are using a custom model now;
 drones will trail the followed owner behind;
 increased turret/drone detection range along Y axis;
 turret/drone health will be shown above it;
