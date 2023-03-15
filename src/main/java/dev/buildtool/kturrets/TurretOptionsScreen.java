@@ -144,8 +144,8 @@ public class TurretOptionsScreen extends Screen2 {
         }
 
         Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(0).getY() + exceptionButtons.get(0).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
+        label.setScrollable(true, true);
         targetButtons = new ArrayList<>(targets.size());
-//        scrollPane.addItems(label);
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
@@ -195,12 +195,14 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
-        renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-        renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
-        if (turret.getAutomaticTeam().isEmpty()) {
-            renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.no.team")), centerX, centerY + 60, font);
-        } else {
-            renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())), centerX, centerY + 60, font);
+        if (renderLabels) {
+            renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
+            renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
+            if (turret.getAutomaticTeam().isEmpty()) {
+                renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.no.team")), centerX, centerY + 60, font);
+            } else {
+                renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())), centerX, centerY + 60, font);
+            }
         }
     }
 
