@@ -61,6 +61,17 @@ public class Arrow2 extends Arrow {
         }
     }
 
+    @Override
+    protected boolean canHitEntity(Entity target) {
+        Entity owner = getOwner();
+        if (turret != null && target.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+            return super.canHitEntity(target);
+        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
+            return super.canHitEntity(target);
+        }
+        return false;
+    }
+
     protected void onHitEntity(EntityHitResult p_36757_) {
         Entity entity = p_36757_.getEntity();
         double i = getBaseDamage();
@@ -72,7 +83,6 @@ public class Arrow2 extends Arrow {
 
         Entity entity1 = this.getOwner();
         DamageSource damagesource;
-        if ((turret != null && entity.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(entity.getType())) || (entity1 == null || !entity1.isAlliedTo(entity) && !entity.getType().getCategory().isFriendly())) {
             if (entity1 == null) {
                 damagesource = new IndirectDamageSource("arrow", this, this);
             } else {
@@ -85,9 +95,7 @@ public class Arrow2 extends Arrow {
             if (this.isOnFire()) {
                 entity.setSecondsOnFire(5);
             }
-
             if (entity.hurt(damagesource, (float) i)) {
-
                 if (entity instanceof LivingEntity livingentity) {
                     if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
                         livingentity.setArrowCount(livingentity.getArrowCount() + 1);
@@ -124,7 +132,6 @@ public class Arrow2 extends Arrow {
                     this.discard();
                 }
             }
-        }
     }
 
     @Override

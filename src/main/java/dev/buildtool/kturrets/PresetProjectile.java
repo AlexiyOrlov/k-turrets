@@ -20,7 +20,7 @@ import net.minecraftforge.network.NetworkHooks;
 public abstract class PresetProjectile extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Integer> DAMAGE = SynchedEntityData.defineId(PresetProjectile.class, EntityDataSerializers.INT);
     protected Turret turret;
-    protected int movementMultiplier = 3;
+    protected int movementMultiplier = 50;
 
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, net.minecraft.world.level.Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
@@ -59,16 +59,20 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult entityRayTraceResult) {
-        Entity target = entityRayTraceResult.getEntity();
+    protected boolean canHitEntity(Entity target) {
         Entity owner = getOwner();
-        if (turret != null && target.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(target.getType())) {
-            target.hurt(getDamageSource(), getDamage());
-            discard();
-        } else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
-            target.hurt(getDamageSource(), getDamage());
-            discard();
+        if (turret != null && target.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+            return super.canHitEntity(target);
+        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
+            return super.canHitEntity(target);
         }
+        return false;
+    }
+
+    @Override
+    protected void onHitEntity(EntityHitResult entityRayTraceResult) {
+        Entity entity = entityRayTraceResult.getEntity();
+        entity.hurt(getDamageSource(), getDamage());
     }
 
     @Override
