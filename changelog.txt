@@ -1,5 +1,6 @@
 2.2.25-1.19.3:
 fixed fireball projectile;
+modified cobble turret model a bit;
 
 2.2.24-1.19.3:
 entity type suggestion list in turret/drone UI is now clickable;
