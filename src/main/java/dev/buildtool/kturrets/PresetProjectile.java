@@ -98,6 +98,8 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
      * @return preferably {@link net.minecraft.world.damagesource.IndirectEntityDamageSource}
      */
     protected abstract DamageSource getDamageSource();
+
+    //missing entities at point blank range seems to be vanilla bug
     @Override
     public void tick() {
         super.tick();
