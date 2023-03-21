@@ -32,12 +32,12 @@ public class TItems {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
         BULLET_TURRET = ITEMS.register("bullet_turret_item", () -> new ContainerItem(TEntities.BULLET_TURRET, 0xA2A1A0, 0x009EA2, defaults(), ContainerItem.Unit.TURRET));
         FIRECHARGE_TURRET = ITEMS.register("firecharge_turret_item", () -> new ContainerItem(TEntities.FIRE_CHARGE_TURRET, 0x0, 0xA20005, defaults(), ContainerItem.Unit.TURRET));
-        SEMI_STEEL = ITEMS.register("semi_steel", () -> new Item(defaults()));
-        STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
         BRICK_TURRET = ITEMS.register("brick_turret_item", () -> new ContainerItem(TEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults(), ContainerItem.Unit.TURRET));
-        GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ContainerItem(TEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults(), ContainerItem.Unit.TURRET));
         COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ContainerItem(TEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults(), ContainerItem.Unit.TURRET));
+        SEMI_STEEL = ITEMS.register("semi_steel", () -> new Item(defaults()));
+        STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
+        GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
 
         ITEMS.register("brick_drone_item", () -> new ContainerItem(TEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults(), ContainerItem.Unit.DRONE));
         ITEMS.register("bullet_drone_item", () -> new ContainerItem(TEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults(), ContainerItem.Unit.DRONE));
