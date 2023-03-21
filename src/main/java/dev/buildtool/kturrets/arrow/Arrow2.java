@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.Turret;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -139,5 +140,17 @@ public class Arrow2 extends Arrow {
         super.tick();
         if (this.getDeltaMovement().length() < 1)
             discard();
+    }
+
+
+    @Override
+    public void shoot(double p_36775_, double p_36776_, double p_36777_, float p_36778_, float p_36779_) {
+        Vec3 vec3 = (new Vec3(p_36775_, p_36776_, p_36777_));
+        this.setDeltaMovement(vec3);
+        double d0 = vec3.horizontalDistance();
+        this.setYRot((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
+        this.setXRot((float) (Mth.atan2(vec3.y, d0) * (double) (180F / (float) Math.PI)));
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getXRot();
     }
 }
