@@ -1,6 +1,7 @@
-2.0.8-1.19:
+2.0.9-1.19:
 fixed firecharge drone and turret recipes;
 fixed drone strafing;
+target list has scroll buttons now;
 
 2.0.5-1.19:
 fixed fireball projectile;
