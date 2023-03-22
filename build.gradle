@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-version = '2.2.25-1.19.3'
+version = '2.2.26-1.19.3'
 group = 'dev.buildtool'
 archivesBaseName = 'K-Turrets'
 
@@ -79,7 +79,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
-    implementation fg.deobf('dev.buildtool:satako:6.1.6-1.19.3')
+    implementation fg.deobf('dev.buildtool:satako:6.1.9-1.19.3')
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

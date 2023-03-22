@@ -2,9 +2,11 @@ package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,9 +22,7 @@ public class TurretOptionsScreen extends Screen2 {
     protected HashMap<EntityType<?>, Boolean> tempStatusMap;
     protected List<EntityType<?>> targets;
     private static final Component CHOOSE_HINT = Component.translatable("k_turrets.choose.tooltip");
-    private static final Component SCROLL_HINT = Component.translatable("k_turrets.hold.alt.to.scroll");
     private List<SwitchButton> targetButtons;
-    private List<SwitchButton> exceptionButtons;
     private TextField addEntityField;
 
     private final List<Label> suggestions;
@@ -125,14 +125,13 @@ public class TurretOptionsScreen extends Screen2 {
                     switchButton.state = !switchButton.state;
             }));
         }
-//        ScrollPane scrollPane=new ScrollPane(minecraft,centerX-6,height-3,3,3);
-//        addRenderableWidget(scrollPane);
-        exceptionButtons = new ArrayList<>(19);
+        List<GuiEventListener> guiEventListeners = new ArrayList<>();
+        List<SwitchButton> exceptionButtons = new ArrayList<>(19);
         if (exceptions.size() > 0) {
             Label label = new Label(3, 3, Component.translatable("k_turrets.exceptions").append(":"));
             addRenderableWidget(label);
             label.setScrollable(true, true);
-//            scrollPane.addItems(label);
+            guiEventListeners.add(label);
             for (int i = 0; i < exceptions.size(); i++) {
                 String next = exceptions.get(i);
                 SwitchButton switchButton = new SwitchButton(3, 20 * i + label.getY() + label.getHeight(), Component.literal(next), Component.literal(ChatFormatting.STRIKETHROUGH + next), true, p_93751_ -> {
@@ -144,13 +143,14 @@ public class TurretOptionsScreen extends Screen2 {
                 switchButton.verticalScroll = true;
                 addRenderableWidget(switchButton);
                 exceptionButtons.add(switchButton);
-//                scrollPane.addItems(switchButton);
+                guiEventListeners.add(switchButton);
             }
         }
 
         Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(0).getY() + exceptionButtons.get(0).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
+        label.setScrollable(true, true);
         targetButtons = new ArrayList<>(targets.size());
-//        scrollPane.addItems(label);
+        guiEventListeners.add(label);
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
@@ -163,8 +163,11 @@ public class TurretOptionsScreen extends Screen2 {
             switchButton.verticalScroll = true;
             addRenderableWidget(switchButton);
             targetButtons.add(switchButton);
-//            scrollPane.addItems(switchButton);
+            guiEventListeners.add(switchButton);
         }
+        ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, Component.literal(""), new IntegerColor(0x228FDBF0), guiEventListeners);
+        addRenderableWidget(scrollArea);
+
     }
 
     @Override
@@ -203,7 +206,7 @@ public class TurretOptionsScreen extends Screen2 {
         super.render(matrixStack, mouseX, mouseY, tick);
         if (renderLabels) {
             renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-            renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
+            renderComponentTooltip(matrixStack, List.of(CHOOSE_HINT), centerX, centerY + 80, font);
             if (turret.getAutomaticTeam().isEmpty()) {
                 renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.no.team")), centerX, centerY + 60, font);
             } else {
