@@ -30,7 +30,7 @@ import java.io.File;
 @Mod(KTurrets.ID)
 public class KTurrets {
     public static final String ID = "k_turrets";
-    public static final ResourceLocation STEEL_INGOT = new ResourceLocation("forge", "ingots/steel");
+    public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     static private final String NP = "1.0";
     public static SimpleChannel channel;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
@@ -65,6 +65,9 @@ public class KTurrets {
         TItems.ITEMS.register(eventBus);
         TContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
+        KBlocks.BLOCKS.register(eventBus);
+        WorldGeneration.CONFIGURED_FEATURE_REGISTER.register(eventBus);
+        WorldGeneration.PLACED_FEATURE_REGISTER.register(eventBus);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Arrow turret");

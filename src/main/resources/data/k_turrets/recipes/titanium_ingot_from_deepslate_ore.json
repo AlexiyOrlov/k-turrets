@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "k_turrets:deepslate_titanium_ore"
+  },
+  "result": {
+    "item": "k_turrets:titanium_ingot",
+    "count": 2
+  },
+  "experience": 2,
+  "cookingtime": 100
+}

@@ -189,7 +189,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
-        if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.STEEL_INGOT))) {
+        if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
             heal(getMaxHealth() / 6);
             itemInHand.shrink(1);
             return InteractionResult.SUCCESS;
