@@ -1,7 +1,7 @@
 2.0.15-1.19:
 added titanium ore;
 turret and drone recipes now use titanium ingots instead of steel;
-added 3D drone and item models;
+added 3D drone and turret item models;
 
 2.0.10-1.19:
 fixed firecharge drone and turret recipes;
