@@ -182,10 +182,6 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return getAttributeValue(Attributes.FOLLOW_RANGE);
     }
 
-    protected double getDamage() {
-        return getAttributeValue(Attributes.ATTACK_DAMAGE);
-    }
-
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
