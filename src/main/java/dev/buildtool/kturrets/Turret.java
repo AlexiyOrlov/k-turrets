@@ -235,7 +235,6 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.putString("Team", getAutomaticTeam());
         compoundNBT.putString("Owner name", getOwnerName());
         compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
-        compoundNBT.putString("Team", getAutomaticTeam());
     }
 
     @Override
