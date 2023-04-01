@@ -24,9 +24,9 @@ public class TurretOptionsScreen extends Screen2 {
     private static final Component CHOOSE_HINT = Component.translatable("k_turrets.choose.tooltip");
     private List<SwitchButton> targetButtons;
     private TextField addEntityField;
-    private final List<String> exceptions;
-    private final HashMap<String, Boolean> tempExceptionStatus;
-    private final List<Label> suggestions;
+    private List<String> exceptions;
+    private HashMap<String, Boolean> tempExceptionStatus;
+    private List<Label> suggestions;
     private BetterButton addTarget, dismantle, clearTargets, resetList, mobilitySwitch, protectionFromPlayers, claimTurret,
             followSwitch;
     private boolean renderLabels = true;
@@ -34,18 +34,18 @@ public class TurretOptionsScreen extends Screen2 {
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
         this.turret = turret;
-        tempStatusMap = new HashMap<>(40);
         targets = new UniqueList<>(turret.decodeTargets(turret.getTargets()));
-        targets.forEach(entityType -> tempStatusMap.put(entityType, true));
-        exceptions = turret.getExceptions();
-        tempExceptionStatus = new HashMap<>(1);
-        exceptions.forEach(s -> tempExceptionStatus.put(s, true));
-        suggestions = new ArrayList<>(12);
     }
 
     @Override
     public void init() {
         super.init();
+        tempStatusMap = new HashMap<>(40);
+        targets.forEach(entityType -> tempStatusMap.put(entityType, true));
+        exceptions = turret.getExceptions();
+        tempExceptionStatus = new HashMap<>(1);
+        exceptions.forEach(s -> tempExceptionStatus.put(s, true));
+        suggestions = new ArrayList<>(12);
         addEntityField = addRenderableWidget(new TextField(centerX, 3, 180));
         addRenderableWidget(addTarget = new BetterButton(centerX, 20, Component.translatable("k_turrets.add.entity.type"), p_onPress_1_ -> {
             String s = addEntityField.getValue();
@@ -59,7 +59,8 @@ public class TurretOptionsScreen extends Screen2 {
                         tempExceptionStatus.put(playerName, true);
                         KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), playerName));
                         addEntityField.setValue("");
-                        minecraft.player.displayClientMessage(Component.translatable("k_turrets.added.player.to.exceptions", playerName), false);
+                        clearWidgets();
+                        init();
                     }
                 }
             } else {
@@ -71,9 +72,10 @@ public class TurretOptionsScreen extends Screen2 {
                         } else {
                             targets.add(type);
                             tempStatusMap.put(type, true);
-                            minecraft.player.displayClientMessage(Component.translatable("k_turrets.added").append(" ").append(type.getDescription()), true);
                             if (s.contains(":"))
                                 addEntityField.setValue(s.substring(0, s.indexOf(':')));
+                            clearWidgets();
+                            init();
                         }
                     }
                 }
@@ -92,9 +94,9 @@ public class TurretOptionsScreen extends Screen2 {
         addRenderableWidget(clearTargets);
         addRenderableWidget(resetList = new BetterButton(clearTargets.getX() + clearTargets.getWidth(), 60, Component.translatable("k_turrets.reset.list"), p_93751_ -> {
             targets = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
-            targets.forEach(entityType -> tempStatusMap.put(entityType, true));
-            minecraft.screen.onClose();
-            minecraft.player.closeContainer();
+            clearWidgets();
+            init();
+
         }));
         addRenderableWidget(mobilitySwitch = new SwitchButton(centerX, 80, Component.translatable("k_turrets.mobile"), Component.translatable("k_turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
@@ -113,8 +115,8 @@ public class TurretOptionsScreen extends Screen2 {
             addRenderableWidget(claimTurret = new BetterButton(centerX, 120, Component.translatable(turret instanceof Drone ? "k_turrets.claim.drone" : "k_turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
-                minecraft.screen.onClose();
-                minecraft.player.closeContainer();
+                clearWidgets();
+                init();
             }));
         else if (turret instanceof Drone drone) {
             addRenderableWidget(followSwitch = new SwitchButton(centerX, 120, Component.translatable("k_turrets.following.owner"), Component.translatable("k_turrets.staying"), drone.isFollowingOwner(), p_93751_ -> {
@@ -146,7 +148,7 @@ public class TurretOptionsScreen extends Screen2 {
             }
         }
 
-        Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(0).getY() + exceptionButtons.get(0).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
+        Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(exceptionButtons.size() - 1).getY() + exceptionButtons.get(exceptionButtons.size() - 1).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
         label.setScrollable(true, true);
         guiEventListeners.add(label);
         targetButtons = new ArrayList<>(targets.size());

@@ -1,3 +1,6 @@
+2.0.19-1.19:
+improved turret/drone UI;
+
 2.0.18-1.19:
 added titanium ore;
 turret and drone recipes now use titanium ingots instead of steel;
