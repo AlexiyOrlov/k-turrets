@@ -34,7 +34,7 @@ public class TurretOptionsScreen extends Screen2 {
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
         this.turret = turret;
-        targets = new UniqueList<>(turret.decodeTargets(turret.getTargets()));
+        targets = new UniqueList<>(Turret.decodeTargets(turret.getTargets()));
     }
 
     @Override

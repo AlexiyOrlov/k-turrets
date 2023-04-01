@@ -264,7 +264,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         setTeamAutomatically(compoundNBT.getString("Team"));
     }
 
-    public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
+    public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
         int count = compoundNBT.getInt("Count");
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
@@ -274,7 +274,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return list;
     }
 
-    public CompoundTag encodeTargets(List<EntityType<?>> list) {
+    public static CompoundTag encodeTargets(List<EntityType<?>> list) {
         CompoundTag compoundNBT = new CompoundTag();
         for (int i = 0; i < list.size(); i++) {
             EntityType<?> entityType = list.get(i);

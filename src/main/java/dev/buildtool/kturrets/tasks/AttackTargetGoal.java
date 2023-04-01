@@ -13,7 +13,7 @@ public class AttackTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
         super(turret, LivingEntity.class, 0, true, true, livingEntity -> {
             if (turret.isProtectingFromPlayers() && livingEntity instanceof Player)
                 return turret.alienPlayers.test(livingEntity);
-            return turret.decodeTargets(turret.getTargets()).contains(livingEntity.getType());
+            return Turret.decodeTargets(turret.getTargets()).contains(livingEntity.getType());
         });
         this.turret = turret;
     }

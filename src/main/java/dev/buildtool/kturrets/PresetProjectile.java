@@ -58,7 +58,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     @Override
     protected boolean canHitEntity(Entity target) {
         Entity owner = getOwner();
-        if (turret != null && target.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+        if (turret != null && target.getType().getCategory().isFriendly() && Turret.decodeTargets(turret.getTargets()).contains(target.getType()))
             return super.canHitEntity(target);
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
