@@ -8,10 +8,8 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.player.Inventory;
@@ -26,7 +24,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -114,17 +111,6 @@ public class ArrowDrone extends Drone {
         FriendlyByteBuf byteBuf = Functions.emptyBuffer();
         byteBuf.writeInt(getId());
         return new ArrowDroneContainer(p_39954_, inventory, byteBuf);
-    }
-
-    @Override
-    protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
-        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
-            if (playerEntity instanceof ServerPlayer) {
-                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.mobInteract(playerEntity, interactionHand);
     }
 
     @Override

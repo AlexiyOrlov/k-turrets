@@ -8,11 +8,8 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -22,7 +19,6 @@ import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -91,17 +87,6 @@ public class FireChargeTurret extends Turret {
         FriendlyByteBuf packetBuffer = Functions.emptyBuffer();
         packetBuffer.writeInt(getId());
         return new FireChargeTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
-    }
-
-    @Override
-    protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
-        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
-            if (playerEntity instanceof ServerPlayer) {
-                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.mobInteract(playerEntity, interactionHand);
     }
 
     @Override

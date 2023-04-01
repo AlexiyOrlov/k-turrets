@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.*;
@@ -35,6 +36,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -188,6 +190,13 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
+        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
+            if (playerEntity instanceof ServerPlayer) {
+                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            }
+            return InteractionResult.SUCCESS;
+        }
+
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
         if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
             heal(getHealthRecovered());
