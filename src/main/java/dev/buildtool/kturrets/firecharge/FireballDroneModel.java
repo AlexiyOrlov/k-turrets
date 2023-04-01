@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-public class FirechargeDroneModel<T extends Entity> extends EntityModel<T> {
+public class FireballDroneModel<T extends Entity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(KTurrets.ID, "firecharge_drone"), "main");
     private final ModelPart beam;
     private final ModelPart beam2;
@@ -26,7 +26,7 @@ public class FirechargeDroneModel<T extends Entity> extends EntityModel<T> {
     private final ModelPart bb_main;
     private final ModelPart barrel;
 
-    public FirechargeDroneModel(ModelPart root) {
+    public FireballDroneModel(ModelPart root) {
         this.beam = root.getChild("beam");
         this.beam2 = root.getChild("beam2");
         this.beam3 = root.getChild("beam3");

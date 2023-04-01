@@ -9,14 +9,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class FirechargeDroneContainer extends Container2 {
-    public FirechargeDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
+public class FireballDroneContainer extends Container2 {
+    public FireballDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
         super(TContainers.FIRECHARGE_DRONE.get(), i);
-        FirechargeDrone firechargeDrone = (FirechargeDrone) inventory.player.level.getEntity(friendlyByteBuf.readInt());
+        FireballDrone fireballDrone = (FireballDrone) inventory.player.level.getEntity(friendlyByteBuf.readInt());
         int index = 0;
         for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 9; k++) {
-                addSlot(new ItemHandlerSlot(firechargeDrone.ammo, index++, k * 18, j * 18));
+                addSlot(new ItemHandlerSlot(fireballDrone.ammo, index++, k * 18, j * 18));
             }
         }
 

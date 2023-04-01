@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class FireChargeTurret extends Turret {
+public class FireballTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
@@ -33,7 +33,7 @@ public class FireChargeTurret extends Turret {
         }
     };
 
-    public FireChargeTurret(Level world) {
+    public FireballTurret(Level world) {
         super(TEntities.FIRE_CHARGE_TURRET.get(), world);
     }
 
@@ -86,7 +86,7 @@ public class FireChargeTurret extends Turret {
     public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
         FriendlyByteBuf packetBuffer = Functions.emptyBuffer();
         packetBuffer.writeInt(getId());
-        return new FireChargeTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
+        return new FireballTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
     }
 
     @Override

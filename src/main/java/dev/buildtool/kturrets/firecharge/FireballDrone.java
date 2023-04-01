@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class FirechargeDrone extends Drone {
+public class FireballDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
@@ -33,7 +33,7 @@ public class FirechargeDrone extends Drone {
         }
     };
 
-    public FirechargeDrone(Level world) {
+    public FireballDrone(Level world) {
         super(TEntities.FIRECHARGE_DRONE.get(), world);
     }
 
@@ -96,7 +96,7 @@ public class FirechargeDrone extends Drone {
     public AbstractContainerMenu createMenu(int p_39954_, Inventory inventory, Player p_39956_) {
         FriendlyByteBuf friendlyByteBuf = Functions.emptyBuffer();
         friendlyByteBuf.writeInt(getId());
-        return new FirechargeDroneContainer(p_39954_, inventory, friendlyByteBuf);
+        return new FireballDroneContainer(p_39954_, inventory, friendlyByteBuf);
     }
 
     @Override
