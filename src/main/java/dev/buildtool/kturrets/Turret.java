@@ -182,11 +182,15 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return getAttributeValue(Attributes.FOLLOW_RANGE);
     }
 
+    protected float getHealthRecovered() {
+        return getMaxHealth() / 6;
+    }
+
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
         if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
-            heal(getMaxHealth() / 6);
+            heal(getHealthRecovered());
             itemInHand.shrink(1);
             return InteractionResult.SUCCESS;
         }
@@ -203,10 +207,17 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 setOwnerName(playerEntity.getName().getString());
             return InteractionResult.SUCCESS;
         } else if (level.isClientSide) {
-            if (getOwnerName().isEmpty())
-                playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
-            else
-                playerEntity.displayClientMessage(Component.translatable("k_turrets.belongs.to").append(" " + getOwnerName()), true);
+            if (this instanceof Drone) {
+                if (getOwnerName().isEmpty())
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
+                else
+                    playerEntity.displayClientMessage(Component.translatable("k-turrets.drone.belongs.to").append(" " + getOwnerName()), true);
+            } else {
+                if (getOwnerName().isEmpty())
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
+                else
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.belongs.to").append(" " + getOwnerName()), true);
+            }
         }
         return InteractionResult.PASS;
     }

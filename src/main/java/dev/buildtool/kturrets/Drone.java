@@ -7,20 +7,15 @@ import dev.buildtool.kturrets.tasks.MoveOutOfLava;
 import dev.buildtool.kturrets.tasks.StrafeAroundTarget;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -39,35 +34,6 @@ public abstract class Drone extends Turret {
         setPathfindingMalus(BlockPathTypes.DANGER_CACTUS, -1);
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
-    }
-
-    @Override
-    protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
-        ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
-        if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
-            heal(getMaxHealth() / 4);
-            itemInHand.shrink(1);
-            return InteractionResult.SUCCESS;
-        }
-        if (canUse(playerEntity)) {
-            if (level.isClientSide) {
-                openTargetScreen();
-            }
-            if (playerEntity.getTeam() != null) {
-                setTeamAutomatically(playerEntity.getTeam().getName());
-            } else {
-                setTeamAutomatically("");
-            }
-            if (getOwnerName().isEmpty())
-                setOwnerName(playerEntity.getName().getString());
-            return InteractionResult.SUCCESS;
-        } else if (level.isClientSide) {
-            if (getOwnerName().isEmpty())
-                playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
-            else
-                playerEntity.displayClientMessage(Component.translatable("k-turrets.drone.belongs.to").append(" " + getOwnerName()), true);
-        }
-        return InteractionResult.PASS;
     }
 
     public boolean causeFallDamage(float p_147105_, float p_147106_, DamageSource p_147107_) {
@@ -180,5 +146,10 @@ public abstract class Drone extends Turret {
     @Override
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
 
+    }
+
+    @Override
+    protected float getHealthRecovered() {
+        return getMaxHealth() / 4;
     }
 }
