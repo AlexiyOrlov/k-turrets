@@ -61,7 +61,7 @@ public class BrickDrone extends Drone {
     public void performRangedAttack(LivingEntity target, float p_33318_) {
         if (target.isAlive()) {
             for (ItemStack bricksItem : bricks.getItems()) {
-                if (bricksItem.getItem() == Items.NETHER_BRICK || bricksItem.getItem() == Items.BRICK) {
+                if (!bricksItem.isEmpty()) {
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();

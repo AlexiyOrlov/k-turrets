@@ -75,7 +75,7 @@ public class ArrowDrone extends Drone {
             ItemStack weapon = this.weapon.getStackInSlot(0);
             if (!weapon.isEmpty()) {
                 for (ItemStack arrows : ammo.getItems()) {
-                    if (arrows.getItem() instanceof ArrowItem) {
+                    if (!arrows.isEmpty()) {
                         AbstractArrow arrowEntity = ProjectileUtil.getMobArrow(this, arrows, distanceFactor);
                         double d0 = target.getX() - this.getX();
                         double d1 = target.getEyeY() - getEyeY();

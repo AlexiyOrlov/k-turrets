@@ -70,7 +70,7 @@ public class FireChargeTurret extends Turret {
     public void performRangedAttack(LivingEntity target, float distFactor) {
         if (target.isAlive()) {
             for (ItemStack ammoItem : ammo.getItems()) {
-                if (ammoItem.getItem() == TItems.EXPLOSIVE_POWDER.get()) {
+                if (!ammoItem.isEmpty()) {
                     ammoItem.shrink(1);
                     double d0 = target.getX() - this.getX();
                     double d1 = target.getEyeY() - getEyeY();

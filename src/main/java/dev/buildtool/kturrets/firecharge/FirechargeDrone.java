@@ -80,7 +80,7 @@ public class FirechargeDrone extends Drone {
     public void performRangedAttack(LivingEntity target, float p_33318_) {
         if (target.isAlive()) {
             for (ItemStack ammoItem : ammo.getItems()) {
-                if (ammoItem.getItem() == TItems.EXPLOSIVE_POWDER.get()) {
+                if (!ammoItem.isEmpty()) {
                     ammoItem.shrink(1);
                     double d0 = target.getX() - this.getX();
                     double d1 = target.getEyeY() - getEyeY();

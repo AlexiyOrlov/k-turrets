@@ -61,7 +61,7 @@ public class GaussDrone extends Drone {
     public void performRangedAttack(LivingEntity target, float p_33318_) {
         if (target.isAlive()) {
             for (ItemStack item : ammo.getItems()) {
-                if (item.getItem() == TItems.GAUSS_BULLET.get()) {
+                if (!item.isEmpty()) {
                     level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundSource.NEUTRAL, 1.5f, 1);
                     item.shrink(1);
                     double xa = target.getX() - getX();

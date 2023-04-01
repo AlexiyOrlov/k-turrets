@@ -61,7 +61,7 @@ public class BulletDrone extends Drone {
     public void performRangedAttack(LivingEntity livingEntity, float p_33318_) {
         if (livingEntity.isAlive()) {
             for (ItemStack item : ammo.getItems()) {
-                if (item.getItem() == Items.GOLD_NUGGET || item.getItem() == Items.IRON_NUGGET) {
+                if (!item.isEmpty()) {
                     double d0 = livingEntity.getX() - this.getX();
                     double d1 = livingEntity.getEyeY() - getEyeY();
                     double d2 = livingEntity.getZ() - this.getZ();
