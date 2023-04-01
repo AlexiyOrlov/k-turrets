@@ -4,7 +4,7 @@
   "item.k_turrets.arrow_turret_item": "Arrow Turret",
   "item.k_turrets.bullet_turret_item": "Bullet Turret",
   "item.k_turrets.brick_turret_item": "Brick Turret",
-  "item.k_turrets.firecharge_turret_item": "Fire Charge Turret",
+  "item.k_turrets.firecharge_turret_item": "Fireball Turret",
   "item.k_turrets.explosive_powder": "Explosive Powder",
   "item.k_turrets.gauss_bullet": "Gauss Bullet",
   "item.k_turrets.gauss_turret_item": "Gauss Turret",
@@ -15,7 +15,7 @@
   "item.k_turrets.cobble_drone_item": "Cobble Drone",
   "item.k_turrets.arrow_drone_item": "Arrow Drone",
   "item.k_turrets.gauss_drone_item": "Gauss Drone",
-  "item.k_turrets.firecharge_drone_item": "Fire Charge Drone",
+  "item.k_turrets.firecharge_drone_item": "Fireball Drone",
   "item.k_turrets.titanium_ingot": "Titanium Ingot",
   "item.k_turrets.raw_titanium": "Raw Titanium",
 
@@ -58,7 +58,7 @@
   "death.attack.k_turrets.brick": "%1$s was hit by a brick",
   "death.attack.k_turrets.cobblestone": "%1$s was stoned by cobblestone",
 
-  "entity.k_turrets.fire_charge_turret": "Fire Charge Turret",
+  "entity.k_turrets.fire_charge_turret": "Fireball Turret",
   "entity.k_turrets.arrow_turret": "Arrow Turret",
   "entity.k_turrets.bullet_turret": "Bullet Turret",
   "entity.k_turrets.brick_turret": "Brick Turret",
@@ -70,7 +70,7 @@
   "entity.k_turrets.cobble_drone": "Cobble Drone",
   "entity.k_turrets.arrow_drone": "Arrow Drone",
   "entity.k_turrets.gauss_drone": "Gauss Drone",
-  "entity.k_turrets.firecharge_drone": "Fire charge Drone",
+  "entity.k_turrets.firecharge_drone": "Fireball Drone",
 
   "block.k_turrets.titanium_ore": "Titanium Ore",
   "block.k_turrets.deepslate_titanium_ore": "Deepslate Titanium Ore"
