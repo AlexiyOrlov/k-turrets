@@ -71,14 +71,14 @@ public class KTurrets {
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Arrow turret");
-            ARROW_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            ARROW_TURRET_HEALTH = builder.defineInRange("Health", 70d, 10d, 500d);
             ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             ARROW_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
             ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 6, 1, 100);
             builder.pop();
             builder.push("Bullet turret");
-            BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            BULLET_TURRET_HEALTH = builder.defineInRange("Health", 70d, 10d, 500d);
             BULLET_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BULLET_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             BULLET_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
@@ -86,14 +86,14 @@ public class KTurrets {
             GOLD_BULLET_DAMAGE = builder.defineInRange("Gold bullet damage", 7, 1, 100);
             builder.pop();
             builder.push("Fire charge turret");
-            CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 70d, 10d, 500d);
             CHARGE_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             CHARGE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
             CHARGE_TURRET_DAMAGE = builder.defineInRange("Damage", 6, 1, 100);
             builder.pop();
             builder.push("Brick turret");
-            BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            BRICK_TURRET_HEALTH = builder.defineInRange("Health", 70d, 10d, 500d);
             BRICK_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BRICK_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0d, 100d);
             BRICK_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
@@ -101,14 +101,14 @@ public class KTurrets {
             NETHERBRICK_DAMAGE = builder.defineInRange("Nether brick damage", 10, 1, 100);
             builder.pop();
             builder.push("Gauss turret");
-            GAUSS_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            GAUSS_TURRET_HEALTH = builder.defineInRange("Health", 70d, 10d, 500d);
             GAUSS_TURRET_RANGE = builder.defineInRange("Range", 32d, 8, 100d);
             GAUSS_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             GAUSS_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
             GAUSS_TURRET_DAMAGE = builder.defineInRange("Damage", 12, 1, 100);
             builder.pop();
             builder.push("Cobble turret");
-            COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 70d, 10d, 500d);
             COBBLE_TURRET_RANGE = builder.defineInRange("Range", 32d, 0, 100d);
             COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 10, 60);
