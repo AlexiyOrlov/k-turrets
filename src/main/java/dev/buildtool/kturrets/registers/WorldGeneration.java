@@ -27,6 +27,6 @@ public class WorldGeneration {
     public static final DeferredRegister<PlacedFeature> PLACED_FEATURE_REGISTER = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, KTurrets.ID);
 
     static {
-        PLACED_FEATURE_REGISTER.register("titanium_ore", () -> new PlacedFeature(CONFIGURED_ORE_FEATURE.getHolder().get(), List.of(CountPlacement.of(22), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(384)))));
+        PLACED_FEATURE_REGISTER.register("titanium_ore", () -> new PlacedFeature(CONFIGURED_ORE_FEATURE.getHolder().get(), List.of(CountPlacement.of(29), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.absolute(384)))));
     }
 }
