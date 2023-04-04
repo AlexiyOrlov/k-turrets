@@ -59,8 +59,7 @@ public class TurretOptionsScreen extends Screen2 {
                         tempExceptionStatus.put(playerName, true);
                         KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), playerName));
                         addEntityField.setValue("");
-                        clearWidgets();
-                        init();
+                        rebuildWidgets();
                     }
                 }
             } else {
@@ -74,8 +73,7 @@ public class TurretOptionsScreen extends Screen2 {
                             tempStatusMap.put(type, true);
                             if (s.contains(":"))
                                 addEntityField.setValue(s.substring(0, s.indexOf(':')));
-                            clearWidgets();
-                            init();
+                            rebuildWidgets();
                         }
                     }
                 }
@@ -94,8 +92,7 @@ public class TurretOptionsScreen extends Screen2 {
         addRenderableWidget(clearTargets);
         addRenderableWidget(resetList = new BetterButton(clearTargets.getX() + clearTargets.getWidth(), 60, Component.translatable("k_turrets.reset.list"), p_93751_ -> {
             targets = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
-            clearWidgets();
-            init();
+            this.rebuildWidgets();
 
         }));
         addRenderableWidget(mobilitySwitch = new SwitchButton(centerX, 80, Component.translatable("k_turrets.mobile"), Component.translatable("k_turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
@@ -115,8 +112,7 @@ public class TurretOptionsScreen extends Screen2 {
             addRenderableWidget(claimTurret = new BetterButton(centerX, 120, Component.translatable(turret instanceof Drone ? "k_turrets.claim.drone" : "k_turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
-                clearWidgets();
-                init();
+                minecraft.player.closeContainer();
             }));
         else if (turret instanceof Drone drone) {
             addRenderableWidget(followSwitch = new SwitchButton(centerX, 120, Component.translatable("k_turrets.following.owner"), Component.translatable("k_turrets.staying"), drone.isFollowingOwner(), p_93751_ -> {
