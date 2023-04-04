@@ -152,14 +152,6 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return false;
     }
 
-    /**
-     * By player
-     */
-    @Override
-    public boolean isAttackable() {
-        return true;
-    }
-
     @Override
     public Iterable<ItemStack> getArmorSlots() {
         return Collections.emptyList();
