@@ -1,3 +1,6 @@
+2.0.23-1.19:
+drones will move above the target when attacking;
+
 2.0.22-1.19:
 improved turret/drone UI;
 decreased titanium ore generation;
