@@ -45,5 +45,5 @@ side = "BOTH"
 [[dependencies.k_turrets]]
 modId = "satako"
 mandatory = true
-versionRange = "[6.0.4,6.1.0]"
+versionRange = "[6.0.6,6.1.0]"
 side = "BOTH"

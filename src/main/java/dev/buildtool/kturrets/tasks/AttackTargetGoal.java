@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.tasks;
 
+import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.Turret;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -20,11 +21,17 @@ public class AttackTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
 
     @Override
     public boolean canUse() {
+        if (turret instanceof Drone drone) {
+            return ((!drone.isFollowingOwner() && drone.isGuardingArea()) || drone.isFollowingOwner()) && drone.isArmed() && super.canUse();
+        }
         return turret.isArmed() && super.canUse();
     }
 
     @Override
     public boolean canContinueToUse() {
+        if (turret instanceof Drone drone) {
+            return ((!drone.isFollowingOwner() && drone.isGuardingArea()) || drone.isFollowingOwner()) && drone.isArmed() && super.canContinueToUse();
+        }
         return turret.isArmed() && super.canContinueToUse();
     }
 

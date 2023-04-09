@@ -228,7 +228,7 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
-        channel.registerMessage(packetIndex, RemovePlayerException.class, (e, friendlyByteBuf) -> {
+        channel.registerMessage(packetIndex++, RemovePlayerException.class, (e, friendlyByteBuf) -> {
                     friendlyByteBuf.writeInt(e.turretId);
                     friendlyByteBuf.writeUtf(e.playerName);
                 }, friendlyByteBuf -> new RemovePlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()),
@@ -241,7 +241,17 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
-
+        channel.registerMessage(packetIndex++, ToggleGuardingArea.class, (toggleGuardingArea, friendlyByteBuf) -> {
+            friendlyByteBuf.writeInt(toggleGuardingArea.droneId);
+            friendlyByteBuf.writeBoolean(toggleGuardingArea.guard);
+        }, friendlyByteBuf -> new ToggleGuardingArea(friendlyByteBuf.readInt(), friendlyByteBuf.readBoolean()), (toggleGuardingArea, contextSupplier) -> {
+            ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+            Entity entity = serverLevel.getEntity(toggleGuardingArea.droneId);
+            if (entity instanceof Drone drone) {
+                drone.setGuardArea(toggleGuardingArea.guard);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             return builder.build();

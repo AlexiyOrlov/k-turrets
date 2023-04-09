@@ -1,5 +1,7 @@
-2.0.23-1.19:
+2.0.24-1.19:
 drones will move above the target when attacking;
+added "Guard area" task to drones;
+drones won't attack targets when set to stay;
 
 2.0.22-1.19:
 improved turret/drone UI;

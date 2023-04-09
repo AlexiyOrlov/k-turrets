@@ -1,11 +1,11 @@
 package dev.buildtool.kturrets;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -27,9 +27,13 @@ public class TurretOptionsScreen extends Screen2 {
     private List<String> exceptions;
     private HashMap<String, Boolean> tempExceptionStatus;
     private List<Label> suggestions;
-    private BetterButton addTarget, dismantle, clearTargets, resetList, mobilitySwitch, protectionFromPlayers, claimTurret,
-            followSwitch;
-    private boolean renderLabels = true;
+    private BetterButton addTarget;
+    private BetterButton dismantle;
+    private BetterButton clearTargets;
+    private BetterButton resetList;
+    private BetterButton mobilitySwitch;
+    private BetterButton protectionFromPlayers;
+    private BetterButton claimTurret;
 
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
@@ -115,12 +119,37 @@ public class TurretOptionsScreen extends Screen2 {
                 minecraft.player.closeContainer();
             }));
         else if (turret instanceof Drone drone) {
-            addRenderableWidget(followSwitch = new SwitchButton(centerX, 120, Component.translatable("k_turrets.following.owner"), Component.translatable("k_turrets.staying"), drone.isFollowingOwner(), p_93751_ -> {
-                KTurrets.channel.sendToServer(new ToggleDroneFollow(!drone.isFollowingOwner(), drone.getId()));
-                drone.followOwner(!drone.isFollowingOwner());
-                if (p_93751_ instanceof SwitchButton switchButton)
-                    switchButton.state = !switchButton.state;
-            }));
+            DropDownButton dropDownButton = new DropDownButton(centerX, 120, this, Component.translatable("k_turrets."));
+            LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
+            RadioButton follow = new RadioButton(centerX, 140, Component.translatable("k_turrets.following.owner"));
+            linkedHashMap.put(follow.getMessage(), p_93751_ -> {
+                KTurrets.channel.sendToServer(new ToggleDroneFollow(true, drone.getId()));
+                drone.followOwner(true);
+                drone.setGuardArea(false);
+                KTurrets.channel.sendToServer(new ToggleGuardingArea(drone.getId(), false));
+                dropDownButton.setMessage(p_93751_.getMessage());
+                dropDownButton.onPress();
+            });
+            RadioButton stay = new RadioButton(centerX, 160, Component.translatable("k_turrets.staying"));
+            linkedHashMap.put(stay.getMessage(), p_93751_ -> {
+                KTurrets.channel.sendToServer(new ToggleDroneFollow(false, drone.getId()));
+                KTurrets.channel.sendToServer(new ToggleGuardingArea(drone.getId(), false));
+                drone.followOwner(false);
+                drone.setGuardArea(false);
+                dropDownButton.setMessage(p_93751_.getMessage());
+                dropDownButton.onPress();
+            });
+            RadioButton guard = new RadioButton(centerX, 180, Component.translatable("k_turrets.guard.area"));
+            linkedHashMap.put(guard.getMessage(), p_93751_ -> {
+                drone.followOwner(false);
+                KTurrets.channel.sendToServer(new ToggleDroneFollow(false, drone.getId()));
+                KTurrets.channel.sendToServer(new ToggleGuardingArea(drone.getId(), true));
+                drone.setGuardArea(true);
+                dropDownButton.setMessage(p_93751_.getMessage());
+                dropDownButton.onPress();
+            });
+            dropDownButton.setChoices(linkedHashMap, drone.isGuardingArea() ? 2 : drone.isFollowingOwner() ? 0 : 1);
+            addRenderableWidget(dropDownButton);
         }
         List<GuiEventListener> guiEventListeners = new ArrayList<>();
         List<SwitchButton> exceptionButtons = new ArrayList<>(19);
@@ -164,6 +193,13 @@ public class TurretOptionsScreen extends Screen2 {
         }
         ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, Component.literal(""), new IntegerColor(0x228FDBF0), guiEventListeners);
         addRenderableWidget(scrollArea);
+        if (turret instanceof Drone drone) {
+            if (drone.getAutomaticTeam().isEmpty())
+                addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.no.team")));
+            else
+                addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())));
+            addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
+        }
     }
 
     @Override
@@ -198,20 +234,6 @@ public class TurretOptionsScreen extends Screen2 {
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float tick) {
-        super.render(matrixStack, mouseX, mouseY, tick);
-        if (renderLabels) {
-            renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-            renderComponentTooltip(matrixStack, List.of(CHOOSE_HINT), centerX, centerY + 80, font);
-            if (turret.getAutomaticTeam().isEmpty()) {
-                renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.no.team")), centerX, centerY + 60, font);
-            } else {
-                renderComponentTooltip(matrixStack, Collections.singletonList(Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())), centerX, centerY + 60, font);
-            }
-        }
-    }
-
-    @Override
     public boolean keyReleased(int p_94715_, int p_94716_, int p_94717_) {
         if (addEntityField.isFocused()) {
             suggestions.forEach(this::removeWidget);
@@ -242,12 +264,9 @@ public class TurretOptionsScreen extends Screen2 {
                         this.claimTurret.setHidden(true);
                     this.clearTargets.setHidden(true);
                     this.dismantle.setHidden(true);
-                    if (followSwitch != null)
-                        this.followSwitch.setHidden(true);
                     this.mobilitySwitch.setHidden(true);
                     this.protectionFromPlayers.setHidden(true);
                     this.resetList.setHidden(true);
-                    renderLabels = false;
                 } else {
                     showButtonsAndHints();
                 }
@@ -264,11 +283,8 @@ public class TurretOptionsScreen extends Screen2 {
             this.claimTurret.setHidden(false);
         this.clearTargets.setHidden(false);
         this.dismantle.setHidden(false);
-        if (followSwitch != null)
-            this.followSwitch.setHidden(false);
         this.mobilitySwitch.setHidden(false);
         this.protectionFromPlayers.setHidden(false);
         this.resetList.setHidden(false);
-        renderLabels = true;
     }
 }

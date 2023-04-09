@@ -36,8 +36,8 @@
   "k_turrets.incorrect.entry": "Incorrect entry",
   "k_turrets.removed": "Removed %1$s targets",
   "k_turrets.turret_claimed": "Turret claimed",
-  "k_turrets.following.owner": "Following the owner",
-  "k_turrets.staying": "Staying",
+  "k_turrets.following.owner": "Follow the owner",
+  "k_turrets.staying": "Stay",
   "k_turrets.drone_claimed": "Drone claimed",
   "k_turrets.claim.drone": "Claim this drone",
   "k_turrets.drone.not.yours": "This drone doesn't belong to you",
@@ -52,6 +52,7 @@
   "k_turrets.removed.player.from.exceptions": "Removed player %1$s from exceptions",
   "k_turrets.exceptions": "Ignored players",
   "k_turrets.player.is.already.in.exceptions": "Player %1$s is already being ignored",
+  "k_turrets.guard.area": "Guard area",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",

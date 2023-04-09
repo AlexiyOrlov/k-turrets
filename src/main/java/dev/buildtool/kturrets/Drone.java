@@ -1,10 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.tasks.AvoidAggressors;
-import dev.buildtool.kturrets.tasks.FollowOwnerGoal;
-import dev.buildtool.kturrets.tasks.MoveOutOfLava;
-import dev.buildtool.kturrets.tasks.StrafeAroundTarget;
+import dev.buildtool.kturrets.tasks.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -28,6 +25,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Boolean> FOLLOWING_OWNER = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> GUARDING_AREA = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<BlockPos> GUARD_POSITION = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BLOCK_POS);
+
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
         moveControl = new DroneMovementControl(this, 20, true);
@@ -84,6 +84,8 @@ public abstract class Drone extends Turret {
         super.defineSynchedData();
         entityData.define(FOLLOWING_OWNER, true);
         entityData.set(MOVEABLE, true);
+        entityData.define(GUARDING_AREA, false);
+        entityData.define(GUARD_POSITION, BlockPos.ZERO);
     }
 
     public boolean isFollowingOwner() {
@@ -94,16 +96,36 @@ public abstract class Drone extends Turret {
         entityData.set(FOLLOWING_OWNER, follow);
     }
 
+    public boolean isGuardingArea() {
+        return entityData.get(GUARDING_AREA);
+    }
+
+    public void setGuardArea(boolean guard) {
+        entityData.set(GUARDING_AREA, guard);
+    }
+
+    public BlockPos getGuardPosition() {
+        return entityData.get(GUARD_POSITION);
+    }
+
+    public void setGuardPosition(BlockPos pos) {
+        entityData.set(GUARD_POSITION, pos);
+    }
+
     @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putBoolean("Following", isFollowingOwner());
+        compoundNBT.putBoolean("Guarding", isGuardingArea());
+        compoundNBT.putLong("Guard position", getGuardPosition().asLong());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         followOwner(compoundNBT.getBoolean("Following"));
+        setGuardArea(compoundNBT.getBoolean("Guarding"));
+        setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
     }
 
     @Override
@@ -113,6 +135,7 @@ public abstract class Drone extends Turret {
         goalSelector.addGoal(5, new MoveOutOfLava(this));
         goalSelector.addGoal(6, new AvoidAggressors(this));
         goalSelector.addGoal(7, new StrafeAroundTarget(this));
+        goalSelector.addGoal(8, new GuardArea(this));
     }
 
     @Override
