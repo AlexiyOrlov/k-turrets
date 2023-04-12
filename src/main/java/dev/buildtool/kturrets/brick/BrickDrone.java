@@ -18,6 +18,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,7 +33,7 @@ public class BrickDrone extends Drone {
     protected ItemHandler bricks = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(Items.BRICK) || stack.is(Items.NETHER_BRICK);
+            return Functions.isItemIn(stack.getItem(), Tags.Items.INGOTS_BRICK) || stack.is(Items.NETHER_BRICK);
         }
     };
 
