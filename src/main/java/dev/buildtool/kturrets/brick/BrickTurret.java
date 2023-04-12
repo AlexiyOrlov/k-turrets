@@ -63,7 +63,7 @@ public class BrickTurret extends Turret {
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
                     Brick brick = new Brick(this, xa, ya, za, level);
-                    brick.setDamage(bricksItem.getItem() == Items.BRICK ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
+                    brick.setDamage(Functions.isItemIn(bricksItem.getItem(), Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level.addFreshEntity(brick);
                     level.playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundSource.NEUTRAL, 1, 0.5f);
                     bricksItem.shrink(1);
