@@ -1,3 +1,6 @@
+2.0.26-1.19:
+fixed texture of gauss drone item;
+
 2.0.25-1.19:
 drones will move above the target when attacking;
 added "Guard area" task to drones;
