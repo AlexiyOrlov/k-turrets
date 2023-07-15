@@ -56,7 +56,7 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
-
+    public static ForgeConfigSpec.BooleanValue SHOW_INTEGRITY;
     public static ForgeConfigSpec.IntValue TURRET_LIMIT_PER_PLAYER, DRONE_LIMIT_PER_PLAYER;
 
     public KTurrets() {
@@ -254,6 +254,7 @@ public class KTurrets {
         });
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
+            SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
             return builder.build();
         }).getRight());
 

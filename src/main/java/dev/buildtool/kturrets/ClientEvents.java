@@ -15,7 +15,7 @@ import net.minecraftforge.fml.loading.LoadingModList;
 public class ClientEvents {
     @SubscribeEvent
     public static void renderHealthIndicator(RenderLivingEvent.Post<?, ?> renderLivingEvent) {
-        if (LoadingModList.get().getModFileById("neat") == null) {
+        if (LoadingModList.get().getModFileById("neat") == null && KTurrets.SHOW_INTEGRITY.get()) {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
             if (livingEntity instanceof Turret) {
                 PoseStack poseStack = renderLivingEvent.getPoseStack();
