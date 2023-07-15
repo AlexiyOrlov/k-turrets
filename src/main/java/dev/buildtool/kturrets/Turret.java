@@ -212,12 +212,12 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 if (getOwnerName().isEmpty())
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
                 else
-                    playerEntity.displayClientMessage(Component.translatable("k-turrets.drone.belongs.to").append(" " + getOwnerName()), true);
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.belongs.to").append(" " + getOwnerName()), true);
             } else {
                 if (getOwnerName().isEmpty())
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.not.yours"), true);
                 else
-                    playerEntity.displayClientMessage(Component.translatable("k_turrets.belongs.to").append(" " + getOwnerName()), true);
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
             }
         }
         return InteractionResult.PASS;
