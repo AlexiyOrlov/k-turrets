@@ -1,5 +1,7 @@
 package dev.buildtool.kturrets;
 
+import com.electronwill.nightconfig.core.file.CommentedFileConfig;
+import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.registers.TContainers;
@@ -20,9 +22,13 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.io.File;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -61,7 +67,7 @@ public class KTurrets {
         TContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, new ForgeConfigSpec.Builder().configure(builder -> {
+        Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Arrow turret");
             ARROW_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
             ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
@@ -107,7 +113,9 @@ public class KTurrets {
             COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
             builder.pop();
             return builder.build();
-        }).getRight());
+        });
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, configPair.getRight());
+        loadConfig(configPair.getRight(), FMLPaths.CONFIGDIR.get().resolve("k_turrets-common.toml").toString());
 
         channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(ID, "network"), () -> NP, NP::equals, NP::equals);
         int packetIndex = 0;
@@ -215,5 +223,11 @@ public class KTurrets {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             return builder.build();
         }).getRight());
+    }
+
+    private static void loadConfig(ForgeConfigSpec config, String path) {
+        final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
+        file.load();
+        config.setConfig(file);
     }
 }
