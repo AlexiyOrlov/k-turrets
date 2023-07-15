@@ -1,3 +1,6 @@
+0.1.8:
+fixed inability to change turret health and ammo;
+
 0.1.7:
 achieve parity with the 1.18 version except drones and target list reset;
 added French translation
