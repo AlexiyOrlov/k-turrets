@@ -3,6 +3,7 @@ package dev.buildtool.kturrets;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
 public class AttackTargetGoal extends NearestAttackableTargetGoal<LivingEntity> {
     private final Turret turret;
@@ -24,5 +25,10 @@ public class AttackTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
     @Override
     public boolean canContinueToUse() {
         return turret.isArmed() && super.canContinueToUse();
+    }
+
+    @Override
+    protected AABB getTargetSearchArea(double p_26069_) {
+        return mob.getBoundingBox().inflate(p_26069_, p_26069_, p_26069_);
     }
 }
