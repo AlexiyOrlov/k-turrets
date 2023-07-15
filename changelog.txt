@@ -1,5 +1,10 @@
 1.1.13-1.18.2:
 made vertical detection range equal to horizontal;
+drone integrity is now 83% of turret integrity, and drone armor is now 34% of turret armor;
+added a message to the owner on turret/drone destruction;
+replaced turret and drone item models with 3D ones;
+fixed inability to change integrity and armor;
+added integrity indicator;
 
 1.1.12-1.18.2:
 added Chinese translation;
