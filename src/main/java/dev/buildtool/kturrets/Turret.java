@@ -252,6 +252,20 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     public void die(DamageSource damageSource) {
         super.die(damageSource);
         getContainedItems().forEach(itemHandler -> Containers.dropContents(level, blockPosition(), itemHandler.getItems()));
+        getOwner().ifPresent(uuid1 -> {
+            if (!level.isClientSide) {
+                Player player = level.getPlayerByUUID(uuid1);
+                if (player != null)
+                    if (damageSource.getDirectEntity() != null)
+                        player.displayClientMessage(getDisplayName().copy().append(" ").append(new TranslatableComponent("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(new TranslatableComponent("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                    else {
+                        if (damageSource.getEntity() != null)
+                            player.displayClientMessage(getDisplayName().copy().append(" ").append(new TranslatableComponent("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(new TranslatableComponent("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
+                        else
+                            player.displayClientMessage(damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(new TranslatableComponent("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())), false);
+                    }
+            }
+        });
     }
 
     protected abstract List<ItemHandler> getContainedItems();

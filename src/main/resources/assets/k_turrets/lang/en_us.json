@@ -63,5 +63,7 @@
   "entity.k_turrets.cobble_drone": "Cobble Drone",
   "entity.k_turrets.arrow_drone": "Arrow Drone",
   "entity.k_turrets.gauss_drone": "Gauss Drone",
-  "entity.k_turrets.firecharge_drone": "Fire charge Drone"
+  "entity.k_turrets.firecharge_drone": "Fire charge Drone",
+  "k_turrets.was.destroyed.by": "was destroyed by",
+  "k_turrets.at": "at"
 }
