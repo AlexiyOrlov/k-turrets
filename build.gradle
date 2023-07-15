@@ -82,16 +82,12 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    def satakoBuilds=file(new File(rootProject.getBuildDir(),"libs"))
-    flatDir{
-        dirs(satakoBuilds)
-    }
+    mavenLocal()
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
-    runtimeOnly fg.deobf('dev.buildtool:Satako:4.2.10-1.16.5:');
-    implementation(rootProject)
+    runtimeOnly fg.deobf('dev.buildtool:satako:4.2.12-1.16.5');
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
