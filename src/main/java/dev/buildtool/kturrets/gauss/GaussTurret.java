@@ -2,9 +2,9 @@ package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -28,12 +28,12 @@ public class GaussTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(TItems.GAUSS_BULLET.get());
+            return stack.is(KItems.GAUSS_BULLET.get());
         }
     };
 
     public GaussTurret(Level world) {
-        super(TEntities.GAUSS_TURRET.get(), world);
+        super(KEntities.GAUSS_TURRET.get(), world);
     }
 
     @Override
@@ -58,15 +58,15 @@ public class GaussTurret extends Turret {
         if (target.isAlive()) {
             for (ItemStack item : ammo.getItems()) {
                 if (!item.isEmpty()) {
-                    level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundSource.NEUTRAL, 1.5f, 1);
+                    level().playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundSource.NEUTRAL, 1.5f, 1);
                     item.shrink(1);
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
-                    GaussBullet gaussBullet = new GaussBullet(this, xa, ya, za, level);
+                    GaussBullet gaussBullet = new GaussBullet(this, xa, ya, za, level());
                     gaussBullet.setDamage(KTurrets.GAUSS_TURRET_DAMAGE.get());
                     gaussBullet.setPos(getX(), getEyeY(), getZ());
-                    level.addFreshEntity(gaussBullet);
+                    level().addFreshEntity(gaussBullet);
                     break;
                 }
             }

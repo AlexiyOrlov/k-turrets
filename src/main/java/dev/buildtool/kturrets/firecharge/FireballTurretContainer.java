@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.firecharge;
 
-import dev.buildtool.kturrets.registers.TContainers;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,8 +11,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class FireballTurretContainer extends Container2 {
     public FireballTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
-        super(TContainers.FIRE_CHARGE_TURRET, i);
-        FireballTurret turret = (FireballTurret) playerInventory.player.level.getEntity(buffer.readInt());
+        super(KContainers.FIRE_CHARGE_TURRET, i);
+        FireballTurret turret = (FireballTurret) playerInventory.player.level().getEntity(buffer.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {
@@ -27,7 +27,7 @@ public class FireballTurretContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if (itemStack.getItem() == TItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 27, false))
+            if (itemStack.getItem() == KItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))

@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.cobble;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -33,7 +33,7 @@ public class CobbleTurret extends Turret {
     };
 
     public CobbleTurret(Level world) {
-        super(TEntities.COBBLE_TURRET.get(), world);
+        super(KEntities.COBBLE_TURRET.get(), world);
     }
 
     @Override
@@ -61,10 +61,10 @@ public class CobbleTurret extends Turret {
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
-                    Cobblestone cobblestone = new Cobblestone(this, xa, ya, za, level);
+                    Cobblestone cobblestone = new Cobblestone(this, xa, ya, za, level());
                     cobblestone.setDamage(KTurrets.COBBLE_TURRET_DAMAGE.get());
-                    level.addFreshEntity(cobblestone);
-                    level.playSound(null, blockPosition(), Sounds.COBBLE_SHOT.get(), SoundSource.NEUTRAL, 1, 1f);
+                    level().addFreshEntity(cobblestone);
+                    level().playSound(null, blockPosition(), Sounds.COBBLE_SHOT.get(), SoundSource.NEUTRAL, 1, 1f);
                     cobblestoneItem.shrink(1);
                     break;
                 }

@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -33,7 +33,7 @@ public class BulletDrone extends Drone {
     };
 
     public BulletDrone(Level world) {
-        super(TEntities.BULLET_DRONE.get(), world);
+        super(KEntities.BULLET_DRONE.get(), world);
     }
 
     @Override
@@ -61,9 +61,9 @@ public class BulletDrone extends Drone {
                     double d0 = livingEntity.getX() - this.getX();
                     double d1 = livingEntity.getEyeY() - getEyeY();
                     double d2 = livingEntity.getZ() - this.getZ();
-                    Bullet bullet = new Bullet(this, d0, d1, d2, level, item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
-                    level.addFreshEntity(bullet);
-                    level.playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
+                    Bullet bullet = new Bullet(this, d0, d1, d2, level(), item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
+                    level().addFreshEntity(bullet);
+                    level().playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
                     item.shrink(1);
                     break;
                 }

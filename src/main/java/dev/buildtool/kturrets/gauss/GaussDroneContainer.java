@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.gauss;
 
-import dev.buildtool.kturrets.registers.TContainers;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,8 +11,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class GaussDroneContainer extends Container2 {
     public GaussDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
-        super(TContainers.GAUSS_DRONE.get(), i);
-        GaussDrone gaussDrone = (GaussDrone) inventory.player.level.getEntity(friendlyByteBuf.readInt());
+        super(KContainers.GAUSS_DRONE.get(), i);
+        GaussDrone gaussDrone = (GaussDrone) inventory.player.level().getEntity(friendlyByteBuf.readInt());
         int index = 0;
         for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 9; k++) {
@@ -27,7 +27,7 @@ public class GaussDroneContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack stack = getSlot(index).getItem();
         ItemStack stack1 = ItemStack.EMPTY;
-        if (stack.getItem() == TItems.GAUSS_BULLET.get() && index > 17) {
+        if (stack.getItem() == KItems.GAUSS_BULLET.get() && index > 17) {
             stack1 = stack.copy();
             if (!moveItemStackTo(stack, 0, 18, false))
                 return ItemStack.EMPTY;

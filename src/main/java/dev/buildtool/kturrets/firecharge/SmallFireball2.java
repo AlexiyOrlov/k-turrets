@@ -2,7 +2,6 @@ package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.SmallFireball;
@@ -13,7 +12,7 @@ class SmallFireball2 extends SmallFireball {
     private final Turret turret;
 
     public SmallFireball2(Turret shooter, double d0, double d1, double d2) {
-        super(shooter.level, shooter, d0, d1, d2);
+        super(shooter.level(), shooter, d0, d1, d2);
         this.turret = shooter;
     }
 
@@ -30,13 +29,13 @@ class SmallFireball2 extends SmallFireball {
 
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             Entity entity = p_213868_1_.getEntity();
             if (!entity.fireImmune()) {
                 Entity entity1 = this.getOwner();
                 int i = entity.getRemainingFireTicks();
                 entity.setSecondsOnFire(5);
-                boolean flag = entity.hurt(DamageSource.fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
+                boolean flag = entity.hurt(damageSources().fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else if (entity1 instanceof LivingEntity) {

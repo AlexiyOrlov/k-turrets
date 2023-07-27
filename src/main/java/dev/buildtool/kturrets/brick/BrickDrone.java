@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.brick;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class BrickDrone extends Drone {
     public BrickDrone(Level world) {
-        super(TEntities.BRICK_DRONE.get(), world);
+        super(KEntities.BRICK_DRONE.get(), world);
     }
 
     protected ItemHandler bricks = new ItemHandler(18) {
@@ -62,10 +62,10 @@ public class BrickDrone extends Drone {
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
-                    Brick brick = new Brick(this, xa, ya, za, level);
+                    Brick brick = new Brick(this, xa, ya, za, level());
                     brick.setDamage(Functions.isItemIn(bricksItem.getItem(), Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
-                    level.addFreshEntity(brick);
-                    level.playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundSource.NEUTRAL, 1, 0.5f);
+                    level().addFreshEntity(brick);
+                    level().playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundSource.NEUTRAL, 1, 0.5f);
                     bricksItem.shrink(1);
                     break;
                 }

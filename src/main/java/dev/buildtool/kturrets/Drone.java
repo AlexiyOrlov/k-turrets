@@ -31,7 +31,7 @@ public abstract class Drone extends Turret {
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
         moveControl = new DroneMovementControl(this, 20, true);
-        setPathfindingMalus(BlockPathTypes.DANGER_CACTUS, -1);
+        //setPathfindingMalus(BlockPathTypes.DANGER_CACTUS, -1);
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
     }
@@ -55,24 +55,24 @@ public abstract class Drone extends Turret {
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
         } else {
-            BlockPos ground = new BlockPos(this.getX(), this.getY() - 1.0D, this.getZ());
+            BlockPos ground = new BlockPos((int) this.getX(), (int) this.getY() - 1, (int) this.getZ());
             float f = 0.91F;
-            if (this.onGround) {
-                f = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
+            if (this.onGround()) {
+                f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
             }
 
             float f1 = (float) (getAttributeValue(Attributes.MOVEMENT_SPEED) / (f * f * f));
             f = 0.91F;
-            if (this.onGround) {
-                f = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
+            if (this.onGround()) {
+                f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
             }
 
-            this.moveRelative(this.onGround ? 0.1F * f1 : flyingSpeed, vector);
+            this.moveRelative(this.onGround() ? 0.1F * f1 : flyingSpeed, vector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(f));
         }
 
-        this.calculateEntityAnimation(this, false);
+        this.calculateEntityAnimation(false);
     }
 
     public boolean onClimbable() {

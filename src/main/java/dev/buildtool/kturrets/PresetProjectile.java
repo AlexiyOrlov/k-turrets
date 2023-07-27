@@ -2,6 +2,7 @@ package dev.buildtool.kturrets;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -45,7 +46,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -98,9 +99,6 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
         setDamage(compoundNBT.getInt("Damage"));
     }
 
-    /**
-     * @return preferably {@link net.minecraft.world.damagesource.IndirectEntityDamageSource}
-     */
     protected abstract DamageSource getDamageSource();
 
     @Override

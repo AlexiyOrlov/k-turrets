@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -47,7 +47,7 @@ public class ArrowTurret extends Turret {
     };
 
     public ArrowTurret(Level world) {
-        super(TEntities.ARROW_TURRET.get(), world);
+        super(KEntities.ARROW_TURRET.get(), world);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ArrowTurret extends Turret {
                         double d2 = target.getZ() - this.getZ();
                         double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
                         arrowEntity.setBaseDamage(damage);
-                        Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor);
+                        Arrow2 arrow2 = new Arrow2(level(), arrowEntity, this, distanceFactor);
                         if (weapon.getItem() instanceof BowItem) {
                             arrow2.setBaseDamage(arrowEntity.getBaseDamage());
                         } else if (weapon.getItem() instanceof CrossbowItem) {
@@ -77,7 +77,7 @@ public class ArrowTurret extends Turret {
                         arrow2.setNoGravity(true);
                         arrow2.shoot(d0, d1, d2, 1.8f, 0);
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-                        this.level.addFreshEntity(arrow2);
+                        this.level().addFreshEntity(arrow2);
                         arrows.shrink(1);
                         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY_ARROWS, this) == 0 && EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, this) == 0)
                             weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(InteractionHand.MAIN_HAND));

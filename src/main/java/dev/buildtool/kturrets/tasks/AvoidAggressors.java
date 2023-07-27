@@ -16,7 +16,7 @@ public class AvoidAggressors extends Goal {
 
     @Override
     public boolean canUse() {
-        List<Mob> aggressors = drone.level.getEntitiesOfClass(Mob.class, drone.getBoundingBox().inflate(5), mob -> mob.getTarget() == drone);
+        List<Mob> aggressors = drone.level().getEntitiesOfClass(Mob.class, drone.getBoundingBox().inflate(5), mob -> mob.getTarget() == drone);
         Optional<Mob> aggressor = aggressors.stream().filter(mob -> mob.distanceTo(drone) < 3).findAny();
         return aggressor.isPresent();
     }

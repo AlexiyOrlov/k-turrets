@@ -34,8 +34,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -196,7 +196,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             return InteractionResult.SUCCESS;
         }
         if (canUse(playerEntity)) {
-            if (level.isClientSide) {
+            if (level().isClientSide) {
                 openTargetScreen();
             }
             if (playerEntity.getTeam() != null) {
@@ -207,7 +207,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
             return InteractionResult.SUCCESS;
-        } else if (level.isClientSide) {
+        } else if (level().isClientSide) {
             if (this instanceof Drone) {
                 if (getOwnerName().isEmpty())
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.drone.not.yours"), true);
@@ -293,10 +293,10 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     public void die(DamageSource damageSource) {
         super.die(damageSource);
-        getContainedItems().forEach(itemHandler -> Containers.dropContents(level, blockPosition(), itemHandler.getItems()));
+        getContainedItems().forEach(itemHandler -> Containers.dropContents(level(), blockPosition(), itemHandler.getItems()));
         getOwner().ifPresent(uuid1 -> {
-            if (!level.isClientSide) {
-                Player player = level.getPlayerByUUID(uuid1);
+            if (!level().isClientSide) {
+                Player player = level().getPlayerByUUID(uuid1);
                 if (player != null)
                     if (damageSource.getDirectEntity() != null)
                         player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
@@ -387,7 +387,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction direction) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return LazyOptional.of(() -> getContainedItems().get(0)).cast();
         }
         return super.getCapability(cap, direction);
@@ -450,11 +450,11 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     public Team getTeam() {
         if (getOwner().isPresent()) {
-            Player owner = level.getPlayerByUUID(getOwner().get());
+            Player owner = level().getPlayerByUUID(getOwner().get());
             if (owner != null && owner.getTeam() != null) {
                 return owner.getTeam();
             } else {
-                return getAutomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAutomaticTeam());
+                return getAutomaticTeam().isEmpty() ? null : level().getScoreboard().getPlayerTeam(getAutomaticTeam());
             }
         }
         return super.getTeam();

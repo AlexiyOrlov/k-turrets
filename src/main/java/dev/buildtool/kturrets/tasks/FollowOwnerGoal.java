@@ -11,7 +11,7 @@ public class FollowOwnerGoal extends Goal {
 
     public FollowOwnerGoal(Drone drone) {
         this.drone = drone;
-        level = drone.level;
+        level = drone.level();
     }
 
     @Override

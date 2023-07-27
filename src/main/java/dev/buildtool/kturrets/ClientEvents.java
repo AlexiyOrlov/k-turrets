@@ -1,9 +1,11 @@
 package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -23,10 +25,11 @@ public class ClientEvents {
                 String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
                 poseStack.scale(0.03f, 0.03f, 0.03f);
                 poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-                poseStack.mulPose(Vector3f.YP.rotationDegrees(180));
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(180));
+                poseStack.mulPose(Axis.YP.rotationDegrees(180));
+                poseStack.mulPose(Axis.XP.rotationDegrees(180));
                 poseStack.translate(-renderLivingEvent.getRenderer().getFont().width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
-                renderLivingEvent.getRenderer().getFont().draw(renderLivingEvent.getPoseStack(), health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor() : ChatFormatting.GREEN.getColor());
+                GuiGraphics guiGraphics = new GuiGraphics(Minecraft.getInstance(), (MultiBufferSource.BufferSource) renderLivingEvent.getMultiBufferSource());
+                guiGraphics.drawString(renderLivingEvent.getRenderer().getFont(), health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor() : ChatFormatting.GREEN.getColor());
                 poseStack.popPose();
             }
         }

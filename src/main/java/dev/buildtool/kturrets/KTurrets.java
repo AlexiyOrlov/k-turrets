@@ -4,6 +4,7 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,6 +25,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.registries.DeferredRegister;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
@@ -58,16 +61,39 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
     public static ForgeConfigSpec.BooleanValue SHOW_INTEGRITY;
     public static ForgeConfigSpec.IntValue TURRET_LIMIT_PER_PLAYER, DRONE_LIMIT_PER_PLAYER;
-
+    public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public KTurrets() {
+        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
+            p_259752_.accept(KItems.COBBLE_TURRET.get());
+            p_259752_.accept(KItems.ARROW_TURRET.get());
+            p_259752_.accept(KItems.FIRECHARGE_TURRET.get());
+            p_259752_.accept(KItems.BRICK_TURRET.get());
+            p_259752_.accept(KItems.BULLET_TURRET.get());
+            p_259752_.accept(KItems.GAUSS_TURRET.get());
+
+            p_259752_.accept(KItems.EXPLOSIVE_POWDER.get());
+            p_259752_.accept(KItems.GAUSS_BULLET.get());
+            p_259752_.accept(KItems.TITANIUM_ORE.get());
+            p_259752_.accept(KItems.DEEPSLATE_TITANIUM_ORE.get());
+            p_259752_.accept(KItems.RAW_TITANIUM.get());
+            p_259752_.accept(KItems.TITANIUM_INGOT.get());
+
+            p_259752_.accept(KItems.COBBLE_DRONE.get());
+            p_259752_.accept(KItems.ARROW_DRONE.get());
+            p_259752_.accept(KItems.FIREBALL_DRONE.get());
+            p_259752_.accept(KItems.BRICK_DRONE.get());
+            p_259752_.accept(KItems.BULLET_DRONE.get());
+            p_259752_.accept(KItems.GAUSS_DRONE.get());
+        }).build();
+        TAB_REGISTER.register("only", () -> creativeModeTab);
+
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        TEntities.ENTITIES.register(eventBus);
-        TItems.ITEMS.register(eventBus);
-        TContainers.CONTAINERS.register(eventBus);
+        KEntities.ENTITIES.register(eventBus);
+        KItems.ITEMS.register(eventBus);
+        KContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
-        WorldGeneration.CONFIGURED_FEATURE_REGISTER.register(eventBus);
-        WorldGeneration.PLACED_FEATURE_REGISTER.register(eventBus);
+        TAB_REGISTER.register(eventBus);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Arrow turret");
@@ -131,7 +157,7 @@ public class KTurrets {
         }, (turretTargets, contextSupplier) -> {
             NetworkEvent.Context context = contextSupplier.get();
             ServerPlayer sender = context.getSender();
-            ServerLevel serverWorld = sender.getLevel();
+            ServerLevel serverWorld = sender.serverLevel();
             Entity entity = serverWorld.getEntity(turretTargets.turretID);
             if (entity instanceof Turret turret) {
                 turret.setTargets(turretTargets.targets);
@@ -141,7 +167,7 @@ public class KTurrets {
         channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
                 packetBuffer -> new DismantleTurret(packetBuffer.readInt()),
                 (dismantleTurret, contextSupplier) -> {
-                    ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
                     Entity entity = serverWorld.getEntity(dismantleTurret.id);
                     if (entity instanceof Turret turret) {
                         turret.getContainedItems().forEach(itemHandler -> Containers.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
@@ -164,7 +190,7 @@ public class KTurrets {
                     packetBuffer.writeUUID(claimTurret.person);
                 }, packetBuffer -> new ClaimTurret(packetBuffer.readInt(), packetBuffer.readUUID()),
                 (claimTurret, contextSupplier) -> {
-                    ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
                     Entity entity = serverWorld.getEntity(claimTurret.id);
                     if (entity instanceof Turret turret) {
                         turret.setOwner(claimTurret.person);
@@ -184,7 +210,7 @@ public class KTurrets {
             boolean mobile = packetBuffer.readBoolean();
             return new ToggleMobility(mobile, id);
         }, (toggleMobility, contextSupplier) -> {
-            ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
+            ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
             Entity entity = serverWorld.getEntity(toggleMobility.id);
             if (entity instanceof Turret) {
                 ((Turret) entity).setMoveable(toggleMobility.mobile);
@@ -196,7 +222,7 @@ public class KTurrets {
                     packetBuffer.writeInt(togglePlayerProtection.id);
                 }, packetBuffer -> new TogglePlayerProtection(packetBuffer.readBoolean(), packetBuffer.readInt()),
                 (togglePlayerProtection, contextSupplier) -> {
-                    ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
                     Entity entity = serverWorld.getEntity(togglePlayerProtection.id);
                     if (entity instanceof Turret turret) {
                         turret.setProtectionFromPlayers(togglePlayerProtection.protect);
@@ -210,7 +236,7 @@ public class KTurrets {
             int id = friendlyByteBuf.readInt();
             return new ToggleDroneFollow(friendlyByteBuf.readBoolean(), id);
         }, (toggleDroneFollow, contextSupplier) -> {
-            ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+            ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
             Entity entity = serverLevel.getEntity(toggleDroneFollow.id);
             if (entity instanceof Drone drone) {
                 drone.followOwner(toggleDroneFollow.follow);
@@ -221,7 +247,7 @@ public class KTurrets {
             friendlyByteBuf.writeInt(e.turretId);
             friendlyByteBuf.writeUtf(e.playerName);
         }, friendlyByteBuf -> new AddPlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()), (e, contextSupplier) -> {
-            ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+            ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
             Entity entity = serverLevel.getEntity(e.turretId);
             if (entity instanceof Turret turret) {
                 turret.addPlayerToExceptions(e.playerName);
@@ -233,7 +259,7 @@ public class KTurrets {
                     friendlyByteBuf.writeUtf(e.playerName);
                 }, friendlyByteBuf -> new RemovePlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()),
                 (e, contextSupplier) -> {
-                    ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+                    ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
                     Entity entity = serverLevel.getEntity(e.turretId);
                     if (entity instanceof Turret turret) {
                         turret.removePlayerFromExceptions(e.playerName);
@@ -245,7 +271,7 @@ public class KTurrets {
             friendlyByteBuf.writeInt(toggleGuardingArea.droneId);
             friendlyByteBuf.writeBoolean(toggleGuardingArea.guard);
         }, friendlyByteBuf -> new ToggleGuardingArea(friendlyByteBuf.readInt(), friendlyByteBuf.readBoolean()), (toggleGuardingArea, contextSupplier) -> {
-            ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+            ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
             Entity entity = serverLevel.getEntity(toggleGuardingArea.droneId);
             if (entity instanceof Drone drone) {
                 drone.setGuardArea(toggleGuardingArea.guard);

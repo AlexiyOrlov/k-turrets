@@ -19,7 +19,7 @@ public class StrafeAroundTarget extends Goal {
     @Override
     public void tick() {
         if (timer == 0) {
-            timer = drone.level.random.nextBoolean() ? 60 : -60;
+            timer = drone.level().random.nextBoolean() ? 60 : -60;
         } else if (timer < 0)
             timer++;
         else

@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -29,12 +29,12 @@ public class FireballTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(TItems.EXPLOSIVE_POWDER.get());
+            return stack.is(KItems.EXPLOSIVE_POWDER.get());
         }
     };
 
     public FireballTurret(Level world) {
-        super(TEntities.FIRE_CHARGE_TURRET.get(), world);
+        super(KEntities.FIRE_CHARGE_TURRET.get(), world);
     }
 
     @Override
@@ -73,8 +73,8 @@ public class FireballTurret extends Turret {
                     double d2 = target.getZ() - this.getZ();
                     SmallFireball fireballEntity = new SmallFireball2(this, d0, d1, d2);
                     fireballEntity.setPos(getX(), getEyeY(), getZ());
-                    level.addFreshEntity(fireballEntity);
-                    level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL, 1, 1);
+                    level().addFreshEntity(fireballEntity);
+                    level().playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL, 1, 1);
                     break;
                 }
             }
