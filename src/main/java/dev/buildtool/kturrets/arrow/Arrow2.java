@@ -84,19 +84,9 @@ public class Arrow2 extends Arrow {
         Entity entity1 = this.getOwner();
         DamageSource damagesource;
         if (entity1 instanceof LivingEntity livingEntity) {
-            damagesource = damageSources().mobProjectile(this, livingEntity);
             livingEntity.setLastHurtMob(entity);
-        } else {
-            damagesource = damageSources().arrow(this, this);
         }
-//        if (entity1 == null) {
-//            damagesource = damageSources().arrow(this,this);//new IndirectDamageSource("arrow", this, this);
-//        } else {
-//            damagesource = damageSources().mobProjectile(this,entity1);//new IndirectDamageSource("arrow", this, entity1);
-//            if (entity1 instanceof LivingEntity) {
-//                ((LivingEntity) entity1).setLastHurtMob(entity);
-//            }
-//        }
+        damagesource = damageSources().generic();
         int k = entity.getRemainingFireTicks();
         if (this.isOnFire()) {
             entity.setSecondsOnFire(5);

@@ -6,7 +6,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -70,7 +69,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     @Override
     protected void onHitEntity(EntityHitResult entityRayTraceResult) {
         Entity entity = entityRayTraceResult.getEntity();
-        entity.hurt(getDamageSource(), getDamage());
+        entity.hurt(damageSources().generic(), getDamage());
     }
 
     @Override
@@ -98,8 +97,6 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
         super.readAdditionalSaveData(compoundNBT);
         setDamage(compoundNBT.getInt("Damage"));
     }
-
-    protected abstract DamageSource getDamageSource();
 
     @Override
     public void tick() {
