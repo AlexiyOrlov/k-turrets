@@ -27,8 +27,8 @@ credits = "Mapping_bl (French tr.)" #optional
 authors = "Alexiy" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-Adds some configurable turrets and drones to shoot down enemies.
-They are crafted from titanium ingots.
+Adds 12 configurable turrets and drones to destroy enemies.
+They are crafted from titanium ingots, dispenser and type-specific ingredient.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.k_turrets]] #optional
