@@ -1,6 +1,9 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "k_turrets:titanium_ore",
+  "features": [
+    "k_turrets:titanium_ore",
+    "k_turrets:deepslate_titanium_ore"
+  ],
   "step": "underground_ores"
 }

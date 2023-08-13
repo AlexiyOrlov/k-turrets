@@ -1,5 +1,5 @@
 {
-  "feature": "k_turrets:titanium_ore",
+  "feature": "k_turrets:deepslate_titanium_ore",
   "placement": [
     {
       "type": "minecraft:count",
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:trapezoid",
         "min_inclusive": {
-          "absolute": 1
+          "absolute": -63
         },
         "max_inclusive": {
-          "absolute": 384
+          "absolute": 0
         }
       }
     }
