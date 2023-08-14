@@ -8,6 +8,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -21,12 +22,14 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.scoreboard.Team;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -44,6 +47,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     private static final DataParameter<Boolean> PROTECTION_FROM_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
     private static final DataParameter<CompoundNBT> IGNORED_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<String> TEAM = EntityDataManager.defineId(Turret.class, DataSerializers.STRING);
+    private static final DataParameter<String> OWNER_NAME = EntityDataManager.defineId(Turret.class, DataSerializers.STRING);
     /**
      * Players that are not allied to the owner
      */
@@ -166,19 +170,44 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     @Override
     protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
-        ItemStack itemStack = playerEntity.getItemInHand(p_230254_2_);
-        if (getHealth() < getMaxHealth() && itemStack.getItem().getTags().stream().anyMatch(resourceLocation -> resourceLocation.equals(KTurrets.STEEL_INGOT))) {
-            heal(getMaxHealth() / 6);
-            itemStack.shrink(1);
+        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
+            if (playerEntity instanceof ServerPlayerEntity) {
+                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+            }
+            return ActionResultType.SUCCESS;
+        }
+
+        ItemStack itemInHand = playerEntity.getItemInHand(p_230254_2_);
+        if (getHealth() < getMaxHealth() && ItemTags.getAllTags().getTag(KTurrets.TITANIUM_INGOT).contains(itemInHand.getItem())) {
+            heal(getHealthRecovered());
+            itemInHand.shrink(1);
             return ActionResultType.SUCCESS;
         }
         if (canUse(playerEntity)) {
             if (level.isClientSide) {
                 openTargetScreen();
             }
+            if (playerEntity.getTeam() != null) {
+                setAutomaticTeam(playerEntity.getTeam().getName());
+            } else {
+                setAutomaticTeam("");
+            }
+            if (getOwnerName().isEmpty())
+                setOwnerName(playerEntity.getName().getString());
             return ActionResultType.SUCCESS;
-        } else if (level.isClientSide)
-            playerEntity.sendMessage(new TranslationTextComponent("k-turrets.turret.not.yours"), Util.NIL_UUID);
+        } else if (level.isClientSide) {
+            if (this instanceof Drone) {
+                if (getOwnerName().isEmpty())
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.drone.not.yours"), true);
+                else
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.drone.belongs.to").append(" " + getOwnerName()), true);
+            } else {
+                if (getOwnerName().isEmpty())
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.not.yours"), true);
+                else
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
+            }
+        }
         return ActionResultType.PASS;
     }
 
@@ -201,6 +230,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
         compoundNBT.putString("Team", getAutomaticTeam());
         compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
+        compoundNBT.putString("Owner name", getOwnerName());
     }
 
     @Override
@@ -216,6 +246,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
         setAutomaticTeam(compoundNBT.getString("Team"));
         entityData.set(IGNORED_PLAYERS, compoundNBT.getCompound("Exceptions"));
+        if (compoundNBT.contains("Owner name")) {
+            setOwnerName(compoundNBT.getString("Owner name"));
+        }
     }
 
     public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
@@ -374,5 +407,13 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     protected float getHealthRecovered() {
         return getMaxHealth() / 6;
+    }
+
+    public String getOwnerName() {
+        return entityData.get(OWNER_NAME);
+    }
+
+    public void setOwnerName(String owner) {
+        entityData.set(OWNER_NAME, owner);
     }
 }

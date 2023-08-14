@@ -29,7 +29,8 @@
   "k_turrets.clear.list": "Clear the target list",
   "k-turrets.inventory.hint": "Sneak and right-click the turret to view its inventory",
   "k-turrets.claim.turret": "Claim this turret",
-  "k-turrets.turret.not.yours": "This turret doesn't belong to you",
+  "k_turrets.turret.not.yours": "This turret doesn't belong to you",
+  "k_turrets.turret.belongs.to": "This turret belongs to",
   "k-turrets.mobile": "Mobile",
   "k-turrets.immobile": "Immobile",
   "k-turrets.protect.from.players": "Protecting from alien players",
@@ -39,6 +40,8 @@
   "k_turrets.no.team": "No team",
   "k_turrets.team": "Team",
   "k_turrets.reset.list": "Reset targets",
+  "k_turrets.drone.not.yours": "This drone doesn't belong to you",
+  "k_turrets.drone.belongs.to": "This drone belongs to",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",

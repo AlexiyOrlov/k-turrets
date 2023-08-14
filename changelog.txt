@@ -3,6 +3,7 @@ implemented target list reset;
 improved UI;
 implemented player team detection;
 implemented player targeting exceptions;
+added drones;
 
 0.1.8:
 fixed inability to change turret health and ammo;
