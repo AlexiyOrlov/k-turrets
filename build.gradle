@@ -83,6 +83,9 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     mavenLocal()
+    maven {
+        url 'https://mymavenrepo.com/repo/XXNTQu0VdMr93BjoOV1S/'
+    }
 }
 
 dependencies {
