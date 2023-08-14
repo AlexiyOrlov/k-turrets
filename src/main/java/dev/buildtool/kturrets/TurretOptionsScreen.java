@@ -83,7 +83,7 @@ public class TurretOptionsScreen extends Screen2 {
         }));
         addButton(new SwitchButton(centerX, 80, new TranslationTextComponent("k-turrets.mobile"), new TranslationTextComponent("k-turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
-            turret.setMoveable(!turret.isMoveable());
+            turret.setMovable(!turret.isMoveable());
             if (p_onPress_1_ instanceof SwitchButton) {
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
             }
@@ -132,13 +132,21 @@ public class TurretOptionsScreen extends Screen2 {
         turret.setTargets(compoundNBT);
         TurretTargets turretTargets = new TurretTargets(compoundNBT, turret.getId());
         KTurrets.channel.sendToServer(turretTargets);
+        if (minecraft.player.getTeam() != null) {
+            turret.setAutomaticTeam(minecraft.player.getTeam().getName());
+        }
     }
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float tick) {
         super.render(matrixStack, mouseX, mouseY, tick);
         renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k-turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-        renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT, INVENTORY_HINT), centerX, centerY + 60, font);
+        renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
+        if (turret.getAutomaticTeam().isEmpty()) {
+            renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k_turrets.no.team")), centerX, centerY + 60, font);
+        } else {
+            renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())), centerX, centerY + 60, font);
+        }
         String targetEntry = addEntityField.getValue();
         if (targetEntry.length() > 0) {
             List<ResourceLocation> entityTypes;

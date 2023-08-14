@@ -27,6 +27,8 @@
   "k-turrets.not.protect.from.players": "Not protecting from alien players",
   "k-turrets.integrity": "Integrity",
   "k-turrets.incorrect.entry": "Incorrect entry",
+  "k_turrets.no.team": "No team",
+  "k_turrets.team": "Team",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",

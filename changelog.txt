@@ -1,4 +1,8 @@
 0.1.8:
+implemented target list reset; improved UI;
+
+
+0.1.8:
 fixed inability to change turret health and ammo;
 
 0.1.7:

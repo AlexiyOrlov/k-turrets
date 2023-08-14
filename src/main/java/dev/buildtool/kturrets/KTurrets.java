@@ -9,10 +9,12 @@ import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.kturrets.registers.TItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -160,7 +162,15 @@ public class KTurrets {
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;
                         turret.setOwner(claimTurret.person);
+//                        if (turret instanceof Drone)
+//                            contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.drone_claimed"), turret.getUUID());
+//                        else
+                        contextSupplier.get().getSender().sendMessage(new TranslationTextComponent("k_turrets.turret_claimed"), turret.getUUID());
                         contextSupplier.get().setPacketHandled(true);
+                        ServerPlayerEntity player = contextSupplier.get().getSender();
+                        if (player.getTeam() != null) {
+                            turret.setAutomaticTeam(player.getTeam().getName());
+                        }
                     }
                 });
         channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
@@ -174,7 +184,7 @@ public class KTurrets {
             ServerWorld serverWorld = contextSupplier.get().getSender().getLevel();
             Entity entity = serverWorld.getEntity(toggleMobility.id);
             if (entity instanceof Turret) {
-                ((Turret) entity).setMoveable(toggleMobility.mobile);
+                ((Turret) entity).setMovable(toggleMobility.mobile);
                 contextSupplier.get().setPacketHandled(true);
             }
         });

@@ -18,6 +18,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -39,6 +40,8 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
     private static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> PROTECTION_FROM_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<CompoundNBT> IGNORED_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
+    private static final DataParameter<String> TEAM = EntityDataManager.defineId(Turret.class, DataSerializers.STRING);
     /**
      * Players that are not allied to the owner
      */
@@ -70,6 +73,8 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.define(OWNER, Optional.empty());
         entityData.define(MOVEABLE, false);
         entityData.define(PROTECTION_FROM_PLAYERS, false);
+        entityData.define(IGNORED_PLAYERS, new CompoundNBT());
+        entityData.define(TEAM, "");
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
@@ -88,7 +93,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.set(OWNER, Optional.of(owner));
     }
 
-    public void setMoveable(boolean moveable) {
+    public void setMovable(boolean moveable) {
         entityData.set(MOVEABLE, moveable);
     }
 
@@ -184,6 +189,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         getOwner().ifPresent(uuid1 -> compoundNBT.putUUID("Owner", uuid1));
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
+        compoundNBT.putString("Team", getAutomaticTeam());
     }
 
     @Override
@@ -195,8 +201,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
             if (!uuid.equals(Util.NIL_UUID))
                 setOwner(uuid);
         }
-        setMoveable(compoundNBT.getBoolean("Mobile"));
+        setMovable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
+        setAutomaticTeam(compoundNBT.getString("Team"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
@@ -303,5 +310,25 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         if (getOwner().isPresent() && getOwner().get().equals(target.getUUID()))
             return true;
         return super.isAlliedTo(target);
+    }
+
+    public void setAutomaticTeam(String team) {
+        entityData.set(TEAM, team);
+    }
+
+    public String getAutomaticTeam() {
+        return entityData.get(TEAM);
+    }
+
+    @Nullable
+    @Override
+    public Team getTeam() {
+        if (getOwner().isPresent()) {
+            PlayerEntity owner = level.getPlayerByUUID(getOwner().get());
+            if (owner != null) {
+                return owner.getTeam();
+            } else return level.getScoreboard().getPlayerTeam(getAutomaticTeam());
+        }
+        return super.getTeam();
     }
 }
