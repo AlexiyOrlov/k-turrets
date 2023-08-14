@@ -6,7 +6,7 @@
   ],
   "parent": "block/cube_all",
   "textures": {
-    "0": "k_turrets:item/bullet_turret_item"
+    "0": "k-turrets:item/bullet_turret_item"
   },
   "display": {
     "gui": {

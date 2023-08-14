@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "k_turrets:item/explosive_powder"
+    "layer0": "k-turrets:item/explosive_powder"
   }
 }
