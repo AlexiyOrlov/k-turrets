@@ -90,7 +90,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     implementation fg.deobf('dev.buildtool:satako:4.2.12-1.16.5');
 }
 
