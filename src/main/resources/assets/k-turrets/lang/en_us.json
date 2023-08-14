@@ -26,7 +26,7 @@
   "k-turrets.choose.tooltip": "Choose which entities to remove by pressing the appropriate buttons",
   "k-turrets.hold.alt.to.scroll": "To scroll the target list, hold Alt and use the mouse wheel",
   "k-turrets.dismantle": "Dismantle this turret",
-  "k-turrets.clear.list": "Clear the target list",
+  "k_turrets.clear.list": "Clear the target list",
   "k-turrets.inventory.hint": "Sneak and right-click the turret to view its inventory",
   "k-turrets.claim.turret": "Claim this turret",
   "k-turrets.turret.not.yours": "This turret doesn't belong to you",
@@ -38,6 +38,7 @@
   "k-turrets.incorrect.entry": "Incorrect entry",
   "k_turrets.no.team": "No team",
   "k_turrets.team": "Team",
+  "k_turrets.reset.list": "Reset targets",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
