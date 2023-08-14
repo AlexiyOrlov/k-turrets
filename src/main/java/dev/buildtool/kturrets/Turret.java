@@ -87,6 +87,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.define(PROTECTION_FROM_PLAYERS, false);
         entityData.define(IGNORED_PLAYERS, new CompoundNBT());
         entityData.define(TEAM, "");
+        entityData.define(OWNER_NAME, "");
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
