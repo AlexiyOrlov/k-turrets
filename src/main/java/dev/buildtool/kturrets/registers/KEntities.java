@@ -21,7 +21,6 @@ import dev.buildtool.kturrets.gauss.GaussTurret;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,7 +46,7 @@ public class KEntities {
     public static final EntityType<BrickDrone> BRICK_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BrickDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("brick_drone"));
     public static final EntityType<BulletDrone> BULLET_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new BulletDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("bullet_drone"));
     public static final EntityType<CobbleDrone> COBBLE_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new CobbleDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("cobble_drone"));
-    public static final EntityType<MobEntity> ARROW_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new ArrowDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("arrow_drone"));
+    public static final EntityType<ArrowDrone> ARROW_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new ArrowDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("arrow_drone"));
     public static final EntityType<GaussDrone> GAUSS_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new GaussDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("gauss_drone"));
     public static final EntityType<FireballDrone> FIRECHARGE_DRONE = cast(EntityType.Builder.of((p_20722_, p_20723_) -> new FireballDrone(p_20723_), EntityClassification.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).fireImmune().build("firecharge_drone"));
 

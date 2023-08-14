@@ -42,5 +42,12 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(KEntities.GAUSS_BULLET, GaussBulletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(KEntities.COBBLE_TURRET, manager -> new EntityRenderer2<>(manager, new CobbleTurretv2(), "cobble_turret", false, 0.2f));
         RenderingRegistry.registerEntityRenderingHandler(KEntities.COBBLESTONE, CobblestoneRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.ARROW_DRONE, manager -> new EntityRenderer2<>(manager, new ArrowDroneModel(), "arrow_drone", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.BRICK_DRONE, manager -> new EntityRenderer2<>(manager, new BrickDroneModel(), "brick_drone", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.BULLET_DRONE, manager -> new EntityRenderer2<>(manager, new BulletDroneModel(), "bullet_drone", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.COBBLE_DRONE, manager -> new EntityRenderer2<>(manager, new CobbleDroneModel(), "cobble_drone", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.FIRECHARGE_DRONE, manager -> new EntityRenderer2<>(manager, new FireballDroneModel(), "firecharge_drone", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.GAUSS_DRONE, manager -> new EntityRenderer2<>(manager, new GaussDroneModel(), "gauss_drone", false, 0.2f));
     }
 }
