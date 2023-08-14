@@ -119,7 +119,7 @@ public class TurretOptionsScreen extends Screen2 {
                 minecraft.player.closeContainer();
             }));
         else if (turret instanceof Drone drone) {
-            DropDownButton dropDownButton = new DropDownButton(centerX, 120, this, Component.translatable("k_turrets."));
+            DropDownButton dropDownButton = new DropDownButton(centerX, 120, this, Component.literal(""));
             LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
             RadioButton follow = new RadioButton(centerX, 140, Component.translatable("k_turrets.following.owner"));
             linkedHashMap.put(follow.getMessage(), p_93751_ -> {
@@ -239,7 +239,7 @@ public class TurretOptionsScreen extends Screen2 {
             suggestions.forEach(this::removeWidget);
             suggestions.clear();
             String text = addEntityField.getValue();
-            if (text.length() > 0) {
+            if (!text.isEmpty()) {
                 List<ResourceLocation> entityTypes;
                 if (text.contains(":"))
                     entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
