@@ -170,7 +170,8 @@ public class KTurrets {
                         ServerPlayerEntity player = contextSupplier.get().getSender();
                         if (player.getTeam() != null) {
                             turret.setAutomaticTeam(player.getTeam().getName());
-                        }
+                        } else
+                            turret.setAutomaticTeam("");
                     }
                 });
         channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
