@@ -1,36 +1,36 @@
 package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.registers.TContainers;
+import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 
-public class FireChargeTurretContainer extends Container2 {
-    public FireChargeTurretContainer(int i, PlayerInventory playerInventory, PacketBuffer buffer) {
-        super(TContainers.FIRE_CHARGE_TURRET, i);
-        FireChargeTurret turret = (FireChargeTurret) playerInventory.player.level.getEntity(buffer.readInt());
+public class FireballDroneContainer extends Container2 {
+    public FireballDroneContainer(int i, PlayerInventory inventory, PacketBuffer friendlyByteBuf) {
+        super(TContainers.FIRECHARGE_DRONE, i);
+        FireballDrone fireballDrone = (FireballDrone) inventory.player.level.getEntity(friendlyByteBuf.readInt());
         int index = 0;
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 9; k++) {
-                addSlot(new ItemHandlerSlot(turret.ammo, index++, k * 18, j * 18));
+                addSlot(new ItemHandlerSlot(fireballDrone.ammo, index++, k * 18, j * 18));
             }
         }
 
-        addPlayerInventory(0, 4 * 18, playerInventory);
+        addPlayerInventory(0, 4 * 18, inventory);
     }
 
     @Override
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 26) {
-            if (itemStack.getItem() == Items.FIRE_CHARGE && !moveItemStackTo(itemStack, 0, 27, false))
+        if (index > 17) {
+            if (itemStack.getItem() == TItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
-            if (!moveItemStackTo(itemStack, 27, 63, false))
+            if (!moveItemStackTo(itemStack, 18, 54, false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

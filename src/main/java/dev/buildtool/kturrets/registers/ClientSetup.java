@@ -16,8 +16,8 @@ import dev.buildtool.kturrets.cobble.CobbleTurretContainer;
 import dev.buildtool.kturrets.cobble.CobbleTurretScreen;
 import dev.buildtool.kturrets.cobble.CobbleTurretv2;
 import dev.buildtool.kturrets.cobble.CobblestoneRenderer;
-import dev.buildtool.kturrets.firecharge.FireChargeScreen;
-import dev.buildtool.kturrets.firecharge.FireChargeTurretContainer;
+import dev.buildtool.kturrets.firecharge.FireballTurretContainer;
+import dev.buildtool.kturrets.firecharge.FireballTurretScreen;
 import dev.buildtool.kturrets.firecharge.FirechargeTurretv2;
 import dev.buildtool.kturrets.gauss.GaussBulletRenderer;
 import dev.buildtool.kturrets.gauss.GaussTurretContainer;
@@ -38,7 +38,7 @@ public class ClientSetup {
     public static void register(FMLClientSetupEvent clientSetupEvent) {
         ScreenManager.register(TContainers.ARROW_TURRET, (ScreenManager.IScreenFactory<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
         ScreenManager.register(TContainers.BULLET_TURRET, (ScreenManager.IScreenFactory<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
-        ScreenManager.register(TContainers.FIRE_CHARGE_TURRET, (ScreenManager.IScreenFactory<FireChargeTurretContainer, FireChargeScreen>) (p1, p2, p3) -> new FireChargeScreen(p1, p2, p3, true));
+        ScreenManager.register(TContainers.FIRE_CHARGE_TURRET, (ScreenManager.IScreenFactory<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.BRICK_TURRET, (ScreenManager.IScreenFactory<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.GAUSS_TURRET, (ScreenManager.IScreenFactory<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
         ScreenManager.register(TContainers.COBBLE_TURRET, (ScreenManager.IScreenFactory<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));

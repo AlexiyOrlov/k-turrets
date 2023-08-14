@@ -1,19 +1,16 @@
 package dev.buildtool.kturrets.firecharge;
 
-import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,7 +20,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -31,7 +27,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class FireChargeTurret extends Turret {
+public class FireballTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
@@ -41,7 +37,7 @@ public class FireChargeTurret extends Turret {
         }
     };
 
-    public FireChargeTurret(World world) {
+    public FireballTurret(World world) {
         super(TEntities.FIRE_CHARGE_TURRET, world);
     }
 
@@ -79,29 +75,9 @@ public class FireChargeTurret extends Turret {
                     double d0 = target.getX() - this.getX();
                     double d1 = target.getEyeY() - getEyeY();
                     double d2 = target.getZ() - this.getZ();
-                    SmallFireballEntity fireballEntity = new SmallFireballEntity(level, this, d0, d1, d2) {
-                        @Override
-                        protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
-                            if (!this.level.isClientSide) {
-                                Entity entity = p_213868_1_.getEntity();
-                                if (!entity.fireImmune()) {
-                                    Entity entity1 = this.getOwner();
-                                    if (entity1 == null || !entity1.isAlliedTo(entity)) {
-                                        int i = entity.getRemainingFireTicks();
-                                        entity.setSecondsOnFire(5);
-                                        boolean flag = entity.hurt(new IndirectDamageSource("onFire", this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
-                                        if (!flag) {
-                                            entity.setRemainingFireTicks(i);
-                                        } else if (entity1 instanceof LivingEntity) {
-                                            this.doEnchantDamageEffects((LivingEntity) entity1, entity);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    };
-                    fireballEntity.setPos(getX(), getEyeY(), getZ());
-                    level.addFreshEntity(fireballEntity);
+                    SmallFireball smallFireball = new SmallFireball(this, d0, d1, d2);
+                    smallFireball.setPos(getX(), getEyeY(), getZ());
+                    level.addFreshEntity(smallFireball);
                     level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundCategory.NEUTRAL, 1, 1);
                     break;
                 }
@@ -114,7 +90,7 @@ public class FireChargeTurret extends Turret {
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
         PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
         packetBuffer.writeInt(getId());
-        return new FireChargeTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
+        return new FireballTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
     }
 
     @Override

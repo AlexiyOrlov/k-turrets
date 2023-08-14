@@ -9,7 +9,7 @@ import dev.buildtool.satako.Functions;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-public class FirechargeTurretv2 extends EntityModel<FireChargeTurret> {
+public class FirechargeTurretv2 extends EntityModel<FireballTurret> {
     private final ModelRenderer rotating;
     private final ModelRenderer cube_r1;
     private final ModelRenderer bone;
@@ -60,7 +60,7 @@ public class FirechargeTurretv2 extends EntityModel<FireChargeTurret> {
     }
 
     @Override
-    public void setupAnim(FireChargeTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(FireballTurret entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         rotating.yRot = Functions.getDefaultHeadYaw(netHeadYaw);
         rotating.xRot = Functions.getDefaultHeadPitch(headPitch);
     }
