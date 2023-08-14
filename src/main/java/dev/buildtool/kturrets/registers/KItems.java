@@ -39,12 +39,12 @@ public class KItems {
         STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         EXPLOSIVE_POWDER = ITEMS.register("explosive_powder", () -> new Item(defaults()));
-        COBBLE_DRONE = ITEMS.register("cobble_drone", () -> new Item(defaults()));
-        ARROW_DRONE = ITEMS.register("arrow_drone", () -> new Item(defaults()));
-        BULLET_DRONE = ITEMS.register("bullet_drone", () -> new Item(defaults()));
-        BRICK_DRONE = ITEMS.register("brick_drone", () -> new Item(defaults()));
-        FIREBALL_DRONE = ITEMS.register("fireball_drone", () -> new Item(defaults()));
-        GAUSS_DRONE = ITEMS.register("gauss_drone", () -> new Item(defaults()));
+        COBBLE_DRONE = ITEMS.register("cobble_drone_item", () -> new Item(defaults()));
+        ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new Item(defaults()));
+        BULLET_DRONE = ITEMS.register("bullet_drone_item", () -> new Item(defaults()));
+        BRICK_DRONE = ITEMS.register("brick_drone_item", () -> new Item(defaults()));
+        FIREBALL_DRONE = ITEMS.register("fireball_drone_item", () -> new Item(defaults()));
+        GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new Item(defaults()));
     }
 
     private static Item.Properties defaults() {
