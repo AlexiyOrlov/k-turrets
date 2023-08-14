@@ -47,7 +47,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
      */
     protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
-            return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !livingEntity.isAlliedTo(level.getPlayerByUUID(getOwner().get()));
+            return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !isAlliedTo(livingEntity);
         }
         return false;
     };
