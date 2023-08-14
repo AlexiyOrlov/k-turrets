@@ -3,7 +3,7 @@ package dev.buildtool.kturrets.brick;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -38,7 +38,7 @@ public class BrickTurret extends Turret {
     };
 
     public BrickTurret(World world) {
-        super(TEntities.BRICK_TURRET, world);
+        super(KEntities.BRICK_TURRET, world);
     }
 
     @Override

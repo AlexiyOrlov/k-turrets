@@ -3,10 +3,10 @@ package dev.buildtool.kturrets;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TContainers;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -62,9 +62,9 @@ public class KTurrets {
 
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        TEntities.ENTITIES.register(eventBus);
-        TItems.ITEMS.register(eventBus);
-        TContainers.CONTAINERS.register(eventBus);
+        KEntities.ENTITIES.register(eventBus);
+        KItems.ITEMS.register(eventBus);
+        KContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {

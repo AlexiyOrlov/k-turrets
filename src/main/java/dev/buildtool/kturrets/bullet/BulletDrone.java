@@ -3,8 +3,8 @@ package dev.buildtool.kturrets.bullet;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +32,7 @@ public class BulletDrone extends Drone {
     };
 
     public BulletDrone(World world) {
-        super(TEntities.BULLET_DRONE, world);
+        super(KEntities.BULLET_DRONE, world);
     }
 
     @Override

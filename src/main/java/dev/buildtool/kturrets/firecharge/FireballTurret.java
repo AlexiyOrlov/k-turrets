@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.LivingEntity;
@@ -38,7 +38,7 @@ public class FireballTurret extends Turret {
     };
 
     public FireballTurret(World world) {
-        super(TEntities.FIRE_CHARGE_TURRET, world);
+        super(KEntities.FIRE_CHARGE_TURRET, world);
     }
 
     @Override

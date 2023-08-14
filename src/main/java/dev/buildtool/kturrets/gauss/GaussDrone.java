@@ -3,9 +3,9 @@ package dev.buildtool.kturrets.gauss;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -27,12 +27,12 @@ public class GaussDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.getItem() == TItems.GAUSS_BULLET.get();
+            return stack.getItem() == KItems.GAUSS_BULLET.get();
         }
     };
 
     public GaussDrone(World world) {
-        super(TEntities.GAUSS_DRONE, world);
+        super(KEntities.GAUSS_DRONE, world);
     }
 
     @Override

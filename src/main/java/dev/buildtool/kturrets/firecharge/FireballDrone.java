@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -27,12 +27,12 @@ public class FireballDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.getItem() == TItems.EXPLOSIVE_POWDER.get();
+            return stack.getItem() == KItems.EXPLOSIVE_POWDER.get();
         }
     };
 
     public FireballDrone(World world) {
-        super(TEntities.FIRECHARGE_DRONE, world);
+        super(KEntities.FIRECHARGE_DRONE, world);
     }
 
     @Override

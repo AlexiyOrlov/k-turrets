@@ -3,7 +3,7 @@ package dev.buildtool.kturrets.arrow;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -53,7 +53,7 @@ public class ArrowTurret extends Turret {
     };
 
     public ArrowTurret(World world) {
-        super(TEntities.ARROW_TURRET, world);
+        super(KEntities.ARROW_TURRET, world);
     }
 
     @Override

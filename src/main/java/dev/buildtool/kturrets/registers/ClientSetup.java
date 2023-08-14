@@ -36,21 +36,21 @@ public class ClientSetup {
     @SuppressWarnings("RedundantCast")
     @SubscribeEvent
     public static void register(FMLClientSetupEvent clientSetupEvent) {
-        ScreenManager.register(TContainers.ARROW_TURRET, (ScreenManager.IScreenFactory<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
-        ScreenManager.register(TContainers.BULLET_TURRET, (ScreenManager.IScreenFactory<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
-        ScreenManager.register(TContainers.FIRE_CHARGE_TURRET, (ScreenManager.IScreenFactory<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
-        ScreenManager.register(TContainers.BRICK_TURRET, (ScreenManager.IScreenFactory<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
-        ScreenManager.register(TContainers.GAUSS_TURRET, (ScreenManager.IScreenFactory<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
-        ScreenManager.register(TContainers.COBBLE_TURRET, (ScreenManager.IScreenFactory<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretv2(), "arrow_turret", false, 0.4f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET, BulletRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretv2(), "bullet_turret", false, 0.4f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FirechargeTurretv2(), "firecharge_turret", false, 0.3f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK, BrickRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2(), "brick_turret", false, 0.4f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2(), "gaussturret", false, 0.2f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.GAUSS_BULLET, GaussBulletRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLE_TURRET, manager -> new EntityRenderer2<>(manager, new CobbleTurretv2(), "cobble_turret", false, 0.2f));
-        RenderingRegistry.registerEntityRenderingHandler(TEntities.COBBLESTONE, CobblestoneRenderer::new);
+        ScreenManager.register(KContainers.ARROW_TURRET, (ScreenManager.IScreenFactory<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
+        ScreenManager.register(KContainers.BULLET_TURRET, (ScreenManager.IScreenFactory<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
+        ScreenManager.register(KContainers.FIRE_CHARGE_TURRET, (ScreenManager.IScreenFactory<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
+        ScreenManager.register(KContainers.BRICK_TURRET, (ScreenManager.IScreenFactory<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
+        ScreenManager.register(KContainers.GAUSS_TURRET, (ScreenManager.IScreenFactory<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
+        ScreenManager.register(KContainers.COBBLE_TURRET, (ScreenManager.IScreenFactory<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretv2(), "arrow_turret", false, 0.4f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.BULLET, BulletRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretv2(), "bullet_turret", false, 0.4f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FirechargeTurretv2(), "firecharge_turret", false, 0.3f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.BRICK, BrickRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2(), "brick_turret", false, 0.4f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2(), "gaussturret", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.GAUSS_BULLET, GaussBulletRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.COBBLE_TURRET, manager -> new EntityRenderer2<>(manager, new CobbleTurretv2(), "cobble_turret", false, 0.2f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.COBBLESTONE, CobblestoneRenderer::new);
     }
 }

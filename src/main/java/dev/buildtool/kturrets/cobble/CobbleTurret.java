@@ -3,8 +3,8 @@ package dev.buildtool.kturrets.cobble;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -38,7 +38,7 @@ public class CobbleTurret extends Turret {
     };
 
     public CobbleTurret(World world) {
-        super(TEntities.COBBLE_TURRET, world);
+        super(KEntities.COBBLE_TURRET, world);
     }
 
     @Override

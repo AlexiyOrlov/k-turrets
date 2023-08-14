@@ -3,9 +3,9 @@ package dev.buildtool.kturrets.gauss;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
-import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -31,14 +31,14 @@ public class GaussTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == TItems.GAUSS_BULLET.get())
+            if (stack.getItem() == KItems.GAUSS_BULLET.get())
                 return super.insertItem(slot, stack, simulate);
             return stack;
         }
     };
 
     public GaussTurret(World world) {
-        super(TEntities.GAUSS_TURRET, world);
+        super(KEntities.GAUSS_TURRET, world);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class GaussTurret extends Turret {
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         if (target.isAlive()) {
             for (ItemStack item : ammo.getItems()) {
-                if (item.getItem() == TItems.GAUSS_BULLET.get()) {
+                if (item.getItem() == KItems.GAUSS_BULLET.get()) {
                     level.playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundCategory.NEUTRAL, 1.5f, 1);
                     item.shrink(1);
                     double xa = target.getX() - getX();

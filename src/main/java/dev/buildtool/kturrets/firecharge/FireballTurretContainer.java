@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets.firecharge;
 
-import dev.buildtool.kturrets.registers.TContainers;
+import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,7 +11,7 @@ import net.minecraft.network.PacketBuffer;
 
 public class FireballTurretContainer extends Container2 {
     public FireballTurretContainer(int i, PlayerInventory playerInventory, PacketBuffer buffer) {
-        super(TContainers.FIRE_CHARGE_TURRET, i);
+        super(KContainers.FIRE_CHARGE_TURRET, i);
         FireballTurret turret = (FireballTurret) playerInventory.player.level.getEntity(buffer.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {

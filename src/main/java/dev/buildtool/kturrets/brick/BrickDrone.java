@@ -3,7 +3,7 @@ package dev.buildtool.kturrets.brick;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.TEntities;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class BrickDrone extends Drone {
     public BrickDrone(World world) {
-        super(TEntities.BRICK_DRONE, world);
+        super(KEntities.BRICK_DRONE, world);
     }
 
     protected ItemHandler bricks = new ItemHandler(18) {

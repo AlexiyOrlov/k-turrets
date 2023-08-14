@@ -3,8 +3,8 @@ package dev.buildtool.kturrets.cobble;
 import dev.buildtool.kturrets.AttackTargetGoal;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.Sounds;
-import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +32,7 @@ public class CobbleDrone extends Drone {
     };
 
     public CobbleDrone(World world) {
-        super(TEntities.COBBLE_DRONE, world);
+        super(KEntities.COBBLE_DRONE, world);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.firecharge;
 
-import dev.buildtool.kturrets.registers.TContainers;
-import dev.buildtool.kturrets.registers.TItems;
+import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,7 +11,7 @@ import net.minecraft.network.PacketBuffer;
 
 public class FireballDroneContainer extends Container2 {
     public FireballDroneContainer(int i, PlayerInventory inventory, PacketBuffer friendlyByteBuf) {
-        super(TContainers.FIRECHARGE_DRONE, i);
+        super(KContainers.FIRECHARGE_DRONE, i);
         FireballDrone fireballDrone = (FireballDrone) inventory.player.level.getEntity(friendlyByteBuf.readInt());
         int index = 0;
         for (int j = 0; j < 2; j++) {
@@ -27,7 +27,7 @@ public class FireballDroneContainer extends Container2 {
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
-            if (itemStack.getItem() == TItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 18, false))
+            if (itemStack.getItem() == KItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 18, 54, false))
