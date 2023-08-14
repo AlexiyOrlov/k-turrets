@@ -25,6 +25,9 @@ public class TurretOptionsScreen extends Screen2 {
     private static final TranslationTextComponent INVENTORY_HINT = new TranslationTextComponent("k-turrets.inventory.hint");
     private List<SwitchButton> targetButtons;
     private TextField addEntityField;
+    private List<String> exceptions;
+    private HashMap<String, Boolean> tempExceptionStatus;
+    private List<Label> suggestions;
 
     public TurretOptionsScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
@@ -37,6 +40,12 @@ public class TurretOptionsScreen extends Screen2 {
     @Override
     public void init() {
         super.init();
+        tempStatusMap = new HashMap<>(40);
+        targets.forEach(entityType -> tempStatusMap.put(entityType, true));
+        //exceptions = turret.getExceptions();
+        tempExceptionStatus = new HashMap<>(1);
+        //exceptions.forEach(s -> tempExceptionStatus.put(s, true));
+        suggestions = new ArrayList<>(12);
         addEntityField = addButton(new TextField(centerX, 3, 100));
         addButton(new BetterButton(centerX, 20, new TranslationTextComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
             String entityType = addEntityField.getValue();
@@ -57,10 +66,20 @@ public class TurretOptionsScreen extends Screen2 {
             KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
             minecraft.player.closeContainer();
         }));
-        addButton(new BetterButton(centerX, 60, new TranslationTextComponent("k-turrets.clear.list"), p_onPress_1_ -> {
+        BetterButton clearTargets = new BetterButton(centerX, 60, new TranslationTextComponent("k_turrets.clear.list"), p_onPress_1_ -> {
             targets.clear();
             tempStatusMap.clear();
-            targetButtons.forEach(buttons::remove);
+            targetButtons.forEach(this.children::remove);
+            buttons.clear();
+            children.clear();
+            init();
+        });
+        addButton(clearTargets);
+        addButton(new BetterButton(clearTargets.x + clearTargets.getWidth(), 60, new TranslationTextComponent("k_turrets.reset.list"), p_93751_ -> {
+            targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
+            buttons.clear();
+            children.clear();
+            init();
         }));
         addButton(new SwitchButton(centerX, 80, new TranslationTextComponent("k-turrets.mobile"), new TranslationTextComponent("k-turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
@@ -79,7 +98,9 @@ public class TurretOptionsScreen extends Screen2 {
             addButton(new BetterButton(centerX, 120, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
-                minecraft.player.closeContainer();
+                buttons.clear();
+                children.clear();
+                init();
             }));
 
         addButton(new Label(3, 3, new TranslationTextComponent("k-turrets.targets")));
