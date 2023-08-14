@@ -118,7 +118,7 @@ public class KTurrets {
         loadConfig(configPair.getRight(), FMLPaths.CONFIGDIR.get().resolve("k_turrets-common.toml").toString());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
-            builder.define("Enable drone flying sound", false);
+            ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             return builder.build();
         }).getRight());
 
