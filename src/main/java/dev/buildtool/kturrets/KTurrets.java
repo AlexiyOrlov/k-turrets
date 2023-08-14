@@ -202,6 +202,32 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
+        channel.registerMessage(packetIndex++, AddPlayerException.class, (e, friendlyByteBuf) -> {
+            friendlyByteBuf.writeInt(e.turretId);
+            friendlyByteBuf.writeUtf(e.playerName);
+        }, friendlyByteBuf -> new AddPlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()), (e, contextSupplier) -> {
+            ServerWorld serverLevel = contextSupplier.get().getSender().getLevel();
+            Entity entity = serverLevel.getEntity(e.turretId);
+            if (entity instanceof Turret) {
+                Turret turret = (Turret) entity;
+                turret.addPlayerToExceptions(e.playerName);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
+        channel.registerMessage(packetIndex, RemovePlayerException.class, (e, friendlyByteBuf) -> {
+                    friendlyByteBuf.writeInt(e.turretId);
+                    friendlyByteBuf.writeUtf(e.playerName);
+                }, friendlyByteBuf -> new RemovePlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()),
+                (e, contextSupplier) -> {
+                    ServerWorld serverLevel = contextSupplier.get().getSender().getLevel();
+                    Entity entity = serverLevel.getEntity(e.turretId);
+                    if (entity instanceof Turret) {
+                        Turret turret = (Turret) entity;
+                        turret.removePlayerFromExceptions(e.playerName);
+                        contextSupplier.get().getSender().displayClientMessage(new TranslationTextComponent("k_turrets.removed.player.from.exceptions", e.playerName), false);
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
     }
 
     private void loadConfig(ForgeConfigSpec config, String path) {

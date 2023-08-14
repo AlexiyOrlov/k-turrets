@@ -42,23 +42,38 @@ public class TurretOptionsScreen extends Screen2 {
         super.init();
         tempStatusMap = new HashMap<>(40);
         targets.forEach(entityType -> tempStatusMap.put(entityType, true));
-        //exceptions = turret.getExceptions();
+        exceptions = turret.getExceptions();
         tempExceptionStatus = new HashMap<>(1);
-        //exceptions.forEach(s -> tempExceptionStatus.put(s, true));
+        exceptions.forEach(s -> tempExceptionStatus.put(s, true));
         suggestions = new ArrayList<>(12);
         addEntityField = addButton(new TextField(centerX, 3, 100));
         addButton(new BetterButton(centerX, 20, new TranslationTextComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
-            String entityType = addEntityField.getValue();
-            EntityType<?> type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entityType));
-            if (entityType.length() > 2 && type != null) {
-                if (type == EntityType.PIG && !entityType.equals("minecraft:pig") && !entityType.equals("pig")) {
-                    minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.incorrect.entry"), Util.NIL_UUID);
-                } else {
-                    targets.add(type);
-                    tempStatusMap.put(type, true);
-                    minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
-                    if (entityType.contains(":"))
-                        addEntityField.setValue(entityType.substring(0, entityType.indexOf(':')));
+            String s = addEntityField.getValue();
+            if (s.startsWith("!")) {
+                if (s.length() > 1) {
+                    String playerName = s.substring(1);
+                    if (exceptions.contains(playerName))
+                        minecraft.player.displayClientMessage(new TranslationTextComponent("k_turrets.player.is.already.in.exceptions", playerName), true);
+                    else {
+                        turret.addPlayerToExceptions(playerName);
+                        tempExceptionStatus.put(playerName, true);
+                        KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), playerName));
+                        addEntityField.setValue("");
+                        minecraft.player.displayClientMessage(new TranslationTextComponent("k_turrets.added.player.to.exceptions", playerName), false);
+                    }
+                }
+            } else {
+                EntityType<?> type = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(s));
+                if (s.length() > 2 && type != null) {
+                    if (type == EntityType.PIG && !s.equals("minecraft:pig") && !s.equals("pig")) {
+                        minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.incorrect.entry"), Util.NIL_UUID);
+                    } else {
+                        targets.add(type);
+                        tempStatusMap.put(type, true);
+                        minecraft.player.sendMessage(new TranslationTextComponent("k-turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
+                        if (s.contains(":"))
+                            addEntityField.setValue(s.substring(0, s.indexOf(':')));
+                    }
                 }
             }
         }));
@@ -102,6 +117,24 @@ public class TurretOptionsScreen extends Screen2 {
                 children.clear();
                 init();
             }));
+        if (exceptions.size() > 0) {
+            Label label = new Label(3, targetButtons.size() > 0 ? targetButtons.get(targetButtons.size() - 1).getY() + targetButtons.get(targetButtons.size() - 1).getHeight() : 20, new TranslationTextComponent("k_turrets.exceptions").append(":"));
+            addButton(label);
+            label.setScrollable(true, true);
+
+            for (int i = 0; i < exceptions.size(); i++) {
+                String next = exceptions.get(i);
+                SwitchButton switchButton = new SwitchButton(3, 20 * i + label.y + label.getHeight(), new StringTextComponent(next), new StringTextComponent(TextFormatting.STRIKETHROUGH + next), true, p_93751_ -> {
+                    if (p_93751_ instanceof SwitchButton) {
+                        SwitchButton switchButton1 = (SwitchButton) p_93751_;
+                        switchButton1.state = !switchButton1.state;
+                        tempExceptionStatus.put(next, switchButton1.state);
+                    }
+                });
+                switchButton.verticalScroll = true;
+                addButton(switchButton);
+            }
+        }
 
         addButton(new Label(3, 3, new TranslationTextComponent("k-turrets.targets")));
         targetButtons = new ArrayList<>(targets.size());
@@ -135,6 +168,17 @@ public class TurretOptionsScreen extends Screen2 {
         if (minecraft.player.getTeam() != null) {
             turret.setAutomaticTeam(minecraft.player.getTeam().getName());
         }
+        tempExceptionStatus.forEach((s, aBoolean) -> {
+            if (aBoolean) {
+                if (!exceptions.contains(s)) {
+                    turret.addPlayerToExceptions(s);
+                    KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), s));
+                }
+            } else {
+                turret.removePlayerFromExceptions(s);
+                KTurrets.channel.sendToServer(new RemovePlayerException(turret.getId(), s));
+            }
+        });
     }
 
     @Override

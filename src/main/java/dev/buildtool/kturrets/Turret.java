@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.satako.ItemHandler;
+import dev.buildtool.satako.UniqueList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -47,6 +48,12 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
      */
     protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
+            CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
+            for (String key : compoundTag.getAllKeys()) {
+                if (compoundTag.getString(key).equals(livingEntity.getName().getString())) {
+                    return false;
+                }
+            }
             return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !isAlliedTo(livingEntity);
         }
         return false;
@@ -75,6 +82,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.define(PROTECTION_FROM_PLAYERS, false);
         entityData.define(IGNORED_PLAYERS, new CompoundNBT());
         entityData.define(TEAM, "");
+        entityData.define(IGNORED_PLAYERS, new CompoundNBT());
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
@@ -190,6 +198,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
         compoundNBT.putString("Team", getAutomaticTeam());
+        compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
     }
 
     @Override
@@ -204,6 +213,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         setMovable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
         setAutomaticTeam(compoundNBT.getString("Team"));
+        entityData.set(IGNORED_PLAYERS, compoundNBT.getCompound("Exceptions"));
     }
 
     public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
@@ -330,5 +340,33 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
             } else return getAutomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAutomaticTeam());
         }
         return super.getTeam();
+    }
+
+    public void addPlayerToExceptions(String name) {
+        CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
+        for (String key : compoundTag.getAllKeys()) {
+            String nickname = compoundTag.getString(key);
+            if (nickname.equals(name))
+                return;
+        }
+        compoundTag.putString("IgnoredPlayer#" + compoundTag.size(), name);
+    }
+
+    public void removePlayerFromExceptions(String name) {
+        CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
+        for (String key : compoundTag.getAllKeys()) {
+            String nickname = compoundTag.getString(key);
+            if (nickname.equals(name)) {
+                compoundTag.remove(key);
+                break;
+            }
+        }
+    }
+
+    public List<String> getExceptions() {
+        List<String> exceptions = new UniqueList<>(1);
+        CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
+        compoundTag.getAllKeys().forEach(s -> exceptions.add(compoundTag.getString(s)));
+        return exceptions;
     }
 }
