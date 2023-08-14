@@ -327,7 +327,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
             PlayerEntity owner = level.getPlayerByUUID(getOwner().get());
             if (owner != null) {
                 return owner.getTeam();
-            } else return level.getScoreboard().getPlayerTeam(getAutomaticTeam());
+            } else return getAutomaticTeam().isEmpty() ? null : level.getScoreboard().getPlayerTeam(getAutomaticTeam());
         }
         return super.getTeam();
     }
