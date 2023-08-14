@@ -168,10 +168,10 @@ public class KTurrets {
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;
                         turret.setOwner(claimTurret.person);
-//                        if (turret instanceof Drone)
-//                            contextSupplier.get().getSender().sendMessage(new TranslatableComponent("k_turrets.drone_claimed"), turret.getUUID());
-//                        else
-                        contextSupplier.get().getSender().sendMessage(new TranslationTextComponent("k_turrets.turret_claimed"), turret.getUUID());
+                        if (turret instanceof Drone)
+                            contextSupplier.get().getSender().sendMessage(new TranslationTextComponent("k_turrets.drone_claimed"), turret.getUUID());
+                        else
+                            contextSupplier.get().getSender().sendMessage(new TranslationTextComponent("k_turrets.turret_claimed"), turret.getUUID());
                         contextSupplier.get().setPacketHandled(true);
                         ServerPlayerEntity player = contextSupplier.get().getSender();
                         if (player.getTeam() != null) {
