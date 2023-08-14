@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.UniqueList;
 import net.minecraft.client.Minecraft;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
 public abstract class Turret extends MobEntity implements IRangedAttackMob, INamedContainerProvider {
     private static final DataParameter<CompoundNBT> TARGETS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(Turret.class, DataSerializers.OPTIONAL_UUID);
-    private static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
+    protected static final DataParameter<Boolean> MOVEABLE = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> PROTECTION_FROM_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
     private static final DataParameter<CompoundNBT> IGNORED_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<String> TEAM = EntityDataManager.defineId(Turret.class, DataSerializers.STRING);
@@ -119,7 +120,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
 
     @Override
-    protected abstract void registerGoals();
+    protected void registerGoals() {
+        targetSelector.addGoal(1, new RevengeTask(this));
+    }
 
     @Override
     public boolean attackable() {
@@ -368,5 +371,9 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
         compoundTag.getAllKeys().forEach(s -> exceptions.add(compoundTag.getString(s)));
         return exceptions;
+    }
+
+    protected float getHealthRecovered() {
+        return getMaxHealth() / 6;
     }
 }

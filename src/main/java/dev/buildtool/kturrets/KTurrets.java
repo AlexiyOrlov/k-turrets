@@ -57,6 +57,7 @@ public class KTurrets {
     public static ForgeConfigSpec.IntValue GAUSS_TURRET_DAMAGE, GAUSS_TURRET_RATE;
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
+    public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
     public static final ResourceLocation STEEL_INGOT = new ResourceLocation("forge", "ingots/steel");
 
     public KTurrets() {
@@ -115,6 +116,11 @@ public class KTurrets {
         });
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, configPair.getRight());
         loadConfig(configPair.getRight(), FMLPaths.CONFIGDIR.get().resolve("k_turrets-common.toml").toString());
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
+            builder.define("Enable drone flying sound", false);
+            return builder.build();
+        }).getRight());
 
         channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(ID, "network"), () -> NP, NP::equals, NP::equals);
         int packetIndex = 0;
