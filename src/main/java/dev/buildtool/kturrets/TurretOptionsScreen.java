@@ -31,6 +31,14 @@ public class TurretOptionsScreen extends Screen2 {
     private HashMap<String, Boolean> tempExceptionStatus;
     private List<Label> suggestions;
 
+    private BetterButton addTarget;
+    private BetterButton dismantle;
+    private BetterButton clearTargets;
+    private BetterButton resetList;
+    private BetterButton mobilitySwitch;
+    private BetterButton protectionFromPlayers;
+    private BetterButton claimTurret;
+
     public TurretOptionsScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
         this.turret = turret;
@@ -49,7 +57,7 @@ public class TurretOptionsScreen extends Screen2 {
         exceptions.forEach(s -> tempExceptionStatus.put(s, true));
         suggestions = new ArrayList<>(12);
         addEntityField = addButton(new TextField(centerX, 3, 100));
-        addButton(new BetterButton(centerX, 20, new TranslationTextComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
+        addButton(addTarget = new BetterButton(centerX, 20, new TranslationTextComponent("k-turrets.add.entity.type"), p_onPress_1_ -> {
             String s = addEntityField.getValue();
             if (s.startsWith("!")) {
                 if (s.length() > 1) {
@@ -79,11 +87,11 @@ public class TurretOptionsScreen extends Screen2 {
                 }
             }
         }));
-        addButton(new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle"), p_onPress_1_ -> {
+        addButton(dismantle = new BetterButton(centerX, 40, new TranslationTextComponent("k-turrets.dismantle"), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
             minecraft.player.closeContainer();
         }));
-        BetterButton clearTargets = new BetterButton(centerX, 60, new TranslationTextComponent("k_turrets.clear.list"), p_onPress_1_ -> {
+        clearTargets = new BetterButton(centerX, 60, new TranslationTextComponent("k_turrets.clear.list"), p_onPress_1_ -> {
             targets.clear();
             tempStatusMap.clear();
             targetButtons.forEach(this.children::remove);
@@ -92,27 +100,27 @@ public class TurretOptionsScreen extends Screen2 {
             init();
         });
         addButton(clearTargets);
-        addButton(new BetterButton(clearTargets.x + clearTargets.getWidth(), 60, new TranslationTextComponent("k_turrets.reset.list"), p_93751_ -> {
+        addButton(resetList = new BetterButton(clearTargets.x + clearTargets.getWidth(), 60, new TranslationTextComponent("k_turrets.reset.list"), p_93751_ -> {
             targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
             buttons.clear();
             children.clear();
             init();
         }));
-        addButton(new SwitchButton(centerX, 80, new TranslationTextComponent("k-turrets.mobile"), new TranslationTextComponent("k-turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
+        addButton(mobilitySwitch = new SwitchButton(centerX, 80, new TranslationTextComponent("k-turrets.mobile"), new TranslationTextComponent("k-turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
             turret.setMovable(!turret.isMoveable());
             if (p_onPress_1_ instanceof SwitchButton) {
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
             }
         }));
-        addButton(new SwitchButton(centerX, 100, new TranslationTextComponent("k-turrets.protect.from.players"), new TranslationTextComponent("k-turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), p_onPress_1_ -> {
+        addButton(protectionFromPlayers = new SwitchButton(centerX, 100, new TranslationTextComponent("k-turrets.protect.from.players"), new TranslationTextComponent("k-turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new TogglePlayerProtection(!turret.isProtectingFromPlayers(), turret.getId()));
             turret.setProtectionFromPlayers(!turret.isProtectingFromPlayers());
             if (p_onPress_1_ instanceof SwitchButton)
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
         }));
         if (!turret.getOwner().isPresent())
-            addButton(new BetterButton(centerX, 120, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
+            addButton(claimTurret = new BetterButton(centerX, 120, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
                 buttons.clear();
@@ -170,6 +178,71 @@ public class TurretOptionsScreen extends Screen2 {
                 addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())));
             addButton(new Label(centerX, 180, CHOOSE_HINT));
         }
+    }
+
+//    @Override
+//    public boolean keyReleased(int p_94715_, int p_94716_, int p_94717_) {
+//        if (addEntityField.isFocused()) {
+//            suggestions.forEach(label -> {
+//                children.remove(label);
+//                buttons.remove(label);
+//            });
+//            suggestions.clear();
+//            String text = addEntityField.getValue();
+//            if (!text.isEmpty()) {
+//                List<ResourceLocation> entityTypes;
+//                if (text.contains(":"))
+//                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).collect(Collectors.toList()));
+//                else
+//                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).collect(Collectors.toList()));
+//                int yOffset = 20;
+//                entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITIES::getKey).collect(Collectors.toList()));
+//                for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
+//                    Label hint=new Label(addEntityField.x,addEntityField.y+yOffset,new StringTextComponent(TextFormatting.YELLOW+entityType.toString())){
+//                        @Override
+//                        public void onPress() {
+//                            addEntityField.setValue(getMessage().getString().substring(2));
+//                            suggestions.forEach(label -> {
+//                                children.remove(label);
+//                                buttons.remove(label);
+//                            });
+//                            suggestions.clear();
+//                            showButtonsAndHints();
+//                        }
+//                    };
+//
+//                    //addButton(hint);
+//                    suggestions.add(hint);
+//                    yOffset += 14;
+//                }
+//                if (!entityTypes.isEmpty()) {
+//                    this.addTarget.setHidden();
+//                    if (claimTurret != null)
+//                        this.claimTurret.setHidden();
+//                    this.clearTargets.setHidden();
+//                    this.dismantle.setHidden();
+//                    this.mobilitySwitch.setHidden();
+//                    this.protectionFromPlayers.setHidden();
+//                    this.resetList.setHidden();
+//                } else {
+//                    showButtonsAndHints();
+//                }
+//            } else {
+//                showButtonsAndHints();
+//            }
+//        }
+//        return super.keyReleased(p_94715_, p_94716_, p_94717_);
+//    }
+
+    private void showButtonsAndHints() {
+        this.addTarget.setVisible();
+        if (claimTurret != null)
+            this.claimTurret.setVisible();
+        this.clearTargets.setVisible();
+        this.dismantle.setVisible();
+        this.mobilitySwitch.setVisible();
+        this.protectionFromPlayers.setVisible();
+        this.resetList.setVisible();
     }
 
     @Override
