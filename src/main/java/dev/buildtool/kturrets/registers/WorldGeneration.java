@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 public class WorldGeneration {
     @SubscribeEvent
     public static void loadingBiomes(BiomeLoadingEvent biomeLoadingEvent) {
-        System.out.println("Loading biomes");
         biomeLoadingEvent.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> KTurrets.CONFIGURED_TITANIUM_ORE);
     }
 }

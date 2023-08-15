@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bdb",
+    "sfs",
+    "sfs"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "b": {
+      "item": "minecraft:ender_pearl"
+    },
+    "s": {
+      "tag": "forge:ingots/steel"
+    },
+    "f": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "item": "k-turrets:gauss_drone_item"
+  }
+}

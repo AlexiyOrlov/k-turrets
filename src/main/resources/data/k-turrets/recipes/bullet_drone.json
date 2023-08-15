@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "gdi",
+    "sfs",
+    "sfs"
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:gold_nugget"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "s": {
+      "tag": "forge:ingots/steel"
+    },
+    "i": {
+      "item": "minecraft:iron_nugget"
+    },
+    "f": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "item": "k-turrets:bullet_drone_item"
+  }
+}
