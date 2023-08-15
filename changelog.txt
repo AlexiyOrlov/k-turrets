@@ -1,3 +1,6 @@
+3.0.1-1.20.1:
+drones/turrets no longer drop items when dismantled;
+
 2.0.27-1.19:
 fixed 2 messages;
 drone integrity is now 83% of turret integrity, and drone armor is now 34% of turret armor;
