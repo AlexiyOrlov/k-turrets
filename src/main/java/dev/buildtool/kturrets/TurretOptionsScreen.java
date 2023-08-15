@@ -2,8 +2,10 @@ package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
+import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -117,8 +119,10 @@ public class TurretOptionsScreen extends Screen2 {
                 children.clear();
                 init();
             }));
-        if (exceptions.size() > 0) {
-            Label label = new Label(3, targetButtons.size() > 0 ? targetButtons.get(targetButtons.size() - 1).getY() + targetButtons.get(targetButtons.size() - 1).getHeight() : 20, new TranslationTextComponent("k_turrets.exceptions").append(":"));
+        List<AbstractButton> guiEventListeners = new ArrayList<>();
+        List<SwitchButton> exceptionButtons = new ArrayList<>(19);
+        if (!exceptions.isEmpty()) {
+            Label label = new Label(3, !targetButtons.isEmpty() ? targetButtons.get(targetButtons.size() - 1).getY() + targetButtons.get(targetButtons.size() - 1).getHeight() : 20, new TranslationTextComponent("k_turrets.exceptions").append(":"));
             addButton(label);
             label.setScrollable(true, true);
 
@@ -133,14 +137,19 @@ public class TurretOptionsScreen extends Screen2 {
                 });
                 switchButton.verticalScroll = true;
                 addButton(switchButton);
+                exceptionButtons.add(switchButton);
+                guiEventListeners.add(switchButton);
             }
         }
 
-        addButton(new Label(3, 3, new TranslationTextComponent("k-turrets.targets")));
+        Label label = addButton(new Label(3, !exceptionButtons.isEmpty() ? exceptionButtons.get(exceptionButtons.size() - 1).getY() + exceptionButtons.get(exceptionButtons.size() - 1).getHeight() + 20 : 3, new TranslationTextComponent("k_turrets.targets")));
+        label.setScrollable(true, true);
+        guiEventListeners.add(label);
         targetButtons = new ArrayList<>(targets.size());
+        targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITIES.getKey(o).toString()));
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
-            SwitchButton switchButton = new SwitchButton(3, 20 * i + 40, new StringTextComponent(entityType.getRegistryName().toString()), new StringTextComponent(TextFormatting.STRIKETHROUGH + entityType.getRegistryName().toString()), true, p_onPress_1_ -> {
+            SwitchButton switchButton = new SwitchButton(3, 20 * i + label.y + label.getHeight(), new StringTextComponent(ForgeRegistries.ENTITIES.getKey(entityType).toString()), new StringTextComponent(TextFormatting.STRIKETHROUGH + ForgeRegistries.ENTITIES.getKey(entityType).toString()), true, p_onPress_1_ -> {
                 if (p_onPress_1_ instanceof SwitchButton) {
                     ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
                     tempStatusMap.put(entityType, ((SwitchButton) p_onPress_1_).state);
@@ -149,6 +158,17 @@ public class TurretOptionsScreen extends Screen2 {
             switchButton.verticalScroll = true;
             addButton(switchButton);
             targetButtons.add(switchButton);
+            guiEventListeners.add(switchButton);
+        }
+        ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, new StringTextComponent(""), new IntegerColor(0x228FDBF0), guiEventListeners);
+        addButton(scrollArea);
+        if (turret instanceof Drone) {
+            Drone drone = (Drone) turret;
+            if (drone.getAutomaticTeam().isEmpty())
+                addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.no.team")));
+            else
+                addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())));
+            addButton(new Label(centerX, 180, CHOOSE_HINT));
         }
     }
 

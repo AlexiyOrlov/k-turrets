@@ -42,6 +42,7 @@
   "k_turrets.reset.list": "Reset targets",
   "k_turrets.drone.not.yours": "This drone doesn't belong to you",
   "k_turrets.drone.belongs.to": "This drone belongs to",
+  "k_turrets.targets": "Targets",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
