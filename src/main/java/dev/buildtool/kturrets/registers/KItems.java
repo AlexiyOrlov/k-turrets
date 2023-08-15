@@ -26,6 +26,7 @@ public class KItems {
     public static RegistryObject<Item> GAUSS_TURRET;
     public static RegistryObject<Item> COBBLE_TURRET;
     public static RegistryObject<Item> EXPLOSIVE_POWDER;
+    public static RegistryObject<Item> TITANIUM_INGOT;
     public static RegistryObject<Item> ARROW_DRONE, COBBLE_DRONE, BULLET_DRONE, FIREBALL_DRONE, GAUSS_DRONE, BRICK_DRONE;
 
     static {
@@ -39,6 +40,7 @@ public class KItems {
         STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         EXPLOSIVE_POWDER = ITEMS.register("explosive_powder", () -> new Item(defaults()));
+        //TITANIUM_INGOT=ITEMS.register("titanium_ingot",() -> new Item(defaults()));
         COBBLE_DRONE = ITEMS.register("cobble_drone_item", () -> new ContainerItem(() -> KEntities.COBBLE_DRONE, 0, 0, defaults()));
         ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new ContainerItem(() -> KEntities.ARROW_DRONE, 0, 0, defaults()));
         BULLET_DRONE = ITEMS.register("bullet_drone_item", () -> new ContainerItem(() -> KEntities.BULLET_DRONE, 0, 0, defaults()));

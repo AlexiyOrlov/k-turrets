@@ -3,10 +3,7 @@ package dev.buildtool.kturrets;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
-import dev.buildtool.kturrets.registers.KContainers;
-import dev.buildtool.kturrets.registers.KEntities;
-import dev.buildtool.kturrets.registers.KItems;
-import dev.buildtool.kturrets.registers.Sounds;
+import dev.buildtool.kturrets.registers.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -14,13 +11,19 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -58,13 +61,17 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
+    public static final ResourceLocation STEEL_INGOT = new ResourceLocation("forge", "ingots/steel");
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
+    public static ConfiguredFeature<?, ?> CONFIGURED_TITANIUM_ORE;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        eventBus.addListener(this::commonSetup);
         KEntities.ENTITIES.register(eventBus);
         KItems.ITEMS.register(eventBus);
         KContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
+        KBlocks.BLOCKS.register(eventBus);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Arrow turret");
@@ -239,5 +246,13 @@ public class KTurrets {
         final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
         file.load();
         config.setConfig(file);
+    }
+
+    public void commonSetup(FMLCommonSetupEvent setupEvent) {
+        System.out.println("Common setup");
+        setupEvent.enqueueWork(() -> {
+            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), 11)).range(256).squared().count(26);
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(KTurrets.ID, "titanium_ore"), CONFIGURED_TITANIUM_ORE);
+        });
     }
 }
