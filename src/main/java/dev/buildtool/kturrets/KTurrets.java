@@ -7,7 +7,6 @@ import dev.buildtool.kturrets.registers.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -154,7 +153,6 @@ public class KTurrets {
                     Entity entity = serverWorld.getEntity(dismantleTurret.id);
                     if (entity instanceof Turret) {
                         Turret turret = (Turret) entity;
-                        turret.getContainedItems().forEach(itemHandler -> InventoryHelper.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
                         turret.remove();
 
                         ItemStack egg = new ItemStack(turret.getSpawnItem());
