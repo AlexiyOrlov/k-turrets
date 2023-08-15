@@ -12,7 +12,6 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -145,7 +144,6 @@ public class KTurrets {
                     ServerLevel serverWorld = contextSupplier.get().getSender().getLevel();
                     Entity entity = serverWorld.getEntity(dismantleTurret.id);
                     if (entity instanceof Turret turret) {
-                        turret.getContainedItems().forEach(itemHandler -> Containers.dropContents(serverWorld, turret.blockPosition(), itemHandler.getItems()));
                         turret.discard();
 
                         ItemStack egg = new ItemStack(turret.getSpawnItem());
