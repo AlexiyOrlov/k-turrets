@@ -1,6 +1,5 @@
 package dev.buildtool.kturrets;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
@@ -15,7 +14,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TurretOptionsScreen extends Screen2 {
@@ -180,59 +182,59 @@ public class TurretOptionsScreen extends Screen2 {
         }
     }
 
-//    @Override
-//    public boolean keyReleased(int p_94715_, int p_94716_, int p_94717_) {
-//        if (addEntityField.isFocused()) {
-//            suggestions.forEach(label -> {
-//                children.remove(label);
-//                buttons.remove(label);
-//            });
-//            suggestions.clear();
-//            String text = addEntityField.getValue();
-//            if (!text.isEmpty()) {
-//                List<ResourceLocation> entityTypes;
-//                if (text.contains(":"))
-//                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).collect(Collectors.toList()));
-//                else
-//                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).collect(Collectors.toList()));
-//                int yOffset = 20;
-//                entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITIES::getKey).collect(Collectors.toList()));
-//                for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
-//                    Label hint=new Label(addEntityField.x,addEntityField.y+yOffset,new StringTextComponent(TextFormatting.YELLOW+entityType.toString())){
-//                        @Override
-//                        public void onPress() {
-//                            addEntityField.setValue(getMessage().getString().substring(2));
-//                            suggestions.forEach(label -> {
-//                                children.remove(label);
-//                                buttons.remove(label);
-//                            });
-//                            suggestions.clear();
-//                            showButtonsAndHints();
-//                        }
-//                    };
-//
-//                    //addButton(hint);
-//                    suggestions.add(hint);
-//                    yOffset += 14;
-//                }
-//                if (!entityTypes.isEmpty()) {
-//                    this.addTarget.setHidden();
-//                    if (claimTurret != null)
-//                        this.claimTurret.setHidden();
-//                    this.clearTargets.setHidden();
-//                    this.dismantle.setHidden();
-//                    this.mobilitySwitch.setHidden();
-//                    this.protectionFromPlayers.setHidden();
-//                    this.resetList.setHidden();
-//                } else {
-//                    showButtonsAndHints();
-//                }
-//            } else {
-//                showButtonsAndHints();
-//            }
-//        }
-//        return super.keyReleased(p_94715_, p_94716_, p_94717_);
-//    }
+    @Override
+    public boolean keyReleased(int p_94715_, int p_94716_, int p_94717_) {
+        if (addEntityField.isFocused()) {
+            suggestions.forEach(label -> {
+                children.remove(label);
+                buttons.remove(label);
+            });
+            suggestions.clear();
+            String text = addEntityField.getValue();
+            if (!text.isEmpty()) {
+                List<ResourceLocation> entityTypes;
+                if (text.contains(":"))
+                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).collect(Collectors.toList()));
+                else
+                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).collect(Collectors.toList()));
+                int yOffset = 20;
+                entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITIES::getKey).collect(Collectors.toList()));
+                for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
+                    Label hint = new Label(addEntityField.x, addEntityField.y + yOffset, new StringTextComponent(TextFormatting.YELLOW + entityType.toString())) {
+                        @Override
+                        public void onPress() {
+                            addEntityField.setValue(getMessage().getString().substring(2));
+                            suggestions.forEach(label -> {
+                                children.remove(label);
+                                buttons.remove(label);
+                            });
+                            suggestions.clear();
+                            showButtonsAndHints();
+                        }
+                    };
+
+                    addButton(hint);
+                    suggestions.add(hint);
+                    yOffset += 14;
+                }
+                if (!entityTypes.isEmpty()) {
+                    this.addTarget.setHidden();
+                    if (claimTurret != null)
+                        this.claimTurret.setHidden();
+                    this.clearTargets.setHidden();
+                    this.dismantle.setHidden();
+                    this.mobilitySwitch.setHidden();
+                    this.protectionFromPlayers.setHidden();
+                    this.resetList.setHidden();
+                } else {
+                    showButtonsAndHints();
+                }
+            } else {
+                showButtonsAndHints();
+            }
+        }
+        return super.keyReleased(p_94715_, p_94716_, p_94717_);
+    }
 
     private void showButtonsAndHints() {
         this.addTarget.setVisible();
@@ -272,28 +274,5 @@ public class TurretOptionsScreen extends Screen2 {
                 KTurrets.channel.sendToServer(new RemovePlayerException(turret.getId(), s));
             }
         });
-    }
-
-    @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float tick) {
-        super.render(matrixStack, mouseX, mouseY, tick);
-        renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k-turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-        renderWrappedToolTip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
-        if (turret.getAutomaticTeam().isEmpty()) {
-            renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k_turrets.no.team")), centerX, centerY + 60, font);
-        } else {
-            renderWrappedToolTip(matrixStack, Collections.singletonList(new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())), centerX, centerY + 60, font);
-        }
-        String targetEntry = addEntityField.getValue();
-        if (targetEntry.length() > 0) {
-            List<ResourceLocation> entityTypes;
-            if (targetEntry.contains(":"))
-                entityTypes = ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(targetEntry)).collect(Collectors.toList());
-            else
-                entityTypes = ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(targetEntry)).collect(Collectors.toList());
-            if (!entityTypes.isEmpty()) {
-                renderComponentTooltip(matrixStack, entityTypes.subList(0, Math.min(entityTypes.size(), 12)).stream().map(resourceLocation -> new StringTextComponent(TextFormatting.YELLOW + resourceLocation.toString())).collect(Collectors.toList()), addEntityField.x, addEntityField.y + addEntityField.getHeight() + 20);
-            }
-        }
     }
 }

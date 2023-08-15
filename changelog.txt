@@ -6,6 +6,7 @@ implemented player targeting exceptions;
 added drones;
 implemented health indicator;
 targets are now easily scrollable;
+implemented target suggestion;
 
 0.1.8:
 fixed inability to change turret health and ammo;
