@@ -1,3 +1,6 @@
+3.0.2-1.20.1:
+fixed Chinese language code;
+
 3.0.1-1.20.1:
 drones/turrets no longer drop items when dismantled;
 
