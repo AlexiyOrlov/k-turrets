@@ -1,3 +1,6 @@
+2.0.29-1.19:
+fixed Chinese language code;
+
 2.0.28-1.19:
 turrets/drones no longer drop items when dismantled;
 
