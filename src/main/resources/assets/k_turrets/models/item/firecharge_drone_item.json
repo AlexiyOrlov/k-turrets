@@ -5,7 +5,7 @@
     64
   ],
   "textures": {
-    "0": "k-turrets:item/fireball_drone_item"
+    "0": "k_turrets:item/fireball_drone_item"
   },
   "display": {
     "gui": {
