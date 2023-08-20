@@ -2,6 +2,7 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
+import dev.buildtool.satako.UniqueList;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
@@ -39,7 +40,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * Extends Mob entity because of goals
@@ -49,7 +49,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> PROTECTION_FROM_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<CompoundTag> IGNORED_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
 
     /**
@@ -74,7 +74,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     protected void defineSynchedData() {
         super.defineSynchedData();
         CompoundTag compoundNBT = new CompoundTag();
-        List<EntityType<?>> targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
+        List<EntityType<?>> targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList();
         for (int i = 0; i < targets.size(); i++) {
             compoundNBT.putString("Target#" + i, targets.get(i).getRegistryName().toString());
         }
@@ -84,6 +84,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(MOVEABLE, false);
         entityData.define(PROTECTION_FROM_PLAYERS, false);
         entityData.define(TEAM, "");
+        entityData.define(IGNORED_PLAYERS, new CompoundTag());
     }
 
     public String getManualTeam() {
@@ -207,6 +208,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.putBoolean("Mobile", isMoveable());
         compoundNBT.putBoolean("Player protection", isProtectingFromPlayers());
         compoundNBT.putString("Team", getManualTeam());
+        compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
     }
 
     @Override
@@ -221,6 +223,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         setMoveable(compoundNBT.getBoolean("Mobile"));
         setProtectionFromPlayers(compoundNBT.getBoolean("Player protection"));
         setManualTeam(compoundNBT.getString("Team"));
+        entityData.set(IGNORED_PLAYERS, compoundNBT.getCompound("Exceptions"));
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
@@ -416,5 +419,33 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
         }
         return super.getTeam();
+    }
+
+    public void addPlayerToExceptions(String name) {
+        CompoundTag compoundTag = entityData.get(IGNORED_PLAYERS);
+        for (String key : compoundTag.getAllKeys()) {
+            String nickname = compoundTag.getString(key);
+            if (nickname.equals(name))
+                return;
+        }
+        compoundTag.putString("IgnoredPlayer#" + compoundTag.size(), name);
+    }
+
+    public void removePlayerFromExceptions(String name) {
+        CompoundTag compoundTag = entityData.get(IGNORED_PLAYERS);
+        for (String key : compoundTag.getAllKeys()) {
+            String nickname = compoundTag.getString(key);
+            if (nickname.equals(name)) {
+                compoundTag.remove(key);
+                break;
+            }
+        }
+    }
+
+    public List<String> getExceptions() {
+        List<String> exceptions = new UniqueList<>(1);
+        CompoundTag compoundTag = entityData.get(IGNORED_PLAYERS);
+        compoundTag.getAllKeys().forEach(s -> exceptions.add(compoundTag.getString(s)));
+        return exceptions;
     }
 }

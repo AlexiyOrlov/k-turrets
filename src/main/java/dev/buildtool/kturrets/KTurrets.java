@@ -216,6 +216,30 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
+        channel.registerMessage(packetIndex++, AddPlayerException.class, (e, friendlyByteBuf) -> {
+            friendlyByteBuf.writeInt(e.turretId);
+            friendlyByteBuf.writeUtf(e.playerName);
+        }, friendlyByteBuf -> new AddPlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()), (e, contextSupplier) -> {
+            ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+            Entity entity = serverLevel.getEntity(e.turretId);
+            if (entity instanceof Turret turret) {
+                turret.addPlayerToExceptions(e.playerName);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
+        channel.registerMessage(packetIndex++, RemovePlayerException.class, (e, friendlyByteBuf) -> {
+                    friendlyByteBuf.writeInt(e.turretId);
+                    friendlyByteBuf.writeUtf(e.playerName);
+                }, friendlyByteBuf -> new RemovePlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()),
+                (e, contextSupplier) -> {
+                    ServerLevel serverLevel = contextSupplier.get().getSender().getLevel();
+                    Entity entity = serverLevel.getEntity(e.turretId);
+                    if (entity instanceof Turret turret) {
+                        turret.removePlayerFromExceptions(e.playerName);
+                        contextSupplier.get().getSender().displayClientMessage(new TranslatableComponent("k_turrets.removed.player.from.exceptions", e.playerName), false);
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);

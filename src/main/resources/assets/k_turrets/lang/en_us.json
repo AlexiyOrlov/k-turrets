@@ -65,5 +65,8 @@
   "entity.k_turrets.gauss_drone": "Gauss Drone",
   "entity.k_turrets.firecharge_drone": "Fire charge Drone",
   "k_turrets.was.destroyed.by": "was destroyed by",
-  "k_turrets.at": "at"
+  "k_turrets.at": "at",
+  "k_turrets.player.is.already.in.exceptions": "Player %1$s is already in the exceptions",
+  "k_turrets.removed.player.from.exceptions": "Remove player %1$s from exceptions",
+  "k_turrets.exceptions": "Exceptions"
 }
