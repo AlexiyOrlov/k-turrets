@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public abstract class PresetProjectile extends DamagingProjectileEntity {
+    private Turret turret;
     protected static final DataParameter<Integer> DAMAGE = EntityDataManager.defineId(PresetProjectile.class, DataSerializers.INT);
 
     public PresetProjectile(EntityType<? extends DamagingProjectileEntity> p_i50173_1_, World p_i50173_2_) {
@@ -33,6 +34,7 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
     public PresetProjectile(EntityType<? extends DamagingProjectileEntity> p_i50175_1_, LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, World world) {
         super(p_i50175_1_, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
         setPos(shooter.getX(), shooter.getEyeY(), shooter.getZ());
+        turret = (Turret) shooter;
     }
 
     @Override
@@ -135,5 +137,16 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
         } else {
             this.remove();
         }
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity target) {
+        Entity owner = getOwner();
+        if (turret != null && target.getType().getCategory().isFriendly() && Turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+            return super.canHitEntity(target);
+        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
+            return super.canHitEntity(target);
+        }
+        return true;
     }
 }

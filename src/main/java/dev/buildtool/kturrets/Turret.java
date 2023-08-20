@@ -252,7 +252,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         }
     }
 
-    public List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
+    public static List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
         int count = compoundNBT.getInt("Count");
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
@@ -262,7 +262,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         return list;
     }
 
-    public CompoundNBT encodeTargets(List<EntityType<?>> list) {
+    public static CompoundNBT encodeTargets(List<EntityType<?>> list) {
         CompoundNBT compoundNBT = new CompoundNBT();
         for (int i = 0; i < list.size(); i++) {
             EntityType<?> entityType = list.get(i);
