@@ -31,7 +31,7 @@ public class TurretOptionsScreen extends Screen2 {
         super(new TranslatableComponent("k_turrets.targets"));
         this.turret = turret;
         tempStatusMap = new HashMap<>(40);
-        targets = new UniqueList<>(turret.decodeTargets(turret.getTargets()));
+        targets = new UniqueList<>(Turret.decodeTargets(turret.getTargets()));
         targets.forEach(entityType -> tempStatusMap.put(entityType, true));
     }
 

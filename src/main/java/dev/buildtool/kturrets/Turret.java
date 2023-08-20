@@ -223,7 +223,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         setManualTeam(compoundNBT.getString("Team"));
     }
 
-    public List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
+    public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
         int count = compoundNBT.getInt("Count");
         List<EntityType<?>> list = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
