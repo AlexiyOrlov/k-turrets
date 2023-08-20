@@ -2,6 +2,7 @@ package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import net.minecraft.ChatFormatting;
@@ -156,6 +157,15 @@ public class TurretOptionsScreen extends Screen2 {
             addRenderableWidget(switchButton);
             targetButtons.add(switchButton);
             guiEventListeners.add(switchButton);
+        }
+        ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, new TextComponent(""), new IntegerColor(0x228FDBF0), guiEventListeners);
+        addRenderableWidget(scrollArea);
+        if (turret instanceof Drone drone) {
+            if (drone.getManualTeam().isEmpty())
+                addRenderableWidget(new Label(centerX, 160, new TranslatableComponent("k_turrets.no.team")));
+            else
+                addRenderableWidget(new Label(centerX, 160, new TranslatableComponent("k_turrets.team").append(": " + turret.getManualTeam())));
+            addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
         }
     }
 
