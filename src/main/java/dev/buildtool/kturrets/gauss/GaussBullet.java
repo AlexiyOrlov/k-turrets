@@ -8,6 +8,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class GaussBullet extends PresetProjectile {
+
+    {
+        movementMultiplier = 150;
+    }
+
     public GaussBullet(World p_i50173_2_) {
         super(KEntities.GAUSS_BULLET, p_i50173_2_);
     }
@@ -19,12 +24,5 @@ public class GaussBullet extends PresetProjectile {
     @Override
     protected DamageSource getDamageSource() {
         return new IndirectDamageSource("k-turrets.gauss_bullet", this, getOwner());
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        step();
-        step();
     }
 }
