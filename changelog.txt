@@ -1,5 +1,6 @@
 1.1.15-1.18.2:
 fixed rotations of bullet and fireball item drone models;
+put target list inside a scroll area;
 
 1.1.14-1.18.2:
 turrets/drones no longer drop items when dismantled;
