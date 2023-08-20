@@ -1,6 +1,7 @@
 2.0.29-1.19:
 fixed Chinese language code;
 fixed rotations of bullet and fireball drone item models;
+fixed alien players not being hit;
 
 2.0.28-1.19:
 turrets/drones no longer drop items when dismantled;
