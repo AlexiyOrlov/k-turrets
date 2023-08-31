@@ -17,15 +17,16 @@ public class GuardArea extends Goal {
     }
 
     @Override
+    public void start() {
+        drone.setGuardPosition(drone.getOnPos());
+    }
+
+    @Override
     public void tick() {
-        if (drone.getGuardPosition().equals(BlockPos.ZERO))
-            drone.setGuardPosition(drone.getOnPos());
-        else {
-            if (drone.getTarget() == null) {
-                BlockPos guardPos = drone.getGuardPosition();
-                if (drone.distanceToSqr(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5) > 16)
-                    drone.getNavigation().moveTo(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5, 1);
-            }
+        if (drone.getTarget() == null) {
+            BlockPos guardPos = drone.getGuardPosition();
+            if (drone.distanceToSqr(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5) > 16)
+                drone.getNavigation().moveTo(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5, 1);
         }
     }
 }
