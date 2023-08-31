@@ -1,3 +1,8 @@
+0.1.13:
+fixed drone using only first position for guarding;
+fixed arrow projectiles;
+fixed turrets and drones hitting friendly mobs that aren't in target list;
+
 0.1.12:
 fixed rotations of fireball and bullet drone item models;
 increased speed of projectiles;
