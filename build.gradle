@@ -86,11 +86,15 @@ repositories {
     maven {
         url 'https://mymavenrepo.com/repo/XXNTQu0VdMr93BjoOV1S/'
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19-41.1.0'
     implementation fg.deobf('dev.buildtool:satako:6.0.6-1.19')
+    implementation fg.deobf("curse.maven:human-companions-570319:4538254")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
