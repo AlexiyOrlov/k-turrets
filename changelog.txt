@@ -1,3 +1,6 @@
+2.0.30-1.19:
+fixed alien players not being hit by arrow and fireball turret;
+
 2.0.29-1.19:
 fixed Chinese language code;
 fixed rotations of bullet and fireball drone item models;
