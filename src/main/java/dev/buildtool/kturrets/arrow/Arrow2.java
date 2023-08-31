@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.IndirectDamageSource;
+import dev.buildtool.kturrets.Turret;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -22,12 +23,13 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class Arrow2 extends ArrowEntity {
+    private final Turret turret;
     protected int knockback;
-    public Arrow2(World world, AbstractArrowEntity abstractArrowEntity, LivingEntity shooter, float f) {
+
+    public Arrow2(World world, AbstractArrowEntity abstractArrowEntity, Turret shooter, float f) {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
         setDeltaMovement(abstractArrowEntity.getDeltaMovement());
-//        setEnchantmentEffectsFromEntity(shooter, f);
         setPierceLevel(abstractArrowEntity.getPierceLevel());
         if (abstractArrowEntity instanceof SpectralArrowEntity) {
             addEffect(new EffectInstance(Effects.GLOWING, 200));
@@ -36,7 +38,7 @@ public class Arrow2 extends ArrowEntity {
             ((ArrowEntity) abstractArrowEntity).effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
-
+        turret = shooter;
     }
 
     @Override
@@ -136,5 +138,16 @@ public class Arrow2 extends ArrowEntity {
                 this.yRotO += 180.0F;
             }
         }
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity target) {
+        Entity owner = getOwner();
+        if (turret != null && target.getType().getCategory().isFriendly() && Turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+            return super.canHitEntity(target);
+        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
+            return super.canHitEntity(target);
+        } else
+            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
     }
 }

@@ -147,8 +147,8 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
             return super.canHitEntity(target);
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
-        }
-        return true;
+        } else
+            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
     }
 
     @Override

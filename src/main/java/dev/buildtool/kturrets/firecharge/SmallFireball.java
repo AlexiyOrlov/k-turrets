@@ -24,8 +24,8 @@ public class SmallFireball extends SmallFireballEntity {
             return super.canHitEntity(target);
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
-        }
-        return false;
+        } else
+            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
     }
 
     @Override
