@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.IndirectDamageSource;
+import dev.buildtool.kturrets.Turret;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,7 +23,9 @@ import net.minecraft.world.phys.Vec3;
 
 
 public class Arrow2 extends Arrow {
-    public Arrow2(Level world, AbstractArrow abstractArrowEntity, LivingEntity shooter, float f) {
+    private final Turret turret;
+
+    public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f) {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
         setDeltaMovement(abstractArrowEntity.getDeltaMovement());
@@ -34,6 +37,7 @@ public class Arrow2 extends Arrow {
             arrow.effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
+        turret = shooter;
     }
 
     @Override
@@ -128,5 +132,16 @@ public class Arrow2 extends Arrow {
         super.tick();
         if (this.getDeltaMovement().length() < 1)
             discard();
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity target) {
+        Entity owner = getOwner();
+        if (turret != null && target.getType().getCategory().isFriendly() && Turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+            return super.canHitEntity(target);
+        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
+            return super.canHitEntity(target);
+        } else
+            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
     }
 }

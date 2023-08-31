@@ -14,9 +14,11 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 class SmallFireball2 extends SmallFireball {
+    private final Turret turret;
 
     public SmallFireball2(Turret shooter, double d0, double d1, double d2) {
         super(shooter.level, shooter, d0, d1, d2);
+        turret = shooter;
     }
 
     @Override
@@ -82,5 +84,16 @@ class SmallFireball2 extends SmallFireball {
         } else {
             this.discard();
         }
+    }
+
+    @Override
+    protected boolean canHitEntity(Entity target) {
+        Entity owner = getOwner();
+        if (turret != null && target.getType().getCategory().isFriendly() && Turret.decodeTargets(turret.getTargets()).contains(target.getType()))
+            return super.canHitEntity(target);
+        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
+            return super.canHitEntity(target);
+        } else
+            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
     }
 }
