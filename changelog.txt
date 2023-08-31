@@ -1,3 +1,7 @@
+1.1.16-1.18.2:
+fixed arrow and fireball projectiles;
+fixed projectiles hitting friendly mobs that aren't in target list;
+
 1.1.15-1.18.2:
 fixed rotations of bullet and fireball item drone models;
 put target list inside a scroll area;
