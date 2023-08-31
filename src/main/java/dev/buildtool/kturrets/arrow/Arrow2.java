@@ -70,7 +70,7 @@ public class Arrow2 extends Arrow {
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
         }
-        return false;
+        return true;
     }
 
     protected void onHitEntity(EntityHitResult p_36757_) {

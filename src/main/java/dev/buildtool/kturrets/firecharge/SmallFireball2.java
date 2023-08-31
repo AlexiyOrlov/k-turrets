@@ -25,7 +25,7 @@ class SmallFireball2 extends SmallFireball {
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
         }
-        return false;
+        return true;
     }
 
     @Override
