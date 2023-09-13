@@ -179,7 +179,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         }
 
         ItemStack itemInHand = playerEntity.getItemInHand(p_230254_2_);
-        if (getHealth() < getMaxHealth() && ItemTags.getAllTags().getTag(KTurrets.STEEL_INGOT).contains(itemInHand.getItem())) {
+        if (getHealth() < getMaxHealth() && ItemTags.getAllTags().getTag(KTurrets.TITANIUM_INGOT).contains(itemInHand.getItem())) {
             heal(getHealthRecovered());
             itemInHand.shrink(1);
             return ActionResultType.SUCCESS;

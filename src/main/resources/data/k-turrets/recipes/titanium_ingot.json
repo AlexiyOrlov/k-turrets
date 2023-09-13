@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "k-turrets:raw_titanium"
+  },
+  "result": "k-turrets:titanium_ingot",
+  "experience": 2,
+  "cookingtime": 100
+}

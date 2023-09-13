@@ -60,7 +60,6 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
-    public static final ResourceLocation STEEL_INGOT = new ResourceLocation("forge", "ingots/steel");
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     public static ConfiguredFeature<?, ?> CONFIGURED_TITANIUM_ORE;
     public KTurrets() {
