@@ -1,3 +1,6 @@
+0.1.15:
+lowered minimum fire rate to 1;
+
 0.1.14:
 removed steel;
 finished titanium;
