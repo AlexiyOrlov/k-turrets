@@ -1,3 +1,8 @@
+0.1.14:
+removed steel;
+finished titanium;
+added translation keys for drones;
+
 0.1.13:
 fixed drone using only first position for guarding;
 fixed arrow projectiles;
