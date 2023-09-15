@@ -1,3 +1,6 @@
+3.0.5-1.20.1:
+improved string matching for target input;
+
 3.0.4-1.20.1:
 fixed drone using only first position for guarding;
 fixed projectiles hitting friendly mobs that aren't in target list;
