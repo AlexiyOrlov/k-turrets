@@ -193,10 +193,7 @@ public class TurretOptionsScreen extends Screen2 {
             String text = addEntityField.getValue();
             if (!text.isEmpty()) {
                 List<ResourceLocation> entityTypes;
-                if (text.contains(":"))
-                    entityTypes = ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).collect(Collectors.toList());
-                else
-                    entityTypes = ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).collect(Collectors.toList());
+                entityTypes = ForgeRegistries.ENTITIES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).collect(Collectors.toList());
                 int yOffset = 20;
                 entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITIES::getKey).collect(Collectors.toList()));
                 for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
