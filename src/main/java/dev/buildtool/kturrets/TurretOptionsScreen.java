@@ -6,7 +6,6 @@ import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
@@ -62,6 +61,8 @@ public class TurretOptionsScreen extends Screen2 {
                         tempExceptionStatus.put(playerName, true);
                         KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(), playerName));
                         addEntityField.setValue("");
+                        clearWidgets();
+                        init();
                     }
                 }
             } else {
@@ -69,13 +70,14 @@ public class TurretOptionsScreen extends Screen2 {
                 if (s.length() > 2) {
                     if (type != null) {
                         if (type == EntityType.PIG && !s.equals("minecraft:pig") && !s.equals("pig")) {
-                            minecraft.player.sendMessage(new TranslatableComponent("k_turrets.incorrect.entry"), Util.NIL_UUID);
+                            minecraft.player.displayClientMessage(new TranslatableComponent("k_turrets.incorrect.entry"), true);
                         } else {
                             targets.add(type);
                             tempStatusMap.put(type, true);
-                            minecraft.player.sendMessage(new TranslatableComponent("k_turrets.added").append(" ").append(type.getDescription()), Util.NIL_UUID);
                             if (s.contains(":"))
                                 addEntityField.setValue(s.substring(0, s.indexOf(':')));
+                            clearWidgets();
+                            init();
                         }
                     }
                 }
@@ -94,8 +96,8 @@ public class TurretOptionsScreen extends Screen2 {
         resetList = addRenderableWidget(new BetterButton(clearTargets.x + clearTargets.getWidth(), 60, new TranslatableComponent("k_turrets.reset.list"), p_93751_ -> {
             targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).collect(Collectors.toList());
             targets.forEach(entityType -> tempStatusMap.put(entityType, true));
-            minecraft.screen.onClose();
-            minecraft.player.closeContainer();
+            clearWidgets();
+            init();
         }));
         mobilitySwitch = addRenderableWidget(new SwitchButton(centerX, 80, new TranslatableComponent("k_turrets.mobile"), new TranslatableComponent("k_turrets.immobile"), turret.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!turret.isMoveable(), turret.getId()));
