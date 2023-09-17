@@ -1,5 +1,7 @@
 3.0.5-1.20.1:
 improved string matching for target input;
+set minimum fire rate to 1;
+added titanium ore to 'forge:ores' tag;
 
 3.0.4-1.20.1:
 fixed drone using only first position for guarding;
