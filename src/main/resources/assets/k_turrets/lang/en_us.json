@@ -53,6 +53,7 @@
   "k_turrets.exceptions": "Ignored players",
   "k_turrets.player.is.already.in.exceptions": "Player %1$s is already being ignored",
   "k_turrets.guard.area": "Guard area",
+  "k_turrets.no.drones.nearby": "There are no drones nearby in 64 block radius",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
