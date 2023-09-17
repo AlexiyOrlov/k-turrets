@@ -1,5 +1,6 @@
 0.1.15:
 lowered minimum fire rate to 1;
+improved string match for target input;
 
 0.1.14:
 removed steel;
