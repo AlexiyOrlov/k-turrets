@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.ContainerItem;
 import dev.buildtool.kturrets.KTurrets;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,9 +36,11 @@ public class TItems {
         GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ContainerItem(TEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults()));
         COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ContainerItem(TEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults()));
 
-        SEMI_STEEL = ITEMS.register("semi_steel", () -> new Item(defaults()));
-        STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(defaults()));
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
+        ITEMS.register("titanium_ore", () -> new BlockItem(KBlocks.TITANIUM_ORE.get(), defaults()));
+        ITEMS.register("deepslate_titanium_ore", () -> new BlockItem(KBlocks.DEEP_SLATE_TITANIUM_ORE.get(), defaults()));
+        ITEMS.register("raw_titanium", () -> new Item(defaults()));
+        ITEMS.register("titanium_ingot", () -> new Item(defaults()));
 
         ITEMS.register("brick_drone_item", () -> new ContainerItem(TEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults()));
         ITEMS.register("bullet_drone_item", () -> new ContainerItem(TEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults()));

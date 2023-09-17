@@ -17,6 +17,8 @@
   "item.k_turrets.arrow_drone_item": "Arrow Drone",
   "item.k_turrets.gauss_drone_item": "Gauss Drone",
   "item.k_turrets.firecharge_drone_item": "Fire charge Drone",
+  "item.k_turrets.raw_titanium": "Raw Titanium",
+  "item.k_turrets.titanium_ingot": "Titanium Ingot",
 
   "k_turrets.targets": "Targets:",
   "k_turrets.added": "Added to targets",
@@ -45,6 +47,11 @@
   "k_turrets.reset.list": "Reset targets",
   "k_turrets.no.team": "No team",
   "k_turrets.team": "Team",
+  "k_turrets.was.destroyed.by": "was destroyed by",
+  "k_turrets.at": "at",
+  "k_turrets.player.is.already.in.exceptions": "Player %1$s is already in the exceptions",
+  "k_turrets.removed.player.from.exceptions": "Remove player %1$s from exceptions",
+  "k_turrets.exceptions": "Exceptions",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
@@ -64,9 +71,7 @@
   "entity.k_turrets.arrow_drone": "Arrow Drone",
   "entity.k_turrets.gauss_drone": "Gauss Drone",
   "entity.k_turrets.firecharge_drone": "Fire charge Drone",
-  "k_turrets.was.destroyed.by": "was destroyed by",
-  "k_turrets.at": "at",
-  "k_turrets.player.is.already.in.exceptions": "Player %1$s is already in the exceptions",
-  "k_turrets.removed.player.from.exceptions": "Remove player %1$s from exceptions",
-  "k_turrets.exceptions": "Exceptions"
+
+  "block.k_turrets.titanium_ore": "Titanium Ore",
+  "block.k_turrets.deepslate_titanium_ore": "Deepslate Titanium Ore"
 }
