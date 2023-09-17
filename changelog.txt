@@ -1,5 +1,6 @@
 1.1.17-1.18.2:
 implemented target suggestion list;
+improved option UI;
 
 1.1.16-1.18.2:
 fixed arrow and fireball projectiles;
