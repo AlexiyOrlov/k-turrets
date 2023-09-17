@@ -239,12 +239,9 @@ public class TurretOptionsScreen extends Screen2 {
             suggestions.forEach(this::removeWidget);
             suggestions.clear();
             String text = addEntityField.getValue();
-            if (text.length() > 0) {
+            if (!text.isEmpty()) {
                 List<ResourceLocation> entityTypes;
-                if (text.contains(":"))
-                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
-                else
-                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.getNamespace().contains(text)).toList());
+                entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
                 int yOffset = 20;
                 entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITY_TYPES::getKey).toList());
                 for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
