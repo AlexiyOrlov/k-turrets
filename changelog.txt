@@ -1,6 +1,7 @@
 0.1.15:
 lowered minimum fire rate to 1;
 improved string match for target input;
+added titanium ore to 'forge:ores' tag;
 
 0.1.14:
 removed steel;
