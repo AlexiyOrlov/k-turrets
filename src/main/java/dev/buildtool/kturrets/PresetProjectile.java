@@ -69,8 +69,8 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     @Override
     protected void onHitEntity(EntityHitResult entityRayTraceResult) {
         Entity entity = entityRayTraceResult.getEntity();
-        entity.hurt(damageSources().mobAttack((LivingEntity) getOwner()), getDamage());
-        discard();
+        if (entity.hurt(damageSources().mobAttack((LivingEntity) getOwner()), getDamage()))
+            discard();
     }
 
     @Override
