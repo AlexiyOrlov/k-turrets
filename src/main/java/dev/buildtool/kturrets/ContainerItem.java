@@ -102,6 +102,5 @@ public class ContainerItem extends ForgeSpawnEggItem {
         if (itemStack.hasTag()) {
             components.add(Component.literal("" + itemStack.getTag().getUUID("UUID")));
         }
-
     }
 }
