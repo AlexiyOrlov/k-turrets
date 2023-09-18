@@ -66,9 +66,9 @@ public class ClientEvents {
                 IntegerColor orange = new IntegerColor(0x40FF5790);
                 nearbyDrones.forEach(drone -> {
                     Vec3 dronePosition = drone.getPosition(1);
-                    poseStack.translate(dronePosition.x - 1, dronePosition.y, dronePosition.z - 1);
+                    poseStack.translate(dronePosition.x - 0.75, dronePosition.y - 0.4, dronePosition.z - 0.75);
                     Methods.addRectangularFaces(bufferSource.getBuffer(RenderType.guiOverlay()), poseStack.last().pose(), 0.5f, 0.5f, 0.5f, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false);
-                    poseStack.translate(-dronePosition.x + 1, -dronePosition.y, -dronePosition.z + 1);
+                    poseStack.translate(-(dronePosition.x - 0.75), -(dronePosition.y - 0.4), -(dronePosition.z - 0.75));
                 });
                 poseStack.popPose();
             } else
