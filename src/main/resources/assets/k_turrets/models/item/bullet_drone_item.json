@@ -4,6 +4,7 @@
 		64,
 		64
 	],
+	"parent": "block/cube_all",
 	"textures": {
 		"0": "k_turrets:item/bullet_drone_item"
 	},
