@@ -1,5 +1,6 @@
 3.0.6-1.20.1:
 can now highlight locations of owned drones in 64 block range on Numpad key 5;
+fixed scale of bullet and fireball drone items;
 
 3.0.5-1.20.1:
 improved string matching for target input;
