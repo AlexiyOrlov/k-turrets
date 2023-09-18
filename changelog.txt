@@ -2,6 +2,8 @@
 implemented target suggestion list;
 improved option UI;
 set minimum fire delay to 1;
+fixed scale of bullet drone and fireball drone items;
+removed steel, added titanium;
 
 1.1.16-1.18.2:
 fixed arrow and fireball projectiles;
