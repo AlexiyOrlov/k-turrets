@@ -26,13 +26,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -351,13 +349,6 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
-    }
-
-    /**
-     * @return appropriate spawn egg
-     */
-    public Item getSpawnItem() {
-        return ForgeSpawnEggItem.fromEntityType(getType());
     }
 
     @Override

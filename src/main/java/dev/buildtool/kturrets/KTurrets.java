@@ -15,6 +15,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +29,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
+import java.util.Objects;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -171,7 +173,7 @@ public class KTurrets {
                     if (entity instanceof Turret turret) {
                         turret.discard();
 
-                        ItemStack egg = new ItemStack(turret.getSpawnItem());
+                        ItemStack egg = new ItemStack(Objects.requireNonNull(ForgeSpawnEggItem.fromEntityType(turret.getType())));
                         egg.getOrCreateTag().put("Contained", turret.serializeNBT());
                         egg.getTag().putUUID("UUID", turret.getUUID());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
