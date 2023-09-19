@@ -12,7 +12,7 @@ import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientModEvents {
-    static KeyBinding highlightDronePositions = new KeyBinding("Highlight drone locations", KeyConflictContext.IN_GAME, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_KP_5, "K-Turrets");
+    static KeyBinding highlightDronePositions = new KeyBinding("Highlight drone locations", KeyConflictContext.IN_GAME, InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_K, "K-Turrets");
 
     @SubscribeEvent
     public static void registerKey(FMLClientSetupEvent event) {
