@@ -1,12 +1,12 @@
 package dev.buildtool.kturrets.firecharge;
 
 import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 
 public class FireballTurretContainer extends Container2 {
@@ -27,7 +27,7 @@ public class FireballTurretContainer extends Container2 {
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if (itemStack.getItem() == Items.FIRE_CHARGE && !moveItemStackTo(itemStack, 0, 27, false))
+            if (itemStack.getItem() == KItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))

@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.firecharge;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.LivingEntity;
@@ -27,7 +28,7 @@ public class FireballTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == Items.FIRE_CHARGE)
+            if (stack.getItem() == KItems.EXPLOSIVE_POWDER.get())
                 return super.insertItem(slot, stack, simulate);
             return stack;
         }
