@@ -82,7 +82,7 @@ public class ClientEvents {
             Minecraft minecraft = Minecraft.getInstance();
             int screenWidth = renderGuiOverlayEvent.getWindow().getGuiScaledWidth();
             MutableComponent warning = Component.translatable(KTurrets.ID + ".no.drones.nearby");
-            renderGuiOverlayEvent.getGuiGraphics().drawString(minecraft.font, warning, screenWidth / 2 - minecraft.font.width(warning) / 2, 20, Constants.GREEN.getIntColor());
+            renderGuiOverlayEvent.getGuiGraphics().drawString(minecraft.font, warning, screenWidth / 2 - minecraft.font.width(warning) / 2, 5, Constants.GREEN.getIntColor());
         }
     }
 }
