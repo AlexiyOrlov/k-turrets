@@ -74,7 +74,7 @@ public class KTurrets {
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
-            PROJECTILE_SPEED = builder.defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
+            PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
             builder.pop();
             builder.push("Turret stats");
             builder.push("Arrow turret");

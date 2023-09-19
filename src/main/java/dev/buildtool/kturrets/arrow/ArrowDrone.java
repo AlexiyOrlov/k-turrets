@@ -73,10 +73,10 @@ public class ArrowDrone extends Drone {
                 for (ItemStack arrows : ammo.getItems()) {
                     if (!arrows.isEmpty()) {
                         AbstractArrowEntity arrowEntity = ProjectileHelper.getMobArrow(this, arrows, distanceFactor);
-                        double d0 = target.getX() - this.getX();
-                        double d1 = target.getEyeY() - getEyeY();
-                        double d2 = target.getZ() - this.getZ();
-                        arrowEntity.shoot(d0, d1, d2, 1.8F, 0);
+                        double xAcceler = (target.getX() - this.getX()) * Arrow2.SPEED;
+                        double yAcceler = (target.getEyeY() - getEyeY()) * Arrow2.SPEED;
+                        double zAcceler = (target.getZ() - this.getZ()) * Arrow2.SPEED;
+                        arrowEntity.shoot(xAcceler, yAcceler, zAcceler, 1.8F, 0);
                         double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
                         arrowEntity.setBaseDamage(damage);
                         Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor);
@@ -91,7 +91,7 @@ public class ArrowDrone extends Drone {
                         }
                         arrow2.setEnchantmentEffectsFromEntity(this, distanceFactor);
                         arrow2.setNoGravity(true);
-                        arrow2.shoot(d0, d1, d2, 1.8f, 0);
+                        arrow2.shoot(xAcceler, yAcceler, zAcceler, 1.8f, 0);
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                         this.level.addFreshEntity(arrow2);
                         arrows.shrink(1);

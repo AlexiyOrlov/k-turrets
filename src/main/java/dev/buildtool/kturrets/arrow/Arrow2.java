@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.IndirectDamageSource;
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class Arrow2 extends ArrowEntity {
+    static double SPEED = KTurrets.PROJECTILE_SPEED.get();
     private final Turret turret;
     protected int knockback;
 
