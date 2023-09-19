@@ -1,3 +1,6 @@
+2.0.32-1.19:
+implemented drone location highlighting on key 'K';
+
 2.0.31-1.19:
 improved string match for target input;
 added titanium ore to 'forge:ores' tag;
