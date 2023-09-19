@@ -1,3 +1,6 @@
+0.1.16:
+added drone location hoghlight on key 'K';
+
 0.1.15:
 lowered minimum fire rate to 1;
 improved string match for target input;
