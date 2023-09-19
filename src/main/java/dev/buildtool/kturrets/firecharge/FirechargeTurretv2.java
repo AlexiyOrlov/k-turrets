@@ -9,6 +9,7 @@ import dev.buildtool.satako.Functions;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
+@Deprecated
 public class FirechargeTurretv2 extends EntityModel<FireballTurret> {
 	private final ModelRenderer rotating;
 	private final ModelRenderer cube_r1;

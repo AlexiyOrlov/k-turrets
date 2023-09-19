@@ -13,7 +13,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
@@ -67,17 +66,15 @@ public class FireballTurret extends Turret {
     public void performRangedAttack(LivingEntity target, float distFactor) {
         if (target.isAlive()) {
             for (ItemStack ammoItem : ammo.getItems()) {
-                if (ammoItem.getItem() == Items.FIRE_CHARGE) {
-                    ammoItem.shrink(1);
-                    double d0 = target.getX() - this.getX();
-                    double d1 = target.getEyeY() - getEyeY();
-                    double d2 = target.getZ() - this.getZ();
-                    SmallFireball smallFireball = new SmallFireball(this, d0, d1, d2);
-                    smallFireball.setPos(getX(), getEyeY(), getZ());
-                    level.addFreshEntity(smallFireball);
-                    level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundCategory.NEUTRAL, 1, 1);
-                    break;
-                }
+                ammoItem.shrink(1);
+                double d0 = target.getX() - this.getX();
+                double d1 = target.getEyeY() - getEyeY();
+                double d2 = target.getZ() - this.getZ();
+                SmallFireball smallFireball = new SmallFireball(this, d0, d1, d2);
+                smallFireball.setPos(getX(), getEyeY(), getZ());
+                level.addFreshEntity(smallFireball);
+                level.playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundCategory.NEUTRAL, 1, 1);
+                break;
             }
         }
     }
