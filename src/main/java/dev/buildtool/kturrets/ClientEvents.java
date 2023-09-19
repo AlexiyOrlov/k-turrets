@@ -9,13 +9,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.loading.LoadingModList;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class ClientEvents {
     @SubscribeEvent
     public static void renderHealthIndicator(RenderLivingEvent.Post<?, ?> renderLivingEvent) {
-        if (LoadingModList.get().getModFileById("neat") == null) {
+        if (!KTurrets.neatIsPresent) {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
             if (livingEntity instanceof Turret) {
                 PoseStack poseStack = renderLivingEvent.getPoseStack();
