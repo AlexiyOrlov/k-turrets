@@ -64,7 +64,7 @@ public class ClientEvents {
                     Vector3d dronePosition = drone.getPosition(1);
                     poseStack.translate(dronePosition.x - 0.5, dronePosition.y - 0.2, dronePosition.z - 0.5);
                     Methods.addRectangle(bufferSource.getBuffer(RenderType.lightning()), poseStack.last().pose(), 0, 0, 0, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false, 0);
-                    poseStack.translate(-dronePosition.x - 0.5, -dronePosition.y - 0.2, -dronePosition.z - 0.5);
+                    poseStack.translate(-(dronePosition.x - 0.5), -(dronePosition.y - 0.2), -(dronePosition.z - 0.5));
                 });
                 poseStack.popPose();
             } else
