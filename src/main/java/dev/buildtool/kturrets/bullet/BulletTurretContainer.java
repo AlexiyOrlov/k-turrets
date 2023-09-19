@@ -16,7 +16,7 @@ public class BulletTurretContainer extends Container2 {
         int slot = 0;
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {
-                addSlot(new ItemHandlerSlot(bulletTurret.ammo, slot++, k * 18, j * 18 + 18));
+                addSlot(new ItemHandlerSlot(bulletTurret.ammo, slot++, k * 18, j * 18));
             }
         }
         addPlayerInventory(0, 5 * 18, playerInventory);
