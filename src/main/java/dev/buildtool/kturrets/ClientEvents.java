@@ -47,7 +47,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void renderDroneLocations(RenderLevelLastEvent renderLevelStageEvent) {
-        if (ClientModEvents.highlightDronePositions.isDown() /*&& renderLevelStageEvent.get == RenderLevelStageEvent.Stage.AFTER_CUTOUT_BLOCKS*/) {
+        if (ClientModEvents.highlightDronePositions.isDown()) {
             Minecraft minecraft = Minecraft.getInstance();
             Player player = minecraft.player;
             List<Drone> nearbyDrones = minecraft.level.getEntitiesOfClass(Drone.class, new AABB(player.blockPosition()).inflate(64), drone -> drone.getOwner().isPresent() && drone.getOwner().get().equals(player.getUUID()));
@@ -63,7 +63,7 @@ public class ClientEvents {
                     Vec3 dronePosition = drone.getPosition(1);
                     poseStack.translate(dronePosition.x - 0.5, dronePosition.y - 0.2, dronePosition.z - 0.5);
                     Methods.addRectangle(bufferSource.getBuffer(RenderType.lightning()), poseStack.last().pose(), 0, 0, 0, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false, 0);
-                    poseStack.translate(-dronePosition.x - 0.5, -dronePosition.y - 0.2, -dronePosition.z - 0.5);
+                    poseStack.translate(-(dronePosition.x - 0.5), -(dronePosition.y - 0.2), -(dronePosition.z - 0.5));
                 });
                 poseStack.popPose();
             } else
