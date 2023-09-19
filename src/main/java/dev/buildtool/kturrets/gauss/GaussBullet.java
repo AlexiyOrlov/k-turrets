@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 
 public class GaussBullet extends PresetProjectile {
 
-    {
-        movementMultiplier = 150;
+    static {
+        MOVEMENT_MULTIPLIER = MOVEMENT_MULTIPLIER * 3;
     }
 
     public GaussBullet(World p_i50173_2_) {

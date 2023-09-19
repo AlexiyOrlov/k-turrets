@@ -21,7 +21,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public abstract class PresetProjectile extends DamagingProjectileEntity {
     private Turret turret;
-    protected int movementMultiplier = 50;
+    protected static double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
     protected static final DataParameter<Integer> DAMAGE = EntityDataManager.defineId(PresetProjectile.class, DataSerializers.INT);
 
     public PresetProjectile(EntityType<? extends DamagingProjectileEntity> p_i50173_1_, World p_i50173_2_) {
@@ -154,6 +154,6 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * movementMultiplier, yPower * movementMultiplier, zPower * movementMultiplier));
+        setDeltaMovement(getDeltaMovement().add(xPower * MOVEMENT_MULTIPLIER, yPower * MOVEMENT_MULTIPLIER, zPower * MOVEMENT_MULTIPLIER));
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 
 public class SmallFireball extends SmallFireballEntity {
+    public static final double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
     private final Turret turret;
 
     public SmallFireball(Turret shooter, double d0, double d1, double d2) {
@@ -55,7 +56,6 @@ public class SmallFireball extends SmallFireballEntity {
     @Override
     public void tick() {
         super.tick();
-        int movementMultiplier = 50;
-        this.setDeltaMovement(getDeltaMovement().add(this.xPower * movementMultiplier, this.yPower * movementMultiplier, this.zPower * movementMultiplier));
+        this.setDeltaMovement(getDeltaMovement().add(this.xPower * MOVEMENT_MULTIPLIER, this.yPower * MOVEMENT_MULTIPLIER, this.zPower * MOVEMENT_MULTIPLIER));
     }
 }
