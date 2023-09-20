@@ -1,6 +1,7 @@
 2.0.32-1.19:
 implemented drone location highlighting on key 'K';
 made projectile speed configurable;
+added range indicator to option screen;
 
 2.0.31-1.19:
 improved string match for target input;
