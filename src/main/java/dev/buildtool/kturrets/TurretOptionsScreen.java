@@ -172,15 +172,11 @@ public class TurretOptionsScreen extends Screen2 {
         }
         ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, new StringTextComponent(""), new IntegerColor(0x4C9A4980), guiEventListeners);
         addButton(scrollArea);
-        if (turret instanceof Drone) {
-            Drone drone = (Drone) turret;
-            if (drone.getAutomaticTeam().isEmpty())
-                addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.no.team")));
-            else
-                addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())));
-            addButton(new Label(centerX, 180, CHOOSE_HINT));
-        }
-
+        if (turret.getAutomaticTeam().isEmpty())
+            addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.no.team")));
+        else
+            addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())));
+        addButton(new Label(centerX, 180, CHOOSE_HINT));
         addButton(new Label(centerX, 200, new TranslationTextComponent("k_turrets.range").append(": ").append("" + turret.getRange())));
     }
 
