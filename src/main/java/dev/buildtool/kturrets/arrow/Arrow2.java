@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.IndirectDamageSource;
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class Arrow2 extends Arrow {
     private final Turret turret;
+    static double SPEED = KTurrets.PROJECTILE_SPEED.get();
 
     public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f) {
         super(EntityType.ARROW, world);

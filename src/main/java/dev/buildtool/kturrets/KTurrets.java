@@ -56,6 +56,7 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
+    public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     static boolean neatIsPresent;
 
     public KTurrets() {
@@ -70,6 +71,11 @@ public class KTurrets {
         neatIsPresent = LoadingModList.get().getModFileById("neat") != null;
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
+            builder.push("Common");
+            PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
+            builder.pop();
+
+            builder.push("Turret stats");
             builder.push("Arrow turret");
             ARROW_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
             ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
@@ -113,6 +119,7 @@ public class KTurrets {
             COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
+            builder.pop();
             builder.pop();
             return builder.build();
         });

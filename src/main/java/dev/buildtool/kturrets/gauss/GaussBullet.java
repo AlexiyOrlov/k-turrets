@@ -8,6 +8,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 public class GaussBullet extends PresetProjectile {
+    static {
+        MOVEMENT_MULTIPLIER = MOVEMENT_MULTIPLIER * 3;
+    }
     public GaussBullet(Level p_i50173_2_) {
         super(TEntities.GAUSS_BULLET.get(), p_i50173_2_);
     }
@@ -19,11 +22,5 @@ public class GaussBullet extends PresetProjectile {
     @Override
     protected DamageSource getDamageSource() {
         return new IndirectDamageSource("k_turrets.gauss_bullet", this, getOwner());
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        step();
     }
 }
