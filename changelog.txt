@@ -5,7 +5,7 @@ drones/turrets will attack back if attacked;
 drones will move out of lava;
 drones will avoid attackers;
 drones will strafe around their targets;
-added range indicator to option screen;
+added range and integrity indicators to option screen;
 
 1.1.17-1.18.2:
 implemented target suggestion list;
