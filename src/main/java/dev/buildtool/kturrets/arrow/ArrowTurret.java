@@ -61,13 +61,13 @@ public class ArrowTurret extends Turret {
                 for (ItemStack arrows : ammo.getItems()) {
                     if (arrows.getItem() instanceof ArrowItem) {
                         AbstractArrow arrowEntity = ProjectileUtil.getMobArrow(this, arrows, distanceFactor);
-                        double xAcceler = (target.getX() - this.getX()) * Arrow2.SPEED;
-                        double yAcceler = (target.getEyeY() - getEyeY()) * Arrow2.SPEED;
-                        double zAcceler = (target.getZ() - this.getZ()) * Arrow2.SPEED;
-                        arrowEntity.shoot(xAcceler, yAcceler, zAcceler, 1.8F, 0);
+                        double dx = target.getX() - this.getX();
+                        double dy = (target.getEyeY() - getEyeY()) * Arrow2.SPEED;
+                        double dz = (target.getZ() - this.getZ()) * Arrow2.SPEED;
+                        arrowEntity.shoot(dx, dy, dz, 1.8F, 0);
                         double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
                         arrowEntity.setBaseDamage(damage);
-                        Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor);
+                        Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor, (float) dx, (float) dy, (float) dz);
                         if (weapon.getItem() instanceof BowItem) {
                             arrow2.setBaseDamage(arrowEntity.getBaseDamage());
                         } else if (weapon.getItem() instanceof CrossbowItem) {
