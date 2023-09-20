@@ -153,7 +153,7 @@ public class TurretOptionsScreen extends Screen2 {
         }
         List<GuiEventListener> guiEventListeners = new ArrayList<>();
         List<SwitchButton> exceptionButtons = new ArrayList<>(19);
-        if (exceptions.size() > 0) {
+        if (!exceptions.isEmpty()) {
             Label label = new Label(3, 3, Component.translatable("k_turrets.exceptions").append(":"));
             addRenderableWidget(label);
             label.setScrollable(true, true);
@@ -193,14 +193,13 @@ public class TurretOptionsScreen extends Screen2 {
         }
         ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, Component.literal(""), new IntegerColor(0x228FDBF0), guiEventListeners);
         addRenderableWidget(scrollArea);
-        if (turret instanceof Drone drone) {
-            if (drone.getAutomaticTeam().isEmpty())
-                addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.no.team")));
-            else
-                addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())));
-            addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
-        }
-        addRenderableWidget(new Label(centerX, 180, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange())));
+        if (turret.getAutomaticTeam().isEmpty())
+            addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.no.team")));
+        else
+            addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())));
+        addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
+
+        addRenderableWidget(new Label(centerX, 200, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange())));
     }
 
     @Override
