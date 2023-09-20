@@ -173,6 +173,7 @@ public class TurretOptionsScreen extends Screen2 {
                 addRenderableWidget(new Label(centerX, 160, new TranslatableComponent("k_turrets.team").append(": " + turret.getManualTeam())));
             addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
         }
+        addRenderableWidget(new Label(centerX, 180, new TranslatableComponent(KTurrets.ID + ".range").append(": ").append("" + turret.getRange())));
     }
 
     @Override
