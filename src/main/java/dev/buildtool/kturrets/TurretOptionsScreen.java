@@ -173,6 +173,7 @@ public class TurretOptionsScreen extends Screen2 {
         addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
 
         addRenderableWidget(new Label(centerX, 200, new TranslatableComponent(KTurrets.ID + ".range").append(": ").append("" + turret.getRange())));
+        addRenderableWidget(new Label(centerX, 220, new TranslatableComponent(KTurrets.ID + ".integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth())));
     }
 
     @Override
