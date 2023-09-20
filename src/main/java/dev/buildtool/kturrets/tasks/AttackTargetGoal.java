@@ -1,5 +1,6 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.tasks;
 
+import dev.buildtool.kturrets.Turret;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
