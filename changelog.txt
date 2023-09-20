@@ -1,5 +1,5 @@
 0.1.16:
-added drone location hoghlight on key 'K';
+added drone location highlight on key 'K';
 fixed inability to insert explosive powder into fireball turret;
 made a new model for fireball turret;
 
