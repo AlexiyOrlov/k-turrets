@@ -3,6 +3,8 @@ added drone location highlight on key 'K';
 fixed inability to insert explosive powder into fireball turret;
 made a new model for fireball turret;
 fixed vertical detection range;
+added range indicator to option screen;
+fixed ore tag;
 
 0.1.15:
 lowered minimum fire rate to 1;
