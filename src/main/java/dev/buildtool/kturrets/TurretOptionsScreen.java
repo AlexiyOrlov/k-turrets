@@ -180,6 +180,8 @@ public class TurretOptionsScreen extends Screen2 {
                 addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())));
             addButton(new Label(centerX, 180, CHOOSE_HINT));
         }
+
+        addButton(new Label(centerX, 200, new TranslationTextComponent("k_turrets.range").append(": ").append("" + turret.getRange())));
     }
 
     @Override
