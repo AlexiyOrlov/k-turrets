@@ -56,6 +56,6 @@ class SmallFireball2 extends SmallFireball {
     public void tick() {
         super.tick();
         int movementMultiplier = 50;
-        this.setDeltaMovement(getDeltaMovement().add(this.xPower * movementMultiplier, this.yPower * movementMultiplier, this.zPower * movementMultiplier));
+        this.setDeltaMovement(getDeltaMovement().add(this.xPower * KTurrets.PROJECTILE_SPEED.get(), this.yPower * KTurrets.PROJECTILE_SPEED.get(), this.zPower * KTurrets.PROJECTILE_SPEED.get()));
     }
 }

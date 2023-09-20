@@ -8,8 +8,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.Level;
 
 public class GaussBullet extends PresetProjectile {
-    {
-        movementMultiplier = 150;
+    static {
+        MOVEMENT_MULTIPLIER = MOVEMENT_MULTIPLIER * 3;
     }
 
     public GaussBullet(Level p_i50173_2_) {
