@@ -164,7 +164,7 @@ public class TurretOptionsScreen extends Screen2 {
             targetButtons.add(switchButton);
             guiEventListeners.add(switchButton);
         }
-        ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, new TextComponent(""), new IntegerColor(0x228FDBF0), guiEventListeners);
+        ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, new TextComponent(""), new IntegerColor(0x228F40F0), guiEventListeners);
         addRenderableWidget(scrollArea);
         if (turret instanceof Drone drone) {
             if (drone.getManualTeam().isEmpty())
