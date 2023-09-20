@@ -132,6 +132,7 @@ public abstract class Drone extends Turret {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         goalSelector.addGoal(4, new FollowOwnerGoal(this));
         goalSelector.addGoal(5, new MoveOutOfLava(this));
         goalSelector.addGoal(6, new AvoidAggressors(this));

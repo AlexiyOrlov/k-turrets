@@ -1,6 +1,10 @@
 1.1.18-1.18.2:
 implemented drone location highlighting on key 'K';
 made projectile speed configurable;
+drones/turrets will attack back if attacked;
+drones will move out of lava;
+drones will avoid attackers;
+drones will strafe around their targets;
 
 1.1.17-1.18.2:
 implemented target suggestion list;
