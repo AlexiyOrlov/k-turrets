@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets.arrow;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,8 +25,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class Arrow2 extends Arrow {
     private final Turret turret;
+    private double xPower, yPower, zPower;
 
-    public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f) {
+    public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f, float dx, float dy, float dz) {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
         setDeltaMovement(abstractArrowEntity.getDeltaMovement());
@@ -38,6 +40,12 @@ public class Arrow2 extends Arrow {
         }
         setOwner(abstractArrowEntity.getOwner());
         turret = shooter;
+        double sqrt = Mth.sqrt(dx * dx + dy * dy + dz * dz);
+        if (sqrt != 0) {
+            xPower = dx / sqrt * 0.1;
+            yPower = dy / sqrt * 0.1;
+            zPower = dz / sqrt * 0.1;
+        }
     }
 
     @Override
@@ -133,6 +141,7 @@ public class Arrow2 extends Arrow {
     @Override
     public void tick() {
         super.tick();
+        setDeltaMovement(getDeltaMovement().add(xPower * KTurrets.PROJECTILE_SPEED.get(), yPower * KTurrets.PROJECTILE_SPEED.get(), zPower * KTurrets.PROJECTILE_SPEED.get()));
         if (this.getDeltaMovement().length() < 1)
             discard();
     }

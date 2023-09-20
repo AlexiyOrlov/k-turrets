@@ -17,7 +17,7 @@ import net.minecraftforge.network.NetworkHooks;
 public abstract class PresetProjectile extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Integer> DAMAGE = SynchedEntityData.defineId(PresetProjectile.class, EntityDataSerializers.INT);
     protected Turret turret;
-    protected int movementMultiplier = 50;
+    protected static double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
 
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, net.minecraft.world.level.Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
@@ -102,6 +102,6 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     @Override
     public void tick() {
         super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * movementMultiplier, yPower * movementMultiplier, zPower * movementMultiplier));
+        setDeltaMovement(getDeltaMovement().add(xPower * MOVEMENT_MULTIPLIER, yPower * MOVEMENT_MULTIPLIER, zPower * MOVEMENT_MULTIPLIER));
     }
 }
