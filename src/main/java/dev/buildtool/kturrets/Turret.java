@@ -55,7 +55,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     /**
      * Players that are not allied to the owner
      */
-    protected Predicate<LivingEntity> alienPlayers = livingEntity -> {
+    public Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
             return livingEntity instanceof Player && !livingEntity.getUUID().equals(getOwner().get()) && !isAlliedTo(livingEntity);
         }
