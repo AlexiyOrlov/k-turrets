@@ -1,3 +1,6 @@
+3.0.7:
+changed gauss bullet recipe to use titanium ingots;
+
 3.0.6-1.20.1:
 can now highlight locations of owned drones in 64 block range on 'K';
 fixed scale of bullet and fireball drone items;
