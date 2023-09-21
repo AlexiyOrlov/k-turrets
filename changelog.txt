@@ -1,3 +1,6 @@
+2.0.33-1.19:
+changed gauss bullet recipe to use titanium ingots;
+
 2.0.32-1.19:
 implemented drone location highlighting on key 'K';
 made projectile speed configurable;
