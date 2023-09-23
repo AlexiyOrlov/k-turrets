@@ -198,7 +198,7 @@ public class TurretOptionsScreen extends Screen2 {
         } else if (turret instanceof BulletTurret || turret instanceof BulletDrone) {
             addButton(new Label(centerX, 240, new TranslationTextComponent(KTurrets.ID + ".damage").append(": ").append(KTurrets.IRON_BULLET_DAMAGE.get() + "/" + KTurrets.GOLD_BULLET_DAMAGE.get())));
         } else if (turret instanceof FireballTurret || turret instanceof FireballDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent(KTurrets.ID + ".damage").append(": ").append(KTurrets.CHARGE_TURRET_DAMAGE.get() + "")));
+            addButton(new Label(centerX, 240, new TranslationTextComponent(KTurrets.ID + ".damage").append(": ").append(KTurrets.FIREBALL_TURRET_DAMAGE.get() + "")));
         } else if (turret instanceof CobbleTurret || turret instanceof CobbleDrone) {
             addButton(new Label(centerX, 240, new TranslationTextComponent(KTurrets.ID + ".damage").append(": ").append(KTurrets.COBBLE_TURRET_DAMAGE.get() + "")));
         } else if (turret instanceof GaussTurret || turret instanceof GaussDrone) {

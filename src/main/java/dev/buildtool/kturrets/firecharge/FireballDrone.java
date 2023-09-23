@@ -38,7 +38,7 @@ public class FireballDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.FIREBALL_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (isProtectingFromPlayers() && livingEntity instanceof PlayerEntity)
