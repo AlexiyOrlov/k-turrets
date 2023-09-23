@@ -1,5 +1,6 @@
 0.1.17:
 fixed configuration file not working;
+added damage indicator to options screen;
 
 0.1.16:
 added drone location highlight on key 'K';
