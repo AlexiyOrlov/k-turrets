@@ -1,5 +1,17 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.arrow.ArrowDrone;
+import dev.buildtool.kturrets.arrow.ArrowTurret;
+import dev.buildtool.kturrets.brick.BrickDrone;
+import dev.buildtool.kturrets.brick.BrickTurret;
+import dev.buildtool.kturrets.bullet.BulletDrone;
+import dev.buildtool.kturrets.bullet.BulletTurret;
+import dev.buildtool.kturrets.cobble.CobbleDrone;
+import dev.buildtool.kturrets.cobble.CobbleTurret;
+import dev.buildtool.kturrets.firecharge.FireballDrone;
+import dev.buildtool.kturrets.firecharge.FireballTurret;
+import dev.buildtool.kturrets.gauss.GaussDrone;
+import dev.buildtool.kturrets.gauss.GaussTurret;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
@@ -200,6 +212,19 @@ public class TurretOptionsScreen extends Screen2 {
         addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
         addRenderableWidget(new Label(centerX, 200, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange())));
         addRenderableWidget(new Label(centerX, 220, Component.translatable(KTurrets.ID + ".integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth())));
+        if (turret instanceof ArrowTurret || turret instanceof ArrowDrone) {
+            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.ARROW_TURRET_DAMAGE.get() + "")));
+        } else if (turret instanceof BrickTurret || turret instanceof BrickDrone) {
+            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.BRICK_DAMAGE.get() + "/" + KTurrets.NETHERBRICK_DAMAGE.get())));
+        } else if (turret instanceof BulletTurret || turret instanceof BulletDrone) {
+            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.IRON_BULLET_DAMAGE.get() + "/" + KTurrets.GOLD_BULLET_DAMAGE.get())));
+        } else if (turret instanceof FireballTurret || turret instanceof FireballDrone) {
+            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.CHARGE_TURRET_DAMAGE.get() + "")));
+        } else if (turret instanceof CobbleTurret || turret instanceof CobbleDrone) {
+            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.COBBLE_TURRET_DAMAGE.get() + "")));
+        } else if (turret instanceof GaussTurret || turret instanceof GaussDrone) {
+            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.GAUSS_TURRET_DAMAGE.get() + "")));
+        }
     }
 
     @Override

@@ -55,6 +55,7 @@
   "k_turrets.guard.area": "Guard area",
   "k_turrets.no.drones.nearby": "There are no drones in 64 block radius",
   "k_turrets.range": "Detection range",
+  "k_turrets.damage": "Damage",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
