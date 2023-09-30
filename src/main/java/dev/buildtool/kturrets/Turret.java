@@ -182,23 +182,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
-        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
-            if (playerEntity instanceof ServerPlayer) {
-                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-            }
-            return InteractionResult.SUCCESS;
-        }
-
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
-        if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
+        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
             heal(getHealthRecovered());
             itemInHand.shrink(1);
             return InteractionResult.SUCCESS;
         }
+
         if (canUse(playerEntity)) {
-            if (level().isClientSide) {
-                openTargetScreen();
-            }
             if (playerEntity.getTeam() != null) {
                 setTeamAutomatically(playerEntity.getTeam().getName());
             } else {
@@ -206,7 +197,13 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
-            return InteractionResult.SUCCESS;
+            if (level().isClientSide && playerEntity.isShiftKeyDown()) {
+                openTargetScreen();
+                return InteractionResult.PASS;
+            } else if (!level().isClientSide && !playerEntity.isShiftKeyDown()) {
+                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                return InteractionResult.PASS;
+            }
         } else if (level().isClientSide) {
             if (this instanceof Drone) {
                 if (getOwnerName().isEmpty())
@@ -220,7 +217,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
             }
         }
-        return InteractionResult.PASS;
+        return InteractionResult.FAIL;
     }
 
     protected boolean canUse(Player playerEntity) {

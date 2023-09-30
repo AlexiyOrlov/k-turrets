@@ -3,9 +3,9 @@ package dev.buildtool.kturrets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import dev.buildtool.satako.ClientMethods;
 import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.IntegerColor;
-import dev.buildtool.satako.Methods;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -67,7 +67,7 @@ public class ClientEvents {
                 nearbyDrones.forEach(drone -> {
                     Vec3 dronePosition = drone.getPosition(1);
                     poseStack.translate(dronePosition.x - 0.5, dronePosition.y - 0.2, dronePosition.z - 0.5);
-                    Methods.addRectangle(bufferSource.getBuffer(RenderType.guiOverlay()), poseStack.last().pose(), 0, 0, 0, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false, 0);
+                    ClientMethods.addRectangle(bufferSource.getBuffer(RenderType.guiOverlay()), poseStack.last().pose(), 0, 0, 0, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false, 0);
                     poseStack.translate(-(dronePosition.x - 0.5), -(dronePosition.y - 0.2), -(dronePosition.z - 0.5));
                 });
                 poseStack.popPose();
