@@ -82,7 +82,6 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    mavenLocal()
     maven {
         url 'https://mymavenrepo.com/repo/XXNTQu0VdMr93BjoOV1S/'
     }
@@ -93,7 +92,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19-41.1.0'
-    implementation fg.deobf('dev.buildtool:satako:6.0.12-1.19')
+    implementation fg.deobf('dev.buildtool:satako:6.0.16-1.19')
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
