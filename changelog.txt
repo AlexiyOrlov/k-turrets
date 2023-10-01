@@ -1,6 +1,7 @@
 1.1.19-1.18.2:
 turrets and drones are now repairable with titanium ingots;
 fixed turret/drone inventory not opening on server;
+changed fireball turret model;
 
 1.1.18-1.18.2:
 implemented drone location highlighting on key 'K';
