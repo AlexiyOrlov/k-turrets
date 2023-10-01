@@ -1,4 +1,4 @@
-package dev.buildtool.kturrets.firecharge;
+package dev.buildtool.kturrets.fireball;
 
 import dev.buildtool.satako.gui.ContainerScreen2;
 import net.minecraft.network.chat.Component;

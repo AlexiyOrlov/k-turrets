@@ -1,4 +1,4 @@
-package dev.buildtool.kturrets.firecharge;
+package dev.buildtool.kturrets.fireball;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

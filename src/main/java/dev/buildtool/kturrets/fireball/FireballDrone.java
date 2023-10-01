@@ -1,4 +1,4 @@
-package dev.buildtool.kturrets.firecharge;
+package dev.buildtool.kturrets.fireball;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
