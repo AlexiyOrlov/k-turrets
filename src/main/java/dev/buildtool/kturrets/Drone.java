@@ -180,4 +180,9 @@ public abstract class Drone extends Turret {
     protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
 
     }
+
+    @Override
+    protected float getHealthRecovered() {
+        return getMaxHealth() / 4;
+    }
 }

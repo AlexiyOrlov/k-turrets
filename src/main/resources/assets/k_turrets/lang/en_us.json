@@ -76,5 +76,6 @@
   "entity.k_turrets.firecharge_drone": "Fire charge Drone",
 
   "block.k_turrets.titanium_ore": "Titanium Ore",
-  "block.k_turrets.deepslate_titanium_ore": "Deepslate Titanium Ore"
+  "block.k_turrets.deepslate_titanium_ore": "Deepslate Titanium Ore",
+  "k_turrets.turret.belongs.to": "This turret belongs to"
 }

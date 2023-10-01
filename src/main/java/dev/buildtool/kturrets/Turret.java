@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.*;
@@ -35,6 +36,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +54,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<Boolean> PROTECTION_FROM_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<CompoundTag> IGNORED_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
-
+    private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     /**
      * Players that are not allied to the owner
      */
@@ -89,6 +91,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(PROTECTION_FROM_PLAYERS, false);
         entityData.define(TEAM, "");
         entityData.define(IGNORED_PLAYERS, new CompoundTag());
+        entityData.define(OWNER_NAME, "");
     }
 
     public String getManualTeam() {
@@ -109,6 +112,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     public Optional<UUID> getOwner() {
         return entityData.get(OWNER);
+    }
+
+    String getOwnerName() {
+        return entityData.get(OWNER_NAME);
+    }
+
+    void setOwnerName(String name) {
+        entityData.set(OWNER_NAME, name);
     }
 
     public void setOwner(UUID owner) {
@@ -181,19 +192,38 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
-        if (getHealth() < getMaxHealth() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
-            heal(getMaxHealth() / 6);
+        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && itemInHand.getTags().anyMatch(itemTagKey -> itemTagKey.location().equals(KTurrets.TITANIUM_INGOT))) {
+            heal(getHealthRecovered());
             itemInHand.shrink(1);
             return InteractionResult.SUCCESS;
         }
+
         if (canUse(playerEntity)) {
-            if (level.isClientSide) {
-                openTargetScreen();
+            if (playerEntity.getTeam() != null) {
+                setManualTeam(playerEntity.getTeam().getName());
+            } else {
+                setManualTeam("");
             }
-            return InteractionResult.SUCCESS;
-        } else if (level.isClientSide)
-            playerEntity.sendMessage(new TranslatableComponent("k_turrets.turret.not.yours"), Util.NIL_UUID);
-        return InteractionResult.PASS;
+            if (getOwnerName().isEmpty())
+                setOwnerName(playerEntity.getName().getString());
+            if (level.isClientSide && playerEntity.isShiftKeyDown()) {
+                openTargetScreen();
+                return InteractionResult.PASS;
+            } else if (!level.isClientSide && !playerEntity.isShiftKeyDown()) {
+                NetworkHooks.openGui((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                return InteractionResult.PASS;
+            }
+        } else if (level.isClientSide) {
+            if (this instanceof Drone) {
+                if (getOwner().isEmpty())
+                    playerEntity.displayClientMessage(new TranslatableComponent("k_turrets.turret.belongs.to").append(" " + getOwner()), true);
+            }
+        }
+        return InteractionResult.FAIL;
+    }
+
+    protected float getHealthRecovered() {
+        return getMaxHealth() / 6;
     }
 
     protected boolean canUse(Player playerEntity) {
