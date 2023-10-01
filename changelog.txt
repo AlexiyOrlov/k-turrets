@@ -1,3 +1,8 @@
+3.0.8:
+changed fireball turret model;
+fixed turret inventory not opening on server;
+added target exception option;
+
 3.0.7:
 changed gauss bullet recipe to use titanium ingots;
 you can now specify what mobs will be excluded from default targets in the configuration;
