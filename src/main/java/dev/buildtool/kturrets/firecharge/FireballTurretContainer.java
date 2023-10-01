@@ -9,10 +9,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class FireChargeTurretContainer extends Container2 {
-    public FireChargeTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
+public class FireballTurretContainer extends Container2 {
+    public FireballTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
         super(TContainers.FIRE_CHARGE_TURRET, i);
-        FireChargeTurret turret = (FireChargeTurret) playerInventory.player.level.getEntity(buffer.readInt());
+        FireballTurret turret = (FireballTurret) playerInventory.player.level.getEntity(buffer.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {

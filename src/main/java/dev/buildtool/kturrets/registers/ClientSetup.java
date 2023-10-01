@@ -22,7 +22,7 @@ public class ClientSetup {
     public static void register(FMLClientSetupEvent clientSetupEvent) {
         MenuScreens.register(TContainers.ARROW_TURRET, (MenuScreens.ScreenConstructor<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
         MenuScreens.register(TContainers.BULLET_TURRET, (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
-        MenuScreens.register(TContainers.FIRE_CHARGE_TURRET, (MenuScreens.ScreenConstructor<FireChargeTurretContainer, FireChargeScreen>) (p1, p2, p3) -> new FireChargeScreen(p1, p2, p3, true));
+        MenuScreens.register(TContainers.FIRE_CHARGE_TURRET, (MenuScreens.ScreenConstructor<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
         MenuScreens.register(TContainers.BRICK_TURRET, (MenuScreens.ScreenConstructor<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
         MenuScreens.register(TContainers.GAUSS_TURRET, (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
         MenuScreens.register(TContainers.COBBLE_TURRET, (MenuScreens.ScreenConstructor<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
@@ -32,7 +32,7 @@ public class ClientSetup {
         MenuScreens.register(TContainers.COBBLE_DRONE.get(), (MenuScreens.ScreenConstructor<CobbleDroneContainer, CobbleDroneScreen>) (p1, p2, p3) -> new CobbleDroneScreen(p1, p2, p3, true));
         MenuScreens.register(TContainers.ARROW_DRONE.get(), (MenuScreens.ScreenConstructor<ArrowDroneContainer, ArrowDroneScreen>) (p1, p2, p3) -> new ArrowDroneScreen(p1, p2, p3, true));
         MenuScreens.register(TContainers.GAUSS_DRONE.get(), (MenuScreens.ScreenConstructor<GaussDroneContainer, GaussDroneScreen>) (p1, p2, p3) -> new GaussDroneScreen(p1, p2, p3, true));
-        MenuScreens.register(TContainers.FIRECHARGE_DRONE.get(), (MenuScreens.ScreenConstructor<FirechargeDroneContainer, FirechargeDroneScreen>) (p1, p2, p3) -> new FirechargeDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(TContainers.FIRECHARGE_DRONE.get(), (MenuScreens.ScreenConstructor<FireballDroneContainer, FireballDroneScreen>) (p1, p2, p3) -> new FireballDroneScreen(p1, p2, p3, true));
     }
 
     @SubscribeEvent
@@ -53,7 +53,7 @@ public class ClientSetup {
         definitions.registerLayerDefinition(CobbleDroneModel.LAYER_LOCATION, CobbleDroneModel::createBodyLayer);
         definitions.registerLayerDefinition(ArrowDroneModel.LAYER_LOCATION, ArrowDroneModel::createBodyLayer);
         definitions.registerLayerDefinition(GaussDroneModel.LAYER_LOCATION, GaussDroneModel::createBodyLayer);
-        definitions.registerLayerDefinition(FirechargeDroneModel.LAYER_LOCATION, FirechargeDroneModel::createBodyLayer);
+        definitions.registerLayerDefinition(FireballDroneModel.LAYER_LOCATION, FireballDroneModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -70,7 +70,7 @@ public class ClientSetup {
         renderers.registerEntityRenderer(TEntities.COBBLE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new CobbleDroneModel<>(p_174010_.bakeLayer(CobbleDroneModel.LAYER_LOCATION)), "cobble_drone", false, 0.2f));
         renderers.registerEntityRenderer(TEntities.ARROW_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new ArrowDroneModel<>(p_174010_.bakeLayer(ArrowDroneModel.LAYER_LOCATION)), "arrow_drone", false, 0.2f));
         renderers.registerEntityRenderer(TEntities.GAUSS_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new GaussDroneModel<>(p_174010_.bakeLayer(GaussDroneModel.LAYER_LOCATION)), "gauss_drone", false, 0.2f));
-        renderers.registerEntityRenderer(TEntities.FIRECHARGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new FirechargeDroneModel<>(p_174010_.bakeLayer(FirechargeDroneModel.LAYER_LOCATION)), "firecharge_drone", false, 0.2f));
+        renderers.registerEntityRenderer(TEntities.FIRECHARGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new FireballDroneModel<>(p_174010_.bakeLayer(FireballDroneModel.LAYER_LOCATION)), "firecharge_drone", false, 0.2f));
 
         renderers.registerEntityRenderer(TEntities.BRICK.get(), BrickRenderer::new);
         renderers.registerEntityRenderer(TEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);

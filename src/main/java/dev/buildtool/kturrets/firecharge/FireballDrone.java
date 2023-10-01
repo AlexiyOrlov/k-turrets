@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.firecharge;
 
+import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.TEntities;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -24,26 +24,27 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class FireChargeTurret extends Turret {
-    protected ItemHandler ammo = new ItemHandler(27) {
+public class FireballDrone extends Drone {
+    protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return stack.is(Items.FIRE_CHARGE);
         }
     };
 
-    public FireChargeTurret(Level world) {
-        super(TEntities.FIRE_CHARGE_TURRET.get(), world);
+    public FireballDrone(Level world) {
+        super(TEntities.FIRECHARGE_DRONE.get(), world);
     }
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
+        super.registerGoals();
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (isProtectingFromPlayers() && livingEntity instanceof Player)
@@ -66,7 +67,17 @@ public class FireChargeTurret extends Turret {
     }
 
     @Override
-    public void performRangedAttack(LivingEntity target, float distFactor) {
+    protected List<ItemHandler> getContainedItems() {
+        return Collections.singletonList(ammo);
+    }
+
+    @Override
+    public boolean isArmed() {
+        return !ammo.isEmpty();
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity target, float p_33318_) {
         if (target.isAlive()) {
             for (ItemStack ammoItem : ammo.getItems()) {
                 if (ammoItem.getItem() == Items.FIRE_CHARGE) {
@@ -86,10 +97,10 @@ public class FireChargeTurret extends Turret {
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
-        FriendlyByteBuf packetBuffer = Functions.emptyBuffer();
-        packetBuffer.writeInt(getId());
-        return new FireChargeTurretContainer(p_createMenu_1_, p_createMenu_2_, packetBuffer);
+    public AbstractContainerMenu createMenu(int p_39954_, Inventory inventory, Player p_39956_) {
+        FriendlyByteBuf friendlyByteBuf = Functions.emptyBuffer();
+        friendlyByteBuf.writeInt(getId());
+        return new FireballDroneContainer(p_39954_, inventory, friendlyByteBuf);
     }
 
     @Override
@@ -114,15 +125,4 @@ public class FireChargeTurret extends Turret {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
-
-    @Override
-    protected List<ItemHandler> getContainedItems() {
-        return Collections.singletonList(ammo);
-    }
-
-    @Override
-    public boolean isArmed() {
-        return !ammo.isEmpty();
-    }
-
 }
