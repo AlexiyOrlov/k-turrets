@@ -1,6 +1,5 @@
 package dev.buildtool.kturrets;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.buildtool.kturrets.arrow.ArrowDrone;
 import dev.buildtool.kturrets.arrow.ArrowTurret;
 import dev.buildtool.kturrets.brick.BrickDrone;
@@ -26,7 +25,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -230,18 +232,6 @@ public class TurretOptionsScreen extends Screen2 {
                 KTurrets.channel.sendToServer(new RemovePlayerException(turret.getId(), s));
             }
         });
-    }
-
-    @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float tick) {
-        super.render(matrixStack, mouseX, mouseY, tick);
-        renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.integrity").append(": " + (int) turret.getHealth() + "/" + turret.getMaxHealth())), centerX, centerY + 40, font);
-        renderComponentTooltip(matrixStack, Arrays.asList(CHOOSE_HINT, SCROLL_HINT), centerX, centerY + 80, font);
-        if (turret.getManualTeam().isEmpty()) {
-            renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.no.team")), centerX, centerY + 60, font);
-        } else {
-            renderComponentTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("k_turrets.team").append(": " + turret.getManualTeam())), centerX, centerY + 60, font);
-        }
     }
 
     @Override
