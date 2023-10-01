@@ -28,7 +28,7 @@ authors = "Alexiy" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
 Adds some configurable turrets and drones to eliminate enemies.
-They turrets are crafted from titanium ingots.
+They are crafted from titanium ingots.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.k-turrets]] #optional
@@ -45,5 +45,5 @@ side = "BOTH"
 [[dependencies.k-turrets]]
 modId = "satako"
 mandatory = true
-versionRange = "[4.2.19,5.0.0)"
+versionRange = "[4.2.20,5.0.0)"
 side = "BOTH"
