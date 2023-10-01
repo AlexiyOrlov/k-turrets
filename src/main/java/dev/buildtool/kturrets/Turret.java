@@ -168,29 +168,16 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         return getAttributeValue(Attributes.FOLLOW_RANGE);
     }
 
-    protected double getDamage() {
-        return getAttributeValue(Attributes.ATTACK_DAMAGE);
-    }
-
     @Override
-    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand p_230254_2_) {
-        if (canUse(playerEntity) && !playerEntity.isShiftKeyDown()) {
-            if (playerEntity instanceof ServerPlayerEntity) {
-                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-            }
-            return ActionResultType.SUCCESS;
-        }
-
-        ItemStack itemInHand = playerEntity.getItemInHand(p_230254_2_);
-        if (getHealth() < getMaxHealth() && ItemTags.getAllTags().getTag(KTurrets.TITANIUM_INGOT).contains(itemInHand.getItem())) {
+    protected ActionResultType mobInteract(PlayerEntity playerEntity, Hand interactionHand) {
+        ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
+        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && ItemTags.getAllTags().getTag(KTurrets.TITANIUM_INGOT).contains(itemInHand.getItem())) {
             heal(getHealthRecovered());
             itemInHand.shrink(1);
             return ActionResultType.SUCCESS;
         }
+
         if (canUse(playerEntity)) {
-            if (level.isClientSide) {
-                openTargetScreen();
-            }
             if (playerEntity.getTeam() != null) {
                 setAutomaticTeam(playerEntity.getTeam().getName());
             } else {
@@ -198,21 +185,20 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
             }
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
-            return ActionResultType.SUCCESS;
+            if (level.isClientSide && playerEntity.isShiftKeyDown()) {
+                openTargetScreen();
+                return ActionResultType.PASS;
+            } else if (!level.isClientSide && !playerEntity.isShiftKeyDown()) {
+                NetworkHooks.openGui((ServerPlayerEntity) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                return ActionResultType.PASS;
+            }
         } else if (level.isClientSide) {
             if (this instanceof Drone) {
                 if (getOwnerName().isEmpty())
-                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.drone.not.yours"), true);
-                else
-                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.drone.belongs.to").append(" " + getOwnerName()), true);
-            } else {
-                if (getOwnerName().isEmpty())
-                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.not.yours"), true);
-                else
-                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.belongs.to").append(" " + getOwner()), true);
             }
         }
-        return ActionResultType.PASS;
+        return ActionResultType.FAIL;
     }
 
     protected boolean canUse(PlayerEntity playerEntity) {
