@@ -54,6 +54,7 @@
   "k_turrets.exceptions": "Exceptions",
   "k_turrets.no.drones.nearby": "There are no drones on 64 block radius",
   "k_turrets.range": "Range indicator",
+  "k_turrets.damage": "Damage",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
