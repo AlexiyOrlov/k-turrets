@@ -26,6 +26,8 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -57,6 +59,7 @@ public class KTurrets {
     public static ForgeConfigSpec.IntValue COBBLE_TURRET_DAMAGE, COBBLE_TURRET_RATE;
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
+    public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     static boolean neatIsPresent;
 
     public KTurrets() {
@@ -73,6 +76,7 @@ public class KTurrets {
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
             PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
+            TARGET_EXCEPTIONS = builder.comment("List of mob ids to be excluded from default targets").defineList("Target list exceptions", Collections.singletonList("minecraft:zombified_piglin"), o -> o instanceof String && ((String) o).contains(":"));
             builder.pop();
 
             builder.push("Turret stats");

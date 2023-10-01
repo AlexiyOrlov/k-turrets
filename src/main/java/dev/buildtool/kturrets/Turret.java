@@ -71,11 +71,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return createLivingAttributes().add(Attributes.FLYING_SPEED, 0.2).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         CompoundTag compoundNBT = new CompoundTag();
-        List<EntityType<?>> targets = ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList();
+        List<EntityType<?>> targets = new ArrayList<>(ForgeRegistries.ENTITIES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList());
+        List<String> exceptions = (List<String>) KTurrets.TARGET_EXCEPTIONS.get();
+        targets.removeIf(entityType -> exceptions.contains(ForgeRegistries.ENTITIES.getKey(entityType).toString()));
         for (int i = 0; i < targets.size(); i++) {
             compoundNBT.putString("Target#" + i, targets.get(i).getRegistryName().toString());
         }
