@@ -27,6 +27,9 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
         super(p_i50175_1_, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
         setPos(shooter.getX(), shooter.getEyeY(), shooter.getZ());
         turret = shooter;
+        xPower *= MOVEMENT_MULTIPLIER;
+        yPower *= MOVEMENT_MULTIPLIER;
+        zPower *= MOVEMENT_MULTIPLIER;
     }
 
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50175_1_, LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, net.minecraft.world.level.Level world) {
@@ -97,11 +100,5 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         setDamage(compoundNBT.getInt("Damage"));
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * MOVEMENT_MULTIPLIER, yPower * MOVEMENT_MULTIPLIER, zPower * MOVEMENT_MULTIPLIER));
     }
 }
