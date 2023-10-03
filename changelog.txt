@@ -1,3 +1,6 @@
+3.0.9:
+fixed acceleration application to projectiles;
+
 3.0.8:
 changed fireball turret model;
 fixed turret inventory not opening on server;
