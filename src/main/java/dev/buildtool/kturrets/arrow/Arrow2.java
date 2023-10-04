@@ -141,7 +141,7 @@ public class Arrow2 extends Arrow {
     public void shoot(double p_36775_, double p_36776_, double p_36777_, float p_36778_, float p_36779_) {
         double movementMultiplier = KTurrets.PROJECTILE_SPEED.get();
         //this multiplication could be wrong
-        Vec3 vec3 = (new Vec3(p_36775_, p_36776_, p_36777_).normalize().scale(movementMultiplier * 5));
+        Vec3 vec3 = (new Vec3(p_36775_, p_36776_, p_36777_).normalize().scale(movementMultiplier * 3));
         setDeltaMovement(vec3);
         double d0 = vec3.horizontalDistance();
         this.setYRot((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
