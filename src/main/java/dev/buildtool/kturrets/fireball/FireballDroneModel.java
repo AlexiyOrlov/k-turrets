@@ -1,4 +1,4 @@
-package dev.buildtool.kturrets.firecharge;// Made with Blockbench 4.7.4
+package dev.buildtool.kturrets.fireball;// Made with Blockbench 4.7.4
 // Exported for Minecraft version 1.15 - 1.16 with Mojang mappings
 // Paste this class into your mod and generate all required imports
 

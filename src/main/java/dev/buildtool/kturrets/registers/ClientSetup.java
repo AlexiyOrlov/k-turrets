@@ -5,7 +5,7 @@ import dev.buildtool.kturrets.arrow.*;
 import dev.buildtool.kturrets.brick.*;
 import dev.buildtool.kturrets.bullet.*;
 import dev.buildtool.kturrets.cobble.*;
-import dev.buildtool.kturrets.firecharge.*;
+import dev.buildtool.kturrets.fireball.*;
 import dev.buildtool.kturrets.gauss.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.api.distmarker.Dist;
