@@ -28,7 +28,7 @@ public class ClientEvents {
     static boolean noDronesNearby;
     @SubscribeEvent
     public static void renderHealthIndicator(RenderLivingEvent.Post<?, ?> renderLivingEvent) {
-        if (!KTurrets.neatIsPresent) {
+        if (!KTurrets.SHOW_INTEGRITY.get()) {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
             if (livingEntity instanceof Turret) {
                 PoseStack poseStack = renderLivingEvent.getPoseStack();
