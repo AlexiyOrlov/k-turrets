@@ -25,6 +25,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -64,8 +65,10 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue ENABLE_DRONE_SOUND;
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
+    public static ForgeConfigSpec.BooleanValue SHOW_INTEGRITY;
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     public static ConfiguredFeature<?, ?> CONFIGURED_TITANIUM_ORE;
+    static boolean neatIsPresent;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
@@ -74,6 +77,12 @@ public class KTurrets {
         KContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
+        neatIsPresent = LoadingModList.get().getModFileById("neat") != null;
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
+            SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
+            return builder.build();
+        }).getRight());
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
