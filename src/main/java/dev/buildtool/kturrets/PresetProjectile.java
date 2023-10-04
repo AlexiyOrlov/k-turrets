@@ -1,11 +1,17 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.brick.Brick;
+import dev.buildtool.kturrets.bullet.Bullet;
+import dev.buildtool.kturrets.cobble.Cobblestone;
+import dev.buildtool.kturrets.gauss.GaussBullet;
+import dev.buildtool.kturrets.registers.KTDamageTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +24,6 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Integer> DAMAGE = SynchedEntityData.defineId(PresetProjectile.class, EntityDataSerializers.INT);
     protected Turret turret;
     protected static double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
-
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, net.minecraft.world.level.Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
     }
@@ -72,7 +77,19 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     @Override
     protected void onHitEntity(EntityHitResult entityRayTraceResult) {
         Entity entity = entityRayTraceResult.getEntity();
-        if (entity.hurt(damageSources().mobAttack((LivingEntity) getOwner()), getDamage()))
+        Entity turret = getOwner();
+        assert turret != null;
+        DamageSource damageSource = level().damageSources().mobAttack((LivingEntity) turret);
+        if (this instanceof Brick)
+            damageSource = level().damageSources().source(KTDamageTypes.BRICK, turret);
+        else if (this instanceof Bullet) {
+            damageSource = level().damageSources().source(KTDamageTypes.BULLET, turret);
+        } else if (this instanceof GaussBullet) {
+            damageSource = level().damageSources().source(KTDamageTypes.GAUSS_BULLET, turret);
+        } else if (this instanceof Cobblestone) {
+            damageSource = level().damageSources().source(KTDamageTypes.COBBLESTONE, turret);
+        }
+        if (entity.hurt(damageSource, getDamage()))
             discard();
     }
 

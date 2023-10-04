@@ -4,12 +4,14 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.*;
+import dev.buildtool.satako.Functions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.CreativeModeTab;
@@ -27,8 +29,11 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -36,6 +41,7 @@ import java.util.Objects;
 @Mod(KTurrets.ID)
 public class KTurrets {
     public static final String ID = "k_turrets";
+    public static final Logger LOGGER = LogManager.getLogger("K-Turrets");
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     static private final String NP = "1.0";
     public static SimpleChannel channel;
@@ -67,6 +73,7 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
+    public static Field damageTypesField;
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
             p_259752_.accept(KItems.COBBLE_TURRET.get());
@@ -99,6 +106,7 @@ public class KTurrets {
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
         TAB_REGISTER.register(eventBus);
+        damageTypesField = Functions.getSecureField(DamageSource.class, 0);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");

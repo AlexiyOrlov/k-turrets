@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
+import dev.buildtool.kturrets.registers.KTDamageTypes;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -81,17 +82,13 @@ public class Arrow2 extends Arrow {
             i = (int) Math.min(j + (long) i, 2147483647L);
         }
 
-        Entity entity1 = this.getOwner();
-        DamageSource damagesource = damageSources().arrow(this, entity1);
-        if (entity1 instanceof LivingEntity livingEntity) {
-            livingEntity.setLastHurtMob(entity);
-            damagesource = damageSources().mobAttack(livingEntity);
-        }
+        Entity turret = this.getOwner();
         int k = entity.getRemainingFireTicks();
         if (this.isOnFire()) {
             entity.setSecondsOnFire(5);
         }
-        if (entity.hurt(damagesource, (float) i)) {
+        DamageSource turretArrow = level().damageSources().source(KTDamageTypes.TURRET_ARROW, turret);
+        if (entity.hurt(turretArrow, (float) i)) {
             if (entity instanceof LivingEntity livingentity) {
                 if (!this.level().isClientSide && this.getPierceLevel() <= 0) {
                     livingentity.setArrowCount(livingentity.getArrowCount() + 1);
@@ -104,14 +101,14 @@ public class Arrow2 extends Arrow {
                     }
                 }
 
-                if (!this.level().isClientSide && entity1 instanceof LivingEntity) {
-                    EnchantmentHelper.doPostHurtEffects(livingentity, entity1);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity) entity1, livingentity);
+                if (!this.level().isClientSide && turret instanceof LivingEntity) {
+                    EnchantmentHelper.doPostHurtEffects(livingentity, turret);
+                    EnchantmentHelper.doPostDamageEffects((LivingEntity) turret, livingentity);
                 }
 
                 this.doPostHurtEffects(livingentity);
-                if (livingentity != entity1 && livingentity instanceof Player && entity1 instanceof ServerPlayer && !this.isSilent()) {
-                    ((ServerPlayer) entity1).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+                if (livingentity != turret && livingentity instanceof Player && turret instanceof ServerPlayer && !this.isSilent()) {
+                    ((ServerPlayer) turret).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
                 }
             }
 
