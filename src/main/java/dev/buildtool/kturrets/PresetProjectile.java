@@ -32,6 +32,9 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
         super(p_i50175_1_, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
         setPos(shooter.getX(), shooter.getEyeY(), shooter.getZ());
         turret = (Turret) shooter;
+        xPower *= MOVEMENT_MULTIPLIER;
+        yPower *= MOVEMENT_MULTIPLIER;
+        zPower *= MOVEMENT_MULTIPLIER;
     }
 
     @Override
@@ -105,11 +108,5 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
             return super.canHitEntity(target);
         } else
             return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * MOVEMENT_MULTIPLIER, yPower * MOVEMENT_MULTIPLIER, zPower * MOVEMENT_MULTIPLIER));
     }
 }

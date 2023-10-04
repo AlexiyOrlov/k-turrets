@@ -27,12 +27,10 @@ public class Arrow2 extends ArrowEntity {
     static double SPEED = KTurrets.PROJECTILE_SPEED.get();
     private final Turret turret;
     protected int knockback;
-    private double xPower, yPower, zPower;
 
     public Arrow2(World world, AbstractArrowEntity abstractArrowEntity, Turret shooter, float f, double dx, double dy, double dz) {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
-        setDeltaMovement(abstractArrowEntity.getDeltaMovement());
         setPierceLevel(abstractArrowEntity.getPierceLevel());
         if (abstractArrowEntity instanceof SpectralArrowEntity) {
             addEffect(new EffectInstance(Effects.GLOWING, 200));
@@ -42,12 +40,6 @@ public class Arrow2 extends ArrowEntity {
         }
         setOwner(abstractArrowEntity.getOwner());
         turret = shooter;
-        double sqrt = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
-        if (sqrt != 0) {
-            xPower = dx / sqrt * 0.1;
-            yPower = dy / sqrt * 0.1;
-            zPower = dz / sqrt * 0.1;
-        }
     }
 
     @Override
@@ -163,7 +155,20 @@ public class Arrow2 extends ArrowEntity {
     @Override
     public void tick() {
         super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * KTurrets.PROJECTILE_SPEED.get(), yPower * KTurrets.PROJECTILE_SPEED.get(), zPower * KTurrets.PROJECTILE_SPEED.get()));
+        if (this.getDeltaMovement().length() < 0.01)
+            remove();
+    }
 
+    @Override
+    public void shoot(double p_36775_, double p_36776_, double p_36777_, float p_36778_, float p_36779_) {
+        double movementMultiplier = KTurrets.PROJECTILE_SPEED.get();
+        //this multiplication could be wrong
+        Vector3d vec3 = (new Vector3d(p_36775_, p_36776_, p_36777_).normalize().scale(movementMultiplier * 5));
+        setDeltaMovement(vec3);
+        double d0 = MathHelper.sqrt(getHorizontalDistanceSqr(vec3));
+        this.yRot = ((float) (MathHelper.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
+        this.xRot = ((float) (MathHelper.atan2(vec3.y, d0) * (double) (180F / (float) Math.PI)));
+        this.yRotO = this.yRot;
+        this.xRotO = this.xRot;
     }
 }

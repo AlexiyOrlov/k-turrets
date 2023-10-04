@@ -16,6 +16,9 @@ public class SmallFireball extends SmallFireballEntity {
     public SmallFireball(Turret shooter, double d0, double d1, double d2) {
         super(shooter.level, shooter, d0, d1, d2);
         this.turret = shooter;
+        xPower *= MOVEMENT_MULTIPLIER;
+        yPower *= MOVEMENT_MULTIPLIER;
+        zPower *= MOVEMENT_MULTIPLIER;
     }
 
     @Override
@@ -51,11 +54,5 @@ public class SmallFireball extends SmallFireballEntity {
     protected void onHitBlock(BlockRayTraceResult p_37384_) {
         super.onHitBlock(p_37384_);
         remove();
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        this.setDeltaMovement(getDeltaMovement().add(this.xPower * MOVEMENT_MULTIPLIER, this.yPower * MOVEMENT_MULTIPLIER, this.zPower * MOVEMENT_MULTIPLIER));
     }
 }

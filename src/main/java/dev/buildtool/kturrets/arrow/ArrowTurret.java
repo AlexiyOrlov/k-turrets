@@ -64,7 +64,6 @@ public class ArrowTurret extends Turret {
                         double dx = target.getX() - this.getX();
                         double dy = target.getEyeY() - getEyeY();
                         double dz = target.getZ() - this.getZ();
-                        arrowEntity.shoot(dx, dy, dz, 1.8F, 0);
                         double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
                         arrowEntity.setBaseDamage(damage);
                         Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor, dx, dy, dz);
@@ -79,6 +78,7 @@ public class ArrowTurret extends Turret {
                         }
                         arrow2.setEnchantmentEffectsFromEntity(this, distanceFactor);
                         arrow2.setNoGravity(true);
+                        arrow2.shoot(dx, dy, dz, 1.8f, 0);
                         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
                         this.level.addFreshEntity(arrow2);
                         arrows.shrink(1);
