@@ -1,3 +1,6 @@
+1.1.20-1.18.2:
+fixed projectile acceleration application;
+
 1.1.19-1.18.2:
 turrets and drones are now repairable with titanium ingots;
 fixed turret/drone inventory not opening on server;
