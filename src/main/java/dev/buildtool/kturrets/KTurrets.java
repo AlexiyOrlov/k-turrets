@@ -79,11 +79,6 @@ public class KTurrets {
         KBlocks.BLOCKS.register(eventBus);
         neatIsPresent = LoadingModList.get().getModFileById("neat") != null;
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
-            SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
-            return builder.build();
-        }).getRight());
-
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
             PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
@@ -142,6 +137,7 @@ public class KTurrets {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
+            SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
             return builder.build();
         }).getRight());
 
