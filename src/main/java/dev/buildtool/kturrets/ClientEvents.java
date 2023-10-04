@@ -23,7 +23,6 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.loading.LoadingModList;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class ClientEvents {
     static boolean noDronesNearby;
     @SubscribeEvent
     public static void renderHealthIndicator(RenderLivingEvent.Post<?, ?> renderLivingEvent) {
-        if (LoadingModList.get().getModFileById("neat") == null && KTurrets.SHOW_INTEGRITY.get()) {
+        if (KTurrets.SHOW_INTEGRITY.get()) {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
             if (livingEntity instanceof Turret) {
                 PoseStack poseStack = renderLivingEvent.getPoseStack();
