@@ -1,3 +1,6 @@
+3.0.10:
+turret/drone projectiles have their own damage types;
+
 3.0.9:
 fixed acceleration application to projectiles;
 
