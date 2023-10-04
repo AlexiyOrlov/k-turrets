@@ -15,6 +15,9 @@ class SmallFireball2 extends SmallFireball {
     public SmallFireball2(Turret shooter, double d0, double d1, double d2) {
         super(shooter.level, shooter, d0, d1, d2);
         turret = shooter;
+        xPower *= MOVEMENT_MULTIPLIER;
+        yPower *= MOVEMENT_MULTIPLIER;
+        zPower *= MOVEMENT_MULTIPLIER;
     }
 
     @Override
@@ -35,12 +38,6 @@ class SmallFireball2 extends SmallFireball {
                 }
             }
         }
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * MOVEMENT_MULTIPLIER, yPower * MOVEMENT_MULTIPLIER, zPower * MOVEMENT_MULTIPLIER));
     }
 
     @Override

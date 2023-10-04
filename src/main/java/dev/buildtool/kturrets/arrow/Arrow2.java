@@ -26,8 +26,6 @@ import net.minecraft.world.phys.Vec3;
 
 public class Arrow2 extends Arrow {
     private final Turret turret;
-    static double SPEED = KTurrets.PROJECTILE_SPEED.get();
-    private double xPower, yPower, zPower;
 
     public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f, float dx, float dy, float dz) {
         super(EntityType.ARROW, world);
@@ -42,12 +40,6 @@ public class Arrow2 extends Arrow {
         }
         setOwner(abstractArrowEntity.getOwner());
         turret = shooter;
-        double sqrt = Mth.sqrt(dx * dx + dy * dy + dz * dz);
-        if (sqrt != 0) {
-            xPower = dx / sqrt * 0.1;
-            yPower = dy / sqrt * 0.1;
-            zPower = dz / sqrt * 0.1;
-        }
     }
 
     @Override
@@ -140,8 +132,7 @@ public class Arrow2 extends Arrow {
     @Override
     public void tick() {
         super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * KTurrets.PROJECTILE_SPEED.get(), yPower * KTurrets.PROJECTILE_SPEED.get(), zPower * KTurrets.PROJECTILE_SPEED.get()));
-        if (this.getDeltaMovement().length() < 1)
+        if (this.getDeltaMovement().length() < 0.01)
             discard();
     }
 
@@ -154,5 +145,18 @@ public class Arrow2 extends Arrow {
             return super.canHitEntity(target);
         } else
             return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
+    }
+
+    @Override
+    public void shoot(double p_36775_, double p_36776_, double p_36777_, float p_36778_, float p_36779_) {
+        double movementMultiplier = KTurrets.PROJECTILE_SPEED.get();
+        //this multiplication could be wrong
+        Vec3 vec3 = (new Vec3(p_36775_, p_36776_, p_36777_).normalize().scale(movementMultiplier * 3));
+        setDeltaMovement(vec3);
+        double d0 = vec3.horizontalDistance();
+        this.setYRot((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
+        this.setXRot((float) (Mth.atan2(vec3.y, d0) * (double) (180F / (float) Math.PI)));
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getXRot();
     }
 }
