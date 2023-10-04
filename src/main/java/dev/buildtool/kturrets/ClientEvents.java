@@ -33,17 +33,20 @@ public class ClientEvents {
     public static void renderHealthIndicator(RenderLivingEvent.Post<?, ?> renderLivingEvent) {
         if (KTurrets.SHOW_INTEGRITY.get()) {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
-            if (livingEntity instanceof Turret) {
-                PoseStack poseStack = renderLivingEvent.getPoseStack();
-                poseStack.pushPose();
-                String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
-                poseStack.scale(0.03f, 0.03f, 0.03f);
-                poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-                poseStack.mulPose(Axis.YP.rotationDegrees(180));
-                poseStack.mulPose(Axis.XP.rotationDegrees(180));
-                poseStack.translate(-renderLivingEvent.getRenderer().getFont().width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
-                renderLivingEvent.getRenderer().getFont().drawInBatch(health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor().intValue() : ChatFormatting.GREEN.getColor().intValue(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
-                poseStack.popPose();
+            Player player = Minecraft.getInstance().player;
+            if (livingEntity instanceof Turret turret) {
+                if (!turret.getOwner().isPresent() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
+                    PoseStack poseStack = renderLivingEvent.getPoseStack();
+                    poseStack.pushPose();
+                    String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
+                    poseStack.scale(0.03f, 0.03f, 0.03f);
+                    poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+                    poseStack.mulPose(Axis.YP.rotationDegrees(180));
+                    poseStack.mulPose(Axis.XP.rotationDegrees(180));
+                    poseStack.translate(-renderLivingEvent.getRenderer().getFont().width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
+                    renderLivingEvent.getRenderer().getFont().drawInBatch(health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor().intValue() : ChatFormatting.GREEN.getColor().intValue(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                    poseStack.popPose();
+                }
             }
         }
     }
