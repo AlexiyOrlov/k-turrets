@@ -10,11 +10,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 class SmallFireball2 extends SmallFireball {
+    private static final double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
     private final Turret turret;
 
     public SmallFireball2(Turret shooter, double d0, double d1, double d2) {
         super(shooter.level, shooter, d0, d1, d2);
         this.turret = shooter;
+        xPower *= MOVEMENT_MULTIPLIER;
+        yPower *= MOVEMENT_MULTIPLIER;
+        zPower *= MOVEMENT_MULTIPLIER;
     }
 
     @Override
@@ -50,12 +54,5 @@ class SmallFireball2 extends SmallFireball {
     protected void onHitBlock(BlockHitResult p_37384_) {
         super.onHitBlock(p_37384_);
         discard();
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        int movementMultiplier = 50;
-        this.setDeltaMovement(getDeltaMovement().add(this.xPower * KTurrets.PROJECTILE_SPEED.get(), this.yPower * KTurrets.PROJECTILE_SPEED.get(), this.zPower * KTurrets.PROJECTILE_SPEED.get()));
     }
 }

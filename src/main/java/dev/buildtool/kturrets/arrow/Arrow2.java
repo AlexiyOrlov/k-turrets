@@ -26,12 +26,10 @@ import net.minecraft.world.phys.Vec3;
 
 public class Arrow2 extends Arrow {
     private final Turret turret;
-    private double xPower, yPower, zPower;
 
     public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f, float dx, float dy, float dz) {
         super(EntityType.ARROW, world);
         copyPosition(abstractArrowEntity);
-        setDeltaMovement(abstractArrowEntity.getDeltaMovement());
         setPierceLevel(abstractArrowEntity.getPierceLevel());
         if (abstractArrowEntity instanceof SpectralArrow) {
             addEffect(new MobEffectInstance(MobEffects.GLOWING, 200));
@@ -41,12 +39,6 @@ public class Arrow2 extends Arrow {
         }
         setOwner(abstractArrowEntity.getOwner());
         turret = shooter;
-        double sqrt = Mth.sqrt(dx * dx + dy * dy + dz * dz);
-        if (sqrt != 0) {
-            xPower = dx / sqrt * 0.1;
-            yPower = dy / sqrt * 0.1;
-            zPower = dz / sqrt * 0.1;
-        }
     }
 
     @Override
@@ -146,15 +138,14 @@ public class Arrow2 extends Arrow {
     @Override
     public void tick() {
         super.tick();
-        setDeltaMovement(getDeltaMovement().add(xPower * KTurrets.PROJECTILE_SPEED.get(), yPower * KTurrets.PROJECTILE_SPEED.get(), zPower * KTurrets.PROJECTILE_SPEED.get()));
-        if (this.getDeltaMovement().length() < 1)
+        if (this.getDeltaMovement().length() < 0.01)
             discard();
     }
 
 
     @Override
     public void shoot(double p_36775_, double p_36776_, double p_36777_, float p_36778_, float p_36779_) {
-        Vec3 vec3 = (new Vec3(p_36775_, p_36776_, p_36777_));
+        Vec3 vec3 = (new Vec3(p_36775_, p_36776_, p_36777_).normalize().scale(KTurrets.PROJECTILE_SPEED.get() * 3));
         this.setDeltaMovement(vec3);
         double d0 = vec3.horizontalDistance();
         this.setYRot((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
