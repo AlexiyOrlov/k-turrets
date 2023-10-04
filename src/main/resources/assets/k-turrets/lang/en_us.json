@@ -52,6 +52,8 @@
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
   "death.attack.k-turrets.brick": "%1$s was hit by a Brick turret",
   "death.attack.k-turrets.cobblestone": "%1$s was stoned by a Cobble turret",
+  "death.attack.k_turrets.arrow": "%1$s was shot by turret arrow",
+  "death.attack.k_turrets.fireball": "%1$s was shot by turret fireball",
 
   "entity.k-turrets.fire_charge_turret": "Fireball Turret",
   "entity.k-turrets.arrow_turret": "Arrow Turret",

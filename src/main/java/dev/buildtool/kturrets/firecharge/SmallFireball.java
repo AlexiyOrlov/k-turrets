@@ -40,7 +40,7 @@ public class SmallFireball extends SmallFireballEntity {
                 Entity entity1 = this.getOwner();
                 int i = entity.getRemainingFireTicks();
                 entity.setSecondsOnFire(5);
-                boolean flag = entity.hurt(new IndirectDamageSource("onFire", this, entity1), KTurrets.FIREBALL_TURRET_DAMAGE.get());
+                boolean flag = entity.hurt(new IndirectDamageSource("k_turrets.fireball", entity, entity1), KTurrets.FIREBALL_TURRET_DAMAGE.get());
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else {

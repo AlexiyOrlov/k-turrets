@@ -85,9 +85,9 @@ public class Arrow2 extends ArrowEntity {
         DamageSource damagesource;
         if (entity1 == null || !entity1.isAlliedTo(entity)) {
             if (entity1 == null) {
-                damagesource = new IndirectDamageSource("arrow", this, this);
+                damagesource = new IndirectDamageSource("k_turrets.arrow", this, this);
             } else {
-                damagesource = new IndirectDamageSource("arrow", this, entity1);
+                damagesource = new IndirectDamageSource("k_turrets.arrow", this, entity1);
                 if (entity1 instanceof LivingEntity) {
                     ((LivingEntity) entity1).setLastHurtMob(entity);
                 }
