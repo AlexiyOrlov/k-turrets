@@ -1,3 +1,7 @@
+0.1.20:
+changed damage id of turret arrow;
+probably fixed turret fireball;
+
 0.1.19:
 fixed projectile acceleration application;
 
