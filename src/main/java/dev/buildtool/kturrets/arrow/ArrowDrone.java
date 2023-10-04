@@ -76,7 +76,6 @@ public class ArrowDrone extends Drone {
                         double d1 = target.getX() - this.getX();
                         double d2 = target.getEyeY() - getEyeY();
                         double d3 = target.getZ() - this.getZ();
-                        arrowEntity.shoot(d1, d2, d3, 1.8F, 0);
                         double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
                         arrowEntity.setBaseDamage(damage);
                         Arrow2 arrow2 = new Arrow2(level, arrowEntity, this, distanceFactor, d1, d2, d3);
