@@ -1,5 +1,6 @@
 2.0.36-1.19:
 changed arrow and fireball damage type ids;
+turret/drone integrity indicator is visible only to their owner and team members;
 
 2.0.35-1.19:
 fixed projectile acceleration application;
