@@ -1,3 +1,6 @@
+0.1.19:
+fixed projectile acceleration application;
+
 0.1.18:
 fixed turret/drone inventory not opening on server;
 
