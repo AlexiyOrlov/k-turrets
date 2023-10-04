@@ -1,8 +1,8 @@
 package dev.buildtool.kturrets.firecharge;
 
+import dev.buildtool.kturrets.IndirectDamageSource;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.SmallFireball;
@@ -40,7 +40,7 @@ class SmallFireball2 extends SmallFireball {
                 Entity entity1 = this.getOwner();
                 int i = entity.getRemainingFireTicks();
                 entity.setSecondsOnFire(5);
-                boolean flag = entity.hurt(DamageSource.fireball(this, entity1), KTurrets.CHARGE_TURRET_DAMAGE.get());
+                boolean flag = entity.hurt(new IndirectDamageSource("k_turrets.fireball", entity, entity1).setIsFire().setProjectile(), KTurrets.CHARGE_TURRET_DAMAGE.get());
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else if (entity1 instanceof LivingEntity) {
