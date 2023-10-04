@@ -1,6 +1,7 @@
 0.1.20:
 changed damage id of turret arrow;
 probably fixed turret fireball;
+turret/drone integrity indicator is visible only to its owner and his team members;
 
 0.1.19:
 fixed projectile acceleration application;
