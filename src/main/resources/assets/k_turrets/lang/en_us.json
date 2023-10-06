@@ -53,7 +53,7 @@
   "k_turrets.exceptions": "Ignored players",
   "k_turrets.player.is.already.in.exceptions": "Player %1$s is already being ignored",
   "k_turrets.guard.area": "Guard area",
-  "k_turrets.no.drones.nearby": "There are no drones in 64 block radius",
+  "k_turrets.no.drones.nearby": "There are no drones in 128 block radius",
   "k_turrets.range": "Detection range",
   "k_turrets.damage": "Damage",
 
