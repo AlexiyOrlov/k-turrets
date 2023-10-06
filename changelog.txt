@@ -1,6 +1,7 @@
 3.0.10:
 turret/drone projectiles have their own damage types;
 turret/drone integrity indicator is visible only to their owner and team members;
+increased drone location indicator distance to 128;
 
 3.0.9:
 fixed acceleration application to projectiles;
