@@ -44,7 +44,7 @@
   "k_turrets.drone.not.yours": "This drone doesn't belong to you",
   "k_turrets.drone.belongs.to": "This drone belongs to",
   "k_turrets.targets": "Targets",
-  "k-turrets.no.drones.nearby": "There are no drones in 64 block radius",
+  "k-turrets.no.drones.nearby": "There are no drones in 128 block radius",
   "k_turrets.range": "Detection range",
   "k_turrets.damage": "Damage",
 

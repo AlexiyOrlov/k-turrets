@@ -54,7 +54,7 @@ public class ClientEvents {
         if (ClientModEvents.highlightDronePositions.isDown()) {
             Minecraft minecraft = Minecraft.getInstance();
             PlayerEntity player = minecraft.player;
-            List<Drone> nearbyDrones = minecraft.level.getEntitiesOfClass(Drone.class, new AxisAlignedBB(player.blockPosition()).inflate(64), drone -> drone.getOwner().isPresent() && drone.getOwner().get().equals(player.getUUID()));
+            List<Drone> nearbyDrones = minecraft.level.getEntitiesOfClass(Drone.class, new AxisAlignedBB(player.blockPosition()).inflate(128), drone -> drone.getOwner().isPresent() && drone.getOwner().get().equals(player.getUUID()));
             if (!nearbyDrones.isEmpty()) {
                 noDronesNearby = false;
                 IRenderTypeBuffer bufferSource = minecraft.renderBuffers().bufferSource();
