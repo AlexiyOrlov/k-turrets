@@ -25,15 +25,19 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -68,7 +72,7 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue SHOW_INTEGRITY;
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     public static ConfiguredFeature<?, ?> CONFIGURED_TITANIUM_ORE;
-    static boolean neatIsPresent;
+    public static ForgeConfigSpec.IntValue TITANIUM_ORE_FREQUENCY;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
@@ -77,7 +81,6 @@ public class KTurrets {
         KContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
-        neatIsPresent = LoadingModList.get().getModFileById("neat") != null;
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
@@ -261,9 +264,24 @@ public class KTurrets {
     }
 
     public void commonSetup(FMLCommonSetupEvent setupEvent) {
-        System.out.println("Common setup");
+        Properties properties = new Properties();
+        int oreFrequency = 0;
+        try {
+            Path path = Paths.get("config", "k_turrets.properties");
+            if (Files.notExists(path)) {
+                properties.put("Titanium-ore-frequency", "5");
+                properties.store(Files.newBufferedWriter(path, StandardCharsets.UTF_8), "");
+            }
+            properties.load(Files.newInputStream(path));
+            String oreFrequencyStr = (String) properties.get("Titanium-ore-frequency");
+            oreFrequency = Integer.parseInt(oreFrequencyStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int oreFrequency2 = oreFrequency;
         setupEvent.enqueueWork(() -> {
-            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), 11)).range(256).squared().count(26);
+            //number in ore feature config is general frequency
+            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), oreFrequency2)).range(256).squared();
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(KTurrets.ID, "titanium_ore"), CONFIGURED_TITANIUM_ORE);
         });
     }
