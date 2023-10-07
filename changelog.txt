@@ -2,6 +2,8 @@
 changed damage id of turret arrow;
 probably fixed turret fireball;
 turret/drone integrity indicator is visible only to its owner and his team members;
+made titanium ore occurrence smaller and configurable;
+increased drone location highlight distance to 128;
 
 0.1.19:
 fixed projectile acceleration application;
