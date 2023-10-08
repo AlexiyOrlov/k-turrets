@@ -1,6 +1,7 @@
 1.1.21-1.18.2:
 changed ids of turret arrow and fireball damage types;
 turret/drone integrity indicator is visible only to its owner and team members;
+decreased ore amount and made it configurable;
 
 1.1.20-1.18.2:
 fixed projectile acceleration application;
