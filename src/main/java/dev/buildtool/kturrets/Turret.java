@@ -352,7 +352,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     @Override
     public boolean isAlliedTo(Entity target) {
-        return super.isAlliedTo(target) || (getOwner().isPresent() && (target.getUUID().equals(getOwner().get())) || target instanceof Turret turret && turret.getOwner().isPresent() && turret.getOwner().equals(getOwner())) || target instanceof Ownable ownable && ownable.isAlly(this);
+        return super.isAlliedTo(target) || (getOwner().isPresent() && (target.getUUID().equals(getOwner().get())) || target instanceof Turret turret && turret.getOwner().isPresent() && turret.getOwner().equals(getOwner()));
     }
 
     @Override
