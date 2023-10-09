@@ -63,6 +63,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
         discard();
     }
 
+    //fixme doesn't hit player when has no owner
     @Override
     protected boolean canHitEntity(Entity target) {
         Entity owner = getOwner();
