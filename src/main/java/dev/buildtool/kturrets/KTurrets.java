@@ -269,7 +269,7 @@ public class KTurrets {
         try {
             Path path = Paths.get("config", "k_turrets.properties");
             if (Files.notExists(path)) {
-                properties.put("Titanium-ore-frequency", "5");
+                properties.put("Titanium-ore-frequency", "9");
                 properties.store(Files.newBufferedWriter(path, StandardCharsets.UTF_8), "");
             }
             properties.load(Files.newInputStream(path));
