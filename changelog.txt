@@ -1,3 +1,6 @@
+3.0.12:
+fixed turret/drone inventory not opening on first time after redeploying it;
+
 3.0.11:
 increased ore frequency;
 

@@ -45,8 +45,8 @@ public class ContainerItem extends ForgeSpawnEggItem {
 
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
-        if (!(level instanceof ServerLevel)) {
-            return InteractionResult.SUCCESS;
+        if (level.isClientSide) {
+            return InteractionResult.FAIL;
         } else {
 
             if (FMLEnvironment.dist.isDedicatedServer()) {
@@ -87,7 +87,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
                 //the difference
                 if (itemstack.hasTag()) {
                     entity.deserializeNBT(itemstack.getTag().getCompound("Contained"));
-                    entity.setPosRaw(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
+                    entity.absMoveTo(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
                 }
                 itemstack.shrink(1);
             }
