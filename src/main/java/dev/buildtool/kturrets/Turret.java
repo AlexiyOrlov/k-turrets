@@ -197,13 +197,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
-            if (level().isClientSide && playerEntity.isShiftKeyDown()) {
-                openTargetScreen();
-                return InteractionResult.PASS;
-            } else if (!level().isClientSide && !playerEntity.isShiftKeyDown()) {
-                NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
-                return InteractionResult.PASS;
+            if (playerEntity.isShiftKeyDown()) {
+                if (level().isClientSide)
+                    openTargetScreen();
+            } else {
+                if (!level().isClientSide)
+                    NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
             }
+            return InteractionResult.SUCCESS;
         } else if (level().isClientSide) {
             if (this instanceof Drone) {
                 if (getOwnerName().isEmpty())
