@@ -1,6 +1,7 @@
 3.0.12:
 fixed turret/drone inventory not opening on first time after redeploying it;
 fixed projectiles not hitting 'friendly' mobs if it is a target of turret or drone;
+fixed item right-click triggering when opening turret option screen;
 
 3.0.11:
 increased ore frequency;
