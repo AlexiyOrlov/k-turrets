@@ -2,7 +2,8 @@
   "feature": "k_turrets:deepslate_titanium_ore",
   "placement": [
     {
-      "type": "minecraft:in_square"
+      "type": "minecraft:in_square",
+      "count": 26
     },
     {
       "type": "minecraft:height_range",
