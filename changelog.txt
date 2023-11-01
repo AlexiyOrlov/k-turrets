@@ -1,3 +1,7 @@
+1.1.22-1.18.2:
+moved titanium frequency option to config;
+fixed owner getting hit by turret/drone projectiles;
+
 1.1.21-1.18.2:
 changed ids of turret arrow and fireball damage types;
 turret/drone integrity indicator is visible only to its owner and team members;
