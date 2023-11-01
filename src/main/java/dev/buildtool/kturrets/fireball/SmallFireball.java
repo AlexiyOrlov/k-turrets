@@ -5,6 +5,7 @@ import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.SmallFireballEntity;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -24,12 +25,20 @@ public class SmallFireball extends SmallFireballEntity {
     @Override
     protected boolean canHitEntity(Entity target) {
         Entity owner = getOwner();
-        if (turret != null && target.getType().getCategory().isFriendly() && turret.decodeTargets(turret.getTargets()).contains(target.getType()))
-            return super.canHitEntity(target);
+        if (turret != null) {
+            if (target instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) target;
+                if (turret.getOwner().isPresent() && player.getUUID().equals(turret.getOwner().get()))
+                    return false;
+            }
+            if (target.getType().getCategory().isFriendly() && (Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || target == turret.getTarget()))
+                return super.canHitEntity(target);
+        }
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
         } else
-            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
+            return Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
+        return true;
     }
 
     @Override
