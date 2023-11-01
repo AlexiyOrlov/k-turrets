@@ -31,13 +31,8 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -86,6 +81,7 @@ public class KTurrets {
             builder.push("Common");
             PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
             TARGET_EXCEPTIONS = builder.comment("List of mob ids to be excluded from default targets").defineList("Target list exceptions", Collections.singletonList("minecraft:zombified_piglin"), o -> o instanceof String && ((String) o).contains(":"));
+            TITANIUM_ORE_FREQUENCY = builder.defineInRange("Titanium ore frequency", 9, 1, 15);
             builder.pop();
             builder.push("Turret stats");
             builder.push("Arrow turret");
@@ -264,24 +260,9 @@ public class KTurrets {
     }
 
     public void commonSetup(FMLCommonSetupEvent setupEvent) {
-        Properties properties = new Properties();
-        int oreFrequency = 0;
-        try {
-            Path path = Paths.get("config", "k_turrets.properties");
-            if (Files.notExists(path)) {
-                properties.put("Titanium-ore-frequency", "9");
-                properties.store(Files.newBufferedWriter(path, StandardCharsets.UTF_8), "");
-            }
-            properties.load(Files.newInputStream(path));
-            String oreFrequencyStr = (String) properties.get("Titanium-ore-frequency");
-            oreFrequency = Integer.parseInt(oreFrequencyStr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        int oreFrequency2 = oreFrequency;
         setupEvent.enqueueWork(() -> {
             //number in ore feature config is general frequency
-            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), oreFrequency2)).range(256).squared();
+            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), TITANIUM_ORE_FREQUENCY.get())).range(256).squared();
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(KTurrets.ID, "titanium_ore"), CONFIGURED_TITANIUM_ORE);
         });
     }
