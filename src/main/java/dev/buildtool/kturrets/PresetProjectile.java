@@ -15,6 +15,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -63,11 +64,12 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
         discard();
     }
 
-    //fixme doesn't hit player when has no owner
     @Override
     protected boolean canHitEntity(Entity target) {
         Entity owner = getOwner();
         if (turret != null) {
+            if (target instanceof Player player && player.getUUID().equals(turret.getOwnerUUID()))
+                return false;
             if (target.getType().getCategory().isFriendly() && (Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || target == turret.getTarget()))
                 return super.canHitEntity(target);
         }
