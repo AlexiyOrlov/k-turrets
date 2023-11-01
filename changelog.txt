@@ -1,3 +1,6 @@
+3.0.14:
+fixed owner getting hit by projectiles;
+
 3.0.13:
 fixed titanium ore not generating;
 
