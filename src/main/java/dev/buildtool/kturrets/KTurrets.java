@@ -25,13 +25,8 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -65,6 +60,7 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SHOW_INTEGRITY;
+    public static ForgeConfigSpec.IntValue TITANIUM_FREQUENCY;
     public static int ORE_AMOUNT;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -73,26 +69,12 @@ public class KTurrets {
         TContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
-        Properties properties = new Properties();
-        try {
-            Path path = Paths.get("config", "k_turrets.properties");
-            if (Files.notExists(path)) {
-                properties.put("Titanium-ore-frequency", "5");
-                properties.store(Files.newBufferedWriter(path, StandardCharsets.UTF_8), "");
-            }
-            properties.load(Files.newInputStream(path));
-            String oreFrequencyStr = (String) properties.get("Titanium-ore-frequency");
-            ORE_AMOUNT = Integer.parseInt(oreFrequencyStr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        WorldGeneration.CONFIGURED_FEATURE_REGISTER.register(eventBus);
-        WorldGeneration.PLACED_FEATURE_REGISTER.register(eventBus);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> configPair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
             PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
             TARGET_EXCEPTIONS = builder.comment("List of mob ids to be excluded from default targets").defineList("Target list exceptions", Collections.singletonList("minecraft:zombified_piglin"), o -> o instanceof String && ((String) o).contains(":"));
+            TITANIUM_FREQUENCY = builder.defineInRange("Titanium ore frequency", 9, 1, 15);
             builder.pop();
 
             builder.push("Turret stats");
@@ -145,6 +127,10 @@ public class KTurrets {
         });
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, configPair.getRight());
         loadConfig(configPair.getRight(), FMLPaths.CONFIGDIR.get().resolve("k_turrets-common.toml").toString());
+
+
+        WorldGeneration.CONFIGURED_FEATURE_REGISTER.register(eventBus);
+        WorldGeneration.PLACED_FEATURE_REGISTER.register(eventBus);
 
         channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(ID, "network"), () -> NP, NP::equals, NP::equals);
         int packetIndex = 0;
