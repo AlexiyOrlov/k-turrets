@@ -34,7 +34,7 @@ class SmallFireball2 extends SmallFireball {
             return super.canHitEntity(target);
         } else
             return Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-        return true;
+        return target != owner;
     }
 
     @Override

@@ -75,7 +75,7 @@ public class Arrow2 extends Arrow {
             return super.canHitEntity(target);
         } else
             return Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-        return true;
+        return target != owner;
     }
 
     protected void onHitEntity(EntityHitResult p_36757_) {
