@@ -77,7 +77,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
             return super.canHitEntity(target);
         } else
             return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-        return false;
+        return target != owner;
     }
 
     @Override
