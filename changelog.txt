@@ -1,3 +1,6 @@
+3.0.15:
+fixed dropdown button not hiding when target suggestion list is viewed;
+
 3.0.14:
 fixed owner getting hit by projectiles;
 
