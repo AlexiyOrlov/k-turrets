@@ -9,7 +9,6 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.player.Inventory;
@@ -63,7 +62,7 @@ public class BulletDrone extends Drone {
                     double d2 = livingEntity.getZ() - this.getZ();
                     Bullet bullet = new Bullet(this, d0, d1, d2, level(), item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
                     level().addFreshEntity(bullet);
-                    level().playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
+                    playSound(Sounds.BULLET_FIRE.get(), 1, 1);
                     item.shrink(1);
                     break;
                 }
