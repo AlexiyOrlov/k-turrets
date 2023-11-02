@@ -47,6 +47,8 @@ public class TurretOptionsScreen extends Screen2 {
     private BetterButton protectionFromPlayers;
     private BetterButton claimTurret;
 
+    private DropDownButton dropDownButton;
+
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
         this.turret = turret;
@@ -131,7 +133,7 @@ public class TurretOptionsScreen extends Screen2 {
                 minecraft.player.closeContainer();
             }));
         else if (turret instanceof Drone drone) {
-            DropDownButton dropDownButton = new DropDownButton(centerX, 120, this, Component.literal(""));
+            dropDownButton = new DropDownButton(centerX, 120, this, Component.literal(""));
             LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
             RadioButton follow = new RadioButton(centerX, 140, Component.translatable("k_turrets.following.owner"));
             linkedHashMap.put(follow.getMessage(), p_93751_ -> {
@@ -289,6 +291,7 @@ public class TurretOptionsScreen extends Screen2 {
                     this.mobilitySwitch.setHidden(true);
                     this.protectionFromPlayers.setHidden(true);
                     this.resetList.setHidden(true);
+                    dropDownButton.setHidden(true);
                 } else {
                     showButtonsAndHints();
                 }
@@ -308,5 +311,6 @@ public class TurretOptionsScreen extends Screen2 {
         this.mobilitySwitch.setHidden(false);
         this.protectionFromPlayers.setHidden(false);
         this.resetList.setHidden(false);
+        dropDownButton.setHidden(false);
     }
 }
