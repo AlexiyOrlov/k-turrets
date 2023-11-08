@@ -291,7 +291,8 @@ public class TurretOptionsScreen extends Screen2 {
                     this.mobilitySwitch.setHidden(true);
                     this.protectionFromPlayers.setHidden(true);
                     this.resetList.setHidden(true);
-                    dropDownButton.setHidden(true);
+                    if (dropDownButton != null)
+                        dropDownButton.setHidden(true);
                 } else {
                     showButtonsAndHints();
                 }
@@ -311,6 +312,7 @@ public class TurretOptionsScreen extends Screen2 {
         this.mobilitySwitch.setHidden(false);
         this.protectionFromPlayers.setHidden(false);
         this.resetList.setHidden(false);
-        dropDownButton.setHidden(false);
+        if (dropDownButton != null)
+            dropDownButton.setHidden(false);
     }
 }
