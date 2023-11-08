@@ -1,7 +1,5 @@
 3.0.17:
 fixed crash;
-
-3.0.16:
 fixed dropdown button not hiding when target suggestion list is viewed;
 fixed projectile hit algorithm;
 
