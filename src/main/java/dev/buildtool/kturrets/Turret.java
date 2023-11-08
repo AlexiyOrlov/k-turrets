@@ -77,7 +77,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     public static AttributeSupplier.Builder createDefaultAttributes() {
-        return createLivingAttributes().add(Attributes.FLYING_SPEED, 0.2).add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
+        return createLivingAttributes().add(Attributes.FLYING_SPEED, 0.27).add(Attributes.FOLLOW_RANGE, 32).add(Attributes.MOVEMENT_SPEED, 0).add(Attributes.MAX_HEALTH, 60).add(Attributes.ATTACK_DAMAGE, 4).add(Attributes.ARMOR, 3);
     }
 
     @SuppressWarnings("unchecked")
