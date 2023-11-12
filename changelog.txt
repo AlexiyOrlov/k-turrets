@@ -1,3 +1,8 @@
+2.0.38-1.19:
+fixed dropdown button not hiding when target suggestion list is viewed;
+fixed projectile hit algorithm;
+increased drone flight speed;
+
 2.0.37-1.19:
 moved titanium frequency option to config;
 increased titanium frequency to 9;
