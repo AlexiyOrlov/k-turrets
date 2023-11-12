@@ -106,13 +106,14 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
         if (turret != null) {
             if (target instanceof Player player && player.getUUID().equals(turret.getOwnerUUID()))
                 return false;
-            if (target.getType().getCategory().isFriendly() && (Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || target == turret.getTarget()))
-                return super.canHitEntity(target);
+            if (target.getType().getCategory().isFriendly()) {
+                return target == turret.getTarget();
+            }
         }
         else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
             return super.canHitEntity(target);
         } else
             return Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-        return true;
+        return target != owner;
     }
 }
