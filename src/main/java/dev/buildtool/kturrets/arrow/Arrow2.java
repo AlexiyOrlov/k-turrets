@@ -143,22 +143,31 @@ public class Arrow2 extends ArrowEntity {
 
     @Override
     protected boolean canHitEntity(Entity target) {
-        Entity owner = getOwner();
-        if (turret != null) {
+        Turret owner = (Turret) getOwner();
+        if (owner != null) {
             if (target instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) target;
-                if (turret.getOwner().isPresent() && player.getUUID().equals(turret.getOwner().get()))
+                if (owner.getOwner().isPresent() && player.getUUID().equals(owner.getOwner().get()))
                     return false;
+                return !target.isAlliedTo(owner);
+            }
+            if (target instanceof Turret) {
+                Turret turret = (Turret) target;
+                if (owner.getOwner().isPresent()) {
+                    if (turret.getOwner().isPresent()) {
+                        return !owner.getOwner().get().equals(turret.getOwner().get());
+                    } else
+                        return true;
+                }
+                return true;
             }
             if (target.getType().getCategory().isFriendly()) {
-                return target == turret.getTarget();
+                return target == owner.getTarget();
+            } else {
+                return Turret.decodeTargets(owner.getTargets()).contains(target.getType());
             }
         }
-        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
-            return super.canHitEntity(target);
-        } else
-            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-        return target != owner;
+        return false;
     }
 
     @Override

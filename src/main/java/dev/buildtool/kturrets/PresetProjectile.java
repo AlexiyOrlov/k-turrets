@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public abstract class PresetProjectile extends DamagingProjectileEntity {
-    private Turret turret;
     protected static double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
     protected static final DataParameter<Integer> DAMAGE = EntityDataManager.defineId(PresetProjectile.class, DataSerializers.INT);
 
@@ -32,7 +31,6 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
     public PresetProjectile(EntityType<? extends DamagingProjectileEntity> p_i50175_1_, LivingEntity shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, World world) {
         super(p_i50175_1_, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
         setPos(shooter.getX(), shooter.getEyeY(), shooter.getZ());
-        turret = (Turret) shooter;
         xPower *= MOVEMENT_MULTIPLIER;
         yPower *= MOVEMENT_MULTIPLIER;
         zPower *= MOVEMENT_MULTIPLIER;
@@ -102,21 +100,30 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
 
     @Override
     protected boolean canHitEntity(Entity target) {
-        Entity owner = getOwner();
-        if (turret != null) {
+        Turret owner = (Turret) getOwner();
+        if (owner != null) {
             if (target instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) target;
-                if (turret.getOwner().isPresent() && player.getUUID().equals(turret.getOwner().get()))
+                if (owner.getOwner().isPresent() && player.getUUID().equals(owner.getOwner().get()))
                     return false;
+                return !target.isAlliedTo(owner);
+            }
+            if (target instanceof Turret) {
+                Turret turret = (Turret) target;
+                if (owner.getOwner().isPresent()) {
+                    if (turret.getOwner().isPresent()) {
+                        return !owner.getOwner().get().equals(turret.getOwner().get());
+                    } else
+                        return true;
+                }
+                return true;
             }
             if (target.getType().getCategory().isFriendly()) {
-                return target == turret.getTarget();
+                return target == owner.getTarget();
+            } else {
+                return Turret.decodeTargets(owner.getTargets()).contains(target.getType());
             }
         }
-        else if (owner == null || !owner.isAlliedTo(target) && !target.getType().getCategory().isFriendly()) {
-            return super.canHitEntity(target);
-        } else
-            return turret == null || Turret.decodeTargets(turret.getTargets()).contains(target.getType()) || !target.getType().getCategory().isFriendly();
-        return target != owner;
+        return false;
     }
 }
