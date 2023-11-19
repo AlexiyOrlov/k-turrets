@@ -262,7 +262,7 @@ public class KTurrets {
     public void commonSetup(FMLCommonSetupEvent setupEvent) {
         setupEvent.enqueueWork(() -> {
             //number in ore feature config is general frequency
-            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), TITANIUM_ORE_FREQUENCY.get())).range(256).squared();
+            CONFIGURED_TITANIUM_ORE = Feature.ORE.configured(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, KBlocks.TITANIUM_ORE.get().defaultBlockState(), TITANIUM_ORE_FREQUENCY.get())).range(256).squared().count(20);
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(KTurrets.ID, "titanium_ore"), CONFIGURED_TITANIUM_ORE);
         });
     }
