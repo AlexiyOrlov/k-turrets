@@ -1,6 +1,7 @@
 0.1.24:
 fixed projectile targeting rules and crash;
 fixed titanium ore item being dysfunctional;
+fixed titanium ore barely generating;
 
 0.1.23:
 fixed projectile hit algorithm;
