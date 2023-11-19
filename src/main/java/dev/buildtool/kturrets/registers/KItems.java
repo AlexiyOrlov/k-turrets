@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.ContainerItem;
 import dev.buildtool.kturrets.KTurrets;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -47,7 +48,7 @@ public class KItems {
         BRICK_DRONE = ITEMS.register("brick_drone_item", () -> new ContainerItem(() -> KEntities.BRICK_DRONE, 0, 0, defaults()));
         FIREBALL_DRONE = ITEMS.register("fireball_drone_item", () -> new ContainerItem(() -> KEntities.FIRECHARGE_DRONE, 0, 0, defaults()));
         GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(() -> KEntities.GAUSS_DRONE, 0, 0, defaults()));
-        ITEMS.register("titanium_ore", () -> new Item(defaults()));
+        ITEMS.register("titanium_ore", () -> new BlockItem(KBlocks.TITANIUM_ORE.get(), defaults()));
         ITEMS.register("raw_titanium", () -> new Item(defaults()));
     }
 
