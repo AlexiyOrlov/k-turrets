@@ -1,3 +1,6 @@
+3.0.19:
+increased target input field limit;
+
 3.0.18:
 fixed crash and projectile hit rules;
 
