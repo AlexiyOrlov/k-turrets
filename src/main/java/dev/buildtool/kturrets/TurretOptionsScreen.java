@@ -61,7 +61,8 @@ public class TurretOptionsScreen extends Screen2 {
         exceptions = turret.getExceptions();
         tempExceptionStatus = new HashMap<>(1);
         exceptions.forEach(s -> tempExceptionStatus.put(s, true));
-        addEntityField = addRenderableWidget(new TextField(centerX, 3, 100));
+        addEntityField = addRenderableWidget(new TextField(centerX, 3, 180));
+        addEntityField.setMaxLength(64);
         suggestions = new ArrayList<>(12);
         addTarget = addRenderableWidget(new BetterButton(centerX, 20, new TranslatableComponent("k_turrets.add.entity.type"), p_onPress_1_ -> {
             String s = addEntityField.getValue();
