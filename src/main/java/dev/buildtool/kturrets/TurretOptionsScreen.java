@@ -64,6 +64,7 @@ public class TurretOptionsScreen extends Screen2 {
         exceptions.forEach(s -> tempExceptionStatus.put(s, true));
         suggestions = new ArrayList<>(12);
         addEntityField = addRenderableWidget(new TextField(centerX, 3, 180));
+        addEntityField.setMaxLength(64);
         addRenderableWidget(addTarget = new BetterButton(centerX, 20, Component.translatable("k_turrets.add.entity.type"), p_onPress_1_ -> {
             String s = addEntityField.getValue();
             if (s.startsWith("!")) {
