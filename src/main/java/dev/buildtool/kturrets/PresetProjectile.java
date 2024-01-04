@@ -100,8 +100,9 @@ public abstract class PresetProjectile extends DamagingProjectileEntity {
 
     @Override
     protected boolean canHitEntity(Entity target) {
-        Turret owner = (Turret) getOwner();
-        if (owner != null) {
+        Entity entity = getOwner();
+        if (entity instanceof Turret) {
+            Turret owner = (Turret) entity;
             if (target instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) target;
                 if (owner.getOwner().isPresent() && player.getUUID().equals(owner.getOwner().get()))
