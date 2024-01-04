@@ -12,10 +12,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 class SmallFireball2 extends SmallFireball {
-    private final Turret turret;
     public SmallFireball2(Turret shooter, double d0, double d1, double d2) {
         super(shooter.level(), shooter, d0, d1, d2);
-        this.turret = shooter;
         xPower *= KTurrets.PROJECTILE_SPEED.get();
         yPower *= KTurrets.PROJECTILE_SPEED.get();
         zPower *= KTurrets.PROJECTILE_SPEED.get();
@@ -23,8 +21,8 @@ class SmallFireball2 extends SmallFireball {
 
     @Override
     protected boolean canHitEntity(Entity target) {
-        Turret owner = (Turret) getOwner();
-        if (owner != null) {
+        Entity entity = getOwner();
+        if (entity instanceof Turret owner) {
             if (target instanceof Player player) {
                 if (owner.getOwner().isPresent() && player.getUUID().equals(owner.getOwner().get()))
                     return false;
