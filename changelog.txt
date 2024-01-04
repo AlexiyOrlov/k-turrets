@@ -1,3 +1,7 @@
+3.0.20:
+fixed crash;
+fixed titanium generation;
+
 3.0.19:
 increased target input field limit;
 
