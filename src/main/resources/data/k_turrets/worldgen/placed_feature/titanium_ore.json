@@ -2,8 +2,11 @@
   "feature": "k_turrets:titanium_ore",
   "placement": [
     {
-      "type": "minecraft:in_square",
+      "type": "minecraft:count",
       "count": 26
+    },
+    {
+      "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:height_range",
