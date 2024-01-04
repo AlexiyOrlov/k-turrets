@@ -51,6 +51,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void renderDroneLocations(RenderWorldLastEvent renderLevelStageEvent) {
+        //texture artifacts can't be fixed because this event doesn't have stages in this version
         if (ClientModEvents.highlightDronePositions.isDown()) {
             Minecraft minecraft = Minecraft.getInstance();
             PlayerEntity player = minecraft.player;
