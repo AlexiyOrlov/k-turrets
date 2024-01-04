@@ -43,8 +43,8 @@ class SmallFireball2 extends SmallFireball {
 
     @Override
     protected boolean canHitEntity(Entity target) {
-        Turret owner = (Turret) getOwner();
-        if (owner != null) {
+        Entity entity = getOwner();
+        if (entity instanceof Turret owner) {
             if (target instanceof Player player) {
                 if (owner.getOwner().isPresent() && player.getUUID().equals(owner.getOwner().get()))
                     return false;
