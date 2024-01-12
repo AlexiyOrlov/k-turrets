@@ -188,7 +188,7 @@ public class TurretOptionsScreen extends Screen2 {
             }
         }
 
-        Label label = addRenderableWidget(new Label(3, exceptionButtons.size() > 0 ? exceptionButtons.get(exceptionButtons.size() - 1).getY() + exceptionButtons.get(exceptionButtons.size() - 1).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
+        Label label = addRenderableWidget(new Label(3, !exceptionButtons.isEmpty() ? exceptionButtons.get(exceptionButtons.size() - 1).getY() + exceptionButtons.get(exceptionButtons.size() - 1).getHeight() + 20 : 3, Component.translatable("k_turrets.targets")));
         label.setScrollable(true, true);
         guiEventListeners.add(label);
         targetButtons = new ArrayList<>(targets.size());
