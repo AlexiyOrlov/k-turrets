@@ -144,6 +144,7 @@ public class TurretOptionsScreen extends Screen2 {
             }));
         List<AbstractButton> guiEventListeners = new ArrayList<>();
         List<SwitchButton> exceptionButtons = new ArrayList<>(19);
+        targetButtons = new ArrayList<>(targets.size());
         if (!exceptions.isEmpty()) {
             Label label = new Label(3, !targetButtons.isEmpty() ? targetButtons.get(targetButtons.size() - 1).getY() + targetButtons.get(targetButtons.size() - 1).getHeight() : 20, new TranslationTextComponent("k_turrets.exceptions").append(":"));
             addButton(label);
@@ -168,7 +169,6 @@ public class TurretOptionsScreen extends Screen2 {
         Label label = addButton(new Label(3, !exceptionButtons.isEmpty() ? exceptionButtons.get(exceptionButtons.size() - 1).getY() + exceptionButtons.get(exceptionButtons.size() - 1).getHeight() + 20 : 3, new TranslationTextComponent("k_turrets.targets")));
         label.setScrollable(true, true);
         guiEventListeners.add(label);
-        targetButtons = new ArrayList<>(targets.size());
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITIES.getKey(o).toString()));
         for (int i = 0; i < targets.size(); i++) {
             EntityType<?> entityType = targets.get(i);
