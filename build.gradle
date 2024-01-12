@@ -90,7 +90,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
-    implementation fg.deobf('dev.buildtool:satako:4.2.20-1.16.5');
+    implementation fg.deobf('dev.buildtool:satako:4.2.20-1.16.5')
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
