@@ -168,7 +168,7 @@ public class TurretOptionsScreen extends Screen2 {
         }
         List<GuiEventListener> guiEventListeners = new ArrayList<>();
         List<SwitchButton> exceptionButtons = new ArrayList<>(19);
-        if (exceptions.size() > 0) {
+        if (!exceptions.isEmpty()) {
             Label label = new Label(3, 3, Component.translatable("k_turrets.exceptions").append(":"));
             addRenderableWidget(label);
             label.setScrollable(true, true);
