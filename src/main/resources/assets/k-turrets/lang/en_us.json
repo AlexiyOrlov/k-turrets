@@ -49,6 +49,9 @@
   "k-turrets.no.drones.nearby": "There are no drones in 128 block radius",
   "k_turrets.range": "Detection range",
   "k_turrets.damage": "Damage",
+  "k_turrets.exceptions": "Exceptions",
+  "k_turrets.added.player.to.exceptions": "Added player to exceptions",
+  "k_turrets.player.is.already.in.exceptions": "Player is already in exceptions",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
