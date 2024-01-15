@@ -51,5 +51,6 @@ public class KContainers {
         CONTAINERS.register("fire_charge_drone", () -> FIRECHARGE_DRONE);
         CONTAINERS.register("brick_drone", () -> BRICK_DRONE);
         CONTAINERS.register("gauss_drone", () -> GAUSS_DRONE);
+        CONTAINERS.register("cobble_drone", () -> COBBLE_DRONE);
     }
 }
