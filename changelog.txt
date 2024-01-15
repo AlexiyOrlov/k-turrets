@@ -1,3 +1,7 @@
+0.1.28:
+added Chinese translation;
+fixed cobble drone container not opening;
+
 0.1.27:
 fixed crash when opening turret UI;
 
