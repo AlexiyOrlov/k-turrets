@@ -1,3 +1,6 @@
+2.0.42:
+fixed turrets/drones attacking other players when player targeting is off;
+
 2.0.41-1.19:
 fixed crash;
 
