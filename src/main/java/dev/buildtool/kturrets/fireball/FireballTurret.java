@@ -43,8 +43,11 @@ public class FireballTurret extends Turret {
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
-                    if (isProtectingFromPlayers() && livingEntity instanceof Player)
-                        return alienPlayers.test((LivingEntity) livingEntity);
+                    if (livingEntity instanceof Player player) {
+                        if (isProtectingFromPlayers())
+                            return alienPlayers.test(player);
+                        else return false;
+                    }
                     if (livingEntity instanceof LivingEntity entity) {
                         return !entity.fireImmune() && decodeTargets(getTargets()).contains(entity.getType());
                     }
