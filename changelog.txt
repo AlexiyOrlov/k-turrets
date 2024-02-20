@@ -1,3 +1,6 @@
+3.0.21:
+fixed turrets/drones attacking other players when player targeting is off;
+
 3.0.20:
 fixed crash;
 fixed titanium generation;
