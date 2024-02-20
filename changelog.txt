@@ -1,3 +1,6 @@
+1.1.27-1.18.2:
+fixed turrets/drones attacking players when player targeting is off;
+
 1.1.26-1.18.2:
 fixed crash;
 
