@@ -1,3 +1,6 @@
+0.1.29:
+fixed turrets/drones attacking players when player targeting is off;
+
 0.1.28:
 added Chinese translation;
 fixed cobble drone container not opening;
