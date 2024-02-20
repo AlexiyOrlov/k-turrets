@@ -53,13 +53,16 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
      */
     public Predicate<LivingEntity> alienPlayers = livingEntity -> {
         if (getOwner().isPresent()) {
-            CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
-            for (String key : compoundTag.getAllKeys()) {
-                if (compoundTag.getString(key).equals(livingEntity.getName().getString())) {
-                    return false;
+            if (livingEntity instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) livingEntity;
+                CompoundNBT compoundTag = entityData.get(IGNORED_PLAYERS);
+                for (String key : compoundTag.getAllKeys()) {
+                    if (compoundTag.getString(key).equals(player.getName().getString())) {
+                        return false;
+                    }
                 }
+                return !player.getUUID().equals(getOwner().get()) && !isAlliedTo(player);
             }
-            return livingEntity instanceof PlayerEntity && !livingEntity.getUUID().equals(getOwner().get()) && !isAlliedTo(livingEntity);
         }
         return false;
     };
