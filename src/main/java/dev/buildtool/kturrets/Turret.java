@@ -208,7 +208,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
         } else if (level.isClientSide) {
             if (this instanceof Drone) {
-                if (getOwnerName().isEmpty())
+                if (!getOwnerName().isEmpty())
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
             }
         }
