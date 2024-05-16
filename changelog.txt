@@ -1,3 +1,6 @@
+2.0.44:
+turrets and drones can now be set to refill ammo from adjacent inventory;
+
 2.0.43:
 fixed message about owner not appearing;
 
