@@ -79,6 +79,9 @@ repositories {
     maven {
         url 'https://mymavenrepo.com/repo/XXNTQu0VdMr93BjoOV1S/'
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
