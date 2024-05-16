@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.tasks.RevengeTask;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
 import dev.buildtool.satako.UniqueList;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -56,6 +58,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<CompoundTag> IGNORED_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
+    private static final EntityDataAccessor<Boolean> REFILL_INVENTORY = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     /**
      * Players that are not allied to the owner
      */
@@ -101,6 +104,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(TEAM, "");
         entityData.define(OWNER_NAME, "");
         entityData.define(IGNORED_PLAYERS, new CompoundTag());
+        entityData.define(REFILL_INVENTORY, false);
     }
 
     public String getAutomaticTeam() {
@@ -143,6 +147,13 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return entityData.get(PROTECTION_FROM_PLAYERS);
     }
 
+    public void setRefillInventory(boolean b) {
+        entityData.set(REFILL_INVENTORY, b);
+    }
+
+    public boolean isRefillingInventory() {
+        return entityData.get(REFILL_INVENTORY);
+    }
 
     @Override
     protected void registerGoals() {
@@ -235,6 +246,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.putString("Team", getAutomaticTeam());
         compoundNBT.putString("Owner name", getOwnerName());
         compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
+        compoundNBT.putBoolean("Refill inventory", isRefillingInventory());
     }
 
     @Override
@@ -255,6 +267,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         CompoundTag exceptions = compoundNBT.getCompound("Exceptions");
         entityData.set(IGNORED_PLAYERS, exceptions);
         setTeamAutomatically(compoundNBT.getString("Team"));
+        setRefillInventory(compoundNBT.getBoolean("Refill inventory"));
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
@@ -491,5 +504,32 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     @Override
     public boolean isInWall() {
         return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level.isClientSide) {
+            if (isRefillingInventory()) {
+                for (Direction direction : Direction.values()) {
+                    BlockEntity sideEntity = level.getBlockEntity(blockPosition().relative(direction));
+                    if (sideEntity != null && sideEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
+                        sideEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
+                            for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                                ItemStack tryStack = iItemHandler.extractItem(i, 1, true);
+                                if (canPlaceItem(0, tryStack)) {
+                                    ItemHandler itemHandler = getContainedItems().get(0);
+                                    if (Functions.tryInsertItem(itemHandler, tryStack)) {
+                                        iItemHandler.extractItem(i, 1, false);
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

@@ -47,6 +47,7 @@ public class TurretOptionsScreen extends Screen2 {
     private BetterButton protectionFromPlayers;
     private BetterButton claimTurret;
     private DropDownButton dropDownButton;
+    private BetterButton inventoryRefillSwitch;
 
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
@@ -126,8 +127,15 @@ public class TurretOptionsScreen extends Screen2 {
             if (p_onPress_1_ instanceof SwitchButton)
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
         }));
+        addRenderableWidget(inventoryRefillSwitch = new SwitchButton(centerX, 120, Component.translatable("k_turrets.refill.inventory"), Component.translatable("k_turrets.dont.refill.inventory"), turret.isRefillingInventory(), button -> {
+            KTurrets.channel.sendToServer(new SetRefillInventory(!turret.isRefillingInventory(), turret.getId()));
+            turret.setRefillInventory(!turret.isRefillingInventory());
+            if (button instanceof SwitchButton switchButton) {
+                switchButton.state = !switchButton.state;
+            }
+        }));
         if (!turret.getOwner().isPresent())
-            addRenderableWidget(claimTurret = new BetterButton(centerX, 120, Component.translatable(turret instanceof Drone ? "k_turrets.claim.drone" : "k_turrets.claim.turret"), p_onPress_1_ -> {
+            addRenderableWidget(claimTurret = new BetterButton(centerX, 140, Component.translatable(turret instanceof Drone ? "k_turrets.claim.drone" : "k_turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
                 minecraft.player.closeContainer();
