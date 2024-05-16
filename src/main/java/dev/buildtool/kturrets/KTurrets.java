@@ -292,6 +292,18 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
+        channel.registerMessage(packetIndex++, SetRefillInventory.class, (setRefillInventory, friendlyByteBuf) -> {
+            friendlyByteBuf.writeBoolean(setRefillInventory.refill);
+            friendlyByteBuf.writeInt(setRefillInventory.turretId);
+        }, friendlyByteBuf -> new SetRefillInventory(friendlyByteBuf.readBoolean(), friendlyByteBuf.readInt()), (setRefillInventory, contextSupplier) -> {
+            ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
+            Entity entity = serverLevel.getEntity(setRefillInventory.turretId);
+            if (entity instanceof Turret turret) {
+                turret.setRefillInventory(setRefillInventory.refill);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
