@@ -1,3 +1,6 @@
+3.0.22:
+turrets and drones can now be set to refill ammo from adjacent inventory;
+
 3.0.21:
 fixed turrets/drones attacking other players when player targeting is off;
 
