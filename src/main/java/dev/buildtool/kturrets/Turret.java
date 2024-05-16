@@ -517,11 +517,13 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                         sideEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
                             for (int i = 0; i < iItemHandler.getSlots(); i++) {
                                 ItemStack tryStack = iItemHandler.extractItem(i, 1, true);
-                                if (canPlaceItem(0, tryStack)) {
-                                    ItemHandler itemHandler = getContainedItems().get(0);
-                                    if (Functions.tryInsertItem(itemHandler, tryStack)) {
-                                        iItemHandler.extractItem(i, 1, false);
-                                        break;
+                                if (!tryStack.isEmpty()) {
+                                    if (canPlaceItem(0, tryStack)) {
+                                        ItemHandler itemHandler = getContainedItems().get(0);
+                                        if (Functions.tryInsertItem(itemHandler, tryStack)) {
+                                            iItemHandler.extractItem(i, 1, false);
+                                            break;
+                                        }
                                     }
                                 }
                             }
