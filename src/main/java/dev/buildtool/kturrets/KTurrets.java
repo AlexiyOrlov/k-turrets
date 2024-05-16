@@ -251,6 +251,18 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
+        channel.registerMessage(packetIndex++, SetRefillInventory.class, (setRefillInventory, friendlyByteBuf) -> {
+            friendlyByteBuf.writeBoolean(setRefillInventory.refill);
+            friendlyByteBuf.writeInt(setRefillInventory.turretId);
+        }, friendlyByteBuf -> new SetRefillInventory(friendlyByteBuf.readBoolean(), friendlyByteBuf.readInt()), (setRefillInventory, contextSupplier) -> {
+            ServerWorld serverLevel = (ServerWorld) contextSupplier.get().getSender().level;
+            Entity entity = serverLevel.getEntity(setRefillInventory.turretId);
+            if (entity instanceof Turret) {
+                Turret turret = (Turret) entity;
+                turret.setRefillInventory(setRefillInventory.refill);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
     }
 
     private void loadConfig(ForgeConfigSpec config, String path) {

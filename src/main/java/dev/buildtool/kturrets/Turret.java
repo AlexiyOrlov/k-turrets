@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.tasks.RevengeTask;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.UniqueList;
 import net.minecraft.client.Minecraft;
@@ -23,6 +24,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -30,6 +32,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -48,6 +51,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
     private static final DataParameter<CompoundNBT> IGNORED_PLAYERS = EntityDataManager.defineId(Turret.class, DataSerializers.COMPOUND_TAG);
     private static final DataParameter<String> TEAM = EntityDataManager.defineId(Turret.class, DataSerializers.STRING);
     private static final DataParameter<String> OWNER_NAME = EntityDataManager.defineId(Turret.class, DataSerializers.STRING);
+    private static final DataParameter<Boolean> REFILL_INVENTORY = EntityDataManager.defineId(Turret.class, DataSerializers.BOOLEAN);
     /**
      * Players that are not allied to the owner
      */
@@ -94,6 +98,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         entityData.define(IGNORED_PLAYERS, new CompoundNBT());
         entityData.define(TEAM, "");
         entityData.define(OWNER_NAME, "");
+        entityData.define(REFILL_INVENTORY, false);
     }
 
     public void setTargets(CompoundNBT compoundNBT) {
@@ -224,6 +229,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         compoundNBT.putString("Team", getAutomaticTeam());
         compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
         compoundNBT.putString("Owner name", getOwnerName());
+        compoundNBT.putBoolean("Refill inventory", isRefillingInventory());
     }
 
     @Override
@@ -242,6 +248,7 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         if (compoundNBT.contains("Owner name")) {
             setOwnerName(compoundNBT.getString("Owner name"));
         }
+        setRefillInventory(compoundNBT.getBoolean("Refill inventory"));
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundNBT compoundNBT) {
@@ -358,6 +365,14 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
         return entityData.get(TEAM);
     }
 
+    public void setRefillInventory(boolean b) {
+        entityData.set(REFILL_INVENTORY, b);
+    }
+
+    public boolean isRefillingInventory() {
+        return entityData.get(REFILL_INVENTORY);
+    }
+
     @Nullable
     @Override
     public Team getTeam() {
@@ -408,5 +423,34 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
 
     public void setOwnerName(String owner) {
         entityData.set(OWNER_NAME, owner);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level.isClientSide) {
+            if (isRefillingInventory()) {
+                for (Direction direction : Direction.values()) {
+                    TileEntity sideEntity = level.getBlockEntity(blockPosition().relative(direction));
+                    if (sideEntity != null && sideEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
+                        sideEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
+                            for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                                ItemStack tryStack = iItemHandler.extractItem(i, 1, true);
+                                if (!tryStack.isEmpty()) {
+                                    if (getContainedItems().get(0).isItemValid(0, tryStack)) {
+                                        ItemHandler itemHandler = getContainedItems().get(0);
+                                        if (Functions.tryInsertItem(itemHandler, tryStack)) {
+                                            iItemHandler.extractItem(i, 1, false);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

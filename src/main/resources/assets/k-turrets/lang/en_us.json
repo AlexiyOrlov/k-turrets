@@ -52,6 +52,8 @@
   "k_turrets.exceptions": "Exceptions",
   "k_turrets.added.player.to.exceptions": "Added player to exceptions",
   "k_turrets.player.is.already.in.exceptions": "Player is already in exceptions",
+  "k_turrets.refill.inventory": "Refill inventory",
+  "k_turrets.dont.refill.inventory": "Don't refill inventory",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",

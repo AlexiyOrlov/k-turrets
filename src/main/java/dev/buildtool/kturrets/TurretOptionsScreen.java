@@ -52,6 +52,7 @@ public class TurretOptionsScreen extends Screen2 {
     private BetterButton mobilitySwitch;
     private BetterButton protectionFromPlayers;
     private BetterButton claimTurret;
+    private BetterButton inventoryRefillSwitch;
 
     public TurretOptionsScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
@@ -134,8 +135,16 @@ public class TurretOptionsScreen extends Screen2 {
             if (p_onPress_1_ instanceof SwitchButton)
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
         }));
+        addButton(inventoryRefillSwitch = new SwitchButton(centerX, 120, new TranslationTextComponent("k_turrets.refill.inventory"), new TranslationTextComponent("k_turrets.dont.refill.inventory"), turret.isRefillingInventory(), button -> {
+            KTurrets.channel.sendToServer(new SetRefillInventory(!turret.isRefillingInventory(), turret.getId()));
+            turret.setRefillInventory(!turret.isRefillingInventory());
+            if (button instanceof SwitchButton) {
+                SwitchButton switchButton = (SwitchButton) button;
+                switchButton.state = !switchButton.state;
+            }
+        }));
         if (!turret.getOwner().isPresent())
-            addButton(claimTurret = new BetterButton(centerX, 120, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
+            addButton(claimTurret = new BetterButton(centerX, 140, new TranslationTextComponent("k-turrets.claim.turret"), p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(), minecraft.player.getUUID()));
                 turret.setOwner(minecraft.player.getUUID());
                 buttons.clear();
