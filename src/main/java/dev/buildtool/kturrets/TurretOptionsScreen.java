@@ -142,7 +142,7 @@ public class TurretOptionsScreen extends Screen2 {
                 minecraft.player.closeContainer();
             }));
         else if (turret instanceof Drone drone) {
-            dropDownButton = new DropDownButton(centerX, 120, this, Component.literal(""));
+            dropDownButton = new DropDownButton(centerX, 140, this, Component.literal(""));
             LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
             RadioButton follow = new RadioButton(centerX, 140, Component.translatable("k_turrets.following.owner"));
             linkedHashMap.put(follow.getMessage(), p_93751_ -> {
