@@ -43,7 +43,7 @@ public class ClientSetup {
         definitions.registerLayerDefinition(BrickTurretModelv2.LAYER_LOCATION, BrickTurretModelv2::createBodyLayer);
         definitions.registerLayerDefinition(BulletTurretModelv4.LAYER_LOCATION, BulletTurretModelv4::createBodyLayer);
         definitions.registerLayerDefinition(CobbleTurretModelv4.LAYER_LOCATION, CobbleTurretModelv4::createBodyLayer);
-        definitions.registerLayerDefinition(FireballTurretModelv3.LAYER_LOCATION, FireballTurretModelv3::createBodyLayer);
+        definitions.registerLayerDefinition(FireballTurretModelv4.LAYER_LOCATION, FireballTurretModelv4::createBodyLayer);
         definitions.registerLayerDefinition(GaussTurretModelv2.LAYER_LOCATION, GaussTurretModelv2::createBodyLayer);
         definitions.registerLayerDefinition(BrickModel.LAYER_LOCATION, BrickModel::createBodyLayer);
         definitions.registerLayerDefinition(BulletModel.LAYER_LOCATION, BulletModel::createBodyLayer);
@@ -64,7 +64,7 @@ public class ClientSetup {
         renderers.registerEntityRenderer(KEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretModelv4<>(manager.bakeLayer(CobbleTurretModelv4.LAYER_LOCATION)), "cobble_turret2", false, 0.2f));
         renderers.registerEntityRenderer(KEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", false, 0.2f));
         renderers.registerEntityRenderer(KEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", false, 0.4f));
-        renderers.registerEntityRenderer(KEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FireballTurretModelv3<>(manager.bakeLayer(FireballTurretModelv3.LAYER_LOCATION)), "fireball_turret", false, 0.3f));
+        renderers.registerEntityRenderer(KEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FireballTurretModelv4<>(manager.bakeLayer(FireballTurretModelv4.LAYER_LOCATION)), "fireball_turret", false, 0.3f));
         renderers.registerEntityRenderer(KEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretModelv4<>(manager.bakeLayer(BulletTurretModelv4.LAYER_LOCATION)), "bullet_turret4", false, 0.4f));
 
         renderers.registerEntityRenderer(KEntities.BRICK_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new BrickDroneModel<>(p_174010_.bakeLayer(BrickDroneModel.LAYER_LOCATION)), "brick_drone", false, 0.2f));
