@@ -62,7 +62,6 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.IntValue TITANIUM_OCCURENCE;
-    public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static int ORE_AMOUNT;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -77,7 +76,6 @@ public class KTurrets {
             PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
             TARGET_EXCEPTIONS = builder.comment("List of mob ids to be excluded from default targets").defineList("Target list exceptions", Collections.singletonList("minecraft:zombified_piglin"), o -> o instanceof String && ((String) o).contains(":"));
             TITANIUM_OCCURENCE = builder.defineInRange("Titanium ore frequency", 9, 1, 15);
-            SET_OWNER_AUTO = builder.define("Set ownership automatically", true);
             builder.pop();
 
             builder.push("Turret stats");
