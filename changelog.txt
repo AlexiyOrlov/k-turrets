@@ -1,6 +1,7 @@
 3.0.23:
 fixed button overlap in drone screen;
 ownership is set automatically;
+implemented target filter copier;
 
 3.0.22:
 turrets and drones can now be set to refill ammo from adjacent inventory;
