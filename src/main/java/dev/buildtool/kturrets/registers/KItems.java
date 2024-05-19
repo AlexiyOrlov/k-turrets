@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.ContainerItem;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.TargetCopier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -29,6 +30,7 @@ public class KItems {
     public static RegistryObject<Item> EXPLOSIVE_POWDER;
     public static RegistryObject<Item> TITANIUM_INGOT;
     public static RegistryObject<Item> ARROW_DRONE, COBBLE_DRONE, BULLET_DRONE, FIREBALL_DRONE, GAUSS_DRONE, BRICK_DRONE;
+    public static RegistryObject<Item> TARGET_COPIER;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(() -> KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults()));
@@ -50,6 +52,7 @@ public class KItems {
         GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(() -> KEntities.GAUSS_DRONE, 0, 0, defaults()));
         ITEMS.register("titanium_ore", () -> new BlockItem(KBlocks.TITANIUM_ORE.get(), defaults()));
         ITEMS.register("raw_titanium", () -> new Item(defaults()));
+        TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
     }
 
     private static Item.Properties defaults() {

@@ -22,6 +22,7 @@
   "item.k-turrets.raw_titanium": "Raw Titanium",
   "item.k-turrets.explosive_powder": "Explosive Powder",
   "item.k-turrets.titanium_ore": "Titanium Ore",
+  "item.k-turrets.wrench": "Filter Copier",
 
   "k-turrets.targets": "Turret targets:",
   "k-turrets.added": "Added to targets",
@@ -54,6 +55,10 @@
   "k_turrets.player.is.already.in.exceptions": "Player is already in exceptions",
   "k_turrets.refill.inventory": "Refill inventory",
   "k_turrets.dont.refill.inventory": "Don't refill inventory",
+  "k_turrets.shift.hint": "Shift + right click on a turret to store filters",
+  "k_turrets.click.hint": "Right click on a turret to copy filters",
+  "k_turrets.filters.stored": "Stored target filters",
+  "k_turrets.filters.copied": "Target filters copied",
 
   "death.attack.k-turrets.bullet": "%1$s was shot by a Bullet turret",
   "death.attack.k-turrets.gauss_bullet": "%1$s was shot by a Gauss turret",
