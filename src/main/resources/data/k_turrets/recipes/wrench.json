@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " t ",
+    "ttt",
+    " t "
+  ],
+  "key": {
+    "t": {
+      "item": "k_turrets:titanium_ingot"
+    }
+  },
+  "result": {
+    "item": "k_turrets:wrench"
+  }
+}

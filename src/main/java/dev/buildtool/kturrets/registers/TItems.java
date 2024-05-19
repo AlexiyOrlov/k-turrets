@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.ContainerItem;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.TargetCopier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -26,6 +27,7 @@ public class TItems {
     public static RegistryObject<Item> GAUSS_TURRET;
     public static RegistryObject<Item> COBBLE_TURRET;
     public static RegistryObject<Item> EXPLOSIVE_POWDER;
+    public static RegistryObject<Item> TARGET_COPIER;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(TEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
@@ -48,6 +50,7 @@ public class TItems {
         ITEMS.register("deepslate_titanium_ore", () -> new BlockItem(KBlocks.DEEP_SLATE_TITANIUM_ORE.get(), defaults()));
         ITEMS.register("raw_titanium", () -> new Item(defaults()));
         ITEMS.register("titanium_ingot", () -> new Item(defaults()));
+        TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
     }
 
     private static Item.Properties defaults() {

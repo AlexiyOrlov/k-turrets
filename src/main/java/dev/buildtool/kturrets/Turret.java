@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.registers.TItems;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -210,6 +211,17 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
+            if (itemInHand.getItem() == TItems.TARGET_COPIER.get()) {
+                if (playerEntity.isCrouching()) {
+                    CompoundTag compoundTag = itemInHand.getOrCreateTag();
+                    compoundTag.put("Filters", getTargets());
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.filters.stored"), true);
+                } else if (itemInHand.hasTag()) {
+                    setTargets(itemInHand.getTag().getCompound("Filters"));
+                    playerEntity.displayClientMessage(Component.translatable("k_turrets.filters.copied"), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
             if (level.isClientSide && playerEntity.isShiftKeyDown()) {
                 openTargetScreen();
                 return InteractionResult.PASS;
