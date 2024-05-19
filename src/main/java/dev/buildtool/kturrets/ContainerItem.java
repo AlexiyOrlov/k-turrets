@@ -48,9 +48,8 @@ public class ContainerItem extends ForgeSpawnEggItem {
         if (!(level instanceof ServerLevel)) {
             return InteractionResult.SUCCESS;
         } else {
-
+            Player player = context.getPlayer();
             if (FMLEnvironment.dist.isDedicatedServer()) {
-                Player player = context.getPlayer();
                 UnitLimitCapability unitLimitCapability = player.getCapability(RegisterCapability.unitCapability, null).orElse(null);
                 if (unit == Unit.TURRET) {
                     if (unitLimitCapability.getTurretCount() >= KTurrets.TURRET_LIMIT_PER_PLAYER.get()) {
@@ -89,6 +88,10 @@ public class ContainerItem extends ForgeSpawnEggItem {
                     entity.deserializeNBT(itemstack.getTag().getCompound("Contained"));
                     entity.setPosRaw(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
                 }
+            } else if (KTurrets.SET_OWNER_AUTO.get()) {
+                Turret turret = (Turret) entity;
+                turret.setOwner(player.getUUID());
+            }
                 itemstack.shrink(1);
             }
 
