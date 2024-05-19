@@ -69,6 +69,7 @@ public class KTurrets {
     public static ForgeConfigSpec.IntValue TURRET_LIMIT_PER_PLAYER, DRONE_LIMIT_PER_PLAYER;
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
+    public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -107,6 +108,7 @@ public class KTurrets {
             builder.push("Common");
             PROJECTILE_SPEED = builder.comment("Gauss bullet speed is 3x of this").defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
             TARGET_EXCEPTIONS = builder.comment("List of mob ids to be excluded from default targets").defineList("Target list exceptions", Collections.singletonList("minecraft:zombified_piglin"), o -> o instanceof String && ((String) o).contains(":"));
+            SET_OWNER_AUTO = builder.define("Set ownership automatically", true);
             builder.pop();
 
             builder.push("Turret stats");
