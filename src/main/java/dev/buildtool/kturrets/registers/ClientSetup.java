@@ -35,7 +35,7 @@ public class ClientSetup {
         RenderingRegistry.registerEntityRenderingHandler(KEntities.ARROW_TURRET, manager -> new EntityRenderer2<>(manager, new ArrowTurretv2(), "arrow_turret", false, 0.4f));
         RenderingRegistry.registerEntityRenderingHandler(KEntities.BULLET, BulletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(KEntities.BULLET_TURRET, manager -> new EntityRenderer2<>(manager, new BulletTurretv2(), "bullet_turret", false, 0.4f));
-        RenderingRegistry.registerEntityRenderingHandler(KEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FireballTurretModelv3(), "fireball_turret", false, 0.3f));
+        RenderingRegistry.registerEntityRenderingHandler(KEntities.FIRE_CHARGE_TURRET, manager -> new EntityRenderer2<>(manager, new FireballTurretModelv4(), "fireball_turret", false, 0.3f));
         RenderingRegistry.registerEntityRenderingHandler(KEntities.BRICK, BrickRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(KEntities.BRICK_TURRET, manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2(), "brick_turret", false, 0.4f));
         RenderingRegistry.registerEntityRenderingHandler(KEntities.GAUSS_TURRET, manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2(), "gaussturret", false, 0.2f));
