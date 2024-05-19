@@ -9,6 +9,7 @@
   "item.k_turrets.gauss_bullet": "Gauss Bullet",
   "item.k_turrets.gauss_turret_item": "Gauss Turret",
   "item.k_turrets.cobble_turret_item": "Cobble Turret",
+  "item.k_turrets.wrench": "Filter Copier",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -57,6 +58,11 @@
   "k_turrets.range": "Detection range",
   "k_turrets.damage": "Damage",
 
+  "k_turrets.refill.inventory": "Refill inventory",
+  "k_turrets.dont.refill.inventory": "Don't refill inventory",
+  "k_turrets.filters.stored": "Target filters stored",
+  "k_turrets.filters.copied": "Target filters copied",
+
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
   "death.attack.k_turrets.brick": "%1$s was hit by a brick",
@@ -78,6 +84,6 @@
 
   "block.k_turrets.titanium_ore": "Titanium Ore",
   "block.k_turrets.deepslate_titanium_ore": "Deepslate Titanium Ore",
-  "k_turrets.refill.inventory": "Refill inventory",
-  "k_turrets.dont.refill.inventory": "Don't refill inventory"
+  "k_turrets.shift.hint": "Shift + right click on a turret to store filters",
+  "k_turrets.click.hint": "Right click on a turret to copy filters"
 }
