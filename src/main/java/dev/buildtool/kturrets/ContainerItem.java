@@ -6,6 +6,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.MobSpawnerTileEntity;
@@ -38,6 +39,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
         if (!(world instanceof ServerWorld)) {
             return ActionResultType.SUCCESS;
         } else {
+            PlayerEntity player = p_195939_1_.getPlayer();
             ItemStack itemstack = p_195939_1_.getItemInHand();
             BlockPos blockpos = p_195939_1_.getClickedPos();
             Direction direction = p_195939_1_.getClickedFace();
@@ -68,6 +70,9 @@ public class ContainerItem extends ForgeSpawnEggItem {
                 if (itemstack.hasTag()) {
                     entity.deserializeNBT(itemstack.getTag().getCompound("Contained"));
                     entity.setPosRaw(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
+                } else if (KTurrets.SET_OWNER_AUTO.get()) {
+                    Turret turret = (Turret) entity;
+                    turret.setOwner(player.getUUID());
                 }
                 itemstack.shrink(1);
             }
