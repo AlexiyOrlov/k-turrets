@@ -1,3 +1,8 @@
+0.1.31:
+implemented target filter copier;
+improved fireball turret model;
+ownership is set automatically;
+
 0.1.30:
 turrets and drones can now be set to refill ammo from adjacent inventory;
 
