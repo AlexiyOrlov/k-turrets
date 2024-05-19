@@ -1,3 +1,8 @@
+2.0.45:
+improved fireball turret model;
+ownership is set automatically;
+implemented target filter copier;
+
 2.0.44:
 turrets and drones can now be set to refill ammo from adjacent inventory;
 
