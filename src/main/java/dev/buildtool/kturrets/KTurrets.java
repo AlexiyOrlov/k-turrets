@@ -70,19 +70,6 @@ public class KTurrets {
         TContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
-//        Properties properties = new Properties();
-//        try {
-//            Path path = Paths.get("config", "k_turrets.properties");
-//            if (Files.notExists(path)) {
-//                properties.put("Titanium-ore-frequency", "5");
-//                properties.store(Files.newBufferedWriter(path, StandardCharsets.UTF_8), "");
-//            }
-//            properties.load(Files.newInputStream(path));
-//            String oreFrequencyStr = (String) properties.get("Titanium-ore-frequency");
-//            ORE_AMOUNT = Integer.parseInt(oreFrequencyStr);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
