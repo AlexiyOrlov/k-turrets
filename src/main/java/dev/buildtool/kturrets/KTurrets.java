@@ -63,7 +63,7 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.IntValue TITANIUM_OCCURENCE;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
-    public static int ORE_AMOUNT;
+
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         TEntities.ENTITIES.register(eventBus);
