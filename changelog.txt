@@ -1,3 +1,6 @@
+3.0.24:
+drones now circle around target correctly;
+
 3.0.23:
 fixed button overlap in drone screen;
 ownership is set automatically;
