@@ -8,6 +8,7 @@ import dev.buildtool.satako.Ownable;
 import dev.buildtool.satako.UniqueList;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -523,7 +524,8 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         if (!level().isClientSide) {
             if (isRefillingInventory()) {
                 for (Direction direction : Direction.values()) {
-                    BlockEntity sideEntity = level().getBlockEntity(blockPosition().relative(direction));
+                    BlockPos blockPos = blockPosition();
+                    BlockEntity sideEntity = level().getBlockEntity(blockPos.relative(direction));
                     if (sideEntity != null && sideEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
                         sideEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
                             for (int i = 0; i < iItemHandler.getSlots(); i++) {
