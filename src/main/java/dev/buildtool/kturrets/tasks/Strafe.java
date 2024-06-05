@@ -24,6 +24,7 @@ public class Strafe extends Goal {
             timer++;
         else
             timer--;
+        drone.lookAt(drone.getTarget(), 70, 70);
         drone.getMoveControl().strafe(0, Math.signum(timer) * 0.1f);
         if (drone.getY() <= drone.getTarget().getY() + 1)
             drone.getMoveControl().setWantedPosition(drone.getX(), drone.getY() + 1, drone.getZ(), 1);
