@@ -1,6 +1,7 @@
 3.0.24:
 drones now circle around target correctly;
 removed damage bonus from crossbow;
+added an option to customize turret ammo;
 
 3.0.23:
 fixed button overlap in drone screen;
