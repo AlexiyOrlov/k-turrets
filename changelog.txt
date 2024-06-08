@@ -2,6 +2,7 @@
 drones now circle around target correctly;
 removed damage bonus from crossbow;
 added an option to customize turret ammo;
+increased maximum possible health bound to the max;
 
 3.0.23:
 fixed button overlap in drone screen;
