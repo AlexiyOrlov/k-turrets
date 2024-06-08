@@ -79,6 +79,7 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BRICK_TURRET_AMMO;
+    public static ForgeConfigSpec.ConfigValue<String> CUSTOM_FIREBALL_TURRET_AMMO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -147,6 +148,7 @@ public class KTurrets {
             CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             CHARGE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             CHARGE_TURRET_DAMAGE = builder.defineInRange("Damage", 6, 1, 100);
+            CUSTOM_FIREBALL_TURRET_AMMO = builder.define("Ammo", "k_turrets:explosive_powder");
             builder.pop();
             builder.push("Brick turret");
             USE_CUSTOM_BRICK_TURRET_AMMO = builder.comment("If true, will use nether brick damage").define("Use custom ammo", false);
