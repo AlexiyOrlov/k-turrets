@@ -136,7 +136,7 @@ public class KTurrets {
             BULLET_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             IRON_BULLET_DAMAGE = builder.defineInRange("Iron bullet damage", 8, 1, 100);
             GOLD_BULLET_DAMAGE = builder.defineInRange("Gold bullet damage", 7, 1, 100);
-            USE_CUSTOM_BULLET_TURRET_AMMO = builder.define("Use custom ammo", false);
+            USE_CUSTOM_BULLET_TURRET_AMMO = builder.comment("If true, uses iron bullet damage").define("Use custom ammo", false);
             CUSTOM_BULLET_TURRET_AMMO = builder.define("Ammo", "minecraft:iron_nugget");
             builder.pop();
             builder.push("Fire charge turret");
