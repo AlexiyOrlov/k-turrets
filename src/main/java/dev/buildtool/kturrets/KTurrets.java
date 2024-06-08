@@ -124,7 +124,7 @@ public class KTurrets {
 
             builder.push("Turret stats");
             builder.push("Arrow turret");
-            ARROW_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            ARROW_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             ARROW_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             ARROW_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
@@ -133,7 +133,7 @@ public class KTurrets {
             ARROW_TURRET_AMMO = builder.define("Ammo", "minecraft:arrow");
             builder.pop();
             builder.push("Bullet turret");
-            BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             BULLET_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BULLET_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             BULLET_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
@@ -143,7 +143,7 @@ public class KTurrets {
             CUSTOM_BULLET_TURRET_AMMO = builder.define("Ammo", "minecraft:iron_nugget");
             builder.pop();
             builder.push("Fire charge turret");
-            CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             CHARGE_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             CHARGE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
@@ -153,7 +153,7 @@ public class KTurrets {
             builder.push("Brick turret");
             USE_CUSTOM_BRICK_TURRET_AMMO = builder.comment("If true, will use nether brick damage").define("Use custom ammo", false);
             CUSTOM_BRICK_TURRET_AMMO = builder.define("Ammo", "minecraft:brick");
-            BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             BRICK_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BRICK_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0d, 100d);
             BRICK_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
@@ -161,7 +161,7 @@ public class KTurrets {
             NETHERBRICK_DAMAGE = builder.defineInRange("Nether brick damage", 10, 1, 100);
             builder.pop();
             builder.push("Gauss turret");
-            GAUSS_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            GAUSS_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             GAUSS_TURRET_RANGE = builder.defineInRange("Range", 32d, 8, 100d);
             GAUSS_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             GAUSS_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
@@ -169,7 +169,7 @@ public class KTurrets {
             GAUSS_TURRET_AMMO = builder.define("Ammo", "k_turrets:gauss_bullet");
             builder.pop();
             builder.push("Cobble turret");
-            COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
+            COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             COBBLE_TURRET_RANGE = builder.defineInRange("Range", 32d, 0, 100d);
             COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
