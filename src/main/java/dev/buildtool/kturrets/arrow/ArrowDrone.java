@@ -8,6 +8,7 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,13 +18,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ArrowItem;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.CrossbowItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,6 +33,7 @@ public class ArrowDrone extends Drone {
     protected final ItemHandler weapon = new ItemHandler(1) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+
             return stack.getItem() instanceof CrossbowItem || stack.getItem() instanceof BowItem;
         }
     };
@@ -41,7 +41,11 @@ public class ArrowDrone extends Drone {
     protected final ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.getItem() instanceof ArrowItem;
+            if (KTurrets.uSE_CUSTOM_ARROW_TURRET_AMMO.get()) {
+                Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.ARROW_TURRET_AMMO.get()));
+                return stack.is(ammo);
+            } else
+                return stack.getItem() instanceof ArrowItem;
         }
     };
 

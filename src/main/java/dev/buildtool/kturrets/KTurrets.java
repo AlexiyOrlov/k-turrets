@@ -73,6 +73,8 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<String> COBBLE_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_COBBLE_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
+    public static ForgeConfigSpec.BooleanValue uSE_CUSTOM_ARROW_TURRET_AMMO;
+    public static ForgeConfigSpec.ConfigValue<String> ARROW_TURRET_AMMO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -122,6 +124,8 @@ public class KTurrets {
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             ARROW_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 6, 1, 100);
+            uSE_CUSTOM_ARROW_TURRET_AMMO = builder.define("Use custom ammo", false);
+            ARROW_TURRET_AMMO = builder.define("Ammo", "minecraft:arrow");
             builder.pop();
             builder.push("Bullet turret");
             BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
