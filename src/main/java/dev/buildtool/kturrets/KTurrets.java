@@ -71,6 +71,7 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_COBBLE_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> COBBLE_TURRET_AMMO;
+    public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
@@ -124,6 +125,7 @@ public class KTurrets {
             GAUSS_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             GAUSS_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             GAUSS_TURRET_DAMAGE = builder.defineInRange("Damage", 12, 1, 100);
+            GAUSS_TURRET_AMMO = builder.define("Ammo", "k_turrets:gauss_bullet");
             builder.pop();
             builder.push("Cobble turret");
             COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);

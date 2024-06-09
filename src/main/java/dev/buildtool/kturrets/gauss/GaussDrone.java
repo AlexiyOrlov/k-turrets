@@ -3,7 +3,6 @@ package dev.buildtool.kturrets.gauss;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KEntities;
-import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
@@ -13,11 +12,14 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -27,7 +29,8 @@ public class GaussDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.getItem() == KItems.GAUSS_BULLET.get();
+            Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.GAUSS_TURRET_AMMO.get()));
+            return stack.getItem() == ammo;
         }
     };
 

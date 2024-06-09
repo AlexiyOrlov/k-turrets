@@ -1,13 +1,16 @@
 package dev.buildtool.kturrets.gauss;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
-import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class GaussTurretContainer extends Container2 {
     public GaussTurretContainer(int i, PlayerInventory inventory, PacketBuffer buffer) {
@@ -27,7 +30,8 @@ public class GaussTurretContainer extends Container2 {
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack stack = getSlot(index).getItem();
         ItemStack stack1 = ItemStack.EMPTY;
-        if (stack.getItem() == KItems.GAUSS_BULLET.get() && index > 26) {
+        Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.GAUSS_TURRET_AMMO.get()));
+        if (stack.getItem() == ammo && index > 26) {
             stack1 = stack.copy();
             if (!moveItemStackTo(stack, 0, 27, false))
                 return ItemStack.EMPTY;
