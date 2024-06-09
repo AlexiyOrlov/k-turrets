@@ -12,24 +12,31 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
 public class CobbleTurret extends Turret {
-    protected ItemHandler cobblestone = new ItemHandler(27) {
+    protected ItemHandler ammo = new ItemHandler(27) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == Items.COBBLESTONE)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+            if (KTurrets.USE_CUSTOM_COBBLE_TURRET_AMMO.get()) {
+                Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.COBBLE_TURRET_AMMO.get()));
+                return stack.getItem() == ammo;
+            } else
+                return ItemTags.STONE_TOOL_MATERIALS.contains(stack.getItem());
         }
     };
 
@@ -45,18 +52,18 @@ public class CobbleTurret extends Turret {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Collections.singletonList(cobblestone);
+        return Collections.singletonList(ammo);
     }
 
     @Override
     public boolean isArmed() {
-        return !cobblestone.isEmpty();
+        return !ammo.isEmpty();
     }
 
     @Override
     public void performRangedAttack(LivingEntity target, float p_82196_2_) {
         if (target.isAlive()) {
-            for (ItemStack cobblestoneItem : cobblestone.getItems()) {
+            for (ItemStack cobblestoneItem : ammo.getItems()) {
                 if (cobblestoneItem.getItem() == Items.COBBLESTONE) {
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
@@ -83,12 +90,12 @@ public class CobbleTurret extends Turret {
     @Override
     public void addAdditionalSaveData(CompoundNBT compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
-        compoundNBT.put("Ammo", cobblestone.serializeNBT());
+        compoundNBT.put("Ammo", ammo.serializeNBT());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
-        cobblestone.deserializeNBT(compoundNBT.getCompound("Ammo"));
+        ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
 }

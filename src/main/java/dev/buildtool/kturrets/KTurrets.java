@@ -69,6 +69,8 @@ public class KTurrets {
     public static ConfiguredFeature<?, ?> CONFIGURED_TITANIUM_ORE;
     public static ForgeConfigSpec.IntValue TITANIUM_ORE_FREQUENCY;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
+    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_COBBLE_TURRET_AMMO;
+    public static ForgeConfigSpec.ConfigValue<String> COBBLE_TURRET_AMMO;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
@@ -129,6 +131,8 @@ public class KTurrets {
             COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
+            USE_CUSTOM_COBBLE_TURRET_AMMO = builder.define("Use custom ammo", false);
+            COBBLE_TURRET_AMMO = builder.define("Ammo", "minecraft:cobblestone");
             builder.pop();
             builder.pop();
             return builder.build();

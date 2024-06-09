@@ -12,12 +12,15 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -27,7 +30,11 @@ public class CobbleDrone extends Drone {
     protected ItemHandler stone = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return ItemTags.STONE_TOOL_MATERIALS.contains(stack.getItem());
+            if (KTurrets.USE_CUSTOM_COBBLE_TURRET_AMMO.get()) {
+                Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.COBBLE_TURRET_AMMO.get()));
+                return stack.getItem() == ammo;
+            } else
+                return ItemTags.STONE_TOOL_MATERIALS.contains(stack.getItem());
         }
     };
 
