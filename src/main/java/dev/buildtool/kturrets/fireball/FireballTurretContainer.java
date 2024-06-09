@@ -1,13 +1,16 @@
 package dev.buildtool.kturrets.fireball;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
-import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class FireballTurretContainer extends Container2 {
     public FireballTurretContainer(int i, PlayerInventory playerInventory, PacketBuffer buffer) {
@@ -27,7 +30,8 @@ public class FireballTurretContainer extends Container2 {
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if (itemStack.getItem() == KItems.EXPLOSIVE_POWDER.get() && !moveItemStackTo(itemStack, 0, 27, false))
+            Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.FIREBALL_TURRET_AMMO.get()));
+            if (itemStack.getItem() == ammo && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))

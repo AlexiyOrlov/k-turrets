@@ -78,6 +78,7 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<String> BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> BRICK_TURRET_AMMO;
+    public static ForgeConfigSpec.ConfigValue<String> FIREBALL_TURRET_AMMO;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
@@ -120,6 +121,7 @@ public class KTurrets {
             FIREBALL_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             FIREBALL_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             FIREBALL_TURRET_DAMAGE = builder.defineInRange("Damage", 6, 1, 100);
+            FIREBALL_TURRET_AMMO = builder.define("Ammo", "k_turrets:explosive_powder");
             builder.pop();
             builder.push("Brick turret");
             BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);

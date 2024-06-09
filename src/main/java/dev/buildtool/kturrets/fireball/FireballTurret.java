@@ -3,7 +3,6 @@ package dev.buildtool.kturrets.fireball;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.KEntities;
-import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.LivingEntity;
@@ -12,12 +11,15 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -26,10 +28,9 @@ import java.util.List;
 public class FireballTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == KItems.EXPLOSIVE_POWDER.get())
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, ItemStack stack) {
+            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.FIREBALL_TURRET_AMMO.get()));
+            return stack.getItem() == item;
         }
     };
 
