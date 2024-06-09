@@ -49,6 +49,7 @@ public class TurretOptionsScreen extends Screen2 {
     private BetterButton inventoryRefillSwitch;
 
     private DropDownButton dropDownButton;
+    private ArrayList<BetterButton> hideableElements = new ArrayList<>();
 
     public TurretOptionsScreen(Turret turret) {
         super(Component.translatable("k_turrets.targets"));
@@ -216,25 +217,26 @@ public class TurretOptionsScreen extends Screen2 {
         }
         ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, Component.literal(""), new IntegerColor(0x228FDBF0), guiEventListeners);
         addRenderableWidget(scrollArea);
-        if (turret.getAutomaticTeam().isEmpty())
-            addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.no.team")));
+        if (turret.getAutomaticTeam().isEmpty()) {
+            hideableElements.add(addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.no.team"))));
+        }
         else
-            addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam())));
-        addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT));
-        addRenderableWidget(new Label(centerX, 200, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange())));
-        addRenderableWidget(new Label(centerX, 220, Component.translatable(KTurrets.ID + ".integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth())));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 160, Component.translatable("k_turrets.team").append(": " + turret.getAutomaticTeam()))));
+        hideableElements.add(addRenderableWidget(new Label(centerX, 180, CHOOSE_HINT)));
+        hideableElements.add(addRenderableWidget(new Label(centerX, 200, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()))));
+        hideableElements.add(addRenderableWidget(new Label(centerX, 220, Component.translatable(KTurrets.ID + ".integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth()))));
         if (turret instanceof ArrowTurret || turret instanceof ArrowDrone) {
-            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.ARROW_TURRET_DAMAGE.get() + "")));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.ARROW_TURRET_DAMAGE.get() + ""))));
         } else if (turret instanceof BrickTurret || turret instanceof BrickDrone) {
-            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.BRICK_DAMAGE.get() + "/" + KTurrets.NETHERBRICK_DAMAGE.get())));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.BRICK_DAMAGE.get() + "/" + KTurrets.NETHERBRICK_DAMAGE.get()))));
         } else if (turret instanceof BulletTurret || turret instanceof BulletDrone) {
-            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.IRON_BULLET_DAMAGE.get() + "/" + KTurrets.GOLD_BULLET_DAMAGE.get())));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.IRON_BULLET_DAMAGE.get() + "/" + KTurrets.GOLD_BULLET_DAMAGE.get()))));
         } else if (turret instanceof FireballTurret || turret instanceof FireballDrone) {
-            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.CHARGE_TURRET_DAMAGE.get() + "")));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.CHARGE_TURRET_DAMAGE.get() + ""))));
         } else if (turret instanceof CobbleTurret || turret instanceof CobbleDrone) {
-            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.COBBLE_TURRET_DAMAGE.get() + "")));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.COBBLE_TURRET_DAMAGE.get() + ""))));
         } else if (turret instanceof GaussTurret || turret instanceof GaussDrone) {
-            addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.GAUSS_TURRET_DAMAGE.get() + "")));
+            hideableElements.add(addRenderableWidget(new Label(centerX, 240, Component.translatable(KTurrets.ID + ".damage").append(": ").append(KTurrets.GAUSS_TURRET_DAMAGE.get() + ""))));
         }
     }
 
@@ -303,6 +305,7 @@ public class TurretOptionsScreen extends Screen2 {
                     if (dropDownButton != null)
                         dropDownButton.setHidden(true);
                     inventoryRefillSwitch.setHidden(true);
+                    hideableElements.forEach(betterButton -> betterButton.setHidden(true));
                 } else {
                     showButtonsAndHints();
                 }
@@ -325,5 +328,6 @@ public class TurretOptionsScreen extends Screen2 {
         if (dropDownButton != null)
             dropDownButton.setHidden(false);
         inventoryRefillSwitch.setHidden(false);
+        hideableElements.forEach(betterButton -> betterButton.setHidden(false));
     }
 }
