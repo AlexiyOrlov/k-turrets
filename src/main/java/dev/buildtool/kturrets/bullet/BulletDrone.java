@@ -12,12 +12,15 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -27,7 +30,11 @@ public class BulletDrone extends Drone {
     protected final ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.getItem() == Items.GOLD_NUGGET || stack.getItem() == Items.IRON_NUGGET;
+            if (KTurrets.USE_CUSTOM_BULLET_TURRET_AMMO.get()) {
+                Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.BULLET_TURRET_AMMO.get()));
+                return stack.getItem() == item;
+            } else
+                return stack.getItem() == Items.GOLD_NUGGET || stack.getItem() == Items.IRON_NUGGET;
         }
     };
 
