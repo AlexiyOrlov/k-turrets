@@ -214,10 +214,11 @@ public abstract class Turret extends MobEntity implements IRangedAttackMob, INam
                 return ActionResultType.PASS;
             }
         } else if (level.isClientSide) {
-            if (this instanceof Drone) {
-                if (getOwnerName().isEmpty())
-                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.belongs.to").append(" " + getOwner()), true);
-            }
+            if (!getOwnerName().isEmpty())
+                if (this instanceof Drone)
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.drone.belongs.to").append(" " + getOwnerName()), true);
+                else
+                    playerEntity.displayClientMessage(new TranslationTextComponent("k_turrets.turret.belongs.to").append(" " + getOwnerName()), true);
         }
         return ActionResultType.FAIL;
     }
