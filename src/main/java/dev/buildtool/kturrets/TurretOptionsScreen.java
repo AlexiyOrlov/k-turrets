@@ -302,6 +302,7 @@ public class TurretOptionsScreen extends Screen2 {
                     this.resetList.setHidden(true);
                     if (dropDownButton != null)
                         dropDownButton.setHidden(true);
+                    inventoryRefillSwitch.setHidden(true);
                 } else {
                     showButtonsAndHints();
                 }
@@ -323,5 +324,6 @@ public class TurretOptionsScreen extends Screen2 {
         this.resetList.setHidden(false);
         if (dropDownButton != null)
             dropDownButton.setHidden(false);
+        inventoryRefillSwitch.setHidden(false);
     }
 }
