@@ -1,5 +1,7 @@
 0.1.32:
 fixed drone strafing;
+added options to change ammo;
+increased max health bound;
 
 0.1.31:
 implemented target filter copier;
