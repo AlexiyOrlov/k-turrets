@@ -11,14 +11,18 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
@@ -26,10 +30,12 @@ import java.util.List;
 public class BrickTurret extends Turret {
     protected ItemHandler bricks = new ItemHandler(27) {
         @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (stack.getItem() == Items.BRICK || stack.getItem() == Items.NETHER_BRICK)
-                return super.insertItem(slot, stack, simulate);
-            return stack;
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+            if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
+                Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.BRICK_TURRET_AMMO.get()));
+                return stack.getItem() == item;
+            } else
+                return stack.getItem() == Items.BRICK || stack.getItem() == Items.NETHER_BRICK;
         }
     };
 

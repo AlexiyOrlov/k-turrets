@@ -76,6 +76,8 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<String> ARROW_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> BULLET_TURRET_AMMO;
+    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
+    public static ForgeConfigSpec.ConfigValue<String> BRICK_TURRET_AMMO;
     public KTurrets() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::commonSetup);
@@ -126,6 +128,8 @@ public class KTurrets {
             BRICK_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             BRICK_DAMAGE = builder.defineInRange("Brick damage", 9, 1, 100);
             NETHERBRICK_DAMAGE = builder.defineInRange("Nether brick damage", 10, 1, 100);
+            USE_CUSTOM_BRICK_TURRET_AMMO = builder.comment("If true, will use nether brick damage").define("Use custom ammo", false);
+            BRICK_TURRET_AMMO = builder.define("Ammo", "minecraft:brick");
             builder.pop();
             builder.push("Gauss turret");
             GAUSS_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, 500d);
