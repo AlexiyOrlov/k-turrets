@@ -256,6 +256,7 @@ public class TurretOptionsScreen extends Screen2 {
                     this.mobilitySwitch.setHidden();
                     this.protectionFromPlayers.setHidden();
                     this.resetList.setHidden();
+                    inventoryRefillSwitch.setHidden();
                 } else {
                     showButtonsAndHints();
                 }
@@ -275,6 +276,7 @@ public class TurretOptionsScreen extends Screen2 {
         this.mobilitySwitch.setVisible();
         this.protectionFromPlayers.setVisible();
         this.resetList.setVisible();
+        inventoryRefillSwitch.setVisible();
     }
 
     @Override
