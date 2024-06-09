@@ -53,6 +53,7 @@ public class TurretOptionsScreen extends Screen2 {
     private BetterButton protectionFromPlayers;
     private BetterButton claimTurret;
     private BetterButton inventoryRefillSwitch;
+    private ArrayList<Label> hideableLabels = new ArrayList<>();
 
     public TurretOptionsScreen(Turret turret) {
         super(new TranslationTextComponent("k-turrets.targets"));
@@ -195,24 +196,24 @@ public class TurretOptionsScreen extends Screen2 {
         ScrollArea scrollArea = new ScrollArea(3, 3, centerX - 15, height, new StringTextComponent(""), new IntegerColor(0x4C9A4980), guiEventListeners);
         addButton(scrollArea);
         if (turret.getAutomaticTeam().isEmpty())
-            addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.no.team")));
+            hideableLabels.add(addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.no.team"))));
         else
-            addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam())));
-        addButton(new Label(centerX, 180, CHOOSE_HINT));
-        addButton(new Label(centerX, 200, new TranslationTextComponent("k_turrets.range").append(": ").append("" + turret.getRange())));
-        addButton(new Label(centerX, 220, new TranslationTextComponent("k_turrets.integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth())));
+            hideableLabels.add(addButton(new Label(centerX, 160, new TranslationTextComponent("k_turrets.team").append(": " + turret.getAutomaticTeam()))));
+        hideableLabels.add(addButton(new Label(centerX, 180, CHOOSE_HINT)));
+        hideableLabels.add(addButton(new Label(centerX, 200, new TranslationTextComponent("k_turrets.range").append(": ").append("" + turret.getRange()))));
+        hideableLabels.add(addButton(new Label(centerX, 220, new TranslationTextComponent("k_turrets.integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth()))));
         if (turret instanceof ArrowTurret || turret instanceof ArrowDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.ARROW_TURRET_DAMAGE.get() + "")));
+            hideableLabels.add(addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.ARROW_TURRET_DAMAGE.get() + ""))));
         } else if (turret instanceof BrickTurret || turret instanceof BrickDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.BRICK_DAMAGE.get() + "/" + KTurrets.NETHERBRICK_DAMAGE.get())));
+            hideableLabels.add(addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.BRICK_DAMAGE.get() + "/" + KTurrets.NETHERBRICK_DAMAGE.get()))));
         } else if (turret instanceof BulletTurret || turret instanceof BulletDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.IRON_BULLET_DAMAGE.get() + "/" + KTurrets.GOLD_BULLET_DAMAGE.get())));
+            hideableLabels.add(addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.IRON_BULLET_DAMAGE.get() + "/" + KTurrets.GOLD_BULLET_DAMAGE.get()))));
         } else if (turret instanceof FireballTurret || turret instanceof FireballDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.FIREBALL_TURRET_DAMAGE.get() + "")));
+            hideableLabels.add(addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.FIREBALL_TURRET_DAMAGE.get() + ""))));
         } else if (turret instanceof CobbleTurret || turret instanceof CobbleDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.COBBLE_TURRET_DAMAGE.get() + "")));
+            hideableLabels.add(addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.COBBLE_TURRET_DAMAGE.get() + ""))));
         } else if (turret instanceof GaussTurret || turret instanceof GaussDrone) {
-            addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.GAUSS_TURRET_DAMAGE.get() + "")));
+            hideableLabels.add(addButton(new Label(centerX, 240, new TranslationTextComponent("k_turrets.damage").append(": ").append(KTurrets.GAUSS_TURRET_DAMAGE.get() + ""))));
         }
     }
 
@@ -257,6 +258,7 @@ public class TurretOptionsScreen extends Screen2 {
                     this.protectionFromPlayers.setHidden();
                     this.resetList.setHidden();
                     inventoryRefillSwitch.setHidden();
+                    hideableLabels.forEach(label -> label.visible = false);
                 } else {
                     showButtonsAndHints();
                 }
@@ -277,6 +279,7 @@ public class TurretOptionsScreen extends Screen2 {
         this.protectionFromPlayers.setVisible();
         this.resetList.setVisible();
         inventoryRefillSwitch.setVisible();
+        hideableLabels.forEach(label -> label.visible = true);
     }
 
     @Override
