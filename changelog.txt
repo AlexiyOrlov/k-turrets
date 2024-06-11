@@ -1,4 +1,4 @@
-3.0.24:
+3.0.25:
 drones now circle around target correctly;
 removed damage bonus from crossbow;
 added an option to customize turret ammo;
