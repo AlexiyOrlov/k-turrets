@@ -334,8 +334,8 @@ public class KTurrets {
         }).getRight());
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, new ForgeConfigSpec.Builder().configure(builder -> {
-            TURRET_LIMIT_PER_PLAYER = builder.defineInRange("Turret limit per player", () -> 50, 1, 300);
-            DRONE_LIMIT_PER_PLAYER = builder.defineInRange("Drone limit per player", () -> 30, 1, 300);
+            TURRET_LIMIT_PER_PLAYER = builder.defineInRange("Turret limit per player", () -> 10, 1, 300);
+            DRONE_LIMIT_PER_PLAYER = builder.defineInRange("Drone limit per player", () -> 10, 1, 300);
             return builder.build();
         }).getRight());
     }

@@ -1,3 +1,6 @@
+3.0.26:
+reduced unit limit;
+
 3.0.25:
 drones now circle around target correctly;
 removed damage bonus from crossbow;
