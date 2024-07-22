@@ -33,7 +33,7 @@ public class ClientEvents {
             PlayerEntity player = Minecraft.getInstance().player;
             if (livingEntity instanceof Turret) {
                 Turret turret = (Turret) livingEntity;
-                if ((turret.getOwner().isPresent() && (turret.getOwner().equals(player.getUUID()) || player.isAlliedTo(turret))) || !turret.getOwner().isPresent()) {
+                if ((turret.getOwner().isPresent() && (turret.getOwner().get().equals(player.getUUID()) || player.isAlliedTo(turret))) || !turret.getOwner().isPresent()) {
                     MatrixStack matrixStack = renderLivingEvent.getMatrixStack();
                     matrixStack.pushPose();
                     String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
