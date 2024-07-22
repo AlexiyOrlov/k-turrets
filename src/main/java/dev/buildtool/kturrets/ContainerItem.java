@@ -69,7 +69,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
             if (entity != null) {
                 if (itemstack.hasTag()) {
                     entity.deserializeNBT(itemstack.getTag().getCompound("Contained"));
-                    entity.setPosRaw(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
+                    entity.setPosRaw(blockpos1.getX() + 0.5, blockpos1.getY() + 1, blockpos1.getZ() + 0.5);
                 } else if (KTurrets.SET_OWNER_AUTO.get()) {
                     Turret turret = (Turret) entity;
                     turret.setOwner(player.getUUID());
