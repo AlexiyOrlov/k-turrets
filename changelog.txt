@@ -1,5 +1,6 @@
 2.0.46:
 updated Chinese translation;
+reduced turret and drone limits;
 
 2.0.45:
 improved fireball turret model;
