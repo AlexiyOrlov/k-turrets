@@ -1,3 +1,6 @@
+2.0.46:
+updated Chinese translation;
+
 2.0.45:
 improved fireball turret model;
 ownership is set automatically;
