@@ -35,7 +35,7 @@ public class ClientEvents {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
             Player player = Minecraft.getInstance().player;
             if (livingEntity instanceof Turret turret) {
-                if (!turret.getOwner().isPresent() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
+                if (turret.getOwner().isEmpty() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
                     PoseStack poseStack = renderLivingEvent.getPoseStack();
                     poseStack.pushPose();
                     String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
