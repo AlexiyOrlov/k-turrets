@@ -1,6 +1,7 @@
 0.1.34:
 fixed wrong domain in turret ammo config;
 fixed network errors;
+fixed turrets/drones not attacking players;
 
 0.1.33:
 fixed turret health not showing up;
