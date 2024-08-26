@@ -234,7 +234,7 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
-        channel.registerMessage(packetIndex, TogglePlayerProtection.class, (togglePlayerProtection, packetBuffer) -> {
+        channel.registerMessage(packetIndex++, TogglePlayerProtection.class, (togglePlayerProtection, packetBuffer) -> {
                     packetBuffer.writeBoolean(togglePlayerProtection.protect);
                     packetBuffer.writeInt(togglePlayerProtection.id);
                 }, packetBuffer -> new TogglePlayerProtection(packetBuffer.readBoolean(), packetBuffer.readInt()),
