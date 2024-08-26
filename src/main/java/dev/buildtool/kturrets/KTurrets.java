@@ -121,7 +121,7 @@ public class KTurrets {
             FIREBALL_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             FIREBALL_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             FIREBALL_TURRET_DAMAGE = builder.defineInRange("Damage", 6, 1, 100);
-            FIREBALL_TURRET_AMMO = builder.define("Ammo", "k_turrets:explosive_powder");
+            FIREBALL_TURRET_AMMO = builder.define("Ammo", "k-turrets:explosive_powder");
             builder.pop();
             builder.push("Brick turret");
             BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
@@ -139,7 +139,7 @@ public class KTurrets {
             GAUSS_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             GAUSS_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             GAUSS_TURRET_DAMAGE = builder.defineInRange("Damage", 12, 1, 100);
-            GAUSS_TURRET_AMMO = builder.define("Ammo", "k_turrets:gauss_bullet");
+            GAUSS_TURRET_AMMO = builder.define("Ammo", "k-turrets:gauss_bullet");
             builder.pop();
             builder.push("Cobble turret");
             COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
