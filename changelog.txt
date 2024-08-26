@@ -1,5 +1,6 @@
 0.1.34:
 fixed wrong domain in turret ammo config;
+fixed network errors;
 
 0.1.33:
 fixed turret health not showing up;
