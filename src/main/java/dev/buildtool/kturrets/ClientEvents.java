@@ -2,9 +2,9 @@ package dev.buildtool.kturrets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import dev.buildtool.satako.ClientMethods;
 import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.IntegerColor;
-import dev.buildtool.satako.Methods;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -65,7 +65,7 @@ public class ClientEvents {
                 nearbyDrones.forEach(drone -> {
                     Vec3 dronePosition = drone.getPosition(1);
                     poseStack.translate(dronePosition.x - 0.5, dronePosition.y - 0.2, dronePosition.z - 0.5);
-                    Methods.addRectangle(bufferSource.getBuffer(RenderType.lightning()), poseStack.last().pose(), 0, 0, 0, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false, 0);
+                    ClientMethods.addRectangle(bufferSource.getBuffer(RenderType.lightning()), poseStack.last().pose(), 0, 0, 0, orange.getRed(), orange.getGreen(), orange.getBlue(), orange.getAlpha(), false, 0);
                     poseStack.translate(-(dronePosition.x - 0.5), -(dronePosition.y - 0.2), -(dronePosition.z - 0.5));
                 });
                 poseStack.popPose();
@@ -80,7 +80,7 @@ public class ClientEvents {
             Minecraft minecraft = Minecraft.getInstance();
             int screenWidth = renderGuiOverlayEvent.getWindow().getGuiScaledWidth();
             TranslatableComponent warning = new TranslatableComponent(KTurrets.ID + ".no.drones.nearby");
-            Methods.drawString(renderGuiOverlayEvent.getMatrixStack(), warning.getString(), screenWidth / 2 - minecraft.font.width(warning) / 2, 20, Constants.GREEN);
+            ClientMethods.drawString(renderGuiOverlayEvent.getMatrixStack(), warning.getString(), screenWidth / 2 - minecraft.font.width(warning) / 2, 20, Constants.GREEN);
         }
     }
 }
