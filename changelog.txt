@@ -1,3 +1,6 @@
+3.0.28:
+arrow turret and drone do not require a weapon to shoot;
+
 3.0.27:
 updated Chinese translation;
 

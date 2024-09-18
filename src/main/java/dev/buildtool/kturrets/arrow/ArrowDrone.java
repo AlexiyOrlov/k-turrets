@@ -67,44 +67,41 @@ public class ArrowDrone extends Drone {
 
     @Override
     public boolean isArmed() {
-        return !weapon.isEmpty() && !ammo.isEmpty();
+        return !ammo.isEmpty();
     }
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         if (target.isAlive()) {
             ItemStack weapon = this.weapon.getStackInSlot(0);
-            if (!weapon.isEmpty()) {
-                for (ItemStack arrows : ammo.getItems()) {
-                    if (!arrows.isEmpty()) {
-                        AbstractArrow arrowEntity = ProjectileUtil.getMobArrow(this, arrows, distanceFactor);
-                        double dx = target.getX() - this.getX();
-                        double dy = target.getEyeY() - getEyeY();
-                        double dz = target.getZ() - this.getZ();
-                        double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
-                        arrowEntity.setBaseDamage(damage);
-                        Arrow2 arrow2 = new Arrow2(level(), arrowEntity, this, distanceFactor, (float) dx, (float) dy, (float) dz);
-                        arrow2.setBaseDamage(arrowEntity.getBaseDamage());
-                        if (weapon.getItem() instanceof CrossbowItem) {
-                            arrow2.setShotFromCrossbow(true);
-                            int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, weapon);
-                            if (i > 0)
-                                arrow2.setPierceLevel((byte) i);
-                        }
-                        arrow2.setEnchantmentEffectsFromEntity(this, distanceFactor);
-                        arrow2.setNoGravity(true);
-                        arrow2.shoot(dx, dy, dz, 1.8f, 0);
-                        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-                        this.level().addFreshEntity(arrow2);
-                        arrows.shrink(1);
-                        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY_ARROWS, this) == 0 && EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, this) == 0)
-                            weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-                        break;
+            for (ItemStack arrows : ammo.getItems()) {
+                if (!arrows.isEmpty()) {
+                    AbstractArrow arrowEntity = ProjectileUtil.getMobArrow(this, arrows, distanceFactor);
+                    double dx = target.getX() - this.getX();
+                    double dy = target.getEyeY() - getEyeY();
+                    double dz = target.getZ() - this.getZ();
+                    double damage = KTurrets.ARROW_TURRET_DAMAGE.get();
+                    arrowEntity.setBaseDamage(damage);
+                    Arrow2 arrow2 = new Arrow2(level(), arrowEntity, this, distanceFactor, (float) dx, (float) dy, (float) dz);
+                    arrow2.setBaseDamage(arrowEntity.getBaseDamage());
+                    if (weapon.getItem() instanceof CrossbowItem) {
+                        arrow2.setShotFromCrossbow(true);
+                        int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, weapon);
+                        if (i > 0)
+                            arrow2.setPierceLevel((byte) i);
                     }
+                    arrow2.setEnchantmentEffectsFromEntity(this, distanceFactor);
+                    arrow2.setNoGravity(true);
+                    arrow2.shoot(dx, dy, dz, 1.8f, 0);
+                    this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
+                    this.level().addFreshEntity(arrow2);
+                    arrows.shrink(1);
+                    if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY_ARROWS, this) == 0 && EnchantmentHelper.getEnchantmentLevel(Enchantments.MULTISHOT, this) == 0)
+                        weapon.hurtAndBreak(1, this, turret -> turret.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+                    break;
                 }
             }
         }
-
     }
 
     @Nullable
