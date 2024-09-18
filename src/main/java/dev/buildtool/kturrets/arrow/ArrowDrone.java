@@ -33,7 +33,6 @@ public class ArrowDrone extends Drone {
     protected final ItemHandler weapon = new ItemHandler(1) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-
             return stack.getItem() instanceof CrossbowItem || stack.getItem() instanceof BowItem;
         }
     };
