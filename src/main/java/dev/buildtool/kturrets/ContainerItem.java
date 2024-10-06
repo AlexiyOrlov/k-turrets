@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.registers.RegisterCapability;
 import dev.buildtool.kturrets.registers.UnitLimitCapability;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -103,7 +104,10 @@ public class ContainerItem extends ForgeSpawnEggItem {
     public void appendHoverText(ItemStack itemStack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
         super.appendHoverText(itemStack, p_41422_, components, p_41424_);
         if (itemStack.hasTag()) {
-            components.add(Component.literal("" + itemStack.getTag().getUUID("UUID")));
+            CompoundTag compoundTag = itemStack.getTag();
+            assert compoundTag != null;
+            if (compoundTag.contains("UUID"))
+                components.add(Component.literal("" + compoundTag.getUUID("UUID")));
         }
     }
 }
