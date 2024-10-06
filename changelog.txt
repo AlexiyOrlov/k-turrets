@@ -1,3 +1,6 @@
+3.0.29:
+fixed possible NPE;
+
 3.0.28:
 arrow turret and drone do not require a weapon to shoot;
 
