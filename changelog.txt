@@ -1,3 +1,6 @@
+3.0.30:
+fixed possible crash by brick drone;
+
 3.0.29:
 fixed possible NPE;
 
