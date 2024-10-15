@@ -35,9 +35,9 @@ public class BrickDroneContainer extends Container2 {
         if (index > 17) {
             if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
                 Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.CUSTOM_BRICK_TURRET_AMMO.get()));
-                if (itemStack.is(item) && !moveItemStackTo(itemStack, 0, 27, false))
+                if (itemStack.is(item) && !moveItemStackTo(itemStack, 0, 18, false))
                     return ItemStack.EMPTY;
-            } else if ((Functions.isItemIn(itemStack.getItem(), Tags.Items.INGOTS_BRICK) || itemStack.getItem() == Items.NETHER_BRICK) && !moveItemStackTo(itemStack, 0, 27, false))
+            } else if ((Functions.isItemIn(itemStack.getItem(), Tags.Items.INGOTS_BRICK) || itemStack.getItem() == Items.NETHER_BRICK) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 18, 54, false))
