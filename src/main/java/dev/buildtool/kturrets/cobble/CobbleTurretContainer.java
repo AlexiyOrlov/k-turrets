@@ -3,15 +3,12 @@ package dev.buildtool.kturrets.cobble;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.satako.Container2;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class CobbleTurretContainer extends Container2 {
     public CobbleTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
@@ -31,12 +28,7 @@ public class CobbleTurretContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if (KTurrets.USE_CUSTOM_COBBLE_TURRET_AMMO.get()) {
-                Item customAmmo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.COBBLE_TURRET_AMMO.get()));
-                if (itemStack.is(customAmmo) && !moveItemStackTo(itemStack, 0, 27, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if ((ForgeRegistries.ITEMS.tags().getTag(ItemTags.STONE_TOOL_MATERIALS).contains(itemStack.getItem())) && !moveItemStackTo(itemStack, 0, 27, false))
+            if (Functions.isItemIn(itemStack.getItem(), KTurrets.COBBLE_TURRET_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))

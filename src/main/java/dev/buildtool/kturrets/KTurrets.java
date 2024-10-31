@@ -10,9 +10,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -26,9 +28,8 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Collections;
@@ -38,7 +39,6 @@ import java.util.Objects;
 @Mod(KTurrets.ID)
 public class KTurrets {
     public static final String ID = "k_turrets";
-    public static final Logger LOGGER = LogManager.getLogger("K-Turrets");
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     static private final String NP = "1.0";
     public static SimpleChannel channel;
@@ -71,7 +71,6 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static ForgeConfigSpec.ConfigValue<String> COBBLE_TURRET_AMMO;
-    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_COBBLE_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue uSE_CUSTOM_ARROW_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> ARROW_TURRET_AMMO;
@@ -81,6 +80,8 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_FIREBALL_TURRET_AMMO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
+    public static TagKey<Item> COBBLE_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_turret_ammo"));
+
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
             p_259752_.accept(KItems.COBBLE_TURRET.get());
@@ -174,8 +175,6 @@ public class KTurrets {
             COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
-            USE_CUSTOM_COBBLE_TURRET_AMMO = builder.define("Use custom ammo", false);
-            COBBLE_TURRET_AMMO = builder.define("Ammo", "minecraft:cobblestone");
             builder.pop();
             builder.pop();
             return builder.build();
