@@ -70,17 +70,16 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
-    public static ForgeConfigSpec.ConfigValue<String> COBBLE_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_ARROW_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
-    public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_FIREBALL_TURRET_AMMO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
     public static TagKey<Item> BRICK_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo"));
+    public static TagKey<Item> BULLET_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo"));
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -140,7 +139,6 @@ public class KTurrets {
             IRON_BULLET_DAMAGE = builder.defineInRange("Iron bullet damage", 8, 1, 100);
             GOLD_BULLET_DAMAGE = builder.defineInRange("Gold bullet damage", 7, 1, 100);
             USE_CUSTOM_BULLET_TURRET_AMMO = builder.comment("If true, uses iron bullet damage").define("Use custom ammo", false);
-            CUSTOM_BULLET_TURRET_AMMO = builder.define("Ammo", "minecraft:iron_nugget");
             builder.pop();
             builder.push("Fire charge turret");
             CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
