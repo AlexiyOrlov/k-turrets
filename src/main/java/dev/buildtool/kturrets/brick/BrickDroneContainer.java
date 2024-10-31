@@ -6,14 +6,11 @@ import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class BrickDroneContainer extends Container2 {
     public BrickDroneContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
@@ -34,8 +31,7 @@ public class BrickDroneContainer extends Container2 {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
             if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
-                Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.CUSTOM_BRICK_TURRET_AMMO.get()));
-                if (itemStack.is(item) && !moveItemStackTo(itemStack, 0, 18, false))
+                if (Functions.isItemIn(itemStack.getItem(), KTurrets.BRICK_TURRET_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                     return ItemStack.EMPTY;
             } else if ((Functions.isItemIn(itemStack.getItem(), Tags.Items.INGOTS_BRICK) || itemStack.getItem() == Items.NETHER_BRICK) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;

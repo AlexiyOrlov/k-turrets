@@ -76,11 +76,11 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
-    public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_FIREBALL_TURRET_AMMO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
+    public static TagKey<Item> BRICK_TURRET_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo"));
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -152,7 +152,6 @@ public class KTurrets {
             builder.pop();
             builder.push("Brick turret");
             USE_CUSTOM_BRICK_TURRET_AMMO = builder.comment("If true, will use nether brick damage").define("Use custom ammo", false);
-            CUSTOM_BRICK_TURRET_AMMO = builder.define("Ammo", "minecraft:brick");
             BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             BRICK_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BRICK_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0d, 100d);
