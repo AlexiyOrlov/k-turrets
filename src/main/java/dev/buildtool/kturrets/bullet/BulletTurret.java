@@ -29,7 +29,7 @@ public class BulletTurret extends Turret {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if (KTurrets.USE_CUSTOM_BULLET_TURRET_AMMO.get()) {
-                return Functions.isItemIn(stack.getItem(), KTurrets.BULLET_TURRET_AMMO_TAG);
+                return Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG);
             } else
                 return stack.is(Items.GOLD_NUGGET) || stack.is(Items.IRON_NUGGET);
         }

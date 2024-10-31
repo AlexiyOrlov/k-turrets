@@ -28,7 +28,7 @@ public class CobbleDrone extends Drone {
     protected ItemHandler stone = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.COBBLE_TURRET_AMMO_TAG);
+            return Functions.isItemIn(stack.getItem(), KTurrets.COBBLE_UNIT_AMMO_TAG);
         }
     };
 

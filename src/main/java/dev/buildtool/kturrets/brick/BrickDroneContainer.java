@@ -31,7 +31,7 @@ public class BrickDroneContainer extends Container2 {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
             if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
-                if (Functions.isItemIn(itemStack.getItem(), KTurrets.BRICK_TURRET_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
+                if (Functions.isItemIn(itemStack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                     return ItemStack.EMPTY;
             } else if ((Functions.isItemIn(itemStack.getItem(), Tags.Items.INGOTS_BRICK) || itemStack.getItem() == Items.NETHER_BRICK) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;

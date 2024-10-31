@@ -34,7 +34,7 @@ public class BrickDrone extends Drone {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
-                return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_TURRET_AMMO_TAG);
+                return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG);
             } else
                 return Functions.isItemIn(stack.getItem(), Tags.Items.INGOTS_BRICK) || stack.is(Items.NETHER_BRICK);
         }

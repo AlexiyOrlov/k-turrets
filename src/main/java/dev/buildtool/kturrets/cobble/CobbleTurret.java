@@ -27,7 +27,7 @@ public class CobbleTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.COBBLE_TURRET_AMMO_TAG);
+            return Functions.isItemIn(stack.getItem(), KTurrets.COBBLE_UNIT_AMMO_TAG);
         }
     };
 
