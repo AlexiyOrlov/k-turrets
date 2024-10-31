@@ -71,7 +71,6 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
-    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_ARROW_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_FIREBALL_TURRET_AMMO;
@@ -80,6 +79,7 @@ public class KTurrets {
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
     public static TagKey<Item> BRICK_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo"));
     public static TagKey<Item> BULLET_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo"));
+    public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -129,7 +129,6 @@ public class KTurrets {
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             ARROW_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 6, 1, 100);
-            USE_CUSTOM_ARROW_TURRET_AMMO = builder.define("Use custom ammo", false);
             builder.pop();
             builder.push("Bullet turret");
             BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
@@ -146,7 +145,6 @@ public class KTurrets {
             CHARGE_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             CHARGE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             CHARGE_TURRET_DAMAGE = builder.defineInRange("Damage", 6, 1, 100);
-            CUSTOM_FIREBALL_TURRET_AMMO = builder.define("Ammo", "k_turrets:explosive_powder");
             builder.pop();
             builder.push("Brick turret");
             USE_CUSTOM_BRICK_TURRET_AMMO = builder.comment("If true, will use nether brick damage").define("Use custom ammo", false);

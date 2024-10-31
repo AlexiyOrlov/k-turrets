@@ -7,7 +7,6 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,10 +16,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,8 +28,7 @@ public class FireballDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.CUSTOM_FIREBALL_TURRET_AMMO.get()));
-            return stack.is(item);
+            return Functions.isItemIn(stack.getItem(), KTurrets.FIREBALL_UNIT_AMMO);
         }
     };
 
