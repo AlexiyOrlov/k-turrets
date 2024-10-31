@@ -72,8 +72,7 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static ForgeConfigSpec.ConfigValue<String> COBBLE_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
-    public static ForgeConfigSpec.BooleanValue uSE_CUSTOM_ARROW_TURRET_AMMO;
-    public static ForgeConfigSpec.ConfigValue<String> ARROW_TURRET_AMMO;
+    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_ARROW_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.ConfigValue<String> CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
@@ -131,8 +130,7 @@ public class KTurrets {
             ARROW_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             ARROW_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             ARROW_TURRET_DAMAGE = builder.defineInRange("Base damage", 6, 1, 100);
-            uSE_CUSTOM_ARROW_TURRET_AMMO = builder.define("Use custom ammo", false);
-            ARROW_TURRET_AMMO = builder.define("Ammo", "minecraft:arrow");
+            USE_CUSTOM_ARROW_TURRET_AMMO = builder.define("Use custom ammo", false);
             builder.pop();
             builder.push("Bullet turret");
             BULLET_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);

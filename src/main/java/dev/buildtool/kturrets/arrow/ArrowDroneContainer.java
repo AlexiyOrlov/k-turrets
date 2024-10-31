@@ -3,13 +3,14 @@ package dev.buildtool.kturrets.arrow;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.satako.Container2;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
 
 public class ArrowDroneContainer extends Container2 {
     public ArrowDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
@@ -32,11 +33,7 @@ public class ArrowDroneContainer extends Container2 {
         if (index > 18) {
             if ((itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) && !moveItemStackTo(itemStack, 0, 1, false))
                 return ItemStack.EMPTY;
-            if (KTurrets.uSE_CUSTOM_ARROW_TURRET_AMMO.get()) {
-                Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.ARROW_TURRET_AMMO.get()));
-                if (itemStack.is(ammo) && !moveItemStackTo(itemStack, 1, 28, false))
-                    return ItemStack.EMPTY;
-            } else if (itemStack.getItem() instanceof ArrowItem && !moveItemStackTo(itemStack, 1, 28, false))
+            if (Functions.isItemIn(itemStack.getItem(), KTurrets.ARROW_TURRET_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 28, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 19, 55, false))
