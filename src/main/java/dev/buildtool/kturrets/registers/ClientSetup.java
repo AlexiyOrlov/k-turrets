@@ -29,7 +29,7 @@ public class ClientSetup {
         MenuScreens.register(KContainers.GAUSS_TURRET, (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.COBBLE_TURRET, (MenuScreens.ScreenConstructor<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
 
-        MenuScreens.register(KContainers.BRICK_DRONE, (MenuScreens.ScreenConstructor<BrickDroneContainer, BrickDroneScreen>) (p1, p2, p3) -> new BrickDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KContainers.BRICK_DRONE.get(), (MenuScreens.ScreenConstructor<BrickDroneContainer, BrickDroneScreen>) (p1, p2, p3) -> new BrickDroneScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.BULLET_DRONE.get(), (MenuScreens.ScreenConstructor<BulletDroneContainer, BulletDroneScreen>) (p1, p2, p3) -> new BulletDroneScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.COBBLE_DRONE.get(), (MenuScreens.ScreenConstructor<CobbleDroneContainer, CobbleDroneScreen>) (p1, p2, p3) -> new CobbleDroneScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.ARROW_DRONE.get(), (MenuScreens.ScreenConstructor<ArrowDroneContainer, ArrowDroneScreen>) (p1, p2, p3) -> new ArrowDroneScreen(p1, p2, p3, true));

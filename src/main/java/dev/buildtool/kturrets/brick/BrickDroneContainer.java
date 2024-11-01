@@ -14,7 +14,7 @@ import net.minecraftforge.common.Tags;
 
 public class BrickDroneContainer extends Container2 {
     public BrickDroneContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
-        super(KContainers.BRICK_DRONE, i);
+        super(KContainers.BRICK_DRONE.get(), i);
         BrickDrone brickDrone = (BrickDrone) playerInventory.player.level().getEntity(buffer.readInt());
         int index = 0;
         for (int j = 0; j < 2; j++) {
