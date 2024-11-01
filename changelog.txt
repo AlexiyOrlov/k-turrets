@@ -1,3 +1,6 @@
+3.0.31:
+unit ammo is now determined by item tags;
+
 3.0.30:
 fixed possible crash by brick drone;
 
