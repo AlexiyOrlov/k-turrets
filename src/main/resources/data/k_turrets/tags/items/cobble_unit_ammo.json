@@ -1,7 +1,5 @@
 {
   "values": [
-    "minecraft:cobblestone",
-    "minecraft:blackstone",
-    "minecraft:cobbled_deepslate"
+    "#minecraft:stone_tool_materials"
   ]
 }

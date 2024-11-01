@@ -1,6 +1,6 @@
 {
   "values": [
-    "minecraft:brick",
+    "#forge:ingots/brick",
     "minecraft:nether_brick"
   ]
 }
