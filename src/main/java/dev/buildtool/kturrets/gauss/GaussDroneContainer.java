@@ -3,14 +3,12 @@ package dev.buildtool.kturrets.gauss;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.satako.Container2;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class GaussDroneContainer extends Container2 {
     public GaussDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
@@ -28,17 +26,14 @@ public class GaussDroneContainer extends Container2 {
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
-        ItemStack stack = getSlot(index).getItem();
-        ItemStack stack1 = ItemStack.EMPTY;
-        Item ammo = ForgeRegistries.ITEMS.getValue(new ResourceLocation(KTurrets.GAUSS_TURRET_AMMO.get()));
-        if (stack.is(ammo) && index > 17) {
-            stack1 = stack.copy();
-            if (!moveItemStackTo(stack, 0, 18, false))
+        ItemStack itemStack = getSlot(index).getItem();
+        if (index > 17) {
+            if (Functions.isItemIn(itemStack.getItem(), KTurrets.GAUSS_UNIT_AMMO) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
-        } else if (index < 18) {
-            if (!moveItemStackTo(stack, 18, 54, false))
+        } else {
+            if (!moveItemStackTo(itemStack, 18, 54, false))
                 return ItemStack.EMPTY;
         }
-        return stack1;
+        return super.quickMoveStack(playerIn, index);
     }
 }

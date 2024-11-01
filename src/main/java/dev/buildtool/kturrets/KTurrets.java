@@ -70,16 +70,15 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
-    public static ForgeConfigSpec.ConfigValue<String> GAUSS_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
     public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
-    public static ForgeConfigSpec.ConfigValue<String> CUSTOM_FIREBALL_TURRET_AMMO;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
     public static TagKey<Item> BRICK_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo"));
     public static TagKey<Item> BULLET_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo"));
     public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
+    public static TagKey<Item> GAUSS_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
@@ -161,7 +160,6 @@ public class KTurrets {
             GAUSS_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             GAUSS_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             GAUSS_TURRET_DAMAGE = builder.defineInRange("Damage", 12, 1, 100);
-            GAUSS_TURRET_AMMO = builder.define("Ammo", "k_turrets:gauss_bullet");
             builder.pop();
             builder.push("Cobble turret");
             COBBLE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
