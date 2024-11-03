@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
+import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +12,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -51,7 +51,7 @@ public class ArrowDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 1, KTurrets.ARROW_TURRET_RATE.get(), (float) getRange()));
+        goalSelector.addGoal(5, new RestrictedRangedAttackGoal(this, 1, KTurrets.ARROW_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
