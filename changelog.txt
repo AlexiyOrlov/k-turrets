@@ -1,5 +1,6 @@
 3.0.31:
 unit ammo is now determined by item tags;
+if attacking, drones will keep close to the owner within configurable distance
 
 3.0.30:
 fixed possible crash by brick drone;
