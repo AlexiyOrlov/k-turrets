@@ -212,11 +212,18 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 setOwnerName(playerEntity.getName().getString());
             if (itemInHand.getItem() == KItems.TARGET_COPIER.get()) {
                 if (playerEntity.isCrouching()) {
+                    //copy
                     CompoundTag compoundTag = itemInHand.getOrCreateTag();
                     compoundTag.put("Filters", getTargets());
+                    CompoundTag ignoredPlayers = entityData.get(IGNORED_PLAYERS);
+                    compoundTag.put("Ignored players", ignoredPlayers);
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.filters.stored"), true);
                 } else if (itemInHand.hasTag()) {
+                    //set
                     setTargets(itemInHand.getTag().getCompound("Filters"));
+                    CompoundTag compoundTag = itemInHand.getTag();
+                    CompoundTag ignoredPlayers = compoundTag.getCompound("Ignored players");
+                    entityData.set(IGNORED_PLAYERS, ignoredPlayers);
                     playerEntity.displayClientMessage(Component.translatable("k_turrets.filters.copied"), true);
                 }
                 return InteractionResult.SUCCESS;

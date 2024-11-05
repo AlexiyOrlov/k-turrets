@@ -9,7 +9,7 @@
   "item.k_turrets.gauss_bullet": "Gauss Bullet",
   "item.k_turrets.gauss_turret_item": "Gauss Turret",
   "item.k_turrets.cobble_turret_item": "Cobble Turret",
-  "item.k_turrets.wrench": "Filter Copier",
+  "item.k_turrets.wrench": "Target Copier",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -60,8 +60,8 @@
 
   "k_turrets.refill.inventory": "Refill inventory",
   "k_turrets.dont.refill.inventory": "Don't refill inventory",
-  "k_turrets.filters.stored": "Target filters stored",
-  "k_turrets.filters.copied": "Target filters copied",
+  "k_turrets.filters.stored": "Stored targets and exceptions",
+  "k_turrets.filters.copied": "Copied targets and exceptions",
 
   "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
