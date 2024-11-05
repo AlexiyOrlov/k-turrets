@@ -1,3 +1,6 @@
+3.0.32:
+Target Copier now copies player exceptions too;
+
 3.0.31:
 unit ammo is now determined by item tags;
 if attacking, drones will keep close to the owner within configurable distance
