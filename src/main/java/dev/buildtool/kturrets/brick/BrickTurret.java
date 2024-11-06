@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
@@ -29,10 +28,8 @@ public class BrickTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
-                return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG);
-            } else
-                return Functions.isItemIn(stack.getItem(), Tags.Items.INGOTS_BRICK) || stack.is(Items.NETHER_BRICK);
+            return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2);
+
         }
     };
 

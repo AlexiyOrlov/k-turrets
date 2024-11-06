@@ -16,9 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,10 +31,7 @@ public class BrickDrone extends Drone {
     protected ItemHandler bricks = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if (KTurrets.USE_CUSTOM_BRICK_TURRET_AMMO.get()) {
-                return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG);
-            } else
-                return Functions.isItemIn(stack.getItem(), Tags.Items.INGOTS_BRICK) || stack.is(Items.NETHER_BRICK);
+            return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2);
         }
     };
 
@@ -66,7 +61,7 @@ public class BrickDrone extends Drone {
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
                     Brick brick = new Brick(this, xa, ya, za, level());
-                    brick.setDamage(Functions.isItemIn(bricksItem.getItem(), Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
+                    brick.setDamage(Functions.isItemIn(bricksItem.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
                     level().playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundSource.NEUTRAL, 1, 0.5f);
                     bricksItem.shrink(1);

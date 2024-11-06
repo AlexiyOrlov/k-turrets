@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,10 +27,8 @@ public class BulletTurret extends Turret {
     protected final ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if (KTurrets.USE_CUSTOM_BULLET_TURRET_AMMO.get()) {
-                return Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG);
-            } else
-                return stack.is(Items.GOLD_NUGGET) || stack.is(Items.IRON_NUGGET);
+            return Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG2);
+
         }
     };
 
@@ -54,7 +51,7 @@ public class BulletTurret extends Turret {
                     double d0 = livingEntity.getX() - this.getX();
                     double d1 = livingEntity.getEyeY() - getEyeY();
                     double d2 = livingEntity.getZ() - this.getZ();
-                    Bullet bullet = new Bullet(this, d0, d1, d2, level(), item.getItem() == Items.GOLD_NUGGET ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
+                    Bullet bullet = new Bullet(this, d0, d1, d2, level(), Functions.isItemIn(item.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG1) ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
                     level().addFreshEntity(bullet);
                     level().playSound(null, blockPosition(), Sounds.BULLET_FIRE.get(), SoundSource.NEUTRAL, 1, 1);
                     item.shrink(1);

@@ -70,14 +70,14 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue PROJECTILE_SPEED;
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
-    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BULLET_TURRET_AMMO;
-    public static ForgeConfigSpec.BooleanValue USE_CUSTOM_BRICK_TURRET_AMMO;
     public static ForgeConfigSpec.IntValue OWNER_FOLLOW_DISTANCE;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
-    public static TagKey<Item> BRICK_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo"));
-    public static TagKey<Item> BULLET_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo"));
+    public static TagKey<Item> BRICK_UNIT_AMMO_TAG1 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo1"));
+    public static TagKey<Item> BRICK_UNIT_AMMO_TAG2 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo2"));
+    public static TagKey<Item> BULLET_UNIT_AMMO_TAG1 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo1"));
+    public static TagKey<Item> BULLET_UNIT_AMMO_TAG2 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo2"));
     public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
     public static TagKey<Item> GAUSS_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
 
@@ -138,7 +138,6 @@ public class KTurrets {
             BULLET_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             IRON_BULLET_DAMAGE = builder.defineInRange("Iron bullet damage", 8, 1, 100);
             GOLD_BULLET_DAMAGE = builder.defineInRange("Gold bullet damage", 7, 1, 100);
-            USE_CUSTOM_BULLET_TURRET_AMMO = builder.comment("If true, uses iron bullet damage").define("Use custom ammo", false);
             builder.pop();
             builder.push("Fire charge turret");
             CHARGE_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
@@ -148,7 +147,6 @@ public class KTurrets {
             CHARGE_TURRET_DAMAGE = builder.defineInRange("Damage", 6, 1, 100);
             builder.pop();
             builder.push("Brick turret");
-            USE_CUSTOM_BRICK_TURRET_AMMO = builder.comment("If true, will use nether brick damage").define("Use custom ammo", false);
             BRICK_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
             BRICK_TURRET_RANGE = builder.defineInRange("Range", 32d, 8d, 100d);
             BRICK_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0d, 100d);

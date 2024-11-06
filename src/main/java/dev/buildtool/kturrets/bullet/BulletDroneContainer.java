@@ -9,7 +9,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class BulletDroneContainer extends Container2 {
     public BulletDroneContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
@@ -29,10 +28,7 @@ public class BulletDroneContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
-            if (KTurrets.USE_CUSTOM_BULLET_TURRET_AMMO.get()) {
-                if (Functions.isItemIn(itemStack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 27, false))
-                    return ItemStack.EMPTY;
-            } else if ((itemStack.getItem() == Items.IRON_NUGGET || itemStack.getItem() == Items.GOLD_NUGGET) && !moveItemStackTo(itemStack, 0, 27, false))
+            if ((Functions.isItemIn(itemStack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(itemStack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 18, 54, false))
