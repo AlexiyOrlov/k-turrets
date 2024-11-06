@@ -22,7 +22,7 @@
 
   "k_turrets.targets": "Targets:",
   "k_turrets.added": "Added to targets",
-  "k_turrets.add.entity.type": "Add new entity type to target list",
+  "k_turrets.add.entity.type": "Add target",
   "k_turrets.choose.tooltip": "Choose which entities to remove by pressing the appropriate buttons",
   "k_turrets.hold.alt.to.scroll": "To scroll the target list, hold Alt and use the mouse wheel",
   "k_turrets.dismantle": "Dismantle",
