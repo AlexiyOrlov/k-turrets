@@ -43,7 +43,7 @@ public class BrickDrone extends Drone {
     }
 
     @Override
-    public List<ItemHandler> getContainedItems() {
+    protected List<ItemHandler> getContainedItems() {
         return Collections.singletonList(bricks);
     }
 
