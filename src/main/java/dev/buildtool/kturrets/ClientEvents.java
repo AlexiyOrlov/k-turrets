@@ -35,23 +35,25 @@ public class ClientEvents {
             LivingEntity livingEntity = renderLivingEvent.getEntity();
             Player player = Minecraft.getInstance().player;
             if (livingEntity instanceof Turret turret) {
-                if (turret.getOwner().isEmpty() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
-                    PoseStack poseStack = renderLivingEvent.getPoseStack();
-                    poseStack.pushPose();
-                    String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
-                    poseStack.scale(0.03f, 0.03f, 0.03f);
-                    poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
-                    poseStack.mulPose(Axis.YP.rotationDegrees(180));
-                    poseStack.mulPose(Axis.XP.rotationDegrees(180));
-                    Font font = renderLivingEvent.getRenderer().getFont();
-                    poseStack.translate(-font.width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
-                    font.drawInBatch(health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor().intValue() : ChatFormatting.GREEN.getColor().intValue(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
-                    if (turret.noAmmo) {
-                        poseStack.translate(0, -13, 0);
-                        Component noAmmo = Component.translatable("k_turrets.no.ammo");
-                        font.drawInBatch(noAmmo, 0, 0, ChatFormatting.RED.getColor(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                if (player.distanceTo(turret) < 23) {
+                    if (turret.getOwner().isEmpty() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
+                        PoseStack poseStack = renderLivingEvent.getPoseStack();
+                        poseStack.pushPose();
+                        String health = String.format("%.1f", livingEntity.getHealth()) + "/" + (int) livingEntity.getMaxHealth();
+                        poseStack.scale(0.03f, 0.03f, 0.03f);
+                        poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+                        poseStack.mulPose(Axis.YP.rotationDegrees(180));
+                        poseStack.mulPose(Axis.XP.rotationDegrees(180));
+                        Font font = renderLivingEvent.getRenderer().getFont();
+                        poseStack.translate(-font.width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
+                        font.drawInBatch(health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor().intValue() : ChatFormatting.GREEN.getColor().intValue(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                        if (turret.noAmmo) {
+                            poseStack.translate(0, -13, 0);
+                            Component noAmmo = Component.translatable("k_turrets.no.ammo");
+                            font.drawInBatch(noAmmo, 0, 0, ChatFormatting.RED.getColor(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                        }
+                        poseStack.popPose();
                     }
-                    poseStack.popPose();
                 }
             }
         }
