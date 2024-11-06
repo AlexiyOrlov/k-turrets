@@ -341,7 +341,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         });
     }
 
-    protected abstract List<ItemHandler> getContainedItems();
+    public abstract List<ItemHandler> getContainedItems();
 
     @Nullable
     @Override

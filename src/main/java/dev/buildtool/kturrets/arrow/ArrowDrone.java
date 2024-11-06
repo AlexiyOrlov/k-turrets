@@ -56,7 +56,7 @@ public class ArrowDrone extends Drone {
     }
 
     @Override
-    protected List<ItemHandler> getContainedItems() {
+    public List<ItemHandler> getContainedItems() {
         return Arrays.asList(ammo, weapon);
     }
 

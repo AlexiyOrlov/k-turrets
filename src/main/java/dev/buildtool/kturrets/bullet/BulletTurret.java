@@ -82,7 +82,7 @@ public class BulletTurret extends Turret {
     }
 
     @Override
-    protected List<ItemHandler> getContainedItems() {
+    public List<ItemHandler> getContainedItems() {
         return Collections.singletonList(ammo);
     }
 

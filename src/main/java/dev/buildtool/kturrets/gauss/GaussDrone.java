@@ -43,7 +43,7 @@ public class GaussDrone extends Drone {
     }
 
     @Override
-    protected List<ItemHandler> getContainedItems() {
+    public List<ItemHandler> getContainedItems() {
         return Collections.singletonList(ammo);
     }
 
