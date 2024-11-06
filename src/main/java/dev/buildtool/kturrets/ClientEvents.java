@@ -43,8 +43,14 @@ public class ClientEvents {
                     poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                     poseStack.mulPose(Axis.YP.rotationDegrees(180));
                     poseStack.mulPose(Axis.XP.rotationDegrees(180));
-                    poseStack.translate(-renderLivingEvent.getRenderer().getFont().width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
-                    renderLivingEvent.getRenderer().getFont().drawInBatch(health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor().intValue() : ChatFormatting.GREEN.getColor().intValue(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                    Font font = renderLivingEvent.getRenderer().getFont();
+                    poseStack.translate(-font.width(health) / 2f, -30 - livingEntity.getBbHeight() * 30, 0);
+                    font.drawInBatch(health, 0, 0, livingEntity.getHealth() < livingEntity.getMaxHealth() / 2 ? ChatFormatting.RED.getColor().intValue() : ChatFormatting.GREEN.getColor().intValue(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                    if (turret.noAmmo) {
+                        poseStack.translate(0, -13, 0);
+                        Component noAmmo = Component.translatable("k_turrets.no.ammo");
+                        font.drawInBatch(noAmmo, 0, 0, ChatFormatting.RED.getColor(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                    }
                     poseStack.popPose();
                 }
             }

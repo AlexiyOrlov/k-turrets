@@ -16,9 +16,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -317,6 +319,19 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
+        channel.registerMessage(packetIndex++, AmmoCheck.class, (ammoCheck, byteBuf) -> {
+                    byteBuf.writeInt(ammoCheck.unit);
+                    byteBuf.writeBoolean(ammoCheck.noAmmo);
+                }, byteBuf -> {
+                    int ammo = byteBuf.readInt();
+                    return new AmmoCheck(byteBuf.readBoolean(), ammo);
+                },
+                (ammoCheck, contextSupplier) -> {
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> {
+                        contextSupplier.get().setPacketHandled(true);
+                        return new ClientProxy().syncAmmoStatus(ammoCheck);
+                    });
+                });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);

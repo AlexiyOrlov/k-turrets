@@ -1,5 +1,7 @@
 3.0.32:
 Target Copier now copies player exceptions too;
+added no ammo indicator;
+brick and bullet units use 2 item tags for ammo;
 
 3.0.31:
 unit ammo is now determined by item tags;

@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.packets.AmmoCheck;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
@@ -39,6 +40,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,6 +61,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<CompoundTag> IGNORED_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Boolean> REFILL_INVENTORY = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
+    public boolean noAmmo;
     /**
      * Players that are not allied to the owner
      */
@@ -551,6 +554,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                         break;
                     }
                 }
+            }
+            if (level().getGameTime() % 30 == 0) {
+                KTurrets.channel.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(getX(), getY(), getZ(), 22, level().dimension())), new AmmoCheck(!isArmed(), getId()));
             }
         }
     }
