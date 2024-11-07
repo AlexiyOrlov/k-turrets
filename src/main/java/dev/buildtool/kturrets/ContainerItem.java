@@ -107,7 +107,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
             CompoundTag compoundTag = itemStack.getTag();
             assert compoundTag != null;
             if (compoundTag.contains("UUID"))
-                components.add(Component.literal("" + compoundTag.getUUID("UUID")));
+                components.add(Component.literal(String.valueOf(compoundTag.getUUID("UUID")).substring(0, 13) + "..."));
         }
     }
 }
