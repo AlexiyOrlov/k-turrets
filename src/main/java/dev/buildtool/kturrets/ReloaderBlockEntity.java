@@ -48,7 +48,7 @@ public class ReloaderBlockEntity extends BlockEntity2 implements MenuProvider {
 
     static <T extends BlockEntity> void work(Level level, BlockPos pos, BlockState blockState, T t) {
         ReloaderBlockEntity reloaderBlockEntity = (ReloaderBlockEntity) t;
-        List<Drone> drones = level.getEntitiesOfClass(Drone.class, new AABB(pos).inflate(4));
+        List<Drone> drones = level.getEntitiesOfClass(Drone.class, new AABB(pos).inflate(6));
         drones.forEach(drone -> {
             IItemHandler itemHandler = drone.getContainedItems().get(0);
             loop:
