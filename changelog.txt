@@ -4,6 +4,7 @@ added no ammo indicator;
 brick and bullet units use 2 item tags for ammo;
 limit distance at which text indicators are rendered;
 implemented drone ammo reloader;
+retextured cobble, gauss, brick drones;
 
 3.0.31:
 unit ammo is now determined by item tags;
