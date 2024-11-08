@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.ReloaderMenu;
 import dev.buildtool.kturrets.arrow.ArrowDroneContainer;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;
 import dev.buildtool.kturrets.brick.BrickDroneContainer;
@@ -34,6 +35,7 @@ public class KContainers {
     public static final RegistryObject<MenuType<ArrowDroneContainer>> ARROW_DRONE = CONTAINERS.register("arrow_drone", () -> IForgeMenuType.create(ArrowDroneContainer::new));
     public static final RegistryObject<MenuType<GaussDroneContainer>> GAUSS_DRONE = CONTAINERS.register("gauss_drone", () -> IForgeMenuType.create(GaussDroneContainer::new));
     public static final RegistryObject<MenuType<FireballDroneContainer>> FIRECHARGE_DRONE = CONTAINERS.register("firecharge_drone", () -> IForgeMenuType.create(FireballDroneContainer::new));
+    public static final RegistryObject<MenuType<ReloaderMenu>> RELOADER = CONTAINERS.register("reloader", () -> IForgeMenuType.create(ReloaderMenu::new));
     static {
         ARROW_TURRET = IForgeMenuType.create(ArrowTurretContainer::new);
         CONTAINERS.register("arrow_turret", () -> ARROW_TURRET);

@@ -106,6 +106,8 @@ public class KTurrets {
             p_259752_.accept(KItems.BRICK_DRONE.get());
             p_259752_.accept(KItems.BULLET_DRONE.get());
             p_259752_.accept(KItems.GAUSS_DRONE.get());
+
+            p_259752_.accept(KItems.RELOADER.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
@@ -116,6 +118,7 @@ public class KTurrets {
         Sounds.SOUNDS.register(eventBus);
         KBlocks.BLOCKS.register(eventBus);
         TAB_REGISTER.register(eventBus);
+        KBlockEntities.BLOCK_ENTITIES.register(eventBus);
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");

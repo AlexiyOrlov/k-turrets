@@ -31,6 +31,7 @@ public class KItems {
     public static RegistryObject<Item> RAW_TITANIUM;
     public static RegistryObject<Item> TITANIUM_INGOT;
     public static RegistryObject<Item> TARGET_COPIER;
+    public static RegistryObject<Item> RELOADER;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
@@ -54,6 +55,7 @@ public class KItems {
         RAW_TITANIUM = ITEMS.register("raw_titanium", () -> new Item(defaults()));
         TITANIUM_INGOT = ITEMS.register("titanium_ingot", () -> new Item(defaults()));
         TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
+        RELOADER = ITEMS.register("reloader", () -> new BlockItem(KBlocks.RELOADER.get(), defaults()));
     }
 
     private static Item.Properties defaults() {
