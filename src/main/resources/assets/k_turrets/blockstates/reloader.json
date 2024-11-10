@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "k_turrets:block/ammo_reloader"
+    }
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "block/cube_all",
+  "textures": {
+    "0": "k_turrets:block/part1",
+    "1": "k_turrets:block/part2",
+    "particle": "part1"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        12,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4.25,
+            0,
+            8.25,
+            3
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            4.25,
+            3.25,
+            8.25,
+            6.25
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            4.25,
+            6.5,
+            8.25,
+            9.5
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            0,
+            8.5,
+            4,
+            11.5
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            0,
+            0
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            4,
+            4.25,
+            0,
+            8.25
+          ],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        12,
+        4
+      ],
+      "to": [
+        12,
+        16,
+        12
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          4,
+          12,
+          4
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            0,
+            16,
+            4
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            8,
+            4,
+            16,
+            8
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            8,
+            8,
+            16,
+            12
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            8,
+            12,
+            16,
+            16
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            8,
+            8,
+            0,
+            0
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            8,
+            8,
+            0,
+            16
+          ],
+          "texture": "#1"
+        }
+      }
+    }
+  ]
+}
