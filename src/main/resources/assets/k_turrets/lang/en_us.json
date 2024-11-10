@@ -85,7 +85,7 @@
 
   "block.k_turrets.titanium_ore": "Titanium Ore",
   "block.k_turrets.deepslate_titanium_ore": "Deepslate Titanium Ore",
-  "block.k_turrets.reloader": "Ammo Reloader",
+  "block.k_turrets.reloader": "Drone Reloader",
 
   "k_turrets.shift.hint": "Shift + right click on a turret to store filters",
   "k_turrets.click.hint": "Right click on a turret to copy filters",
