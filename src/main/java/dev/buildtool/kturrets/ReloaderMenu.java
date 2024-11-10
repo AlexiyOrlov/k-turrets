@@ -2,11 +2,13 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.satako.Container2;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ReloaderMenu extends Container2 {
@@ -17,9 +19,22 @@ public class ReloaderMenu extends Container2 {
         Player player = inventory.player;
         reloaderBlockEntity = (ReloaderBlockEntity) player.level().getBlockEntity(byteBuf.readBlockPos());
         int index = 0;
-        for (int j = 0; j < 7; j++) {
+        for (int j = 0; j < 6; j++) {
             for (int k = 0; k < 18; k++) {
-                addSlot(new ItemHandlerSlot(reloaderBlockEntity.ammo, index++, k * 18, j * 18).setColor(new IntegerColor(0xFFF08A89)));
+                ItemHandlerSlot slot = new ItemHandlerSlot(reloaderBlockEntity.ammo, index++, k * 18, j * 18);
+                if (index <= 18)
+                    slot.setColor(new IntegerColor(0xFFF08A89));
+                else if (index <= 36) {
+                    slot.setColor(new IntegerColor(0xffa48812));
+                } else if (index <= 54) {
+                    slot.setColor(new IntegerColor(0xffa6bc90));
+                } else if (index <= 72) {
+                    slot.setColor(new IntegerColor(0xff7cc9e3));
+                } else if (index <= 90) {
+                    slot.setColor(new IntegerColor(0xff29E034));
+                } else
+                    slot.setColor(new IntegerColor(0xff9812a5));
+                addSlot(slot);
             }
         }
         addPlayerInventory(18 * 4 + 9, 18 * 7, player);
@@ -28,11 +43,22 @@ public class ReloaderMenu extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
+        Item item = itemStack.getItem();
         if (index > 107) {
-            if (!moveItemStackTo(itemStack, 0, 108, false))
+            if (Functions.isItemIn(item, KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 90, 108, false))
+                return ItemStack.EMPTY;
+            if (Functions.isItemIn(item, KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 72, 90, false))
+                return ItemStack.EMPTY;
+            if ((Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 36, 54, false))
+                return ItemStack.EMPTY;
+            if ((Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 18, 36, false))
+                return ItemStack.EMPTY;
+            if (Functions.isItemIn(item, KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 54, 72, false))
+                return ItemStack.EMPTY;
+            if (Functions.isItemIn(item, KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
-            if (!moveItemStackTo(itemStack, 108, slots.size(), false))
+            if (!moveItemStackTo(itemStack, 109, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

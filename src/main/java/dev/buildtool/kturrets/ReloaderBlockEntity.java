@@ -31,14 +31,23 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ReloaderBlockEntity extends BlockEntity2 implements MenuProvider {
-    public ItemHandler ammo = new ItemHandler(126, this) {
+    public ItemHandler ammo = new ItemHandler(108, this) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             Item item = stack.getItem();
-            return Functions.isItemIn(item, KTurrets.ARROW_UNIT_AMMO_TAG) || Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG1)
-                    || Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG2) || Functions.isItemIn(item, KTurrets.COBBLE_UNIT_AMMO_TAG)
-                    || Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG2)
-                    || Functions.isItemIn(item, KTurrets.FIREBALL_UNIT_AMMO) || Functions.isItemIn(item, KTurrets.GAUSS_UNIT_AMMO);
+            if (slot <= 17)
+                return Functions.isItemIn(item, KTurrets.ARROW_UNIT_AMMO_TAG);
+            if (slot <= 35)
+                return Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG2) || Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG1);
+            if (slot <= 53)
+                return Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG2);
+            if (slot <= 71)
+                return Functions.isItemIn(item, KTurrets.FIREBALL_UNIT_AMMO);
+            if (slot <= 89)
+                return Functions.isItemIn(item, KTurrets.COBBLE_UNIT_AMMO_TAG);
+            if (slot <= 107)
+                return Functions.isItemIn(item, KTurrets.GAUSS_UNIT_AMMO_TAG);
+            return false;
         }
     };
 

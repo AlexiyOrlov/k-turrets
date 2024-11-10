@@ -81,7 +81,7 @@ public class KTurrets {
     public static TagKey<Item> BULLET_UNIT_AMMO_TAG1 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo1"));
     public static TagKey<Item> BULLET_UNIT_AMMO_TAG2 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo2"));
     public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
-    public static TagKey<Item> GAUSS_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
+    public static TagKey<Item> GAUSS_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {

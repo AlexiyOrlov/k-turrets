@@ -27,7 +27,7 @@ public class GaussTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.GAUSS_UNIT_AMMO);
+            return Functions.isItemIn(stack.getItem(), KTurrets.GAUSS_UNIT_AMMO_TAG);
         }
     };
 
