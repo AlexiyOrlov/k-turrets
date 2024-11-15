@@ -1,3 +1,6 @@
+3.0.33:
+changed Ammo reloader recipe
+
 3.0.32:
 Target Copier now copies player exceptions too;
 added no ammo indicator;
