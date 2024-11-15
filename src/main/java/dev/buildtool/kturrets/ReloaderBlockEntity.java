@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.KBlockEntities;
+import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.satako.BlockEntity2;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -59,19 +60,21 @@ public class ReloaderBlockEntity extends BlockEntity2 implements MenuProvider {
         ReloaderBlockEntity reloaderBlockEntity = (ReloaderBlockEntity) t;
         List<Drone> drones = level.getEntitiesOfClass(Drone.class, new AABB(pos).inflate(6));
         drones.forEach(drone -> {
-            IItemHandler itemHandler = drone.getContainedItems().get(0);
-            loop:
-            for (int i = 0; i < reloaderBlockEntity.ammo.getSlots(); i++) {
-                ItemStack ammo = reloaderBlockEntity.ammo.extractItem(i, 64, true);
-                if (!ammo.isEmpty()) {
-                    for (int j = 0; j < itemHandler.getSlots(); j++) {
-                        if (itemHandler.isItemValid(j, ammo)) {
-                            ItemStack out = ItemHandlerHelper.insertItemStacked(itemHandler, ammo.copy(), false);
-                            ammo.setCount(out.getCount());
-                            if (ammo.isEmpty()) {
-                                reloaderBlockEntity.ammo.extractItem(i, 64, false);
+            if (!(drone instanceof StorageDrone)) {
+                IItemHandler itemHandler = drone.getContainedItems().get(0);
+                loop:
+                for (int i = 0; i < reloaderBlockEntity.ammo.getSlots(); i++) {
+                    ItemStack ammo = reloaderBlockEntity.ammo.extractItem(i, 64, true);
+                    if (!ammo.isEmpty()) {
+                        for (int j = 0; j < itemHandler.getSlots(); j++) {
+                            if (itemHandler.isItemValid(j, ammo)) {
+                                ItemStack out = ItemHandlerHelper.insertItemStacked(itemHandler, ammo.copy(), false);
+                                ammo.setCount(out.getCount());
+                                if (ammo.isEmpty()) {
+                                    reloaderBlockEntity.ammo.extractItem(i, 64, false);
+                                }
+                                break loop;
                             }
-                            break loop;
                         }
                     }
                 }

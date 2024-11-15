@@ -32,6 +32,7 @@ public class KItems {
     public static RegistryObject<Item> TITANIUM_INGOT;
     public static RegistryObject<Item> TARGET_COPIER;
     public static RegistryObject<Item> RELOADER;
+    public static RegistryObject<Item> STORAGE_DRONE;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
@@ -47,6 +48,8 @@ public class KItems {
         ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new ContainerItem(KEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE));
         GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(KEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE));
         FIREBALL_DRONE = ITEMS.register("firecharge_drone_item", () -> new ContainerItem(KEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE));
+
+        STORAGE_DRONE = ITEMS.register("storage_drone_item", () -> new ContainerItem(KEntities.STORAGE_DRONE, 0x000000, 0x000000, defaults(), ContainerItem.Unit.DRONE));
 
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         EXPLOSIVE_POWDER = ITEMS.register("explosive_powder", () -> new Item(defaults()));

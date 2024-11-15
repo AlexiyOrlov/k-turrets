@@ -2,6 +2,7 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.AmmoCheck;
 import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -213,7 +214,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             }
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
-            if (itemInHand.getItem() == KItems.TARGET_COPIER.get()) {
+            if (itemInHand.getItem() == KItems.TARGET_COPIER.get() && !(this instanceof StorageDrone)) {
                 if (playerEntity.isCrouching()) {
                     //copy
                     CompoundTag compoundTag = itemInHand.getOrCreateTag();
@@ -231,12 +232,17 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 }
                 return InteractionResult.SUCCESS;
             }
-            if (playerEntity.isShiftKeyDown()) {
-                if (level().isClientSide)
-                    openTargetScreen();
-            } else {
+            if (this instanceof StorageDrone) {
                 if (!level().isClientSide)
-                    NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                    NetworkHooks.openScreen((ServerPlayer) playerEntity, this, pb -> pb.writeInt(getId()));
+            } else {
+                if (playerEntity.isShiftKeyDown()) {
+                    if (level().isClientSide)
+                        openTargetScreen();
+                } else {
+                    if (!level().isClientSide)
+                        NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
+                }
             }
             return InteractionResult.SUCCESS;
         } else if (level().isClientSide) {
@@ -256,7 +262,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     protected boolean canUse(Player playerEntity) {
-        return !getOwner().isPresent() || getOwner().get().equals(playerEntity.getUUID());
+        return getOwner().isEmpty() || getOwner().get().equals(playerEntity.getUUID());
     }
 
     @OnlyIn(Dist.CLIENT)

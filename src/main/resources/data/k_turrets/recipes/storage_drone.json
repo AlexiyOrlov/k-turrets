@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ada",
+    "sss",
+    "sss"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:barrel"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "s": {
+      "tag": "forge:ingots/titanium"
+    }
+  },
+  "result": {
+    "item": "k_turrets:storage_drone_item"
+  }
+}

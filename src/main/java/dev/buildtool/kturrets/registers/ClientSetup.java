@@ -10,6 +10,9 @@ import dev.buildtool.kturrets.bullet.*;
 import dev.buildtool.kturrets.cobble.*;
 import dev.buildtool.kturrets.fireball.*;
 import dev.buildtool.kturrets.gauss.*;
+import dev.buildtool.kturrets.storage.StorageDroneMenu;
+import dev.buildtool.kturrets.storage.StorageDroneModel;
+import dev.buildtool.kturrets.storage.StorageDroneScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -38,6 +41,8 @@ public class ClientSetup {
         MenuScreens.register(KContainers.GAUSS_DRONE.get(), (MenuScreens.ScreenConstructor<GaussDroneContainer, GaussDroneScreen>) (p1, p2, p3) -> new GaussDroneScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.FIRECHARGE_DRONE.get(), (MenuScreens.ScreenConstructor<FireballDroneContainer, FireballDroneScreen>) (p1, p2, p3) -> new FireballDroneScreen(p1, p2, p3, true));
 
+        MenuScreens.register(KContainers.STORAGE_DRONE.get(), (MenuScreens.ScreenConstructor<StorageDroneMenu, StorageDroneScreen>) StorageDroneScreen::new);
+
         MenuScreens.register(KContainers.RELOADER.get(), (MenuScreens.ScreenConstructor<ReloaderMenu, ReloaderScreen>) (p1, p2, p3) -> new ReloaderScreen(p1, p2, p3, true));
     }
 
@@ -60,6 +65,8 @@ public class ClientSetup {
         definitions.registerLayerDefinition(ArrowDroneModel.LAYER_LOCATION, ArrowDroneModel::createBodyLayer);
         definitions.registerLayerDefinition(GaussDroneModel.LAYER_LOCATION, GaussDroneModel::createBodyLayer);
         definitions.registerLayerDefinition(FireballDroneModel.LAYER_LOCATION, FireballDroneModel::createBodyLayer);
+
+        definitions.registerLayerDefinition(StorageDroneModel.LAYER_LOCATION, StorageDroneModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -77,6 +84,8 @@ public class ClientSetup {
         renderers.registerEntityRenderer(KEntities.ARROW_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new ArrowDroneModel<>(p_174010_.bakeLayer(ArrowDroneModel.LAYER_LOCATION)), "arrow_drone", false, 0.2f));
         renderers.registerEntityRenderer(KEntities.GAUSS_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new GaussDroneModel<>(p_174010_.bakeLayer(GaussDroneModel.LAYER_LOCATION)), "gauss_drone", false, 0.2f));
         renderers.registerEntityRenderer(KEntities.FIRECHARGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new FireballDroneModel<>(p_174010_.bakeLayer(FireballDroneModel.LAYER_LOCATION)), "firecharge_drone", false, 0.2f));
+
+        renderers.registerEntityRenderer(KEntities.STORAGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new StorageDroneModel(p_174010_.bakeLayer(StorageDroneModel.LAYER_LOCATION)), "storage_drone", false, 0.4f));
 
         renderers.registerEntityRenderer(KEntities.BRICK.get(), BrickRenderer::new);
         renderers.registerEntityRenderer(KEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);

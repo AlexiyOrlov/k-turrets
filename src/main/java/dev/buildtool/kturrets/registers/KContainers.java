@@ -14,6 +14,7 @@ import dev.buildtool.kturrets.fireball.FireballDroneContainer;
 import dev.buildtool.kturrets.fireball.FireballTurretContainer;
 import dev.buildtool.kturrets.gauss.GaussDroneContainer;
 import dev.buildtool.kturrets.gauss.GaussTurretContainer;
+import dev.buildtool.kturrets.storage.StorageDroneMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,6 +37,7 @@ public class KContainers {
     public static final RegistryObject<MenuType<GaussDroneContainer>> GAUSS_DRONE = CONTAINERS.register("gauss_drone", () -> IForgeMenuType.create(GaussDroneContainer::new));
     public static final RegistryObject<MenuType<FireballDroneContainer>> FIRECHARGE_DRONE = CONTAINERS.register("firecharge_drone", () -> IForgeMenuType.create(FireballDroneContainer::new));
     public static final RegistryObject<MenuType<ReloaderMenu>> RELOADER = CONTAINERS.register("reloader", () -> IForgeMenuType.create(ReloaderMenu::new));
+    public static final RegistryObject<MenuType<StorageDroneMenu>> STORAGE_DRONE = CONTAINERS.register("storage_drone", () -> IForgeMenuType.create(StorageDroneMenu::new));
     static {
         ARROW_TURRET = IForgeMenuType.create(ArrowTurretContainer::new);
         CONTAINERS.register("arrow_turret", () -> ARROW_TURRET);

@@ -10,6 +10,7 @@
   "item.k_turrets.gauss_turret_item": "Gauss Turret",
   "item.k_turrets.cobble_turret_item": "Cobble Turret",
   "item.k_turrets.wrench": "Target Copier",
+  "item.k_turrets.storage_drone_item": "Storage Drone",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -75,6 +76,7 @@
   "entity.k_turrets.brick_turret": "Brick Turret",
   "entity.k_turrets.gauss_turret": "Gauss Turret",
   "entity.k_turrets.cobble_turret": "Cobble Turret",
+  "entity.k_turrets.storage_drone": "Storage Drone",
 
   "entity.k_turrets.brick_drone": "Brick Drone",
   "entity.k_turrets.bullet_drone": "Bullet Drone",

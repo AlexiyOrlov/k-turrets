@@ -108,6 +108,8 @@ public class KTurrets {
             p_259752_.accept(KItems.GAUSS_DRONE.get());
 
             p_259752_.accept(KItems.RELOADER.get());
+
+            p_259752_.accept(KItems.STORAGE_DRONE.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
