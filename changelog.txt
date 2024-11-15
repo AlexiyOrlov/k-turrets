@@ -1,5 +1,6 @@
 3.0.33:
-changed Ammo reloader recipe
+changed Ammo reloader recipe;
+implemented Storage Drone;
 
 3.0.32:
 Target Copier now copies player exceptions too;
