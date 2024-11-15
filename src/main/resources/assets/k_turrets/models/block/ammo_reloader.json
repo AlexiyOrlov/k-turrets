@@ -4,7 +4,7 @@
   "textures": {
     "0": "k_turrets:block/part1",
     "1": "k_turrets:block/part2",
-    "particle": "part1"
+    "particle": "k_turrets:block/part1"
   },
   "elements": [
     {
