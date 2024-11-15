@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "rir",
-    "ipi",
+    "iti",
     "ppp"
   ],
   "key": {
@@ -14,6 +14,9 @@
     },
     "i": {
       "item": "minecraft:iron_block"
+    },
+    "t": {
+      "item": "k_turrets:titanium_ingot"
     }
   },
   "result": {
