@@ -85,6 +85,7 @@ public abstract class Drone extends Turret {
         entityData.set(MOVEABLE, true);
         entityData.define(GUARDING_AREA, false);
         entityData.define(GUARD_POSITION, BlockPos.ZERO);
+        entityData.set(REFILL_INVENTORY, false);
     }
 
     public boolean isFollowingOwner() {

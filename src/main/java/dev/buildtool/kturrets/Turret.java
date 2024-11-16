@@ -60,7 +60,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     private static final EntityDataAccessor<String> TEAM = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<CompoundTag> IGNORED_PLAYERS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
-    private static final EntityDataAccessor<Boolean> REFILL_INVENTORY = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> REFILL_INVENTORY = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     public boolean noAmmo;
     /**
@@ -108,7 +108,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(TEAM, "");
         entityData.define(OWNER_NAME, "");
         entityData.define(IGNORED_PLAYERS, new CompoundTag());
-        entityData.define(REFILL_INVENTORY, false);
+        entityData.define(REFILL_INVENTORY, true);
     }
 
     public String getAutomaticTeam() {
