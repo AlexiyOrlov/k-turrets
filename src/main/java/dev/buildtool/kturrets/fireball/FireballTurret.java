@@ -8,7 +8,6 @@ import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -76,7 +75,7 @@ public class FireballTurret extends Turret {
                     SmallFireball fireballEntity = new SmallFireball2(this, d0, d1, d2);
                     fireballEntity.setPos(getX(), getEyeY(), getZ());
                     level().addFreshEntity(fireballEntity);
-                    level().playSound(null, blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL, 1, 1);
+                    playSound(SoundEvents.FIRECHARGE_USE, 1, 1);
                     break;
                 }
             }

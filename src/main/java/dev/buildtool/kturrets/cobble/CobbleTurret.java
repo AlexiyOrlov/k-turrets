@@ -9,7 +9,6 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.player.Inventory;
@@ -63,7 +62,7 @@ public class CobbleTurret extends Turret {
                     Cobblestone cobblestone = new Cobblestone(this, xa, ya, za, level());
                     cobblestone.setDamage(KTurrets.COBBLE_TURRET_DAMAGE.get());
                     level().addFreshEntity(cobblestone);
-                    level().playSound(null, blockPosition(), Sounds.COBBLE_SHOT.get(), SoundSource.NEUTRAL, 1, 1f);
+                    playSound(Sounds.COBBLE_SHOT.get(), 1, 1f);
                     cobblestoneItem.shrink(1);
                     break;
                 }

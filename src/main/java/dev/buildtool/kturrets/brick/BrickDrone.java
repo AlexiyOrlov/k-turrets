@@ -10,7 +10,6 @@ import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +62,7 @@ public class BrickDrone extends Drone {
                     Brick brick = new Brick(this, xa, ya, za, level());
                     brick.setDamage(Functions.isItemIn(bricksItem.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
-                    level().playSound(null, blockPosition(), SoundEvents.WITCH_THROW, SoundSource.NEUTRAL, 1, 0.5f);
+                    playSound(SoundEvents.WITCH_THROW, 1, 0.5f);
                     bricksItem.shrink(1);
                     break;
                 }

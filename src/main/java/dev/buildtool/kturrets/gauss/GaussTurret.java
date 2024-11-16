@@ -9,7 +9,6 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.player.Inventory;
@@ -57,7 +56,7 @@ public class GaussTurret extends Turret {
         if (target.isAlive()) {
             for (ItemStack item : ammo.getItems()) {
                 if (!item.isEmpty()) {
-                    level().playSound(null, blockPosition(), Sounds.GAUSS_SHOT.get(), SoundSource.NEUTRAL, 1.5f, 1);
+                    playSound(Sounds.GAUSS_SHOT.get(), 1.5f, 1);
                     item.shrink(1);
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
