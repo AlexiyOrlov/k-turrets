@@ -1,4 +1,4 @@
-3.0.33:
+3.0.34:
 changed Ammo reloader recipe;
 implemented Storage Drone;
 fixed unit limits not increasing when unit is destroyed;
