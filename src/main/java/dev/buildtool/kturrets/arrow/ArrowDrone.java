@@ -40,7 +40,7 @@ public class ArrowDrone extends Drone {
     protected final ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.ARROW_UNIT_AMMO_TAG);
+            return stack.is(KTurrets.ARROW_UNIT_AMMO_TAG);
         }
     };
 

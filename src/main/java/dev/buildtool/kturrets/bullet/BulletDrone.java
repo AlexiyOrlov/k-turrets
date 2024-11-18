@@ -26,7 +26,7 @@ public class BulletDrone extends Drone {
     protected final ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG2);
+            return stack.is(KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG2);
         }
     };
 

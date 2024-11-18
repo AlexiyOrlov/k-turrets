@@ -30,7 +30,7 @@ public class BrickDrone extends Drone {
     protected ItemHandler bricks = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2);
+            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2);
         }
     };
 

@@ -27,7 +27,7 @@ public class FireballTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.FIREBALL_UNIT_AMMO);
+            return stack.is(KTurrets.FIREBALL_UNIT_AMMO);
         }
     };
 

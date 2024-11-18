@@ -41,7 +41,7 @@ public class ArrowTurret extends Turret {
     protected final ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return Functions.isItemIn(stack.getItem(), KTurrets.ARROW_UNIT_AMMO_TAG);
+            return stack.is(KTurrets.ARROW_UNIT_AMMO_TAG);
         }
     };
 
