@@ -6,9 +6,6 @@ import dev.buildtool.kturrets.registers.KEntities;
 import net.minecraft.world.level.Level;
 
 public class GaussBullet extends PresetProjectile {
-    static {
-        MOVEMENT_MULTIPLIER = MOVEMENT_MULTIPLIER * 3;
-    }
 
     public GaussBullet(Level p_i50173_2_) {
         super(KEntities.GAUSS_BULLET.get(), p_i50173_2_);
