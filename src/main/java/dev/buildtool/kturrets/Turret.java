@@ -2,6 +2,8 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.AmmoCheck;
 import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.RegisterCapability;
+import dev.buildtool.kturrets.registers.UnitLimitCapability;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
@@ -40,6 +42,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -337,7 +340,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         getOwner().ifPresent(uuid1 -> {
             if (!level().isClientSide) {
                 Player player = level().getPlayerByUUID(uuid1);
-                if (player != null)
+                if (player != null) {
                     if (damageSource.getDirectEntity() != null)
                         player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
                     else {
@@ -346,6 +349,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                         else
                             player.displayClientMessage(damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())), false);
                     }
+                }
+                if(FMLEnvironment.dist.isDedicatedServer()) {
+                    UnitLimitCapability unitLimitCapability = level().getCapability(RegisterCapability.unitCapability).orElse(null);
+                    if(this instanceof Drone)
+                        unitLimitCapability.setDroneCount(unitLimitCapability.getDroneCount()-1);
+                    else
+                        unitLimitCapability.setTurretCount(unitLimitCapability.getTurretCount()-1);
+                }
             }
         });
     }

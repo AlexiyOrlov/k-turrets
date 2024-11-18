@@ -25,6 +25,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
@@ -212,11 +213,13 @@ public class KTurrets {
                         egg.getOrCreateTag().put("Contained", turret.serializeNBT());
                         egg.getTag().putUUID("UUID", turret.getUUID());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
-                        UnitLimitCapability limitCapability = contextSupplier.get().getSender().getCapability(RegisterCapability.unitCapability, null).orElse(null);
-                        if (entity instanceof Drone)
-                            limitCapability.setDroneCount(limitCapability.getDroneCount() - 1);
-                        else
-                            limitCapability.setTurretCount(limitCapability.getTurretCount() - 1);
+                        if(FMLEnvironment.dist.isDedicatedServer()) {
+                            UnitLimitCapability limitCapability = serverWorld.getCapability(RegisterCapability.unitCapability, null).orElse(null);
+                            if (entity instanceof Drone)
+                                limitCapability.setDroneCount(limitCapability.getDroneCount() - 1);
+                            else
+                                limitCapability.setTurretCount(limitCapability.getTurretCount() - 1);
+                        }
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });

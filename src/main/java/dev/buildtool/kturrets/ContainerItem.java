@@ -52,7 +52,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
 
             Player player = context.getPlayer();
             if (FMLEnvironment.dist.isDedicatedServer()) {
-                UnitLimitCapability unitLimitCapability = player.getCapability(RegisterCapability.unitCapability, null).orElse(null);
+                UnitLimitCapability unitLimitCapability = level.getCapability(RegisterCapability.unitCapability, null).orElse(null);
                 if (unit == Unit.TURRET) {
                     if (unitLimitCapability.getTurretCount() >= KTurrets.TURRET_LIMIT_PER_PLAYER.get()) {
                         player.displayClientMessage(Component.literal("Reached turret limit of " + KTurrets.TURRET_LIMIT_PER_PLAYER.get() + ". Can't create more"), false);
