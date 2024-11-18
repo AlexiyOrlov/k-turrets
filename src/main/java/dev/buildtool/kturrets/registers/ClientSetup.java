@@ -12,7 +12,7 @@ import dev.buildtool.kturrets.fireball.*;
 import dev.buildtool.kturrets.gauss.*;
 import dev.buildtool.kturrets.storage.StorageDroneMenu;
 import dev.buildtool.kturrets.storage.StorageDroneModel;
-import dev.buildtool.kturrets.storage.StorageDroneScreen;
+import dev.buildtool.kturrets.storage.StorageDroneMenuScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -41,7 +41,7 @@ public class ClientSetup {
         MenuScreens.register(KContainers.GAUSS_DRONE.get(), (MenuScreens.ScreenConstructor<GaussDroneContainer, GaussDroneScreen>) (p1, p2, p3) -> new GaussDroneScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.FIRECHARGE_DRONE.get(), (MenuScreens.ScreenConstructor<FireballDroneContainer, FireballDroneScreen>) (p1, p2, p3) -> new FireballDroneScreen(p1, p2, p3, true));
 
-        MenuScreens.register(KContainers.STORAGE_DRONE.get(), (MenuScreens.ScreenConstructor<StorageDroneMenu, StorageDroneScreen>) StorageDroneScreen::new);
+        MenuScreens.register(KContainers.STORAGE_DRONE.get(), (MenuScreens.ScreenConstructor<StorageDroneMenu, StorageDroneMenuScreen>) StorageDroneMenuScreen::new);
 
         MenuScreens.register(KContainers.RELOADER.get(), (MenuScreens.ScreenConstructor<ReloaderMenu, ReloaderScreen>) (p1, p2, p3) -> new ReloaderScreen(p1, p2, p3, true));
     }

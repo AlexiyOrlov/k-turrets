@@ -5,6 +5,7 @@ import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.RegisterCapability;
 import dev.buildtool.kturrets.registers.UnitLimitCapability;
 import dev.buildtool.kturrets.storage.StorageDrone;
+import dev.buildtool.kturrets.storage.StorageDroneScreen;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -236,7 +237,12 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 return InteractionResult.SUCCESS;
             }
             if (this instanceof StorageDrone) {
-                if (!level().isClientSide)
+                if(playerEntity.isShiftKeyDown())
+                {
+                    if(level().isClientSide)
+                        Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
+                }
+                else if (!level().isClientSide)
                     NetworkHooks.openScreen((ServerPlayer) playerEntity, this, pb -> pb.writeInt(getId()));
             } else {
                 if (playerEntity.isShiftKeyDown()) {

@@ -96,5 +96,6 @@
   "k_turrets.reached.turret.limit": "Reached turret limit of %1$s. Can't place more",
   "k_turrets.reached.drone.limit": "Reached drone limit of %1$s. Can't place more",
   "k_turrets.turrets.remain": "%1$s turret slots remain",
-  "k_turrets.drones.remain": "%1$s drone slots remain"
+  "k_turrets.drones.remain": "%1$s drone slots remain",
+  "k_turrets.storage.drone": "Storage drone"
 }
