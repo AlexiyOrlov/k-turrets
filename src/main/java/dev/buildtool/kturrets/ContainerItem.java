@@ -55,17 +55,19 @@ public class ContainerItem extends ForgeSpawnEggItem {
                 UnitLimitCapability unitLimitCapability = level.getCapability(RegisterCapability.unitCapability, null).orElse(null);
                 if (unit == Unit.TURRET) {
                     if (unitLimitCapability.getTurretCount() >= KTurrets.TURRET_LIMIT_PER_PLAYER.get()) {
-                        player.displayClientMessage(Component.literal("Reached turret limit of " + KTurrets.TURRET_LIMIT_PER_PLAYER.get() + ". Can't place more"), false);
+                        player.displayClientMessage(Component.translatable("k_turrets.reached.turret.limit",KTurrets.TURRET_LIMIT_PER_PLAYER.get()), false);
                         return InteractionResult.CONSUME;
                     } else {
                         unitLimitCapability.setTurretCount(unitLimitCapability.getTurretCount() + 1);
+                        player.displayClientMessage(Component.translatable("k_turrets.turrets.remain",KTurrets.TURRET_LIMIT_PER_PLAYER.get()-unitLimitCapability.getTurretCount()),false);
                     }
                 } else if (unit == Unit.DRONE) {
                     if (unitLimitCapability.getDroneCount() >= KTurrets.DRONE_LIMIT_PER_PLAYER.get()) {
-                        player.displayClientMessage(Component.literal("Reached drone limit of " + KTurrets.DRONE_LIMIT_PER_PLAYER.get() + ". Can't place more"), false);
+                        player.displayClientMessage(Component.translatable("k_turrets.reached.drone.limit",KTurrets.DRONE_LIMIT_PER_PLAYER.get()), false);
                         return InteractionResult.CONSUME;
                     } else {
                         unitLimitCapability.setDroneCount(unitLimitCapability.getDroneCount() + 1);
+                        player.displayClientMessage(Component.translatable("k_turrets.drones.remain",KTurrets.DRONE_LIMIT_PER_PLAYER.get()-unitLimitCapability.getDroneCount()),false);
                     }
                 }
             }
