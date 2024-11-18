@@ -353,9 +353,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 if(FMLEnvironment.dist.isDedicatedServer()) {
                     UnitLimitCapability unitLimitCapability = level().getCapability(RegisterCapability.unitCapability).orElse(null);
                     if(this instanceof Drone)
-                        unitLimitCapability.setDroneCount(unitLimitCapability.getDroneCount()-1);
+                        unitLimitCapability.setDroneCount(uuid1, unitLimitCapability.getDroneCount(uuid1)-1);
                     else
-                        unitLimitCapability.setTurretCount(unitLimitCapability.getTurretCount()-1);
+                        unitLimitCapability.setTurretCount(uuid1, unitLimitCapability.getTurretCount(uuid1)-1);
                 }
             }
         });

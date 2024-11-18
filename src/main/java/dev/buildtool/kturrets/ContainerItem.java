@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 /**
@@ -51,23 +52,24 @@ public class ContainerItem extends ForgeSpawnEggItem {
         } else {
 
             Player player = context.getPlayer();
+            UUID playerUUID = player.getUUID();
             if (FMLEnvironment.dist.isDedicatedServer()) {
                 UnitLimitCapability unitLimitCapability = level.getCapability(RegisterCapability.unitCapability, null).orElse(null);
                 if (unit == Unit.TURRET) {
-                    if (unitLimitCapability.getTurretCount() >= KTurrets.TURRET_LIMIT_PER_PLAYER.get()) {
+                    if (unitLimitCapability.getTurretCount(playerUUID) >= KTurrets.TURRET_LIMIT_PER_PLAYER.get()) {
                         player.displayClientMessage(Component.translatable("k_turrets.reached.turret.limit",KTurrets.TURRET_LIMIT_PER_PLAYER.get()), false);
                         return InteractionResult.CONSUME;
                     } else {
-                        unitLimitCapability.setTurretCount(unitLimitCapability.getTurretCount() + 1);
-                        player.displayClientMessage(Component.translatable("k_turrets.turrets.remain",KTurrets.TURRET_LIMIT_PER_PLAYER.get()-unitLimitCapability.getTurretCount()),false);
+                        unitLimitCapability.setTurretCount(playerUUID, unitLimitCapability.getTurretCount(playerUUID) + 1);
+                        player.displayClientMessage(Component.translatable("k_turrets.turrets.remain",KTurrets.TURRET_LIMIT_PER_PLAYER.get()-unitLimitCapability.getTurretCount(playerUUID)),false);
                     }
                 } else if (unit == Unit.DRONE) {
-                    if (unitLimitCapability.getDroneCount() >= KTurrets.DRONE_LIMIT_PER_PLAYER.get()) {
+                    if (unitLimitCapability.getDroneCount(playerUUID) >= KTurrets.DRONE_LIMIT_PER_PLAYER.get()) {
                         player.displayClientMessage(Component.translatable("k_turrets.reached.drone.limit",KTurrets.DRONE_LIMIT_PER_PLAYER.get()), false);
                         return InteractionResult.CONSUME;
                     } else {
-                        unitLimitCapability.setDroneCount(unitLimitCapability.getDroneCount() + 1);
-                        player.displayClientMessage(Component.translatable("k_turrets.drones.remain",KTurrets.DRONE_LIMIT_PER_PLAYER.get()-unitLimitCapability.getDroneCount()),false);
+                        unitLimitCapability.setDroneCount(playerUUID, unitLimitCapability.getDroneCount(playerUUID) + 1);
+                        player.displayClientMessage(Component.translatable("k_turrets.drones.remain",KTurrets.DRONE_LIMIT_PER_PLAYER.get()-unitLimitCapability.getDroneCount(playerUUID)),false);
                     }
                 }
             }
@@ -93,7 +95,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
                     entity.absMoveTo(blockpos1.getX() + 0.5, blockpos.getY() + 1, blockpos.getZ() + 0.5);
                 } else if (KTurrets.SET_OWNER_AUTO.get()) {
                     Turret turret = (Turret) entity;
-                    turret.setOwner(player.getUUID());
+                    turret.setOwner(playerUUID);
                 }
                 itemstack.shrink(1);
             }

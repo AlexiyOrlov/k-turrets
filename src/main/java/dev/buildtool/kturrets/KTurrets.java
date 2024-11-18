@@ -38,6 +38,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -204,11 +205,12 @@ public class KTurrets {
         channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
                 packetBuffer -> new DismantleTurret(packetBuffer.readInt()),
                 (dismantleTurret, contextSupplier) -> {
-                    ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
+                    ServerPlayer serverPlayer = contextSupplier.get().getSender();
+                    ServerLevel serverWorld = serverPlayer.serverLevel();
                     Entity entity = serverWorld.getEntity(dismantleTurret.id);
                     if (entity instanceof Turret turret) {
                         turret.discard();
-
+                        UUID uuid=serverPlayer.getUUID();
                         ItemStack egg = new ItemStack(Objects.requireNonNull(ForgeSpawnEggItem.fromEntityType(turret.getType())));
                         egg.getOrCreateTag().put("Contained", turret.serializeNBT());
                         egg.getTag().putUUID("UUID", turret.getUUID());
@@ -216,9 +218,9 @@ public class KTurrets {
                         if(FMLEnvironment.dist.isDedicatedServer()) {
                             UnitLimitCapability limitCapability = serverWorld.getCapability(RegisterCapability.unitCapability, null).orElse(null);
                             if (entity instanceof Drone)
-                                limitCapability.setDroneCount(limitCapability.getDroneCount() - 1);
+                                limitCapability.setDroneCount(uuid, limitCapability.getDroneCount(uuid) - 1);
                             else
-                                limitCapability.setTurretCount(limitCapability.getTurretCount() - 1);
+                                limitCapability.setTurretCount(uuid, limitCapability.getTurretCount(uuid) - 1);
                         }
                         contextSupplier.get().setPacketHandled(true);
                     }
