@@ -2,6 +2,7 @@
 changed Ammo reloader recipe;
 implemented Storage Drone;
 fixed unit limits not increasing when unit is destroyed;
+gauss bullets no longer have speed bonus;
 
 3.0.32:
 Target Copier now copies player exceptions too;
