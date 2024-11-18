@@ -55,14 +55,14 @@ public class ContainerItem extends ForgeSpawnEggItem {
                 UnitLimitCapability unitLimitCapability = level.getCapability(RegisterCapability.unitCapability, null).orElse(null);
                 if (unit == Unit.TURRET) {
                     if (unitLimitCapability.getTurretCount() >= KTurrets.TURRET_LIMIT_PER_PLAYER.get()) {
-                        player.displayClientMessage(Component.literal("Reached turret limit of " + KTurrets.TURRET_LIMIT_PER_PLAYER.get() + ". Can't create more"), false);
+                        player.displayClientMessage(Component.literal("Reached turret limit of " + KTurrets.TURRET_LIMIT_PER_PLAYER.get() + ". Can't place more"), false);
                         return InteractionResult.CONSUME;
                     } else {
                         unitLimitCapability.setTurretCount(unitLimitCapability.getTurretCount() + 1);
                     }
                 } else if (unit == Unit.DRONE) {
                     if (unitLimitCapability.getDroneCount() >= KTurrets.DRONE_LIMIT_PER_PLAYER.get()) {
-                        player.displayClientMessage(Component.literal("Reached drone limit of " + KTurrets.DRONE_LIMIT_PER_PLAYER.get() + ". Can't create more"), false);
+                        player.displayClientMessage(Component.literal("Reached drone limit of " + KTurrets.DRONE_LIMIT_PER_PLAYER.get() + ". Can't place more"), false);
                         return InteractionResult.CONSUME;
                     } else {
                         unitLimitCapability.setDroneCount(unitLimitCapability.getDroneCount() + 1);
