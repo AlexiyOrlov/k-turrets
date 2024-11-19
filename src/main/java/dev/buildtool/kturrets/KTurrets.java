@@ -385,7 +385,7 @@ public class KTurrets {
         logger.info("");
         logger.info("Bullet unit ammo 2:");
         logger.info("");
-        tags.getTag(BULLET_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        tags.getTag(BULLET_UNIT_AMMO_TAG2).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Brick unit ammo 1:");
         logger.info("");
