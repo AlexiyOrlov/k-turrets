@@ -240,14 +240,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 if(playerEntity.isShiftKeyDown())
                 {
                     if(level().isClientSide)
-                        Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
+                        openTargetScreen(true);
                 }
                 else if (!level().isClientSide)
                     NetworkHooks.openScreen((ServerPlayer) playerEntity, this, pb -> pb.writeInt(getId()));
             } else {
                 if (playerEntity.isShiftKeyDown()) {
                     if (level().isClientSide)
-                        openTargetScreen();
+                        openTargetScreen(false);
                 } else {
                     if (!level().isClientSide)
                         NetworkHooks.openScreen((ServerPlayer) playerEntity, this, packetBuffer -> packetBuffer.writeInt(getId()));
@@ -275,8 +275,11 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     }
 
     @OnlyIn(Dist.CLIENT)
-    void openTargetScreen() {
-        Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
+    void openTargetScreen(boolean storageDrone) {
+        if(storageDrone)
+            Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
+        else
+            Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
     }
 
     //don't forget to save the inventory
