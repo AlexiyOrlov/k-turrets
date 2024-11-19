@@ -19,7 +19,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -32,7 +35,10 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITagManager;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Collections;
@@ -85,6 +91,7 @@ public class KTurrets {
     public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
     public static TagKey<Item> GAUSS_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
 
+    public static Logger logger= LogManager.getLogger("K-Turrets");
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
             p_259752_.accept(KItems.COBBLE_TURRET.get());
@@ -354,11 +361,51 @@ public class KTurrets {
             DRONE_LIMIT_PER_PLAYER = builder.defineInRange("Drone limit per player", () -> 10, 1, 300);
             return builder.build();
         }).getRight());
+
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public static void loadConfig(ForgeConfigSpec config, String path) {
         final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
         file.load();
         config.setConfig(file);
+    }
+
+    @SubscribeEvent
+    public void showAmmo(ServerStartedEvent serverStartedEvent)
+    {
+        logger.info("Cobble unit ammo:");
+        logger.info("");
+        ITagManager<Item> tags = ForgeRegistries.ITEMS.tags();
+        tags.getTag(COBBLE_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Bullet unit ammo 1:");
+        logger.info("");
+        tags.getTag(BULLET_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Bullet unit ammo 2:");
+        logger.info("");
+        tags.getTag(BULLET_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Brick unit ammo 1:");
+        logger.info("");
+        tags.getTag(BRICK_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Brick unit ammo 2:");
+        logger.info("");
+        tags.getTag(BRICK_UNIT_AMMO_TAG2).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Gauss unit ammo:");
+        logger.info("");
+        tags.getTag(GAUSS_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Fireball unit ammo:");
+        logger.info("");
+        tags.getTag(FIREBALL_UNIT_AMMO).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Arrow unit ammo:");
+        logger.info("");
+        tags.getTag(ARROW_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
     }
 }
