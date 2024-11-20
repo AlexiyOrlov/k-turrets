@@ -21,12 +21,12 @@ public class StorageDroneScreen extends Screen2 {
     public void init() {
         super.init();
         MutableComponent dismantle = Component.translatable("k_turrets.dismantle");
-        addRenderableWidget(new BetterButton(centerX-font.width(dismantle.getString())/2, 20, dismantle, p_onPress_1_ -> {
+        addRenderableWidget(new BetterButton(centerX-font.width(dismantle.getString())/2, centerY-40, dismantle, p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new DismantleTurret(drone.getId()));
             minecraft.player.closeContainer();
         }));
         MutableComponent switchB = Component.translatable("k_turrets.immobile");
-        addRenderableWidget(new SwitchButton(centerX-font.width(switchB.getString())/2, 40, Component.translatable("k_turrets.mobile"), switchB, drone.isMoveable(), p_onPress_1_ -> {
+        addRenderableWidget(new SwitchButton(centerX-font.width(switchB.getString())/2, centerY-20, Component.translatable("k_turrets.mobile"), switchB, drone.isMoveable(), p_onPress_1_ -> {
             KTurrets.channel.sendToServer(new ToggleMobility(!drone.isMoveable(), drone.getId()));
             drone.setMoveable(!drone.isMoveable());
             if (p_onPress_1_ instanceof SwitchButton) {
@@ -35,14 +35,14 @@ public class StorageDroneScreen extends Screen2 {
         }));
         if (!drone.getOwner().isPresent()) {
             MutableComponent claim = Component.translatable("k_turrets.claim.drone");
-            addRenderableWidget(new BetterButton(centerX-font.width(claim)/2, 60, claim, p_onPress_1_ -> {
+            addRenderableWidget(new BetterButton(centerX-font.width(claim)/2, centerY, claim, p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(drone.getId(), minecraft.player.getUUID()));
                 drone.setOwner(minecraft.player.getUUID());
                 minecraft.player.closeContainer();
             }));
         } else {
             MutableComponent followText = Component.translatable("k_turrets.following.owner");
-            DropDownButton dropDownButton = new DropDownButton(centerX-font.width(followText)/2, 60, this, Component.literal(""));
+            DropDownButton dropDownButton = new DropDownButton(centerX-font.width(followText)/2, centerY, this, Component.literal(""));
             LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
             RadioButton follow = new RadioButton(centerX, 140, followText);
             linkedHashMap.put(follow.getMessage(), p_93751_ -> {
