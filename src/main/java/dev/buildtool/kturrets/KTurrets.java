@@ -81,6 +81,7 @@ public class KTurrets {
     public static ForgeConfigSpec.ConfigValue<List<?>> TARGET_EXCEPTIONS;
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static ForgeConfigSpec.IntValue OWNER_FOLLOW_DISTANCE;
+    public static ForgeConfigSpec.DoubleValue STORAGE_DRONE_HEALTH;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
@@ -183,6 +184,9 @@ public class KTurrets {
             COBBLE_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0, 100d);
             COBBLE_TURRET_RATE = builder.comment("In ticks").defineInRange("Fire rate", 20, 1, 60);
             COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
+            builder.pop();
+            builder.push("Storage drone");
+            STORAGE_DRONE_HEALTH=builder.defineInRange("Health",60d,10,Double.MAX_VALUE);
             builder.pop();
             builder.pop();
             return builder.build();
