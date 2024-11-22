@@ -1,3 +1,6 @@
+3.0.35:
+can't place storage drone inside storage drone;
+
 3.0.34:
 changed Ammo reloader recipe;
 implemented Storage Drone;
