@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.nbt.CompoundTag;
@@ -12,13 +13,20 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class StorageDrone extends Drone {
-    public ItemHandler itemHandler = new ItemHandler(27);
+    public ItemHandler itemHandler = new ItemHandler(27){
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return !stack.is(KItems.STORAGE_DRONE.get());
+        }
+    };
 
     public StorageDrone(Level world) {
         super(KEntities.STORAGE_DRONE.get(), world);
