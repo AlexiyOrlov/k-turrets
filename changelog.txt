@@ -1,6 +1,6 @@
 3.0.35:
 can't place storage drone inside storage drone;
-implemented light upgrade for storage drone;
+implemented light upgrade, magnet upgrade for storage drone;
 
 3.0.34:
 changed Ammo reloader recipe;
