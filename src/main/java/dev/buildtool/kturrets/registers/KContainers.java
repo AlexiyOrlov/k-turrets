@@ -26,11 +26,11 @@ public class KContainers {
     public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, KTurrets.ID);
 
     public static RegistryObject<MenuType<ArrowTurretContainer>> ARROW_TURRET=CONTAINERS.register("arrow_turret", () -> IForgeMenuType.create(ArrowTurretContainer::new));;
-    public static RegistryObject<MenuType<BulletTurretContainer>> BULLET_TURRET=        CONTAINERS.register("bullet_turret", () -> IForgeMenuType.create(BulletTurretContainer::new));
-    public static RegistryObject<MenuType<FireballTurretContainer>> FIRE_CHARGE_TURRET=        CONTAINERS.register("fire_charge_turret", () ->IForgeMenuType.create(FireballTurretContainer::new));
-    public static RegistryObject<MenuType<BrickTurretContainer>>BRICK_TURRET=        CONTAINERS.register("brick_turret", () -> IForgeMenuType.create(BrickTurretContainer::new));
-    public static RegistryObject<MenuType<GaussTurretContainer>> GAUSS_TURRET=        CONTAINERS.register("gauss_turret", () -> IForgeMenuType.create(GaussTurretContainer::new));
-    public static RegistryObject<MenuType<CobbleTurretContainer>> COBBLE_TURRET=        CONTAINERS.register("cobble_turret", () -> IForgeMenuType.create(CobbleTurretContainer::new));
+    public static RegistryObject<MenuType<BulletTurretContainer>> BULLET_TURRET=CONTAINERS.register("bullet_turret", () -> IForgeMenuType.create(BulletTurretContainer::new));
+    public static RegistryObject<MenuType<FireballTurretContainer>> FIRE_CHARGE_TURRET=CONTAINERS.register("fire_charge_turret", () ->IForgeMenuType.create(FireballTurretContainer::new));
+    public static RegistryObject<MenuType<BrickTurretContainer>>BRICK_TURRET=CONTAINERS.register("brick_turret", () -> IForgeMenuType.create(BrickTurretContainer::new));
+    public static RegistryObject<MenuType<GaussTurretContainer>> GAUSS_TURRET=CONTAINERS.register("gauss_turret", () -> IForgeMenuType.create(GaussTurretContainer::new));
+    public static RegistryObject<MenuType<CobbleTurretContainer>> COBBLE_TURRET=CONTAINERS.register("cobble_turret", () -> IForgeMenuType.create(CobbleTurretContainer::new));
 
     public static final RegistryObject<MenuType<BrickDroneContainer>> BRICK_DRONE = CONTAINERS.register("brick_drone", () -> IForgeMenuType.create(BrickDroneContainer::new));
     public static final RegistryObject<MenuType<BulletDroneContainer>> BULLET_DRONE = CONTAINERS.register("bullet_drone", () -> IForgeMenuType.create(BulletDroneContainer::new));
