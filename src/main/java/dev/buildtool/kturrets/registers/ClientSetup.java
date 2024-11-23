@@ -24,12 +24,12 @@ public class ClientSetup {
     @SuppressWarnings("RedundantCast")
     @SubscribeEvent
     public static void register(FMLClientSetupEvent clientSetupEvent) {
-        MenuScreens.register(KContainers.ARROW_TURRET, (MenuScreens.ScreenConstructor<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
-        MenuScreens.register(KContainers.BULLET_TURRET, (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.FIRE_CHARGE_TURRET, (MenuScreens.ScreenConstructor<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.BRICK_TURRET, (MenuScreens.ScreenConstructor<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.GAUSS_TURRET, (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.COBBLE_TURRET, (MenuScreens.ScreenConstructor<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KContainers.ARROW_TURRET.get(), (MenuScreens.ScreenConstructor<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
+        MenuScreens.register(KContainers.BULLET_TURRET.get(), (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
+        MenuScreens.register(KContainers.FIRE_CHARGE_TURRET.get(), (MenuScreens.ScreenConstructor<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KContainers.BRICK_TURRET.get(), (MenuScreens.ScreenConstructor<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KContainers.GAUSS_TURRET.get(), (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KContainers.COBBLE_TURRET.get(), (MenuScreens.ScreenConstructor<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
 
         MenuScreens.register(KContainers.BRICK_DRONE.get(), (MenuScreens.ScreenConstructor<BrickDroneContainer, BrickDroneScreen>) (p1, p2, p3) -> new BrickDroneScreen(p1, p2, p3, true));
         MenuScreens.register(KContainers.BULLET_DRONE.get(), (MenuScreens.ScreenConstructor<BulletDroneContainer, BulletDroneScreen>) (p1, p2, p3) -> new BulletDroneScreen(p1, p2, p3, true));

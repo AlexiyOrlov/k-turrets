@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class BrickTurretContainer extends Container2 {
     public BrickTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
-        super(KContainers.BRICK_TURRET, i);
+        super(KContainers.BRICK_TURRET.get(), i);
         BrickTurret turret = (BrickTurret) playerInventory.player.level().getEntity(buffer.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {

@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class GaussTurretContainer extends Container2 {
     public GaussTurretContainer(int i, Inventory inventory, FriendlyByteBuf buffer) {
-        super(KContainers.GAUSS_TURRET, i);
+        super(KContainers.GAUSS_TURRET.get(), i);
         GaussTurret turret = (GaussTurret) inventory.player.level().getEntity(buffer.readInt());
         int ind = 0;
         for (int j = 0; j < 3; j++) {

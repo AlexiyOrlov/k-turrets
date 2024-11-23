@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class ArrowTurretContainer extends Container2 {
     public ArrowTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
-        super(KContainers.ARROW_TURRET, i);
+        super(KContainers.ARROW_TURRET.get(), i);
         ArrowTurret turret = (ArrowTurret) playerInventory.player.level().getEntity(packetBuffer.readInt());
         addSlot(new ItemHandlerSlot(turret.weapon, 0, 4 * 18, 0));
         int slot = 0;

@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class BulletTurretContainer extends Container2 {
     public BulletTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
-        super(KContainers.BULLET_TURRET, i);
+        super(KContainers.BULLET_TURRET.get(), i);
         BulletTurret bulletTurret = (BulletTurret) playerInventory.player.level().getEntity(packetBuffer.readInt());
         int slot = 0;
         for (int j = 0; j < 3; j++) {

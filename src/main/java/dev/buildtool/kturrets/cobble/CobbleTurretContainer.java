@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class CobbleTurretContainer extends Container2 {
     public CobbleTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
-        super(KContainers.COBBLE_TURRET, i);
+        super(KContainers.COBBLE_TURRET.get(), i);
         CobbleTurret cobbleTurret = (CobbleTurret) playerInventory.player.level().getEntity(packetBuffer.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {
