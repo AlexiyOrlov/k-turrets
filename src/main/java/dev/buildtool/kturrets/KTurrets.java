@@ -397,36 +397,27 @@ public class KTurrets {
     public void showAmmo(ServerStartedEvent serverStartedEvent)
     {
         logger.info("Cobble unit ammo:");
-        logger.info("");
         ITagManager<Item> tags = ForgeRegistries.ITEMS.tags();
         tags.getTag(COBBLE_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Bullet unit ammo 1:");
-        logger.info("");
         tags.getTag(BULLET_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("");
+
         logger.info("Bullet unit ammo 2:");
-        logger.info("");
         tags.getTag(BULLET_UNIT_AMMO_TAG2).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Brick unit ammo 1:");
-        logger.info("");
         tags.getTag(BRICK_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("");
         logger.info("Brick unit ammo 2:");
-        logger.info("");
         tags.getTag(BRICK_UNIT_AMMO_TAG2).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Gauss unit ammo:");
-        logger.info("");
         tags.getTag(GAUSS_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Fireball unit ammo:");
-        logger.info("");
         tags.getTag(FIREBALL_UNIT_AMMO).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Arrow unit ammo:");
-        logger.info("");
         tags.getTag(ARROW_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
     }
