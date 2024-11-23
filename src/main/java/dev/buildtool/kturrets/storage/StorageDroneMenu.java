@@ -47,6 +47,8 @@ public class StorageDroneMenu extends Container2 {
                 else if (!moveItemStackTo(stack, 0, 27, false)) {
                     return ItemStack.EMPTY;
                 }
+            } else if (!moveItemStackTo(stack,0,27,false)) {
+                return ItemStack.EMPTY;
             }
         }
         return super.quickMoveStack(playerIn, index);
