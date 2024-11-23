@@ -36,10 +36,18 @@ public class StorageDroneMenu extends Container2 {
         }
         else {
             if(stack.is(KItems.LIGHT_UPGRADE.get()))
-                if(!moveItemStackTo(stack,27,29,false))
+            {
+                if(!moveItemStackTo(stack,27,28,false))
                     return ItemStack.EMPTY;
-            else if (!moveItemStackTo(stack, 0, 27, false))
-                return ItemStack.EMPTY;
+                else if (!moveItemStackTo(stack, 0, 27, false))
+                    return ItemStack.EMPTY;
+            } else if (stack.is(KItems.MAGNET_UPGRADE.get())) {
+                if(!moveItemStackTo(stack,28,29,false))
+                    return ItemStack.EMPTY;
+                else if (!moveItemStackTo(stack, 0, 27, false)) {
+                    return ItemStack.EMPTY;
+                }
+            }
         }
         return super.quickMoveStack(playerIn, index);
     }

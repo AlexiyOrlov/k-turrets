@@ -4,25 +4,32 @@ import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class StorageDrone extends Drone {
+    private static final EntityDataAccessor<Boolean> MAGNET_ACTIVE= SynchedEntityData.defineId(StorageDrone.class, EntityDataSerializers.BOOLEAN);
     private BlockPos previousPosition=BlockPos.ZERO;
     public ItemHandler itemHandler = new ItemHandler(27){
         @Override
@@ -34,8 +41,10 @@ public class StorageDrone extends Drone {
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(!getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get()) && !upgrades.getStackInSlot(1).is(KItems.LIGHT_UPGRADE.get()))
+            if(slot==0)
                 return stack.is(KItems.LIGHT_UPGRADE.get());
+            if(slot==1)
+                return stack.is(KItems.MAGNET_UPGRADE.get());
             return false;
         }
 
@@ -64,6 +73,12 @@ public class StorageDrone extends Drone {
 
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(MAGNET_ACTIVE,true);
+    }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int p_39954_, Inventory p_39955_, Player p_39956_) {
@@ -83,6 +98,7 @@ public class StorageDrone extends Drone {
         compoundNBT.put("Items", itemHandler.serializeNBT());
         compoundNBT.putLong("Previous light position",previousPosition.asLong());
         compoundNBT.put("Upgrades",upgrades.serializeNBT());
+        compoundNBT.putBoolean("Magnet on",isMagnetActive());
     }
 
     @Override
@@ -91,6 +107,7 @@ public class StorageDrone extends Drone {
         itemHandler.deserializeNBT(compoundNBT.getCompound("Items"));
         previousPosition=BlockPos.of(compoundNBT.getLong("Previous light position"));
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
+        setMagnetActive(compoundNBT.getBoolean("Magnet on"));
     }
 
     @Override
@@ -108,5 +125,27 @@ public class StorageDrone extends Drone {
         }
         else if(level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
             level().removeBlock(previousPosition,false);
+        if(upgrades.getStackInSlot(1).is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
+            List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
+            itemEntities.forEach(itemEntity -> {
+                if (!itemEntity.getItem().is(KItems.STORAGE_DRONE.get())) {
+                    itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
+                    if (distanceTo(itemEntity) < 1) {
+                        if (Functions.tryInsertItem(itemHandler, itemEntity.getItem()))
+                            itemEntity.discard();
+                    }
+                }
+            });
+        }
+    }
+
+    public void setMagnetActive(boolean b)
+    {
+        entityData.set(MAGNET_ACTIVE,b);
+    }
+
+    public boolean isMagnetActive()
+    {
+        return entityData.get(MAGNET_ACTIVE);
     }
 }

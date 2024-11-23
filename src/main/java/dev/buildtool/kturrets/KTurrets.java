@@ -4,6 +4,7 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.*;
+import dev.buildtool.kturrets.storage.StorageDrone;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -94,34 +95,35 @@ public class KTurrets {
 
     public static Logger logger= LogManager.getLogger("K-Turrets");
     public KTurrets() {
-        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, p_259752_) -> {
-            p_259752_.accept(KItems.COBBLE_TURRET.get());
-            p_259752_.accept(KItems.ARROW_TURRET.get());
-            p_259752_.accept(KItems.FIRECHARGE_TURRET.get());
-            p_259752_.accept(KItems.BRICK_TURRET.get());
-            p_259752_.accept(KItems.BULLET_TURRET.get());
-            p_259752_.accept(KItems.GAUSS_TURRET.get());
+        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, items) -> {
+            items.accept(KItems.COBBLE_TURRET.get());
+            items.accept(KItems.ARROW_TURRET.get());
+            items.accept(KItems.FIRECHARGE_TURRET.get());
+            items.accept(KItems.BRICK_TURRET.get());
+            items.accept(KItems.BULLET_TURRET.get());
+            items.accept(KItems.GAUSS_TURRET.get());
 
-            p_259752_.accept(KItems.EXPLOSIVE_POWDER.get());
-            p_259752_.accept(KItems.GAUSS_BULLET.get());
-            p_259752_.accept(KItems.TITANIUM_ORE.get());
-            p_259752_.accept(KItems.DEEPSLATE_TITANIUM_ORE.get());
-            p_259752_.accept(KItems.RAW_TITANIUM.get());
-            p_259752_.accept(KItems.TITANIUM_INGOT.get());
-            p_259752_.accept(KItems.TARGET_COPIER.get());
+            items.accept(KItems.EXPLOSIVE_POWDER.get());
+            items.accept(KItems.GAUSS_BULLET.get());
+            items.accept(KItems.TITANIUM_ORE.get());
+            items.accept(KItems.DEEPSLATE_TITANIUM_ORE.get());
+            items.accept(KItems.RAW_TITANIUM.get());
+            items.accept(KItems.TITANIUM_INGOT.get());
+            items.accept(KItems.TARGET_COPIER.get());
 
-            p_259752_.accept(KItems.COBBLE_DRONE.get());
-            p_259752_.accept(KItems.ARROW_DRONE.get());
-            p_259752_.accept(KItems.FIREBALL_DRONE.get());
-            p_259752_.accept(KItems.BRICK_DRONE.get());
-            p_259752_.accept(KItems.BULLET_DRONE.get());
-            p_259752_.accept(KItems.GAUSS_DRONE.get());
+            items.accept(KItems.COBBLE_DRONE.get());
+            items.accept(KItems.ARROW_DRONE.get());
+            items.accept(KItems.FIREBALL_DRONE.get());
+            items.accept(KItems.BRICK_DRONE.get());
+            items.accept(KItems.BULLET_DRONE.get());
+            items.accept(KItems.GAUSS_DRONE.get());
 
-            p_259752_.accept(KItems.RELOADER.get());
+            items.accept(KItems.RELOADER.get());
 
-            p_259752_.accept(KItems.STORAGE_DRONE.get());
+            items.accept(KItems.STORAGE_DRONE.get());
 
-            p_259752_.accept(KItems.LIGHT_UPGRADE.get());
+            items.accept(KItems.LIGHT_UPGRADE.get());
+            items.accept(KItems.MAGNET_UPGRADE.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
@@ -355,6 +357,20 @@ public class KTurrets {
                         return new ClientProxy().syncAmmoStatus(ammoCheck);
                     });
                 });
+        channel.registerMessage(packetIndex++,SetMagnetState.class,(setMagnetState, byteBuf) -> {
+            byteBuf.writeInt(setMagnetState.droneId);
+            byteBuf.writeBoolean(setMagnetState.state);
+        },byteBuf -> new SetMagnetState(byteBuf.readInt(),byteBuf.readBoolean()),(setMagnetState, contextSupplier) -> {
+            contextSupplier.get().enqueueWork(() -> {
+                ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
+                Entity drone= serverLevel.getEntity(setMagnetState.droneId);
+                if(drone instanceof StorageDrone storageDrone)
+                {
+                    storageDrone.setMagnetActive(setMagnetState.state);
+                    contextSupplier.get().setPacketHandled(true);
+                }
+            });
+        });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);

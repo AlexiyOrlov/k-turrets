@@ -12,6 +12,7 @@
   "item.k_turrets.wrench": "Target Copier",
   "item.k_turrets.storage_drone_item": "Storage Drone",
   "item.k_turrets.light_upgrade": "Lantern",
+  "item.k_turrets.magnet_upgrade": "Item Magnet",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -98,5 +99,7 @@
   "k_turrets.reached.drone.limit": "Reached drone limit of %1$s. Can't place more",
   "k_turrets.turrets.remain": "%1$s turret slots remain",
   "k_turrets.drones.remain": "%1$s drone slots remain",
-  "k_turrets.storage.drone": "Storage drone"
+  "k_turrets.storage.drone": "Storage drone",
+  "k_turrets.magnetOff.off": "Magnet inactive",
+  "k_turrets.magnetOff.on": "Magnet active"
 }

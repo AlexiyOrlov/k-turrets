@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.storage;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.gui.*;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
@@ -11,10 +12,10 @@ import net.minecraft.network.chat.MutableComponent;
 import java.util.LinkedHashMap;
 
 public class StorageDroneScreen extends Screen2 {
-    private Drone drone;
+    private StorageDrone drone;
     public StorageDroneScreen(Drone drone) {
         super(Component.translatable("k_turrets.storage.drone"));
-        this.drone = drone;
+        this.drone = (StorageDrone) drone;
     }
 
     @Override
@@ -33,37 +34,33 @@ public class StorageDroneScreen extends Screen2 {
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
             }
         }));
+        if(drone.upgrades.getStackInSlot(1).is(KItems.MAGNET_UPGRADE.get()))
+        {
+            MutableComponent magnetOff=Component.translatable("k_turrets.magnetOff.off");
+            addRenderableWidget(new SwitchButton(centerX-font.width(magnetOff.getString())/2,centerY,Component.translatable("k_turrets.magnetOff.on"),magnetOff,drone.isMagnetActive(),pButton -> {
+                SwitchButton switchButton= (SwitchButton) pButton;
+                switchButton.state=!switchButton.state;
+                drone.setMagnetActive(switchButton.state);
+                KTurrets.channel.sendToServer(new SetMagnetState(drone.getId(),switchButton.state));
+            }));
+        };
         if (!drone.getOwner().isPresent()) {
             MutableComponent claim = Component.translatable("k_turrets.claim.drone");
-            addRenderableWidget(new BetterButton(centerX-font.width(claim)/2, centerY, claim, p_onPress_1_ -> {
+            addRenderableWidget(new BetterButton(centerX-font.width(claim)/2, centerY+20, claim, p_onPress_1_ -> {
                 KTurrets.channel.sendToServer(new ClaimTurret(drone.getId(), minecraft.player.getUUID()));
                 drone.setOwner(minecraft.player.getUUID());
                 minecraft.player.closeContainer();
             }));
         } else {
-            MutableComponent followText = Component.translatable("k_turrets.following.owner");
-            DropDownButton dropDownButton = new DropDownButton(centerX-font.width(followText)/2, centerY, this, Component.literal(""));
-            LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
-            RadioButton follow = new RadioButton(centerX, 140, followText);
-            linkedHashMap.put(follow.getMessage(), p_93751_ -> {
-                KTurrets.channel.sendToServer(new ToggleDroneFollow(true, drone.getId()));
-                drone.followOwner(true);
-                drone.setGuardArea(false);
-                KTurrets.channel.sendToServer(new ToggleGuardingArea(drone.getId(), false));
-                dropDownButton.setMessage(p_93751_.getMessage());
-                dropDownButton.onPress();
-            });
-            RadioButton stay = new RadioButton(centerX, 160, Component.translatable("k_turrets.staying"));
-            linkedHashMap.put(stay.getMessage(), p_93751_ -> {
+            MutableComponent follow=Component.translatable("k_turrets.following.owner");
+            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY+20,follow,Component.translatable("k_turrets.staying"),drone.isFollowingOwner(),pButton -> {
+               SwitchButton switchButton= (SwitchButton) pButton;
+               switchButton.state=!switchButton.state;
+               drone.followOwner(switchButton.state);
                 KTurrets.channel.sendToServer(new ToggleDroneFollow(false, drone.getId()));
-                KTurrets.channel.sendToServer(new ToggleGuardingArea(drone.getId(), false));
-                drone.followOwner(false);
-                drone.setGuardArea(false);
-                dropDownButton.setMessage(p_93751_.getMessage());
-                dropDownButton.onPress();
+
             });
-            dropDownButton.setChoices(linkedHashMap, drone.isGuardingArea() ? 2 : drone.isFollowingOwner() ? 0 : 1);
-            addRenderableWidget(dropDownButton);
+            addRenderableWidget(toggle);
         }
     }
 }

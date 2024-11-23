@@ -33,7 +33,7 @@ public class KItems {
     public static RegistryObject<Item> TARGET_COPIER;
     public static RegistryObject<Item> RELOADER;
     public static RegistryObject<Item> STORAGE_DRONE;
-    public static RegistryObject<Item> LIGHT_UPGRADE;
+    public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET));
@@ -61,6 +61,7 @@ public class KItems {
         TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
         RELOADER = ITEMS.register("reloader", () -> new BlockItem(KBlocks.RELOADER.get(), defaults()));
         LIGHT_UPGRADE=ITEMS.register("light_upgrade",() -> new Item(new Item.Properties().stacksTo(4)));
+        MAGNET_UPGRADE=ITEMS.register("magnet_upgrade",() -> new Item(new Item.Properties().stacksTo(4)));
     }
 
     private static Item.Properties defaults() {
