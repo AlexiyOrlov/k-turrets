@@ -1,6 +1,7 @@
 package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.Drone;
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.KItems;
@@ -23,6 +24,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -115,33 +117,71 @@ public class StorageDrone extends Drone {
     @Override
     public void tick() {
         super.tick();
-        if(upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get()) || upgrades.getStackInSlot(1).is(KItems.LIGHT_UPGRADE.get())) {
-            BlockPos currentPos = getOnPos();
-            if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
-                level().removeBlock(previousPosition, false);
-            if (level().isEmptyBlock(currentPos)) {
-                level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
-            }
-            previousPosition = currentPos;
-
-        }
-        else if(level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
-            level().removeBlock(previousPosition,false);
-        if(upgrades.getStackInSlot(1).is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
-            List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
-            itemEntities.forEach(itemEntity -> {
-                if (!itemEntity.getItem().is(KItems.STORAGE_DRONE.get())) {
-                    ItemStack tryInsert= ItemHandlerHelper.insertItemStacked(itemHandler,itemEntity.getItem(),true);
-                    if(tryInsert.isEmpty()) {
-                        itemEntity.setNeverPickUp();
-                        itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
-                        if (distanceTo(itemEntity) < 1) {
-                            if (Functions.tryInsertItem(itemHandler, itemEntity.getItem()))
-                                itemEntity.discard();
-                        }
-                    }
+        if(!level().isClientSide) {
+            ItemStack magnet = upgrades.getStackInSlot(1);
+            if (upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get())) {
+                BlockPos currentPos = getOnPos();
+                if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                    level().removeBlock(previousPosition, false);
+                if (level().isEmptyBlock(currentPos)) {
+                    level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
                 }
-            });
+                previousPosition = currentPos;
+
+            } else if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                level().removeBlock(previousPosition, false);
+            if (magnet.is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
+                List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
+                itemEntities.forEach(itemEntity -> {
+                    ItemStack entityItem = itemEntity.getItem();
+                    if (!entityItem.is(KItems.STORAGE_DRONE.get())) {
+                        magnet.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler ->{
+                            if(magnet.getOrCreateTag().getBoolean(KTurrets.FILTER))
+                            {
+                                for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                                    ItemStack item=iItemHandler.getStackInSlot(i);
+                                    if(Functions.areItemTypesEqual(item,entityItem))
+                                    {
+                                        ItemStack tryInsert = ItemHandlerHelper.insertItemStacked(itemHandler, entityItem, true);
+                                        if (tryInsert.isEmpty()) {
+                                            itemEntity.setNeverPickUp();
+                                            itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
+                                            if (distanceTo(itemEntity) < 1) {
+                                                if (Functions.tryInsertItem(itemHandler, entityItem))
+                                                    itemEntity.discard();
+                                            }
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            else {
+                                boolean isBlacklisted=false;
+                                for (int i = 0; i < iItemHandler.getSlots(); i++) {
+                                    ItemStack itemStack=iItemHandler.getStackInSlot(i);
+                                    if(Functions.areItemTypesEqual(itemStack,entityItem))
+                                    {
+                                        isBlacklisted=true;
+                                        break;
+                                    }
+                                }
+                                if(!isBlacklisted)
+                                {
+                                    ItemStack tryInsert = ItemHandlerHelper.insertItemStacked(itemHandler, entityItem, true);
+                                    if (tryInsert.isEmpty()) {
+                                        itemEntity.setNeverPickUp();
+                                        itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
+                                        if (distanceTo(itemEntity) < 1) {
+                                            if (Functions.tryInsertItem(itemHandler, entityItem))
+                                                itemEntity.discard();
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 

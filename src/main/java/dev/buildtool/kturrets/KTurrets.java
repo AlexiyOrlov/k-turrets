@@ -66,6 +66,7 @@ public class KTurrets {
     public static final Type TYPE = new TypeToken<ArrayListMultimap<UUID, String>>() {
     }.getType();
     public static final Gson GSON = new GsonBuilder().registerTypeAdapter(TYPE, new MultimapAdapter()).create();
+    public static final String FILTER = "Filter";
     public static SimpleChannel channel;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_RANGE;
@@ -387,6 +388,17 @@ public class KTurrets {
                 }
             });
         });
+        channel.registerMessage(packetIndex++, MagnetFilterState.class,(magnetFilterState, byteBuf) -> byteBuf.writeBoolean(magnetFilterState.state),
+                byteBuf -> new MagnetFilterState(byteBuf.readBoolean()),
+                (magnetFilterState, contextSupplier) -> {
+                    ServerPlayer serverPlayer=contextSupplier.get().getSender();
+                    ItemStack held=serverPlayer.getInventory().getSelected();
+                    if(held.is(KItems.MAGNET_UPGRADE.get()))
+                    {
+                        held.getOrCreateTag().putBoolean(FILTER, magnetFilterState.state);
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);

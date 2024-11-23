@@ -2,9 +2,17 @@ package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.ContainerItem;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.Magnet;
 import dev.buildtool.kturrets.TargetCopier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -61,7 +69,7 @@ public class KItems {
         TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
         RELOADER = ITEMS.register("reloader", () -> new BlockItem(KBlocks.RELOADER.get(), defaults()));
         LIGHT_UPGRADE=ITEMS.register("light_upgrade",() -> new Item(new Item.Properties().stacksTo(4)));
-        MAGNET_UPGRADE=ITEMS.register("magnet_upgrade",() -> new Item(new Item.Properties().stacksTo(4)));
+        MAGNET_UPGRADE=ITEMS.register("magnet_upgrade",() -> new Magnet(new Item.Properties().stacksTo(1)));
     }
 
     private static Item.Properties defaults() {

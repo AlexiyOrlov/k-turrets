@@ -1,9 +1,6 @@
 package dev.buildtool.kturrets.registers;
 
-import dev.buildtool.kturrets.ContainerItem;
-import dev.buildtool.kturrets.EntityRenderer2;
-import dev.buildtool.kturrets.ReloaderMenu;
-import dev.buildtool.kturrets.ReloaderScreen;
+import dev.buildtool.kturrets.*;
 import dev.buildtool.kturrets.arrow.*;
 import dev.buildtool.kturrets.brick.*;
 import dev.buildtool.kturrets.bullet.*;
@@ -44,6 +41,8 @@ public class ClientSetup {
         MenuScreens.register(KContainers.STORAGE_DRONE.get(), (MenuScreens.ScreenConstructor<StorageDroneMenu, StorageDroneMenuScreen>) StorageDroneMenuScreen::new);
 
         MenuScreens.register(KContainers.RELOADER.get(), (MenuScreens.ScreenConstructor<ReloaderMenu, ReloaderScreen>) (p1, p2, p3) -> new ReloaderScreen(p1, p2, p3, true));
+
+        MenuScreens.register(KContainers.MAGNET.get(),(MenuScreens.ScreenConstructor<MagnetMenu,MagnetScreen>) MagnetScreen::new);
     }
 
     @SubscribeEvent

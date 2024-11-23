@@ -3,9 +3,7 @@ package dev.buildtool.kturrets.registers;
 import dev.buildtool.kturrets.KTurrets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -18,10 +16,12 @@ public class RegisterCapability {
     });
 
     @SubscribeEvent
-    public static void attachCapability(AttachCapabilitiesEvent<Level> attachCapabilitiesEvent) {
-        Level level = attachCapabilitiesEvent.getObject();
-        if (level instanceof ServerLevel) {
+    public static void attachCapability(AttachCapabilitiesEvent attachCapabilitiesEvent) {
+        Object o = attachCapabilitiesEvent.getObject();
+        if (o instanceof ServerLevel) {
             attachCapabilitiesEvent.addCapability(new ResourceLocation(KTurrets.ID, "unit_limits"), new UnitLimitCapability.Provider());
+        } else if (o instanceof ItemStack itemStack && itemStack.getItem()==KItems.MAGNET_UPGRADE.get()) {
+            attachCapabilitiesEvent.addCapability(new ResourceLocation(KTurrets.ID,"magnet_inventory"), new MagnetInventoryProvider());
         }
     }
 }

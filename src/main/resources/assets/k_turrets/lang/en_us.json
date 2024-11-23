@@ -101,5 +101,12 @@
   "k_turrets.drones.remain": "%1$s drone slots remain",
   "k_turrets.storage.drone": "Storage drone",
   "k_turrets.magnetOff.off": "Magnet inactive",
-  "k_turrets.magnetOff.on": "Magnet active"
+  "k_turrets.magnetOff.on": "Magnet active",
+  "k_turrets.whitelist": "Whitelist items",
+  "k_turrets.blacklist": "Blacklist items",
+  "k_turrets.magnet": "Magnet filter",
+  "k_turrets.mode": "Filtering mode",
+  "k_turrets.right.click": "Right click to configure item filtering",
+  "k_turrets.whitelist.items": "whitelist",
+  "k_turrets.blacklist.items": "blacklist"
 }
