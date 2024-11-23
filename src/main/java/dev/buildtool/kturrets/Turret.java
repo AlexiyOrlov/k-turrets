@@ -17,10 +17,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -50,6 +52,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -350,21 +356,41 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             if (!level().isClientSide) {
                 Player player = level().getPlayerByUUID(uuid1);
                 if (player != null) {
-                    if (damageSource.getDirectEntity() != null)
-                        player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
-                    else {
-                        if (damageSource.getEntity() != null)
-                            player.displayClientMessage(getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()))), false);
-                        else
-                            player.displayClientMessage(damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())), false);
+                    if (damageSource.getDirectEntity() != null) {
+                        MutableComponent deathMessageA = getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())));
+                        player.displayClientMessage(deathMessageA, false);
+                    } else {
+                        if (damageSource.getEntity() != null) {
+                            MutableComponent deathMessageB = getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())));
+                            player.displayClientMessage(deathMessageB, false);
+                        } else {
+                            MutableComponent deathMessageC = damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()));
+                            player.displayClientMessage(deathMessageC, false);
+                        }
                     }
                 }
                 if(FMLEnvironment.dist.isDedicatedServer()) {
+                    MinecraftServer server=level().getServer();
                     UnitLimitCapability unitLimitCapability = level().getCapability(RegisterCapability.unitCapability).orElse(null);
                     if(this instanceof Drone)
                         unitLimitCapability.setDroneCount(uuid1, unitLimitCapability.getDroneCount(uuid1)-1);
                     else
                         unitLimitCapability.setTurretCount(uuid1, unitLimitCapability.getTurretCount(uuid1)-1);
+                    if(player==null)
+                    {
+                        if (damageSource.getDirectEntity() != null) {
+                            MutableComponent deathMessageA = getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())));
+                            KTurrets.serverUnitDeaths.put(uuid1,deathMessageA.getString());
+                        } else {
+                            if (damageSource.getEntity() != null) {
+                                MutableComponent deathMessageB = getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())));
+                                KTurrets.serverUnitDeaths.put(uuid1,deathMessageB.getString());
+                            } else {
+                                MutableComponent deathMessageC = damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()));
+                                KTurrets.serverUnitDeaths.put(uuid1,deathMessageC.getString());
+                            }
+                        }
+                    }
                 }
             }
         });
