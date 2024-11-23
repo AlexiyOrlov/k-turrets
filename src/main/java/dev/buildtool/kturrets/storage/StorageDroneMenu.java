@@ -1,7 +1,9 @@
 package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
+import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,18 +20,25 @@ public class StorageDroneMenu extends Container2 {
                 addSlot(new ItemHandlerSlot(storageDrone.itemHandler, index++, 18 * k, 18 * j));
             }
         }
+        IntegerColor upgradeSlotColor=new IntegerColor(0xfffa5c82);
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18+9,3*18).setColor(upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18+9,3*18).setColor(upgradeSlotColor));
 
-        addPlayerInventory(inventory.player, 0, 4 * 18);
+        addPlayerInventory(inventory.player, 0, 5 * 18);
     }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack stack = getSlot(index).getItem();
-        if (index < 27) {
-            if (!moveItemStackTo(stack, 27, slots.size(), false))
+        if (index < 29) {
+            if (!moveItemStackTo(stack, 29, slots.size(), false))
                 return ItemStack.EMPTY;
-        } else {
-            if (!moveItemStackTo(stack, 0, 27, false))
+        }
+        else {
+            if(stack.is(KItems.LIGHT_UPGRADE.get()))
+                if(!moveItemStackTo(stack,27,29,false))
+                    return ItemStack.EMPTY;
+            else if (!moveItemStackTo(stack, 0, 27, false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

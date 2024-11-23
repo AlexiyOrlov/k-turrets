@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "lll",
+    "ltl",
+    "lll"
+  ],
+  "key": {
+    "l": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "t": {
+      "item": "k_turrets:titanium_ingot"
+    }
+  },
+  "result": {
+    "item": "k_turrets:light_upgrade"
+  }
+}

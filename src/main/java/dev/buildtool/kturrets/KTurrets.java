@@ -120,6 +120,8 @@ public class KTurrets {
             p_259752_.accept(KItems.RELOADER.get());
 
             p_259752_.accept(KItems.STORAGE_DRONE.get());
+
+            p_259752_.accept(KItems.LIGHT_UPGRADE.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 

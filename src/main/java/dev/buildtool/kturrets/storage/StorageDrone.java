@@ -1,10 +1,12 @@
 package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.Drone;
+import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
@@ -21,10 +23,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class StorageDrone extends Drone {
+    private BlockPos previousPosition=BlockPos.ZERO;
     public ItemHandler itemHandler = new ItemHandler(27){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return !stack.is(KItems.STORAGE_DRONE.get());
+        }
+    };
+    public ItemHandler upgrades=new ItemHandler(2)
+    {
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            if(!getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get()) && !upgrades.getStackInSlot(1).is(KItems.LIGHT_UPGRADE.get()))
+                return stack.is(KItems.LIGHT_UPGRADE.get());
+            return false;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
         }
     };
 
@@ -34,7 +51,7 @@ public class StorageDrone extends Drone {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return List.of(itemHandler);
+        return List.of(itemHandler,upgrades);
     }
 
     @Override
@@ -64,11 +81,32 @@ public class StorageDrone extends Drone {
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Items", itemHandler.serializeNBT());
+        compoundNBT.putLong("Previous light position",previousPosition.asLong());
+        compoundNBT.put("Upgrades",upgrades.serializeNBT());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         itemHandler.deserializeNBT(compoundNBT.getCompound("Items"));
+        previousPosition=BlockPos.of(compoundNBT.getLong("Previous light position"));
+        upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get()) || upgrades.getStackInSlot(1).is(KItems.LIGHT_UPGRADE.get())) {
+            BlockPos currentPos = getOnPos();
+            if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                level().removeBlock(previousPosition, false);
+            if (level().isEmptyBlock(currentPos)) {
+                level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
+            }
+            previousPosition = currentPos;
+
+        }
+        else if(level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+            level().removeBlock(previousPosition,false);
     }
 }
