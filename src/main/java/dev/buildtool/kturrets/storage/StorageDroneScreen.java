@@ -57,8 +57,7 @@ public class StorageDroneScreen extends Screen2 {
                SwitchButton switchButton= (SwitchButton) pButton;
                switchButton.state=!switchButton.state;
                drone.followOwner(switchButton.state);
-                KTurrets.channel.sendToServer(new ToggleDroneFollow(false, drone.getId()));
-
+               KTurrets.channel.sendToServer(new ToggleDroneFollow(switchButton.state, drone.getId()));
             });
             addRenderableWidget(toggle);
         }
