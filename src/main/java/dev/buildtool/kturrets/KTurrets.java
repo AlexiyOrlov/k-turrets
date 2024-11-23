@@ -476,7 +476,7 @@ public class KTurrets {
         {
             String uuid = player.getUUID().toString();
             if(serverUnitDeaths.containsKey(uuid)) {
-                player.displayClientMessage(Component.literal("Some of your units were destroyed while you were offline"),false);
+                player.displayClientMessage(Component.literal("[K-Turrets] Some of your units were destroyed while you were offline"),false);
                 serverUnitDeaths.get(uuid).forEach(s -> player.displayClientMessage(Component.literal(s), false));
                 serverUnitDeaths.removeAll(uuid);
             }
