@@ -9,12 +9,11 @@ import net.minecraft.world.entity.LivingEntity;
 public class EntityRenderer2<E extends LivingEntity, M extends EntityModel<E>> extends LivingEntityRenderer<E, M> {
 
     private final ResourceLocation texture;
-    private final boolean renderName;
 
-    public EntityRenderer2(EntityRendererProvider.Context rendererManager, M entityModelIn, String textureName, boolean renderName, float shadowSizeIn) {
+    public EntityRenderer2(EntityRendererProvider.Context rendererManager, M entityModelIn, String textureName, float shadowSizeIn) {
         super(rendererManager, entityModelIn, shadowSizeIn);
         texture = new ResourceLocation(KTurrets.ID, "textures/entity/" + textureName + ".png");
-        this.renderName = renderName;
+
     }
 
     @Override
@@ -24,6 +23,6 @@ public class EntityRenderer2<E extends LivingEntity, M extends EntityModel<E>> e
 
     @Override
     protected boolean shouldShowName(E entity) {
-        return renderName && super.shouldShowName(entity);
+        return entity.hasCustomName() && super.shouldShowName(entity);
     }
 }
