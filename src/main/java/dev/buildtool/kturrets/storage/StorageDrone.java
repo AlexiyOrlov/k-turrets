@@ -23,6 +23,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -129,10 +131,13 @@ public class StorageDrone extends Drone {
             List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
             itemEntities.forEach(itemEntity -> {
                 if (!itemEntity.getItem().is(KItems.STORAGE_DRONE.get())) {
-                    itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
-                    if (distanceTo(itemEntity) < 1) {
-                        if (Functions.tryInsertItem(itemHandler, itemEntity.getItem()))
-                            itemEntity.discard();
+                    ItemStack tryInsert= ItemHandlerHelper.insertItemStacked(itemHandler,itemEntity.getItem(),true);
+                    if(tryInsert.isEmpty()) {
+                        itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
+                        if (distanceTo(itemEntity) < 1) {
+                            if (Functions.tryInsertItem(itemHandler, itemEntity.getItem()))
+                                itemEntity.discard();
+                        }
                     }
                 }
             });
