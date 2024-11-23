@@ -2,6 +2,10 @@ package dev.buildtool.kturrets;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.*;
 import dev.buildtool.kturrets.storage.StorageDrone;
@@ -9,11 +13,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +27,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.JsonUtils;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -41,17 +50,22 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
     public static final String ID = "k_turrets";
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
     static private final String NP = "1.0";
+    public static final Type TYPE = new TypeToken<ArrayListMultimap<UUID, String>>() {
+    }.getType();
+    public static final Gson GSON = new GsonBuilder().registerTypeAdapter(TYPE, new MultimapAdapter()).create();
     public static SimpleChannel channel;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue ARROW_TURRET_RANGE;
@@ -94,6 +108,8 @@ public class KTurrets {
     public static TagKey<Item> GAUSS_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
 
     public static Logger logger= LogManager.getLogger("K-Turrets");
+
+    public static ArrayListMultimap<String,String> serverUnitDeaths=ArrayListMultimap.create();
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, items) -> {
             items.accept(KItems.COBBLE_TURRET.get());
@@ -419,5 +435,51 @@ public class KTurrets {
         logger.info("Arrow unit ammo:");
         tags.getTag(ARROW_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
+
+        if(serverStartedEvent.getServer().isDedicatedServer()) {
+            File dir = serverStartedEvent.getServer().getServerDirectory();
+            File file = new File(dir, ID + ".json");
+            if(file.exists()) {
+                try {
+                    serverUnitDeaths = GSON.fromJson(new FileReader(file), TYPE);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onServerStop(ServerStoppingEvent serverStoppingEvent)
+    {
+        MinecraftServer server=serverStoppingEvent.getServer();
+        if(server.isDedicatedServer())
+        {
+            String s= GSON.toJson(serverUnitDeaths, TYPE);
+            try {
+                Path path = server.getServerDirectory().toPath().resolve(Path.of(ID + ".json"));
+                if(!Files.exists(path)) {
+                    Files.createFile(path);
+                }
+                Files.writeString(path,s, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void notifyPlayer(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent)
+    {
+        Player player= playerLoggedInEvent.getEntity();
+        if(player.level().getServer().isDedicatedServer())
+        {
+            String uuid = player.getUUID().toString();
+            if(serverUnitDeaths.containsKey(uuid)) {
+                player.displayClientMessage(Component.literal("Some of your units were destroyed while you were offline"),false);
+                serverUnitDeaths.get(uuid).forEach(s -> player.displayClientMessage(Component.literal(s), false));
+                serverUnitDeaths.removeAll(uuid);
+            }
+        }
     }
 }

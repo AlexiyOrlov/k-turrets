@@ -380,14 +380,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                     {
                         if (damageSource.getDirectEntity() != null) {
                             MutableComponent deathMessageA = getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getDirectEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())));
-                            KTurrets.serverUnitDeaths.put(uuid1,deathMessageA.getString());
+                            KTurrets.serverUnitDeaths.put(uuid1.toString(),deathMessageA.getString());
                         } else {
                             if (damageSource.getEntity() != null) {
                                 MutableComponent deathMessageB = getDisplayName().copy().append(" ").append(Component.translatable("k_turrets.was.destroyed.by").append(" ").append(damageSource.getEntity().getDisplayName()).append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ())));
-                                KTurrets.serverUnitDeaths.put(uuid1,deathMessageB.getString());
+                                KTurrets.serverUnitDeaths.put(uuid1.toString(),deathMessageB.getString());
                             } else {
                                 MutableComponent deathMessageC = damageSource.getLocalizedDeathMessage(this).copy().append(" ").append(Component.translatable("k_turrets.at").append(" " + (int) getX() + " " + (int) getY() + " " + (int) getZ()));
-                                KTurrets.serverUnitDeaths.put(uuid1,deathMessageC.getString());
+                                KTurrets.serverUnitDeaths.put(uuid1.toString(),deathMessageC.getString());
                             }
                         }
                     }
