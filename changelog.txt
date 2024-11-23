@@ -2,6 +2,7 @@
 can't place storage drone inside storage drone;
 implemented light upgrade, magnet upgrade for storage drone;
 implemented offline unit death logging;
+units show custom name;
 
 3.0.34:
 changed Ammo reloader recipe;
