@@ -133,6 +133,7 @@ public class StorageDrone extends Drone {
                 if (!itemEntity.getItem().is(KItems.STORAGE_DRONE.get())) {
                     ItemStack tryInsert= ItemHandlerHelper.insertItemStacked(itemHandler,itemEntity.getItem(),true);
                     if(tryInsert.isEmpty()) {
+                        itemEntity.setNeverPickUp();
                         itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
                         if (distanceTo(itemEntity) < 1) {
                             if (Functions.tryInsertItem(itemHandler, itemEntity.getItem()))
