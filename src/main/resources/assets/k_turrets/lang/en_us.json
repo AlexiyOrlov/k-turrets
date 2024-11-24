@@ -23,9 +23,9 @@
   "item.k_turrets.titanium_ingot": "Titanium Ingot",
   "item.k_turrets.raw_titanium": "Raw Titanium",
 
-  "k_turrets.targets": "Targets:",
+  "k_turrets.targets": "Target selection:",
   "k_turrets.added": "Added to targets",
-  "k_turrets.add.entity.type": "Add target",
+  "k_turrets.add.entity.type": "Add target or exception",
   "k_turrets.choose.tooltip": "Choose which entities to remove by pressing the appropriate buttons",
   "k_turrets.hold.alt.to.scroll": "To scroll the target list, hold Alt and use the mouse wheel",
   "k_turrets.dismantle": "Dismantle",
