@@ -14,6 +14,9 @@ import dev.buildtool.satako.UniqueList;
 import dev.ftb.mods.ftblibrary.ui.ScreenWrapper;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -285,8 +288,32 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     void openTargetScreen(boolean storageDrone) {
         if(storageDrone)
             Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
-        else
-            Minecraft.getInstance().setScreen(new ScreenWrapper(new UnitOptionsScreen(this)));
+        else {
+            UnitOptionsScreen unitOptionsScreen = new UnitOptionsScreen(this);
+            ScreenWrapper screenWrapper = new ScreenWrapper(unitOptionsScreen) {
+                @Override
+                public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+                    super.render(graphics, mouseX, mouseY, partialTicks);
+                    renderables.forEach(renderable -> renderable.render(graphics, mouseX, mouseY, partialTicks));
+                }
+
+                @Override
+                public boolean mouseClicked(double x, double y, int button) {
+                    for (GuiEventListener guiEventListener : children()) {
+                        if (guiEventListener.mouseClicked(x, y, button)) {
+                            this.setFocused(guiEventListener);
+                            if (button == 0) {
+                                this.setDragging(true);
+                            }
+                            return true;
+                        }
+                    }
+                    return super.mouseClicked(x, y, button);
+                }
+            };
+            unitOptionsScreen.wrapper=screenWrapper;
+            Minecraft.getInstance().setScreen(screenWrapper);
+        }
     }
 
     //don't forget to save the inventory

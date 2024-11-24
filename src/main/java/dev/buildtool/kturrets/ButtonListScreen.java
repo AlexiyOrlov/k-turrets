@@ -7,6 +7,8 @@ import dev.ftb.mods.ftblibrary.ui.misc.AbstractThreePanelScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 
+import java.util.function.BinaryOperator;
+
 public abstract class ButtonListScreen extends ThreePanelScreen{
     private Component title = Component.empty();
     private final TextBox searchBox;
@@ -122,10 +124,13 @@ public abstract class ButtonListScreen extends ThreePanelScreen{
 
         public void alignWidgets() {
             this.align(new WidgetLayout.Vertical(ButtonListScreen.this.borderV, ButtonListScreen.this.borderW, ButtonListScreen.this.borderV));
+            int maxWidth=widgets.stream().reduce((widget, widget2) -> widget.width<widget2.width ? widget2 :widget).get().width;
             this.widgets.forEach((w) -> {
                 w.setX(ButtonListScreen.this.borderH);
-                w.setWidth(this.width - ButtonListScreen.this.borderH * 2);
+                w.setWidth(maxWidth);
             });
+            mainPanel.setWidth(Math.min(maxWidth+ 14,width/2));
+            topPanel.setWidth(mainPanel.getWidth());
         }
     }
 }
