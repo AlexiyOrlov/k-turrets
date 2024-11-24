@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -399,6 +400,32 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
+        channel.registerMessage(packetIndex++, SetTarget.class,(setTarget, byteBuf) -> {
+            byteBuf.writeInt(setTarget.unit);
+            byteBuf.writeBoolean(setTarget.state);
+            byteBuf.writeUtf(setTarget.id);
+        },byteBuf -> {
+            int unit=byteBuf.readInt();
+            boolean state=byteBuf.readBoolean();
+            String id=byteBuf.readUtf();
+            return new SetTarget(state,id,unit);
+        },(setTarget, contextSupplier) -> {
+            ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
+            Entity entity=serverLevel.getEntity(setTarget.unit);
+            if(entity instanceof Turret turret)
+            {
+               List<EntityType<?>> targets= Turret.decodeTargets(turret.getTargets());
+               if(setTarget.state)
+               {
+                   targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+               }
+               else {
+                   targets.remove(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+               }
+               turret.setTargets(Turret.encodeTargets(targets));
+               contextSupplier.get().setPacketHandled(true);
+            }
+        });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);

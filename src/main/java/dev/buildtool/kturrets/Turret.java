@@ -11,6 +11,7 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
 import dev.buildtool.satako.UniqueList;
+import dev.ftb.mods.ftblibrary.ui.ScreenWrapper;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -285,7 +286,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         if(storageDrone)
             Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
         else
-            Minecraft.getInstance().setScreen(new TurretOptionsScreen(this));
+            Minecraft.getInstance().setScreen(new ScreenWrapper(new UnitOptionsScreen(this)));
     }
 
     //don't forget to save the inventory
