@@ -48,16 +48,6 @@ public class UnitOptionsScreen extends ButtonListScreen {
             MutableComponent entityName = Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
             TextButton simpleButton= new TextButton(var1, entityName,true);
             var1.add(simpleButton);
-            //            SwitchButton switchButton = new SwitchButton(3, 20 * i + label.getY() + label.getHeight(), Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), Component.literal(ChatFormatting.STRIKETHROUGH + ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()), true, p_onPress_1_ -> {
-//                if (p_onPress_1_ instanceof SwitchButton) {
-//                    ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
-//                    tempStatusMap.put(entityType, ((SwitchButton) p_onPress_1_).state);
-//                }
-//            });
-//            switchButton.verticalScroll = true;
-//            addRenderableWidget(switchButton);
-//            targetButtons.add(switchButton);
-//            guiEventListeners.add(switchButton);
         }
     }
 
