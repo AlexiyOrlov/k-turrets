@@ -43,12 +43,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
     @Override
     public void addButtons(Panel var1) {
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
-        for (int i = 0; i < targets.size(); i++) {
-            EntityType<?> entityType = targets.get(i);
-            MutableComponent entityName = Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString());
-            TextButton simpleButton= new TextButton(var1, entityName,true);
-            var1.add(simpleButton);
-        }
+        targets.stream().map(entityType -> Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString())).map(entityName -> new TextButton(var1, entityName, true)).forEach(var1::add);
     }
 
     private class TextButton extends SimpleTextButton {
