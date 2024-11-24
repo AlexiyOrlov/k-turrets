@@ -301,7 +301,9 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 public boolean mouseClicked(double x, double y, int button) {
                     for (GuiEventListener guiEventListener : children()) {
                         if (guiEventListener.mouseClicked(x, y, button)) {
-                            this.setFocused(guiEventListener);
+                            if(guiEventListener.isMouseOver(x,y)) {
+                                this.setFocused(guiEventListener);
+                            }
                             if (button == 0) {
                                 this.setDragging(true);
                             }
@@ -310,8 +312,18 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                     }
                     return super.mouseClicked(x, y, button);
                 }
+
+                @Override
+                public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+                    for (GuiEventListener child : children()) {
+                        if(child.keyPressed(keyCode, scanCode, modifiers))
+                            return true;
+                    }
+                    return super.keyPressed(keyCode, scanCode, modifiers);
+                }
             };
             unitOptionsScreen.wrapper=screenWrapper;
+            unitOptionsScreen.initialize();
             Minecraft.getInstance().setScreen(screenWrapper);
         }
     }
