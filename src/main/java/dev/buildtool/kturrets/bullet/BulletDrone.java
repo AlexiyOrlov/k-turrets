@@ -26,7 +26,7 @@ public class BulletDrone extends Drone {
     protected final ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG2);
+            return stack.is(KTurrets.BULLET_UNIT_AMMO_TAG1) || stack.is(KTurrets.BULLET_UNIT_AMMO_TAG2);
         }
     };
 
@@ -59,7 +59,7 @@ public class BulletDrone extends Drone {
                     double d0 = livingEntity.getX() - this.getX();
                     double d1 = livingEntity.getEyeY() - getEyeY();
                     double d2 = livingEntity.getZ() - this.getZ();
-                    Bullet bullet = new Bullet(this, d0, d1, d2, level(), Functions.isItemIn(item.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG1) ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
+                    Bullet bullet = new Bullet(this, d0, d1, d2, level(), item.is(KTurrets.BULLET_UNIT_AMMO_TAG1) ? KTurrets.GOLD_BULLET_DAMAGE.get() : KTurrets.IRON_BULLET_DAMAGE.get());
                     level().addFreshEntity(bullet);
                     playSound(Sounds.BULLET_FIRE.get(), 1, 1);
                     item.shrink(1);

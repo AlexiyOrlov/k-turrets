@@ -28,7 +28,7 @@ public class FireballDroneContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
-            if (Functions.isItemIn(itemStack.getItem(), KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 0, 18, false))
+            if (itemStack.is(KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 18, 54, false))

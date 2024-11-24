@@ -27,7 +27,7 @@ public class BrickTurret extends Turret {
     protected ItemHandler ammo = new ItemHandler(27) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2);
+            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2);
 
         }
     };
@@ -62,7 +62,7 @@ public class BrickTurret extends Turret {
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
                     Brick brick = new Brick(this, xa, ya, za, level());
-                    brick.setDamage(Functions.isItemIn(bricksItem.getItem(), Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
+                    brick.setDamage(bricksItem.is(Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
                     playSound(SoundEvents.WITCH_THROW, 1, 0.5f);
                     bricksItem.shrink(1);

@@ -33,7 +33,7 @@ public class ArrowTurretContainer extends Container2 {
         if (index > 27) {
             if ((itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) && !moveItemStackTo(itemStack, 0, 1, false))
                 return ItemStack.EMPTY;
-            if (Functions.isItemIn(itemStack.getItem(), KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 28, false))
+            if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 28, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 28, 64, false))

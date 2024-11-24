@@ -43,19 +43,18 @@ public class ReloaderMenu extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        Item item = itemStack.getItem();
         if (index > 107) {
-            if (Functions.isItemIn(item, KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 90, 108, false))
+            if (itemStack.is(KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 90, 108, false))
                 return ItemStack.EMPTY;
-            if (Functions.isItemIn(item, KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 72, 90, false))
+            if (itemStack.is(KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 72, 90, false))
                 return ItemStack.EMPTY;
-            if ((Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(item, KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 36, 54, false))
+            if ((itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG1) || itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 36, 54, false))
                 return ItemStack.EMPTY;
-            if ((Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(item, KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 18, 36, false))
+            if ((itemStack.is( KTurrets.BULLET_UNIT_AMMO_TAG1) || itemStack.is( KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 18, 36, false))
                 return ItemStack.EMPTY;
-            if (Functions.isItemIn(item, KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 54, 72, false))
+            if (itemStack.is( KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 54, 72, false))
                 return ItemStack.EMPTY;
-            if (Functions.isItemIn(item, KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
+            if (itemStack.is( KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 109, slots.size(), false))

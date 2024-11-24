@@ -28,7 +28,7 @@ public class GaussDroneContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
-            if (Functions.isItemIn(itemStack.getItem(), KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
+            if (itemStack.is(KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 18, 54, false))

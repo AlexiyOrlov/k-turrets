@@ -17,7 +17,7 @@ public class BrickDroneContainer extends Container2 {
         int index = 0;
         for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 9; k++) {
-                addSlot(new ItemHandlerSlot(brickDrone.bricks, index++, k * 18, j * 18));
+                addSlot(new ItemHandlerSlot(brickDrone.ammo, index++, k * 18, j * 18));
             }
         }
 
@@ -28,7 +28,7 @@ public class BrickDroneContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 17) {
-            if ((Functions.isItemIn(itemStack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(itemStack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, 18, false))
+            if ((itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, 18, false))
                     return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 18, 54, false))

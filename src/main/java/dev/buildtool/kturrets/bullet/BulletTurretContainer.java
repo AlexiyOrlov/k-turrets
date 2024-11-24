@@ -27,7 +27,7 @@ public class BulletTurretContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if ((Functions.isItemIn(itemStack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG1) || Functions.isItemIn(itemStack.getItem(), KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, 27, false))
+            if ((itemStack.is(KTurrets.BULLET_UNIT_AMMO_TAG1) || itemStack.is(KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))

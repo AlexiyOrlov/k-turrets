@@ -28,7 +28,7 @@ public class CobbleTurretContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > 26) {
-            if (Functions.isItemIn(itemStack.getItem(), KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 27, false))
+            if (itemStack.is(KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 27, false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, 27, 63, false))

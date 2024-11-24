@@ -27,10 +27,10 @@ public class BrickDrone extends Drone {
         super(KEntities.BRICK_DRONE.get(), world);
     }
 
-    protected ItemHandler bricks = new ItemHandler(18) {
+    protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || Functions.isItemIn(stack.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG2);
+            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2);
         }
     };
 
@@ -43,27 +43,27 @@ public class BrickDrone extends Drone {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Collections.singletonList(bricks);
+        return Collections.singletonList(ammo);
     }
 
     @Override
     public boolean isArmed() {
-        return !bricks.isEmpty();
+        return !ammo.isEmpty();
     }
 
     @Override
     public void performRangedAttack(LivingEntity target, float p_33318_) {
         if (target.isAlive()) {
-            for (ItemStack bricksItem : bricks.getItems()) {
-                if (!bricksItem.isEmpty()) {
+            for (ItemStack ammoItem : ammo.getItems()) {
+                if (!ammoItem.isEmpty()) {
                     double xa = target.getX() - getX();
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
                     Brick brick = new Brick(this, xa, ya, za, level());
-                    brick.setDamage(Functions.isItemIn(bricksItem.getItem(), KTurrets.BRICK_UNIT_AMMO_TAG1) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
+                    brick.setDamage(ammoItem.is(KTurrets.BRICK_UNIT_AMMO_TAG1) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
                     playSound(SoundEvents.WITCH_THROW, 1, 0.5f);
-                    bricksItem.shrink(1);
+                    ammoItem.shrink(1);
                     break;
                 }
             }
@@ -81,12 +81,12 @@ public class BrickDrone extends Drone {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
-        compoundNBT.put("Ammo", bricks.serializeNBT());
+        compoundNBT.put("Ammo", ammo.serializeNBT());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
-        bricks.deserializeNBT(compoundNBT.getCompound("Ammo"));
+        ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
 }
