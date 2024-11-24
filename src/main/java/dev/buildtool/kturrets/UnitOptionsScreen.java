@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.packets.SetTarget;
+import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.BetterButton;
@@ -18,6 +18,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +27,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UnitOptionsScreen extends ButtonListScreen {
     protected Turret turret;
@@ -135,6 +137,77 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(addButton);
         hideableWidgets.add(addButton);
+        BetterButton dismantle=new BetterButton(addEntity.getX(),addButton.getY()+addButton.getHeight(),Component.translatable("k_turrets.dismantle"),pButton -> {
+            wrapper.closeGui();
+            KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
+        });
+        wrapper.addRenderableWidget(dismantle);
+        hideableWidgets.add(dismantle);
+
+        BetterButton clearTargets=new BetterButton(addEntity.getX(),dismantle.getY()+dismantle.getHeight(),Component.translatable("k_turrets.clear.list"),pButton -> {
+            targets.clear();
+            mainPanel.clearWidgets();
+            KTurrets.channel.sendToServer(new TurretTargets(new CompoundTag(),turret.getId()));
+        });
+        wrapper.addRenderableWidget(clearTargets);
+        hideableWidgets.add(clearTargets);
+
+        BetterButton resetTargets=new BetterButton(addEntity.getX(),clearTargets.getY()+clearTargets.getHeight(),Component.translatable("k_turrets.reset.list"),pButton -> {
+            List<EntityType<?>> entityTypeList = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList();
+            targets.addAll(entityTypeList);
+            refreshWidgets();
+            List<EntityType<?>> entityTypes=Turret.decodeTargets(turret.getTargets());
+            entityTypes.clear();
+            entityTypes.addAll(entityTypeList);
+            CompoundTag compoundNBT = Turret.encodeTargets(entityTypeList);
+            turret.setTargets(compoundNBT);
+            KTurrets.channel.sendToServer(new TurretTargets(compoundNBT,turret.getId()));
+        });
+        wrapper.addRenderableWidget(resetTargets);
+        hideableWidgets.add(resetTargets);
+
+        SwitchButton mobility=new SwitchButton(addEntity.getX(),resetTargets.getY()+resetTargets.getHeight(),Component.translatable("k_turrets.mobile"),Component.translatable("k_turrets.immobile"),turret.isMoveable(),pButton -> {
+           SwitchButton switchButton1= (SwitchButton) pButton;
+           switchButton1.state=!switchButton1.state;
+           turret.setMoveable(switchButton1.state);
+           KTurrets.channel.sendToServer(new ToggleMobility(switchButton1.state,turret.getId()));
+        });
+        wrapper.addRenderableWidget(mobility);
+        hideableWidgets.add(mobility);
+
+        SwitchButton playerProtection=new SwitchButton(addEntity.getX(),mobility.getY()+mobility.getHeight(),Component.translatable("k_turrets.protect.from.players"),Component.translatable("k_turrets.not.protect.from.players"),turret.isProtectingFromPlayers(),pButton -> {
+            SwitchButton switchButton1= (SwitchButton) pButton;
+            switchButton1.state=!switchButton1.state;
+            turret.setProtectionFromPlayers(switchButton1.state);
+            KTurrets.channel.sendToServer(new TogglePlayerProtection(switchButton1.state,turret.getId()));
+        });
+        wrapper.addRenderableWidget(playerProtection);
+        hideableWidgets.add(playerProtection);
+
+        SwitchButton refillSwitch=new SwitchButton(addEntity.getX(),playerProtection.getY()+playerProtection.getHeight(),Component.translatable("k_turrets.refill.inventory"),Component.translatable("k_turrets.dont.refill.inventory"),turret.isRefillingInventory(),pButton -> {
+            SwitchButton b= (SwitchButton) pButton;
+            b.state=!b.state;
+            turret.setRefillInventory(b.state);
+            KTurrets.channel.sendToServer(new SetRefillInventory(b.state,turret.getId()));
+        });
+        wrapper.addRenderableWidget(refillSwitch);
+        hideableWidgets.add(refillSwitch);
+
+        turret.getOwner().ifPresentOrElse(uuid -> {
+            if(turret instanceof Drone drone)
+            {
+
+            }
+        },()->
+        {
+            BetterButton claim=new BetterButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),Component.translatable("k_turrets.claim.drone"),pButton -> {
+                turret.setOwner(wrapper.getMinecraft().player.getUUID());
+                wrapper.closeGui();
+                KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(),wrapper.getMinecraft().player.getUUID()));
+            });
+            wrapper.addRenderableWidget(claim);
+            hideableWidgets.add(claim);
+        });
     }
 
     private class TextButton extends SimpleTextButton {

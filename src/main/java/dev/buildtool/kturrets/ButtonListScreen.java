@@ -124,12 +124,15 @@ public abstract class ButtonListScreen extends ThreePanelScreen{
 
         public void alignWidgets() {
             this.align(new WidgetLayout.Vertical(ButtonListScreen.this.borderV, ButtonListScreen.this.borderW, ButtonListScreen.this.borderV));
-            int maxWidth=widgets.stream().reduce((widget, widget2) -> widget.width<widget2.width ? widget2 :widget).get().width;
-            this.widgets.forEach((w) -> {
-                w.setX(ButtonListScreen.this.borderH);
-                w.setWidth(maxWidth);
-            });
-            mainPanel.setWidth(Math.min(maxWidth+ 14,width/2));
+
+            if(!widgets.isEmpty()) {
+                int maxWidth = widgets.stream().reduce((widget, widget2) -> widget.width < widget2.width ? widget2 : widget).get().width;
+                this.widgets.forEach((w) -> {
+                    w.setX(ButtonListScreen.this.borderH);
+                    w.setWidth(maxWidth);
+                });
+                mainPanel.setWidth(Math.min(maxWidth + 14, width / 2));
+            }
             topPanel.setWidth(mainPanel.getWidth());
         }
     }
