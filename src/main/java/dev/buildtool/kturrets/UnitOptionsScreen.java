@@ -130,6 +130,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
             KTurrets.channel.sendToServer(new SetTarget(true, string, turret.getId()));
             addEntity.setValue("");
             mainPanel.refreshWidgets();
+            wrapper.addPopup(Component.translatable("k_turrets.added"));
 
         });
         wrapper.addRenderableWidget(addButton);
