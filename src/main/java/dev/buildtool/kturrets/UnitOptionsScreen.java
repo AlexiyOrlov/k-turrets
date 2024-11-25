@@ -1,6 +1,18 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.arrow.ArrowDrone;
+import dev.buildtool.kturrets.arrow.ArrowTurret;
+import dev.buildtool.kturrets.brick.BrickDrone;
+import dev.buildtool.kturrets.brick.BrickTurret;
+import dev.buildtool.kturrets.bullet.BulletDrone;
+import dev.buildtool.kturrets.bullet.BulletTurret;
+import dev.buildtool.kturrets.cobble.CobbleDrone;
+import dev.buildtool.kturrets.cobble.CobbleTurret;
+import dev.buildtool.kturrets.fireball.FireballDrone;
+import dev.buildtool.kturrets.fireball.FireballTurret;
+import dev.buildtool.kturrets.gauss.GaussTurret;
 import dev.buildtool.kturrets.packets.*;
+import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
@@ -21,6 +33,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 
@@ -64,9 +77,11 @@ public class UnitOptionsScreen extends ButtonListScreen {
             var1.add(textButton);
             exceptionButtons.add(textButton);
         });
-        TextField separator=new TextField(var1);
-        separator.setHeight(18);
-        var1.add(separator);
+        if(!exceptions.isEmpty()) {
+            TextField separator = new TextField(var1);
+            separator.setHeight(18);
+            var1.add(separator);
+        }
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
         targets.stream().map(entityType -> Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString())).map(entityName -> new TextButton(var1, entityName, true)).forEach(var1::add);
     }
@@ -258,6 +273,21 @@ public class UnitOptionsScreen extends ButtonListScreen {
             wrapper.addRenderableWidget(claim);
             hideableWidgets.add(claim);
         });
+        Label range = new Label(addEntity.getX(), refillSwitch.getY() + refillSwitch.getHeight() + 20, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
+        hideableWidgets.add(wrapper.addRenderableWidget(range));
+        Label health = new Label(addEntity.getX(), range.getY() + range.getHeight(), Component.translatable(KTurrets.ID + ".integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth()), Constants.BLACK);
+        hideableWidgets.add(wrapper.addRenderableWidget(health));
+        int primaryDamage=turret.getDamage();
+        int secondaryDamage= turret.getSecondaryDamage();
+        MutableComponent damageText = Component.translatable("k_turrets.damage", primaryDamage);
+        if(secondaryDamage>0)
+            damageText.append("/"+secondaryDamage);
+        Label damage=new Label(addEntity.getX(),health.getY()+range.getHeight(), damageText,Constants.BLACK);
+        hideableWidgets.add(damage);
+        wrapper.addRenderableWidget(damage);
+        Label armor=new Label(addEntity.getX(),damage.getY()+damage.getHeight(),Component.translatable("k_turrets.armor",turret.getAttribute(Attributes.ARMOR).getValue()),Constants.BLACK);
+        hideableWidgets.add(armor);
+        wrapper.addRenderableWidget(armor);
     }
 
     private class TextButton extends SimpleTextButton {

@@ -66,6 +66,11 @@ public class ArrowDrone extends Drone {
     }
 
     @Override
+    public int getDamage() {
+        return KTurrets.ARROW_TURRET_DAMAGE.get();
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         if (target.isAlive()) {
             ItemStack weapon = this.weapon.getStackInSlot(0);

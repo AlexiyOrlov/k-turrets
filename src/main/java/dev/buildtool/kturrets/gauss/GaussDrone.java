@@ -90,4 +90,9 @@ public class GaussDrone extends Drone {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
+
+    @Override
+    public int getDamage() {
+        return KTurrets.GAUSS_TURRET_DAMAGE.get();
+    }
 }

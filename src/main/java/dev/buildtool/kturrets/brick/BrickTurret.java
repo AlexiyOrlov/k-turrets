@@ -91,4 +91,14 @@ public class BrickTurret extends Turret {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
+
+    @Override
+    public int getDamage() {
+        return KTurrets.BRICK_DAMAGE.get();
+    }
+
+    @Override
+    public int getSecondaryDamage() {
+        return KTurrets.NETHERBRICK_DAMAGE.get();
+    }
 }

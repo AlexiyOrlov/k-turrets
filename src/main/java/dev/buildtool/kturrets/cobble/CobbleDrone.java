@@ -90,4 +90,9 @@ public class CobbleDrone extends Drone {
         super.readAdditionalSaveData(compoundNBT);
         stone.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
+
+    @Override
+    public int getDamage() {
+        return KTurrets.COBBLE_TURRET_DAMAGE.get();
+    }
 }

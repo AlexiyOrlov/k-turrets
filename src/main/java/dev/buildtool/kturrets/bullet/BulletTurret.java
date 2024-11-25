@@ -89,4 +89,14 @@ public class BulletTurret extends Turret {
     public boolean isArmed() {
         return !ammo.isEmpty();
     }
+
+    @Override
+    public int getDamage() {
+        return KTurrets.GOLD_BULLET_DAMAGE.get();
+    }
+
+    @Override
+    public int getSecondaryDamage() {
+        return KTurrets.IRON_BULLET_DAMAGE.get();
+    }
 }

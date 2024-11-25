@@ -9,15 +9,10 @@ import dev.buildtool.kturrets.storage.StorageDroneScreen;
 import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
-import dev.buildtool.satako.Ownable;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.CombinedScreen;
-import dev.ftb.mods.ftblibrary.ui.ScreenWrapper;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -57,10 +52,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -620,5 +611,14 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
                 KTurrets.channel.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(getX(), getY(), getZ(), 22, level().dimension())), new AmmoCheck(!isArmed(), getId()));
             }
         }
+    }
+
+    public int getDamage(){
+        return 0;
+    }
+
+    public int getSecondaryDamage()
+    {
+        return 0;
     }
 }

@@ -113,7 +113,7 @@ public class KTurrets {
 
     public static ArrayListMultimap<String,String> serverUnitDeaths=ArrayListMultimap.create();
     public KTurrets() {
-        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_BULLET.get())).displayItems((p_270258_, items) -> {
+        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.ARROW_TURRET.get())).displayItems((p_270258_, items) -> {
             items.accept(KItems.COBBLE_TURRET.get());
             items.accept(KItems.ARROW_TURRET.get());
             items.accept(KItems.FIRECHARGE_TURRET.get());
@@ -336,7 +336,6 @@ public class KTurrets {
                     Entity entity = serverLevel.getEntity(e.turretId);
                     if (entity instanceof Turret turret) {
                         turret.removePlayerFromExceptions(e.playerName);
-                        contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.removed.player.from.exceptions", e.playerName), false);
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });

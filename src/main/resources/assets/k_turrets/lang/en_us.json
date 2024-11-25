@@ -59,7 +59,7 @@
   "k_turrets.guard.area": "Guard area",
   "k_turrets.no.drones.nearby": "There are no drones in 128 block radius",
   "k_turrets.range": "Detection range",
-  "k_turrets.damage": "Damage",
+  "k_turrets.damage": "Damage: %1$s",
 
   "k_turrets.refill.inventory": "Refill inventory",
   "k_turrets.dont.refill.inventory": "Don't refill inventory",
@@ -108,5 +108,6 @@
   "k_turrets.mode": "Filtering mode",
   "k_turrets.right.click": "Right click to configure item filtering",
   "k_turrets.whitelist.items": "whitelist",
-  "k_turrets.blacklist.items": "blacklist"
+  "k_turrets.blacklist.items": "blacklist",
+  "k_turrets.armor": "Armor: %1$s"
 }

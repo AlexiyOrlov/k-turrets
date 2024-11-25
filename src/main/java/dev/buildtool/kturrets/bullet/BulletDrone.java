@@ -88,4 +88,14 @@ public class BulletDrone extends Drone {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
+
+    @Override
+    public int getDamage() {
+        return KTurrets.GOLD_BULLET_DAMAGE.get();
+    }
+
+    @Override
+    public int getSecondaryDamage() {
+        return KTurrets.IRON_BULLET_DAMAGE.get();
+    }
 }

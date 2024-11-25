@@ -111,4 +111,9 @@ public class FireballDrone extends Drone {
         super.readAdditionalSaveData(compoundNBT);
         ammo.deserializeNBT(compoundNBT.getCompound("Ammo"));
     }
+
+    @Override
+    public int getDamage() {
+        return KTurrets.CHARGE_TURRET_DAMAGE.get();
+    }
 }

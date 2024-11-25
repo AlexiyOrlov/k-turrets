@@ -112,4 +112,8 @@ public class FireballTurret extends Turret {
         return !ammo.isEmpty();
     }
 
+    @Override
+    public int getDamage() {
+        return KTurrets.CHARGE_TURRET_DAMAGE.get();
+    }
 }

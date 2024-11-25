@@ -128,4 +128,8 @@ public class ArrowTurret extends Turret {
         return weapon.getStackInSlot(0);
     }
 
+    @Override
+    public int getDamage() {
+        return KTurrets.ARROW_TURRET_DAMAGE.get();
+    }
 }
