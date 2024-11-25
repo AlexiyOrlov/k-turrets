@@ -24,8 +24,6 @@ import org.jetbrains.annotations.Nullable;
  * Drone must carry less ammo than a turret; has lower range, health and armor
  */
 public abstract class Drone extends Turret {
-    private static final EntityDataAccessor<Boolean> FOLLOWING_OWNER = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> GUARDING_AREA = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<BlockPos> GUARD_POSITION = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BLOCK_POS);
 
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
@@ -89,9 +87,7 @@ public abstract class Drone extends Turret {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        entityData.define(FOLLOWING_OWNER, true);
         entityData.set(MOVEABLE, true);
-        entityData.define(GUARDING_AREA, false);
         entityData.define(GUARD_POSITION, BlockPos.ZERO);
         entityData.set(REFILL_INVENTORY, false);
         entityData.define(BEHAVIOR,(byte)0);
@@ -107,22 +103,6 @@ public abstract class Drone extends Turret {
         return Behavior.values()[entityData.get(BEHAVIOR)];
     }
 
-    public boolean isFollowingOwner() {
-        return entityData.get(FOLLOWING_OWNER);
-    }
-
-    public void followOwner(boolean follow) {
-        entityData.set(FOLLOWING_OWNER, follow);
-    }
-
-    public boolean isGuardingArea() {
-        return entityData.get(GUARDING_AREA);
-    }
-
-    public void setGuardArea(boolean guard) {
-        entityData.set(GUARDING_AREA, guard);
-    }
-
     public BlockPos getGuardPosition() {
         return entityData.get(GUARD_POSITION);
     }
@@ -134,8 +114,6 @@ public abstract class Drone extends Turret {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
-        compoundNBT.putBoolean("Following", isFollowingOwner());
-        compoundNBT.putBoolean("Guarding", isGuardingArea());
         compoundNBT.putLong("Guard position", getGuardPosition().asLong());
         compoundNBT.putByte("Behavior",(byte)getBehavior().ordinal());
     }
@@ -143,8 +121,6 @@ public abstract class Drone extends Turret {
     @Override
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
-        followOwner(compoundNBT.getBoolean("Following"));
-        setGuardArea(compoundNBT.getBoolean("Guarding"));
         setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
         setBehavior(Behavior.values()[compoundNBT.getByte("Behavior")]);
     }

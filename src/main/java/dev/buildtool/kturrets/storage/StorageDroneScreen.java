@@ -53,10 +53,10 @@ public class StorageDroneScreen extends Screen2 {
             }));
         } else {
             MutableComponent follow=Component.translatable("k_turrets.following.owner");
-            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY+20,follow,Component.translatable("k_turrets.staying"),drone.isFollowingOwner(),pButton -> {
+            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY+20,follow,Component.translatable("k_turrets.staying"),drone.getBehavior()== Drone.Behavior.FOLLOW, pButton -> {
                SwitchButton switchButton= (SwitchButton) pButton;
                switchButton.state=!switchButton.state;
-               drone.followOwner(switchButton.state);
+               drone.setBehavior(Drone.Behavior.FOLLOW);
                KTurrets.channel.sendToServer(new ToggleDroneFollow(switchButton.state, drone.getId()));
             });
             addRenderableWidget(toggle);

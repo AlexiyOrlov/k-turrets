@@ -302,20 +302,6 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
-        channel.registerMessage(packetIndex++, ToggleDroneFollow.class, (toggleDroneFollow, friendlyByteBuf) -> {
-            friendlyByteBuf.writeInt(toggleDroneFollow.id);
-            friendlyByteBuf.writeBoolean(toggleDroneFollow.follow);
-        }, friendlyByteBuf -> {
-            int id = friendlyByteBuf.readInt();
-            return new ToggleDroneFollow(friendlyByteBuf.readBoolean(), id);
-        }, (toggleDroneFollow, contextSupplier) -> {
-            ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
-            Entity entity = serverLevel.getEntity(toggleDroneFollow.id);
-            if (entity instanceof Drone drone) {
-                drone.followOwner(toggleDroneFollow.follow);
-                contextSupplier.get().setPacketHandled(true);
-            }
-        });
         channel.registerMessage(packetIndex++, AddPlayerException.class, (e, friendlyByteBuf) -> {
             friendlyByteBuf.writeInt(e.turretId);
             friendlyByteBuf.writeUtf(e.playerName);
@@ -339,17 +325,6 @@ public class KTurrets {
                         contextSupplier.get().setPacketHandled(true);
                     }
                 });
-        channel.registerMessage(packetIndex++, ToggleGuardingArea.class, (toggleGuardingArea, friendlyByteBuf) -> {
-            friendlyByteBuf.writeInt(toggleGuardingArea.droneId);
-            friendlyByteBuf.writeBoolean(toggleGuardingArea.guard);
-        }, friendlyByteBuf -> new ToggleGuardingArea(friendlyByteBuf.readInt(), friendlyByteBuf.readBoolean()), (toggleGuardingArea, contextSupplier) -> {
-            ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
-            Entity entity = serverLevel.getEntity(toggleGuardingArea.droneId);
-            if (entity instanceof Drone drone) {
-                drone.setGuardArea(toggleGuardingArea.guard);
-                contextSupplier.get().setPacketHandled(true);
-            }
-        });
         channel.registerMessage(packetIndex++, SetRefillInventory.class, (setRefillInventory, friendlyByteBuf) -> {
             friendlyByteBuf.writeBoolean(setRefillInventory.refill);
             friendlyByteBuf.writeInt(setRefillInventory.turretId);
