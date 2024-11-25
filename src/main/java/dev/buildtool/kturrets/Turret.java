@@ -291,7 +291,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
         else {
             UnitOptionsScreen unitOptionsScreen = new UnitOptionsScreen(this);
-            ScreenWrapper screenWrapper = new CombinedScreen(unitOptionsScreen);
+            CombinedScreen screenWrapper = new CombinedScreen(unitOptionsScreen);
             unitOptionsScreen.wrapper=screenWrapper;
             unitOptionsScreen.initialize();
             Minecraft.getInstance().setScreen(screenWrapper);

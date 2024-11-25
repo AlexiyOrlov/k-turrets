@@ -3,10 +3,7 @@ package dev.buildtool.kturrets;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
-import dev.buildtool.satako.gui.BetterButton;
-import dev.buildtool.satako.gui.Label;
-import dev.buildtool.satako.gui.Screen2;
-import dev.buildtool.satako.gui.SwitchButton;
+import dev.buildtool.satako.gui.*;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
@@ -33,7 +30,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
     protected Turret turret;
     private final List<Label> suggestions=new ArrayList<>(14);
     private final UniqueList<EntityType<?>> targets;
-    public ScreenWrapper wrapper;
+    public CombinedScreen wrapper;
     private final ArrayList<BetterButton> hideableWidgets=new ArrayList<>();
     private dev.buildtool.satako.gui.TextField addEntity;
 
