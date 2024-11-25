@@ -11,6 +11,7 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.Ownable;
 import dev.buildtool.satako.UniqueList;
+import dev.buildtool.satako.gui.CombinedScreen;
 import dev.ftb.mods.ftblibrary.ui.ScreenWrapper;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -290,38 +291,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
             Minecraft.getInstance().setScreen(new StorageDroneScreen((Drone) this));
         else {
             UnitOptionsScreen unitOptionsScreen = new UnitOptionsScreen(this);
-            ScreenWrapper screenWrapper = new ScreenWrapper(unitOptionsScreen) {
-                @Override
-                public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-                    super.render(graphics, mouseX, mouseY, partialTicks);
-                    renderables.forEach(renderable -> renderable.render(graphics, mouseX, mouseY, partialTicks));
-                }
-
-                @Override
-                public boolean mouseClicked(double x, double y, int button) {
-                    for (GuiEventListener guiEventListener : children()) {
-                        if (guiEventListener.mouseClicked(x, y, button)) {
-                            if(guiEventListener.isMouseOver(x,y)) {
-                                this.setFocused(guiEventListener);
-                            }
-                            if (button == 0) {
-                                this.setDragging(true);
-                            }
-                            return true;
-                        }
-                    }
-                    return super.mouseClicked(x, y, button);
-                }
-
-                @Override
-                public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-                    for (GuiEventListener child : children()) {
-                        if(child.keyPressed(keyCode, scanCode, modifiers))
-                            return true;
-                    }
-                    return super.keyPressed(keyCode, scanCode, modifiers);
-                }
-            };
+            ScreenWrapper screenWrapper = new CombinedScreen(unitOptionsScreen);
             unitOptionsScreen.wrapper=screenWrapper;
             unitOptionsScreen.initialize();
             Minecraft.getInstance().setScreen(screenWrapper);
