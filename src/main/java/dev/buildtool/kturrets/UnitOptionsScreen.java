@@ -150,7 +150,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(clearTargets);
         hideableWidgets.add(clearTargets);
 
-        BetterButton resetTargets=new BetterButton(addEntity.getX(),clearTargets.getY()+clearTargets.getHeight(),Component.translatable("k_turrets.reset.list"),pButton -> {
+        BetterButton resetTargets=new BetterButton(clearTargets.getX()+clearTargets.getElementWidth(),clearTargets.getY(),Component.translatable("k_turrets.reset.list"),pButton -> {
             List<EntityType<?>> entityTypeList = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList();
             targets.addAll(entityTypeList);
             refreshWidgets();
