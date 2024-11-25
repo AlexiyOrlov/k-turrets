@@ -194,6 +194,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         turret.getOwner().ifPresentOrElse(uuid -> {
             if(turret instanceof Drone drone)
             {
+                DropDownButton dropDownButton=new DropDownButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),wrapper,Component.literal(""));
 
             }
         },()->
