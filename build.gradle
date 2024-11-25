@@ -94,7 +94,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.1.0'
-    implementation fg.deobf('dev.buildtool:satako:7.0.19-1.20.1')
+    implementation fg.deobf('dev.buildtool:satako:7.0.20-1.20.1')
     implementation(fg.deobf('dev.architectury:architectury-forge:9.0.8'))
     implementation fg.deobf("dev.ftb.mods:ftb-library-forge:2001.2.6")
 }
