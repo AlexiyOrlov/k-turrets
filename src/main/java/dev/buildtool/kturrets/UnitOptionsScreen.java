@@ -6,6 +6,7 @@ import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
+import dev.ftb.mods.ftblibrary.ui.TextField;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import dev.ftb.mods.ftblibrary.ui.misc.AbstractButtonListScreen;
@@ -33,6 +34,8 @@ public class UnitOptionsScreen extends ButtonListScreen {
     public CombinedScreen wrapper;
     private final ArrayList<BetterButton> hideableWidgets=new ArrayList<>();
     private dev.buildtool.satako.gui.TextField addEntity;
+    private final List<String> exceptions=new ArrayList<>();
+    private ArrayList<TextButton> exceptionButtons=new ArrayList<>();
 
     public UnitOptionsScreen(Turret turret) {
         this.turret=turret;
@@ -41,6 +44,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         initGui();
         setFullscreen();
         setTitle(Component.translatable("k_turrets.targets"));
+        exceptions.addAll(turret.getExceptions());
     }
 
     @Override
@@ -55,6 +59,14 @@ public class UnitOptionsScreen extends ButtonListScreen {
 
     @Override
     public void addButtons(Panel var1) {
+        exceptions.forEach(s -> {
+            TextButton textButton = new TextButton(var1, Component.literal(s), true);
+            var1.add(textButton);
+            exceptionButtons.add(textButton);
+        });
+        TextField separator=new TextField(var1);
+        separator.setHeight(18);
+        var1.add(separator);
         targets.sort(Comparator.comparing(o -> ForgeRegistries.ENTITY_TYPES.getKey(o).toString()));
         targets.stream().map(entityType -> Component.literal(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString())).map(entityName -> new TextButton(var1, entityName, true)).forEach(var1::add);
     }
@@ -94,8 +106,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
                 suggestions.clear();
                 String text = addEntity.getValue();
                 if (!text.isEmpty()) {
-                    List<ResourceLocation> entityTypes;
-                    entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
+                    List<ResourceLocation> entityTypes= new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
                     int yOffset = 20;
                     entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITY_TYPES::getKey).toList());
                     for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
@@ -125,12 +136,29 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(addEntity);
         BetterButton addButton = new BetterButton(addEntity.getX(), addEntity.getY() + addEntity.getHeight()+4, Component.translatable("k_turrets.add.entity.type"), button -> {
             String string = addEntity.getValue();
-            EntityType<?> entityTypesValue = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(string));
-            targets.add(entityTypesValue);
-            KTurrets.channel.sendToServer(new SetTarget(true, string, turret.getId()));
-            addEntity.setValue("");
-            mainPanel.refreshWidgets();
-            wrapper.addPopup(Component.translatable("k_turrets.added"));
+            if(string.startsWith("!") && string.length()>1)
+            {
+                String playerName=string.substring(1);
+                if(exceptions.contains(playerName))
+                {
+                    wrapper.addPopup(Component.translatable("k_turrets.player.is.already.in.exceptions"));
+                }
+                else {
+                    turret.addPlayerToExceptions(playerName);
+                    exceptions.add(playerName);
+                    KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(),playerName));
+                    addEntity.setValue("");
+                    mainPanel.refreshWidgets();
+                }
+            }
+            else {
+                EntityType<?> entityTypesValue = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(string));
+                targets.add(entityTypesValue);
+                KTurrets.channel.sendToServer(new SetTarget(true, string, turret.getId()));
+                addEntity.setValue("");
+                mainPanel.refreshWidgets();
+                wrapper.addPopup(Component.translatable("k_turrets.added"));
+            }
 
         });
         wrapper.addRenderableWidget(addButton);
@@ -245,13 +273,27 @@ public class UnitOptionsScreen extends ButtonListScreen {
             state=!state;
             setIcon(state ? Icons.CHECK : Icons.CLOSE);
             playClickSound();
-            List<EntityType<?>> targets=Turret.decodeTargets(turret.getTargets());
-            if(state)
+            String string = title.getString();
+            if(exceptionButtons.contains(this))
             {
-                targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(title.getString())));
-                turret.setTargets(Turret.encodeTargets(targets));
+                if(state)
+                {
+                    turret.addPlayerToExceptions(string);
+                    KTurrets.channel.sendToServer(new AddPlayerException(turret.getId(),string));
+                }
+                else {
+                    turret.removePlayerFromExceptions(string);
+                    KTurrets.channel.sendToServer(new RemovePlayerException(turret.getId(),string));
+                }
             }
-            KTurrets.channel.sendToServer(new SetTarget(state, title.getString(), UnitOptionsScreen.this.turret.getId()));
+            else {
+                List<EntityType<?>> targets = Turret.decodeTargets(turret.getTargets());
+                if (state) {
+                    targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(string)));
+                    turret.setTargets(Turret.encodeTargets(targets));
+                }
+                KTurrets.channel.sendToServer(new SetTarget(state, string, UnitOptionsScreen.this.turret.getId()));
+            }
         }
     }
 }
