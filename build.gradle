@@ -104,11 +104,11 @@ jar {
     manifest {
         attributes([
             "Specification-Title": "k-turrets",
-            "Specification-Vendor": "Alexiy",
+            "Specification-Vendor": 'Krosenut',
             "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": project.version,
-            "Implementation-Vendor" :"Alexiy",
+            "Implementation-Vendor" :"Krosenut",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
