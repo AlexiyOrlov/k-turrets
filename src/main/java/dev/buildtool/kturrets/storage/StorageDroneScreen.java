@@ -34,16 +34,6 @@ public class StorageDroneScreen extends Screen2 {
                 ((SwitchButton) p_onPress_1_).state = !((SwitchButton) p_onPress_1_).state;
             }
         }));
-        if(drone.upgrades.getStackInSlot(1).is(KItems.MAGNET_UPGRADE.get()))
-        {
-            MutableComponent magnetOff=Component.translatable("k_turrets.magnetOff.off");
-            addRenderableWidget(new SwitchButton(centerX-font.width(magnetOff.getString())/2,centerY,Component.translatable("k_turrets.magnetOff.on"),magnetOff,drone.isMagnetActive(),pButton -> {
-                SwitchButton switchButton= (SwitchButton) pButton;
-                switchButton.state=!switchButton.state;
-                drone.setMagnetActive(switchButton.state);
-                KTurrets.channel.sendToServer(new SetMagnetState(drone.getId(),switchButton.state));
-            }));
-        };
         if (!drone.getOwner().isPresent()) {
             MutableComponent claim = Component.translatable("k_turrets.claim.drone");
             addRenderableWidget(new BetterButton(centerX-font.width(claim)/2, centerY+20, claim, p_onPress_1_ -> {
@@ -53,7 +43,7 @@ public class StorageDroneScreen extends Screen2 {
             }));
         } else {
             MutableComponent follow=Component.translatable("k_turrets.following.owner");
-            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY+20,follow,Component.translatable("k_turrets.staying"),drone.getBehavior()== Drone.Behavior.FOLLOW, pButton -> {
+            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY,follow,Component.translatable("k_turrets.staying"),drone.getBehavior()== Drone.Behavior.FOLLOW, pButton -> {
                SwitchButton switchButton= (SwitchButton) pButton;
                switchButton.state=!switchButton.state;
                if(switchButton.state)
@@ -69,5 +59,15 @@ public class StorageDroneScreen extends Screen2 {
             });
             addRenderableWidget(toggle);
         }
+        if(drone.upgrades.getStackInSlot(1).is(KItems.MAGNET_UPGRADE.get()))
+        {
+            MutableComponent magnetOff=Component.translatable("k_turrets.magnetOff.off");
+            addRenderableWidget(new SwitchButton(centerX-font.width(magnetOff.getString())/2,centerY+20,Component.translatable("k_turrets.magnetOff.on"),magnetOff,drone.isMagnetActive(),pButton -> {
+                SwitchButton switchButton= (SwitchButton) pButton;
+                switchButton.state=!switchButton.state;
+                drone.setMagnetActive(switchButton.state);
+                KTurrets.channel.sendToServer(new SetMagnetState(drone.getId(),switchButton.state));
+            }));
+        };
     }
 }
