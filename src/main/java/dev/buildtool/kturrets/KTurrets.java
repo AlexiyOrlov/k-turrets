@@ -427,6 +427,20 @@ public class KTurrets {
             }
         });
 
+        channel.registerMessage(packetIndex++, SetBehavior.class,(setBehavior, byteBuf) -> {
+            byteBuf.writeInt(setBehavior.drone);
+            byteBuf.writeEnum(setBehavior.behavior);
+        },byteBuf -> new SetBehavior(byteBuf.readInt(),byteBuf.readEnum(Drone.Behavior.class)),
+                (setBehavior, contextSupplier) -> {
+            ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
+            Entity entity=serverLevel.getEntity(setBehavior.drone);
+            if(entity instanceof Drone drone)
+            {
+                drone.setBehavior(setBehavior.behavior);
+                contextSupplier.get().setPacketHandled(true);
+            }
+        });
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);

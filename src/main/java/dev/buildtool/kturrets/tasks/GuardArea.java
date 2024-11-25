@@ -13,7 +13,7 @@ public class GuardArea extends Goal {
 
     @Override
     public boolean canUse() {
-        return drone.isGuardingArea();
+        return drone.getBehavior()== Drone.Behavior.GUARD;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class GuardArea extends Goal {
         if (drone.getTarget() == null) {
             BlockPos guardPos = drone.getGuardPosition();
             if (drone.distanceToSqr(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5) > 16)
-                drone.getNavigation().moveTo(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5, 1);
+                drone.getNavigation().moveTo(guardPos.getX() + 0.5, guardPos.getY(), guardPos.getZ() + 0.5, 0.5);
         }
     }
 }

@@ -28,11 +28,19 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Boolean> GUARDING_AREA = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<BlockPos> GUARD_POSITION = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BLOCK_POS);
 
+    private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
+
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
         moveControl = new DroneMovementControl(this, 20, true);
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
+    }
+
+    public enum Behavior{
+        FOLLOW,
+        GUARD,
+        STAY
     }
 
     public boolean causeFallDamage(float p_147105_, float p_147106_, DamageSource p_147107_) {
@@ -86,6 +94,17 @@ public abstract class Drone extends Turret {
         entityData.define(GUARDING_AREA, false);
         entityData.define(GUARD_POSITION, BlockPos.ZERO);
         entityData.set(REFILL_INVENTORY, false);
+        entityData.define(BEHAVIOR,(byte)0);
+    }
+
+    public void setBehavior(Behavior behavior)
+    {
+        entityData.set(BEHAVIOR,(byte)behavior.ordinal());
+    }
+
+    public Behavior getBehavior()
+    {
+        return Behavior.values()[entityData.get(BEHAVIOR)];
     }
 
     public boolean isFollowingOwner() {
@@ -118,6 +137,7 @@ public abstract class Drone extends Turret {
         compoundNBT.putBoolean("Following", isFollowingOwner());
         compoundNBT.putBoolean("Guarding", isGuardingArea());
         compoundNBT.putLong("Guard position", getGuardPosition().asLong());
+        compoundNBT.putByte("Behavior",(byte)getBehavior().ordinal());
     }
 
     @Override
@@ -126,6 +146,7 @@ public abstract class Drone extends Turret {
         followOwner(compoundNBT.getBoolean("Following"));
         setGuardArea(compoundNBT.getBoolean("Guarding"));
         setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
+        setBehavior(Behavior.values()[compoundNBT.getByte("Behavior")]);
     }
 
     @Override

@@ -195,7 +195,30 @@ public class UnitOptionsScreen extends ButtonListScreen {
             if(turret instanceof Drone drone)
             {
                 DropDownButton dropDownButton=new DropDownButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),wrapper,Component.literal(""));
-
+                LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
+                RadioButton follow=new RadioButton(addEntity.getX(),dropDownButton.getY()+dropDownButton.getHeight(),Component.translatable("k_turrets.following.owner"));
+                linkedHashMap.put(follow.getMessage(),pButton -> {
+                    drone.setBehavior(Drone.Behavior.FOLLOW);
+                    dropDownButton.onPress();
+                    KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW));
+                    dropDownButton.setMessage(pButton.getMessage());
+                });
+                RadioButton guard=new RadioButton(addEntity.getX(),follow.getY()+follow.getElementHeight(),Component.translatable("k_turrets.guard.area"));
+                linkedHashMap.put(guard.getMessage(),pButton -> {
+                    drone.setBehavior(Drone.Behavior.GUARD);
+                    dropDownButton.onPress();
+                    KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.GUARD));
+                    dropDownButton.setMessage(pButton.getMessage());
+                });
+                RadioButton stay=new RadioButton(addEntity.getX(),guard.getY()+guard.getElementHeight(),Component.translatable("k_turrets.staying"));
+                linkedHashMap.put(stay.getMessage(),pButton -> {
+                    drone.setBehavior(Drone.Behavior.STAY);
+                    dropDownButton.onPress();
+                    KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.STAY));
+                    dropDownButton.setMessage(pButton.getMessage());
+                });
+                dropDownButton.setChoices(linkedHashMap,drone.getBehavior().ordinal());
+                wrapper.addRenderableWidget(dropDownButton);
             }
         },()->
         {
