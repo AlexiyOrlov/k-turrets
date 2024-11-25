@@ -121,12 +121,12 @@ public class StorageDrone extends Drone {
             ItemStack magnet = upgrades.getStackInSlot(1);
             if (upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get())) {
                 BlockPos currentPos = getOnPos();
-                if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
-                    level().removeBlock(previousPosition, false);
                 if (level().isEmptyBlock(currentPos)) {
+                    if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                        level().removeBlock(previousPosition, false);
                     level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
+                    previousPosition = currentPos;
                 }
-                previousPosition = currentPos;
 
             } else if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
                 level().removeBlock(previousPosition, false);
