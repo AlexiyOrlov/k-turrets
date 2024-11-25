@@ -262,6 +262,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
                 });
                 dropDownButton.setChoices(linkedHashMap,drone.getBehavior().ordinal());
                 wrapper.addRenderableWidget(dropDownButton);
+                hideableWidgets.add(dropDownButton);
             }
         },()->
         {
