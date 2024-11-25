@@ -12,7 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import java.util.LinkedHashMap;
 
 public class StorageDroneScreen extends Screen2 {
-    private StorageDrone drone;
+    private final StorageDrone drone;
     public StorageDroneScreen(Drone drone) {
         super(Component.translatable("k_turrets.storage.drone"));
         this.drone = (StorageDrone) drone;
@@ -56,8 +56,16 @@ public class StorageDroneScreen extends Screen2 {
             SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY+20,follow,Component.translatable("k_turrets.staying"),drone.getBehavior()== Drone.Behavior.FOLLOW, pButton -> {
                SwitchButton switchButton= (SwitchButton) pButton;
                switchButton.state=!switchButton.state;
-               drone.setBehavior(Drone.Behavior.FOLLOW);
-               KTurrets.channel.sendToServer(new ToggleDroneFollow(switchButton.state, drone.getId()));
+               if(switchButton.state)
+               {
+                   drone.setBehavior(Drone.Behavior.FOLLOW);
+                   KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW));
+               }
+               else {
+                   drone.setBehavior(Drone.Behavior.STAY);
+                   KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.STAY));
+               }
+
             });
             addRenderableWidget(toggle);
         }
