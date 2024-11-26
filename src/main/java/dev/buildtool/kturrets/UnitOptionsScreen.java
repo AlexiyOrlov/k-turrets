@@ -276,7 +276,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         Label range = new Label(addEntity.getX(), refillSwitch.getY() + refillSwitch.getHeight() + 20, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(range));
-        Label health = new Label(addEntity.getX(), range.getY() + range.getHeight(), Component.translatable(KTurrets.ID + ".integrity").append(": ").append(turret.getHealth() + "/" + turret.getMaxHealth()), Constants.BLACK);
+        Label health = new Label(addEntity.getX(), range.getY() + range.getHeight(), Component.translatable(KTurrets.ID + ".integrity").append(": ").append(String.format("%.1f", turret.getHealth()) + "/" + turret.getMaxHealth()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(health));
         int primaryDamage=turret.getDamage();
         int secondaryDamage= turret.getSecondaryDamage();
@@ -286,7 +286,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         Label damage=new Label(addEntity.getX(),health.getY()+range.getHeight(), damageText,Constants.BLACK);
         hideableWidgets.add(damage);
         wrapper.addRenderableWidget(damage);
-        Label armor=new Label(addEntity.getX(),damage.getY()+damage.getHeight(),Component.translatable("k_turrets.armor",turret.getAttribute(Attributes.ARMOR).getValue()),Constants.BLACK);
+        Label armor=new Label(addEntity.getX(),damage.getY()+damage.getHeight(),Component.translatable("k_turrets.armor",String.format("%.1f",turret.getAttribute(Attributes.ARMOR).getValue())),Constants.BLACK);
         hideableWidgets.add(armor);
         wrapper.addRenderableWidget(armor);
     }
