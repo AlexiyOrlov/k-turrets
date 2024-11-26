@@ -4,7 +4,7 @@ import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandler;
-import dev.buildtool.satako.ItemHandlerSlot;
+import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

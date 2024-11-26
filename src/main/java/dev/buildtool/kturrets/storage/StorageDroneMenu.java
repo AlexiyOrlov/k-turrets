@@ -4,11 +4,14 @@ import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.IntegerColor;
-import dev.buildtool.satako.ItemHandlerSlot;
+import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 public class StorageDroneMenu extends Container2 {
     public StorageDroneMenu(int i, Inventory inventory, FriendlyByteBuf byteBuf) {
@@ -21,8 +24,8 @@ public class StorageDroneMenu extends Container2 {
             }
         }
         IntegerColor upgradeSlotColor=new IntegerColor(0xfffa5c82);
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18+9,3*18).setColor(upgradeSlotColor));
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18+9,3*18).setColor(upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18+9,3*18).setColor(upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.lantern.slot"))));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18+9,3*18).setColor(upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.magnet.slot"))));
 
         addPlayerInventory(inventory.player, 0, 5 * 18);
     }

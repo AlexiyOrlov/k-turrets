@@ -109,5 +109,7 @@
   "k_turrets.right.click": "Right click to configure item filtering",
   "k_turrets.whitelist.items": "whitelist",
   "k_turrets.blacklist.items": "blacklist",
-  "k_turrets.armor": "Armor: %1$s"
+  "k_turrets.armor": "Armor: %1$s",
+  "k_turrets.lantern.slot": "Lantern slot",
+  "k_turrets.magnet.slot": "Item magnet slot"
 }
