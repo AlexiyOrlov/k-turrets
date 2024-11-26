@@ -4,6 +4,7 @@ implemented light upgrade, magnet upgrade for storage drone;
 implemented offline unit death logging;
 units show custom name;
 improved options UI;
+drones are not moved by liquids;
 
 3.0.34:
 changed Ammo reloader recipe;
