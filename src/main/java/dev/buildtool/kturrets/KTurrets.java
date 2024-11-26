@@ -208,7 +208,7 @@ public class KTurrets {
             COBBLE_TURRET_DAMAGE = builder.defineInRange("Damage", 3, 1, 100);
             builder.pop();
             builder.push("Storage drone");
-            STORAGE_DRONE_HEALTH=builder.defineInRange("Health",60d,10,Double.MAX_VALUE);
+            STORAGE_DRONE_HEALTH=builder.defineInRange("Health",50d,10,Double.MAX_VALUE);
             builder.pop();
             builder.pop();
             return builder.build();
