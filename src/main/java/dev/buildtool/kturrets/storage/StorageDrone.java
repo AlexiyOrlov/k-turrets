@@ -144,7 +144,7 @@ public class StorageDrone extends Drone {
                                     {
                                         ItemStack tryInsert = ItemHandlerHelper.insertItemStacked(itemHandler, entityItem, true);
                                         if (tryInsert.isEmpty()) {
-                                            itemEntity.setNeverPickUp();
+                                            itemEntity.setPickUpDelay(Functions.secondsToTicks(5));
                                             itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
                                             if (distanceTo(itemEntity) < 1) {
                                                 if (Functions.tryInsertItem(itemHandler, entityItem))
@@ -169,7 +169,7 @@ public class StorageDrone extends Drone {
                                 {
                                     ItemStack tryInsert = ItemHandlerHelper.insertItemStacked(itemHandler, entityItem, true);
                                     if (tryInsert.isEmpty()) {
-                                        itemEntity.setNeverPickUp();
+                                        itemEntity.setPickUpDelay(Functions.secondsToTicks(5));
                                         itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(0.25,0.25,0.25));
                                         if (distanceTo(itemEntity) < 1) {
                                             if (Functions.tryInsertItem(itemHandler, entityItem))
