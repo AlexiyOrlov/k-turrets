@@ -210,17 +210,19 @@ public abstract class Drone extends Turret {
     @Override
     public void tick() {
         super.tick();
-        if(!level().isClientSide && level().getGameTime()%40==0 && upgrades.getStackInSlot(0).is(KItems.RECALL_UPGRADE.get()))
+        if(!level().isClientSide)
         {
-            getOwner().ifPresent(uuid1 -> {
-                Player player=level().getPlayerByUUID(uuid1);
-                if(player!=null) {
-                    if (getBehavior() == Behavior.FOLLOW && distanceTo(player)>128)
-                    {
-                        teleportTo(player.getX(),player.getY()+2,player.getZ());
+            if(level().getGameTime()%40==0 && upgrades.getStackInSlot(1).is(KItems.RECALL_UPGRADE.get())) {
+                getOwner().ifPresent(uuid1 -> {
+                    Player player = level().getPlayerByUUID(uuid1);
+                    if (player != null) {
+                        if (getBehavior() == Behavior.FOLLOW && distanceTo(player) > 128) {
+                            teleportTo(player.getX(), player.getY() + 2, player.getZ());
+                        }
                     }
-                }
-            });
+                });
+            }
+
             if (upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get())) {
                 BlockPos currentPos = getOnPos();
                 if (level().isEmptyBlock(currentPos)) {
