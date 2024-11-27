@@ -38,6 +38,11 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
     private BlockPos previousPosition=BlockPos.ZERO;
 
+    /**
+     * Slot 0 is for lantern
+     * Slot 1 is for recall upgrade
+     * Slot 2 is for magnet
+     */
     public ItemHandler upgrades=new ItemHandler(2)
     {
         @Override
