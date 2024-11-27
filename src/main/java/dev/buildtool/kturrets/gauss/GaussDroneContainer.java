@@ -25,8 +25,8 @@ public class GaussDroneContainer extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,0,4*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
-
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,0,4*18-9,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,1,5*18-9,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
         addPlayerInventory(0, 4 * 18, inventory);
     }
 
@@ -36,11 +36,13 @@ public class GaussDroneContainer extends Container2 {
         if (index > 18) {
             if (itemStack.is(KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
-            else if (itemStack.is(KItems.RECALL_UPGRADE.get()) && !moveItemStackTo(itemStack, 18, 19, false)) {
+            else if (itemStack.is(KItems.LIGHT_UPGRADE.get()) && !moveItemStackTo(itemStack, 18, 19, false)) {
+                return ItemStack.EMPTY;
+            } else if (itemStack.is(KItems.RECALL_UPGRADE.get()) && !moveItemStackTo(itemStack, 19, 20, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!moveItemStackTo(itemStack, 19, slots.size(), false))
+            if (!moveItemStackTo(itemStack, 20, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

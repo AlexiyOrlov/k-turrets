@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.*;
@@ -35,11 +36,14 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<BlockPos> GUARD_POSITION = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BLOCK_POS);
 
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
+    private BlockPos previousPosition=BlockPos.ZERO;
 
-    public ItemHandler upgrades=new ItemHandler(1)
+    public ItemHandler upgrades=new ItemHandler(2)
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            if(slot==0)
+                return stack.is(KItems.LIGHT_UPGRADE.get());
             return stack.is(KItems.RECALL_UPGRADE.get());
         }
     };
@@ -133,6 +137,7 @@ public abstract class Drone extends Turret {
         compoundNBT.putLong("Guard position", getGuardPosition().asLong());
         compoundNBT.putByte("Behavior",(byte)getBehavior().ordinal());
         compoundNBT.put("Upgrades",upgrades.serializeNBT());
+        compoundNBT.putLong("Previous light position",previousPosition.asLong());
     }
 
     @Override
@@ -141,6 +146,7 @@ public abstract class Drone extends Turret {
         setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
         setBehavior(Behavior.values()[compoundNBT.getByte("Behavior")]);
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
+        previousPosition=BlockPos.of(compoundNBT.getLong("Previous light position"));
     }
 
     @Override
@@ -215,6 +221,17 @@ public abstract class Drone extends Turret {
                     }
                 }
             });
+            if (upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get())) {
+                BlockPos currentPos = getOnPos();
+                if (level().isEmptyBlock(currentPos)) {
+                    if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                        level().removeBlock(previousPosition, false);
+                    level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
+                    previousPosition = currentPos;
+                }
+
+            } else if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                level().removeBlock(previousPosition, false);
         }
     }
 }

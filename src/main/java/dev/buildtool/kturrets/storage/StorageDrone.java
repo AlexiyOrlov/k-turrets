@@ -34,7 +34,6 @@ import java.util.List;
 
 public class StorageDrone extends Drone {
     private static final EntityDataAccessor<Boolean> MAGNET_ACTIVE= SynchedEntityData.defineId(StorageDrone.class, EntityDataSerializers.BOOLEAN);
-    private BlockPos previousPosition=BlockPos.ZERO;
     public ItemHandler itemHandler = new ItemHandler(27){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
@@ -102,7 +101,6 @@ public class StorageDrone extends Drone {
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Items", itemHandler.serializeNBT());
-        compoundNBT.putLong("Previous light position",previousPosition.asLong());
         compoundNBT.put("Upgrades",upgrades.serializeNBT());
         compoundNBT.putBoolean("Magnet on",isMagnetActive());
     }
@@ -111,7 +109,6 @@ public class StorageDrone extends Drone {
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         itemHandler.deserializeNBT(compoundNBT.getCompound("Items"));
-        previousPosition=BlockPos.of(compoundNBT.getLong("Previous light position"));
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
         setMagnetActive(compoundNBT.getBoolean("Magnet on"));
     }
@@ -121,17 +118,6 @@ public class StorageDrone extends Drone {
         super.tick();
         if(!level().isClientSide) {
             ItemStack magnet = upgrades.getStackInSlot(1);
-            if (upgrades.getStackInSlot(0).is(KItems.LIGHT_UPGRADE.get())) {
-                BlockPos currentPos = getOnPos();
-                if (level().isEmptyBlock(currentPos)) {
-                    if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
-                        level().removeBlock(previousPosition, false);
-                    level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
-                    previousPosition = currentPos;
-                }
-
-            } else if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
-                level().removeBlock(previousPosition, false);
             if (magnet.is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
                 List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
                 itemEntities.forEach(itemEntity -> {
