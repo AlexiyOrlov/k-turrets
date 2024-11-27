@@ -72,7 +72,13 @@ public class KItems {
         RAW_TITANIUM = ITEMS.register("raw_titanium", () -> new Item(defaults()));
         TITANIUM_INGOT = ITEMS.register("titanium_ingot", () -> new Item(defaults()));
         TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
-        RELOADER = ITEMS.register("reloader", () -> new BlockItem(KBlocks.RELOADER.get(), defaults()));
+        RELOADER = ITEMS.register("reloader", () -> new BlockItem(KBlocks.RELOADER.get(), defaults()){
+            @Override
+            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+                super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+                pTooltip.add(Component.translatable("k_turrets.reloads.drones"));
+            }
+        });
         LIGHT_UPGRADE=ITEMS.register("light_upgrade",() -> new Item(new Item.Properties().stacksTo(4)));
         MAGNET_UPGRADE=ITEMS.register("magnet_upgrade",() -> new Magnet(new Item.Properties().stacksTo(1)){
             @Override

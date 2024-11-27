@@ -121,5 +121,6 @@
   "k_turrets.gauss.unit.ammo": "Gauss unit ammo",
   "k_turrets.brick.unit.ammo": "Brick unit ammo",
   "k_turrets.bullet.unit.ammo": "Bullet unit ammo",
-  "k_turrets.fireball.unit.ammo": "Fireball unit ammo"
+  "k_turrets.fireball.unit.ammo": "Fireball unit ammo",
+  "k_turrets.reloads.drones": "Reloads drones"
 }
