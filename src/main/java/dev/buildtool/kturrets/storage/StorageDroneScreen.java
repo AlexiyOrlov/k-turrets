@@ -59,7 +59,7 @@ public class StorageDroneScreen extends Screen2 {
             });
             addRenderableWidget(toggle);
         }
-        if(drone.upgrades.getStackInSlot(1).is(KItems.MAGNET_UPGRADE.get()))
+        if(drone.upgrades.getStackInSlot(2).is(KItems.MAGNET_UPGRADE.get()))
         {
             MutableComponent magnetOff=Component.translatable("k_turrets.magnetOff.off");
             addRenderableWidget(new SwitchButton(centerX-font.width(magnetOff.getString())/2,centerY+20,Component.translatable("k_turrets.magnetOff.on"),magnetOff,drone.isMagnetActive(),pButton -> {
