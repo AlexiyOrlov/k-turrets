@@ -47,9 +47,9 @@ public class StorageDrone extends Drone {
             if(slot==0)
                 return stack.is(KItems.LIGHT_UPGRADE.get());
             else if(slot==1)
-                return stack.is(KItems.MAGNET_UPGRADE.get());
-            else if(slot==2)
                 return stack.is(KItems.RECALL_UPGRADE.get());
+            else if(slot==2)
+                return stack.is(KItems.MAGNET_UPGRADE.get());
             return false;
         }
 
@@ -117,7 +117,7 @@ public class StorageDrone extends Drone {
     public void tick() {
         super.tick();
         if(!level().isClientSide) {
-            ItemStack magnet = upgrades.getStackInSlot(1);
+            ItemStack magnet = upgrades.getStackInSlot(2);
             if (magnet.is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
                 List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
                 itemEntities.forEach(itemEntity -> {
