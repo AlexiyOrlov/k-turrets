@@ -16,12 +16,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -95,5 +97,24 @@ public class ClientEvents {
             MutableComponent warning = Component.translatable(KTurrets.ID + ".no.drones.nearby");
             renderGuiOverlayEvent.getGuiGraphics().drawString(minecraft.font, warning, screenWidth / 2 - minecraft.font.width(warning) / 2, 5, Constants.GREEN.getIntColor());
         }
+    }
+
+    @SubscribeEvent
+    public static void addTooltipInfo(ItemTooltipEvent tooltipEvent)
+    {
+        ItemStack stack=tooltipEvent.getItemStack();
+        List<Component> tooltip=tooltipEvent.getToolTip();
+        if(stack.is(KTurrets.COBBLE_UNIT_AMMO_TAG))
+            tooltip.add(Component.translatable("k_turrets.cobble.unit.ammo"));
+        if(stack.is(KTurrets.ARROW_UNIT_AMMO_TAG))
+            tooltip.add(Component.translatable("k_turrets.arrow.unit.ammo"));
+        if(stack.is(KTurrets.GAUSS_UNIT_AMMO_TAG))
+            tooltip.add(Component.translatable("k_turrets.gauss.unit.ammo"));
+        if(stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2))
+            tooltip.add(Component.translatable("k_turrets.brick.unit.ammo"));
+        if(stack.is(KTurrets.BULLET_UNIT_AMMO_TAG1) || stack.is(KTurrets.BULLET_UNIT_AMMO_TAG2))
+            tooltip.add(Component.translatable("k_turrets.bullet.unit.ammo"));
+        if(stack.is(KTurrets.FIREBALL_UNIT_AMMO))
+            tooltip.add(Component.translatable("k_turrets.fireball.unit.ammo"));
     }
 }
