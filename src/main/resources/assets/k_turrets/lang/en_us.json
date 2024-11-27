@@ -113,5 +113,7 @@
   "k_turrets.armor": "Armor: %1$s",
   "k_turrets.lantern.slot": "Lantern slot",
   "k_turrets.magnet.slot": "Item magnet slot",
-  "k_turrets.recall.upgrade.slot": "Recall upgrade slot"
+  "k_turrets.recall.upgrade.slot": "Recall upgrade slot",
+  "k_turrets.recall.description": "Drone will teleport to the owner if farther than 128 blocks",
+  "k_turrets.magnet.description": "Drone will attract items and store them"
 }
