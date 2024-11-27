@@ -32,7 +32,6 @@ import java.util.function.Supplier;
  * Works the same as spawn egg, except it reads the saved entity data from NBT
  */
 public class ContainerItem extends ForgeSpawnEggItem {
-    public static List<ContainerItem> turretPlacers = new ArrayList<>(12);
     public enum Unit {
         TURRET, DRONE
     }
@@ -42,7 +41,6 @@ public class ContainerItem extends ForgeSpawnEggItem {
     public ContainerItem(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor, Properties props, Unit kind) {
         super(type, backgroundColor, highlightColor, props);
         unit = kind;
-        turretPlacers.add(this);
     }
 
     public InteractionResult useOn(UseOnContext context) {

@@ -91,9 +91,4 @@ public class ClientSetup {
         renderers.registerEntityRenderer(KEntities.COBBLESTONE.get(), CobblestoneRenderer::new);
         renderers.registerEntityRenderer(KEntities.BULLET.get(), BulletRenderer::new);
     }
-
-    @SubscribeEvent
-    public static void registerLayeredItemModel(RegisterColorHandlersEvent.Item registerColorHandlersEvent) {
-        ContainerItem.turretPlacers.forEach(containerItem -> registerColorHandlersEvent.register((p_92672_, p_92673_) -> containerItem.getColor(p_92673_), containerItem));
-    }
 }
