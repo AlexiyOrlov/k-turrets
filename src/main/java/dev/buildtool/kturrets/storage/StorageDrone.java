@@ -40,24 +40,6 @@ public class StorageDrone extends Drone {
             return !stack.is(KItems.STORAGE_DRONE.get());
         }
     };
-    public ItemHandler upgrades=new ItemHandler(3)
-    {
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot==0)
-                return stack.is(KItems.LIGHT_UPGRADE.get());
-            else if(slot==1)
-                return stack.is(KItems.RECALL_UPGRADE.get());
-            else if(slot==2)
-                return stack.is(KItems.MAGNET_UPGRADE.get());
-            return false;
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return 1;
-        }
-    };
 
     public StorageDrone(Level world) {
         super(KEntities.STORAGE_DRONE.get(), world);
@@ -101,7 +83,6 @@ public class StorageDrone extends Drone {
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Items", itemHandler.serializeNBT());
-        compoundNBT.put("Upgrades",upgrades.serializeNBT());
         compoundNBT.putBoolean("Magnet on",isMagnetActive());
     }
 
@@ -109,8 +90,6 @@ public class StorageDrone extends Drone {
     public void readAdditionalSaveData(CompoundTag compoundNBT) {
         super.readAdditionalSaveData(compoundNBT);
         itemHandler.deserializeNBT(compoundNBT.getCompound("Items"));
-        upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
-        upgrades.setSize(3);
         setMagnetActive(compoundNBT.getBoolean("Magnet on"));
     }
 

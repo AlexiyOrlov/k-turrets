@@ -43,13 +43,18 @@ public abstract class Drone extends Turret {
      * Slot 1 is for recall upgrade
      * Slot 2 is for magnet
      */
-    public ItemHandler upgrades=new ItemHandler(2)
+    public ItemHandler upgrades=new ItemHandler(3)
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot==0)
                 return stack.is(KItems.LIGHT_UPGRADE.get());
-            return stack.is(KItems.RECALL_UPGRADE.get());
+            else if (slot == 1) {
+                return stack.is(KItems.RECALL_UPGRADE.get());
+            } else if (slot == 2) {
+                return stack.is(KItems.MAGNET_UPGRADE.get());
+            }
+            return false;
         }
 
         @Override
@@ -156,6 +161,7 @@ public abstract class Drone extends Turret {
         setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
         setBehavior(Behavior.values()[compoundNBT.getByte("Behavior")]);
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
+        upgrades.setSize(3);
         previousPosition=BlockPos.of(compoundNBT.getLong("Previous light position"));
     }
 
