@@ -1,10 +1,11 @@
 3.0.35:
 can't place storage drone inside storage drone;
-implemented light upgrade, magnet upgrade for storage drone;
+implemented light upgrade, recall upgrade, magnet upgrade for storage drone;
 implemented offline unit death logging;
 units show custom name;
 improved options UI;
 drones are not moved by liquids;
+added ammo info to tooltip;
 
 3.0.34:
 changed Ammo reloader recipe;
