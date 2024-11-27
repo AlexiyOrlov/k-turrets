@@ -1,9 +1,9 @@
 package dev.buildtool.kturrets.storage;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
-import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public class StorageDroneMenu extends Container2 {
+
     public StorageDroneMenu(int i, Inventory inventory, FriendlyByteBuf byteBuf) {
         super(KContainers.STORAGE_DRONE.get(), i);
         StorageDrone storageDrone = (StorageDrone) inventory.player.level().getEntity(byteBuf.readInt());
@@ -23,9 +24,10 @@ public class StorageDroneMenu extends Container2 {
                 addSlot(new ItemHandlerSlot(storageDrone.itemHandler, index++, 18 * k, 18 * j));
             }
         }
-        IntegerColor upgradeSlotColor=new IntegerColor(0xfffa5c82);
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18+9,3*18).setColor(upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.lantern.slot"))));
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18+9,3*18).setColor(upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.magnet.slot"))));
+
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.lantern.slot"))));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.magnet.slot"))));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades,2,5*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
 
         addPlayerInventory(inventory.player, 0, 5 * 18);
     }
@@ -33,8 +35,8 @@ public class StorageDroneMenu extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack stack = getSlot(index).getItem();
-        if (index < 29) {
-            if (!moveItemStackTo(stack, 29, slots.size(), false))
+        if (index < 30) {
+            if (!moveItemStackTo(stack, 30, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         else {
@@ -50,6 +52,9 @@ public class StorageDroneMenu extends Container2 {
                 else if (!moveItemStackTo(stack, 0, 27, false)) {
                     return ItemStack.EMPTY;
                 }
+            } else if (stack.is(KItems.RECALL_UPGRADE.get())) {
+                if(!moveItemStackTo(stack,29,30,false))
+                    return ItemStack.EMPTY;
             } else if (!moveItemStackTo(stack,0,27,false)) {
                 return ItemStack.EMPTY;
             }

@@ -44,7 +44,7 @@ public class CobbleDrone extends Drone {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Collections.singletonList(stone);
+        return List.of(stone,upgrades);
     }
 
     @Override

@@ -13,6 +13,7 @@
   "item.k_turrets.storage_drone_item": "Storage Drone",
   "item.k_turrets.light_upgrade": "Lantern",
   "item.k_turrets.magnet_upgrade": "Item Magnet",
+  "item.k_turrets.recall_upgrade": "Recall Upgrade",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -111,5 +112,6 @@
   "k_turrets.blacklist.items": "blacklist",
   "k_turrets.armor": "Armor: %1$s",
   "k_turrets.lantern.slot": "Lantern slot",
-  "k_turrets.magnet.slot": "Item magnet slot"
+  "k_turrets.magnet.slot": "Item magnet slot",
+  "k_turrets.recall.upgrade.slot": "Recall upgrade slot"
 }

@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.*;
 import dev.buildtool.kturrets.storage.StorageDrone;
+import dev.buildtool.satako.IntegerColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -63,6 +64,7 @@ import java.util.*;
 public class KTurrets {
     public static final String ID = "k_turrets";
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
+    public static final IntegerColor upgradeSlotColor = new IntegerColor(0xfffa5c82);
     static private final String NP = "1.0";
     public static final Type TYPE = new TypeToken<ArrayListMultimap<UUID, String>>() {
     }.getType();
@@ -142,6 +144,7 @@ public class KTurrets {
 
             items.accept(KItems.LIGHT_UPGRADE.get());
             items.accept(KItems.MAGNET_UPGRADE.get());
+            items.accept(KItems.RECALL_UPGRADE.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 

@@ -43,7 +43,7 @@ public class BulletDrone extends Drone {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Collections.singletonList(ammo);
+        return List.of(ammo,upgrades);
     }
 
     @Override

@@ -41,14 +41,16 @@ public class StorageDrone extends Drone {
             return !stack.is(KItems.STORAGE_DRONE.get());
         }
     };
-    public ItemHandler upgrades=new ItemHandler(2)
+    public ItemHandler upgrades=new ItemHandler(3)
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             if(slot==0)
                 return stack.is(KItems.LIGHT_UPGRADE.get());
-            if(slot==1)
+            else if(slot==1)
                 return stack.is(KItems.MAGNET_UPGRADE.get());
+            else if(slot==2)
+                return stack.is(KItems.RECALL_UPGRADE.get());
             return false;
         }
 

@@ -1,7 +1,9 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.*;
+import dev.buildtool.satako.ItemHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,13 +15,18 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Drone must carry less ammo than a turret; has lower range, health and armor
@@ -28,6 +35,14 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<BlockPos> GUARD_POSITION = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BLOCK_POS);
 
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
+
+    public ItemHandler upgrades=new ItemHandler(1)
+    {
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.is(KItems.RECALL_UPGRADE.get());
+        }
+    };
 
     public Drone(EntityType<? extends Mob> entityType, Level world) {
         super(entityType, world);
@@ -117,6 +132,7 @@ public abstract class Drone extends Turret {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.putLong("Guard position", getGuardPosition().asLong());
         compoundNBT.putByte("Behavior",(byte)getBehavior().ordinal());
+        compoundNBT.put("Upgrades",upgrades.serializeNBT());
     }
 
     @Override
@@ -124,6 +140,7 @@ public abstract class Drone extends Turret {
         super.readAdditionalSaveData(compoundNBT);
         setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
         setBehavior(Behavior.values()[compoundNBT.getByte("Behavior")]);
+        upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
     }
 
     @Override
@@ -177,5 +194,27 @@ public abstract class Drone extends Turret {
     @Override
     public boolean isPushedByFluid(FluidType type) {
         return false;
+    }
+
+    @Override
+    protected List<ItemHandler> getContainedItems() {
+        return List.of(upgrades);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(!level().isClientSide && level().getGameTime()%40==0 && upgrades.getStackInSlot(0).is(KItems.RECALL_UPGRADE.get()))
+        {
+            getOwner().ifPresent(uuid1 -> {
+                Player player=level().getPlayerByUUID(uuid1);
+                if(player!=null) {
+                    if (getBehavior() == Behavior.FOLLOW && distanceTo(player)>128)
+                    {
+                        teleportTo(player.getX(),player.getY()+2,player.getZ());
+                    }
+                }
+            });
+        }
     }
 }

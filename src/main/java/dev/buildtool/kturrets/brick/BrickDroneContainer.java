@@ -2,12 +2,17 @@ package dev.buildtool.kturrets.brick;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+import javax.xml.crypto.dsig.keyinfo.KeyInfo;
+import java.util.List;
 
 public class BrickDroneContainer extends Container2 {
     public BrickDroneContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
@@ -19,6 +24,7 @@ public class BrickDroneContainer extends Container2 {
                 addSlot(new ItemHandlerSlot(brickDrone.ammo, index++, k * 18, j * 18));
             }
         }
+        addSlot(new ItemHandlerSlot(brickDrone.upgrades,0,4*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
 
         addPlayerInventory(0, 4 * 18, playerInventory);
     }
@@ -29,8 +35,10 @@ public class BrickDroneContainer extends Container2 {
         if (index > 17) {
             if ((itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, 18, false))
                     return ItemStack.EMPTY;
+            else if(itemStack.is(KItems.RECALL_UPGRADE.get()) && !moveItemStackTo(itemStack,18,19,false))
+                return ItemStack.EMPTY;
         } else {
-            if (!moveItemStackTo(itemStack, 18, 54, false))
+            if (!moveItemStackTo(itemStack, 19, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);
