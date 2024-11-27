@@ -25,8 +25,8 @@ public class GaussDroneContainer extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,0,4*18-9,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,1,5*18-9,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,0,4*18-9,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,1,5*18-9,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
         addPlayerInventory(0, 4 * 18, inventory);
     }
 

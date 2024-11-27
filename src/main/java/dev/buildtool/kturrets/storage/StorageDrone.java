@@ -110,6 +110,7 @@ public class StorageDrone extends Drone {
         super.readAdditionalSaveData(compoundNBT);
         itemHandler.deserializeNBT(compoundNBT.getCompound("Items"));
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
+        upgrades.setSize(3);
         setMagnetActive(compoundNBT.getBoolean("Magnet on"));
     }
 

@@ -24,8 +24,8 @@ public class BrickDroneContainer extends Container2 {
                 addSlot(new ItemHandlerSlot(brickDrone.ammo, index++, k * 18, j * 18));
             }
         }
-        addSlot(new ItemHandlerSlot(brickDrone.upgrades,0,4*18-9,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.lantern.slot"))));
-        addSlot(new ItemHandlerSlot(brickDrone.upgrades,1,5*18-9,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(brickDrone.upgrades,0,4*18-9,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.lantern.slot"))));
+        addSlot(new ItemHandlerSlot(brickDrone.upgrades,1,5*18-9,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
 
         addPlayerInventory(0, 4 * 18, playerInventory);
     }
