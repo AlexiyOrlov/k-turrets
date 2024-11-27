@@ -51,6 +51,11 @@ public abstract class Drone extends Turret {
                 return stack.is(KItems.LIGHT_UPGRADE.get());
             return stack.is(KItems.RECALL_UPGRADE.get());
         }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
     };
 
     public Drone(EntityType<? extends Mob> entityType, Level world) {
