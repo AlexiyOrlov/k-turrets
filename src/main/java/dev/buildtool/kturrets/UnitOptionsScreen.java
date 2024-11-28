@@ -12,6 +12,7 @@ import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -197,6 +198,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(mobility);
         hideableWidgets.add(mobility);
+        mobility.setTooltip(Tooltip.create(Component.translatable("k_turrets.pushable")));
 
         SwitchButton playerProtection=new SwitchButton(addEntity.getX(),mobility.getY()+mobility.getHeight(),Component.translatable("k_turrets.protect.from.players"),Component.translatable("k_turrets.not.protect.from.players"),turret.isProtectingFromPlayers(),pButton -> {
             SwitchButton switchButton1= (SwitchButton) pButton;
@@ -206,6 +208,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(playerProtection);
         hideableWidgets.add(playerProtection);
+        playerProtection.setTooltip(Tooltip.create(Component.translatable("k_turrets.protection.from.players")));
 
         SwitchButton refillSwitch=new SwitchButton(addEntity.getX(),playerProtection.getY()+playerProtection.getHeight(),Component.translatable("k_turrets.refill.inventory"),Component.translatable("k_turrets.dont.refill.inventory"),turret.isRefillingInventory(),pButton -> {
             SwitchButton b= (SwitchButton) pButton;
@@ -215,6 +218,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(refillSwitch);
         hideableWidgets.add(refillSwitch);
+        refillSwitch.setTooltip(Tooltip.create(Component.translatable("k_turrets.refill.info")));
 
         SwitchButton protectSwitch=new SwitchButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),Component.translatable("k_turrets.protect.player"),Component.translatable("k_turrets.do.not.protect.player"),turret.isProtectingOwner(),pButton -> {
            SwitchButton switchButton= (SwitchButton) pButton;
@@ -224,6 +228,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(protectSwitch);
         hideableWidgets.add(protectSwitch);
+        protectSwitch.setTooltip(Tooltip.create(Component.translatable("k_turrets.player.protection")));
 
         turret.getOwner().ifPresentOrElse(uuid -> {
             if(turret instanceof Drone drone)

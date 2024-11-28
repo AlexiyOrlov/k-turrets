@@ -124,5 +124,9 @@
   "k_turrets.fireball.unit.ammo": "Fireball unit ammo",
   "k_turrets.reloads.drones": "Reloads drones",
   "k_turrets.protect.player": "Protect player",
-  "k_turrets.do.not.protect.player": "Do not protect player"
+  "k_turrets.do.not.protect.player": "Do not protect player",
+  "k_turrets.pushable": "Be pushable?",
+  "k_turrets.player.protection": "Attack entity that attacks the player, even if it's not in targets?",
+  "k_turrets.refill.info": "Take ammo from adjacent inventory?",
+  "k_turrets.protection.from.players": "Attack alien players?"
 }
