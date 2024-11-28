@@ -12,6 +12,9 @@ import org.joml.Vector3f;
 
 
 public class ClientProxy {
+
+    public static final DustParticleOptions PARTICLE = new DustParticleOptions(Vec3.fromRGB24(0xff47CCF0).toVector3f(), 1);
+
     public Runnable syncAmmoStatus(AmmoCheck ammoCheck) {
         return () -> {
             ClientLevel clientLevel = Minecraft.getInstance().level;
@@ -26,7 +29,7 @@ public class ClientProxy {
     {
         return () -> {
             ClientLevel clientLevel=Minecraft.getInstance().level;
-            clientLevel.addParticle(new DustParticleOptions(Vec3.fromRGB24(0xff47CCF0).toVector3f(),1),pickupParticles.x,pickupParticles.y,pickupParticles.z,0,0,0);
+            clientLevel.addParticle(PARTICLE,pickupParticles.x,pickupParticles.y,pickupParticles.z,0,0,0);
         };
     }
 }
