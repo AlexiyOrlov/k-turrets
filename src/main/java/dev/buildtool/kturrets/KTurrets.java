@@ -418,6 +418,18 @@ public class KTurrets {
             }
         });
 
+        channel.registerMessage(packetIndex++, PickupParticles.class,(pickupParticles, byteBuf) -> {
+            byteBuf.writeDouble(pickupParticles.x);
+            byteBuf.writeDouble(pickupParticles.y);
+            byteBuf.writeDouble(pickupParticles.z);
+        },byteBuf -> new PickupParticles(byteBuf.readDouble(),byteBuf.readDouble(),byteBuf.readDouble()),
+                (pickupParticles, contextSupplier) -> {
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> {
+                contextSupplier.get().setPacketHandled(true);
+                return new ClientProxy().pickupParticles(pickupParticles);
+            });
+        });
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);

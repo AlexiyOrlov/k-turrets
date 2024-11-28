@@ -1,9 +1,14 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.AmmoCheck;
+import dev.buildtool.kturrets.packets.PickupParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 
 public class ClientProxy {
@@ -14,6 +19,14 @@ public class ClientProxy {
             if (entity instanceof Turret turret) {
                 turret.noAmmo = ammoCheck.noAmmo;
             }
+        };
+    }
+
+    public Runnable pickupParticles(PickupParticles pickupParticles)
+    {
+        return () -> {
+            ClientLevel clientLevel=Minecraft.getInstance().level;
+            clientLevel.addParticle(new DustParticleOptions(Vec3.fromRGB24(0xff47CCF0).toVector3f(),1),pickupParticles.x,pickupParticles.y,pickupParticles.z,0,0,0);
         };
     }
 }

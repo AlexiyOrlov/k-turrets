@@ -2,6 +2,7 @@ package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
+import dev.buildtool.kturrets.packets.PickupParticles;
 import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.KItems;
@@ -9,6 +10,7 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -27,6 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -114,6 +117,7 @@ public class StorageDrone extends Drone {
                                         if (tryInsert.isEmpty()) {
                                             itemEntity.setPickUpDelay(Functions.secondsToTicks(5));
                                             itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
+                                            KTurrets.channel.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(getX(),getY(),getZ(),22,level().dimension())), new PickupParticles(itemEntity.getX(),itemEntity.getY(),itemEntity.getZ()));
                                             if (distanceTo(itemEntity) < 1) {
                                                 if (Functions.tryInsertItem(itemHandler, entityItem))
                                                     itemEntity.discard();
@@ -139,6 +143,7 @@ public class StorageDrone extends Drone {
                                     if (tryInsert.isEmpty()) {
                                         itemEntity.setPickUpDelay(Functions.secondsToTicks(5));
                                         itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(0.25,0.25,0.25));
+                                        KTurrets.channel.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(getX(),getY(),getZ(),22,level().dimension())), new PickupParticles(itemEntity.getX(),itemEntity.getY(),itemEntity.getZ()));
                                         if (distanceTo(itemEntity) < 1) {
                                             if (Functions.tryInsertItem(itemHandler, entityItem))
                                                 itemEntity.discard();
