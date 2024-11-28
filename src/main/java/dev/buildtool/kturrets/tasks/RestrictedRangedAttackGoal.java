@@ -25,7 +25,10 @@ public class RestrictedRangedAttackGoal extends RangedAttackGoal {
             if (distanceToPlayer < KTurrets.OWNER_FOLLOW_DISTANCE.get())
                 work();
             else if (drone.getTarget() != null)
+            {
                 drone.setTarget(null);
+                drone.getNavigation().moveTo(owner,1);
+            }
         }
     }
 
