@@ -115,7 +115,7 @@ public class StorageDrone extends Drone {
                                     {
                                         ItemStack tryInsert = ItemHandlerHelper.insertItemStacked(itemHandler, entityItem, true);
                                         if (tryInsert.isEmpty()) {
-                                            itemEntity.setPickUpDelay(Functions.secondsToTicks(5));
+                                            itemEntity.setPickUpDelay(20);
                                             itemEntity.setDeltaMovement(getPosition(1).subtract(itemEntity.position()).normalize().multiply(new Vec3(0.5, 0.5, 0.5)));
                                             KTurrets.channel.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(getX(),getY(),getZ(),22,level().dimension())), new PickupParticles(itemEntity.getX(),itemEntity.getY(),itemEntity.getZ()));
                                             if (distanceTo(itemEntity) < 1) {
