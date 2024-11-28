@@ -216,10 +216,19 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(refillSwitch);
         hideableWidgets.add(refillSwitch);
 
+        SwitchButton protectSwitch=new SwitchButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),Component.translatable("k_turrets.protect.player"),Component.translatable("k_turrets.do.not.protect.player"),turret.isProtectingOwner(),pButton -> {
+           SwitchButton switchButton= (SwitchButton) pButton;
+           switchButton.state=!switchButton.state;
+           turret.setProtectOwner(switchButton.state);
+           KTurrets.channel.sendToServer(new SetProtectPlayer(turret.getId(),switchButton.state));
+        });
+        wrapper.addRenderableWidget(protectSwitch);
+        hideableWidgets.add(protectSwitch);
+
         turret.getOwner().ifPresentOrElse(uuid -> {
             if(turret instanceof Drone drone)
             {
-                DropDownButton dropDownButton=new DropDownButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),wrapper,Component.literal(""));
+                DropDownButton dropDownButton=new DropDownButton(addEntity.getX(),protectSwitch.getY()+protectSwitch.getHeight(),wrapper,Component.literal(""));
                 LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
                 RadioButton follow=new RadioButton(addEntity.getX(),dropDownButton.getY()+dropDownButton.getHeight(),Component.translatable("k_turrets.following.owner"));
                 linkedHashMap.put(follow.getMessage(),pButton -> {
@@ -248,7 +257,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
             }
         },()->
         {
-            BetterButton claim=new BetterButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),Component.translatable("k_turrets.claim.drone"),pButton -> {
+            BetterButton claim=new BetterButton(addEntity.getX(),protectSwitch.getY()+protectSwitch.getHeight(),Component.translatable("k_turrets.claim.drone"),pButton -> {
                 turret.setOwner(wrapper.getMinecraft().player.getUUID());
                 wrapper.closeGui();
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(),wrapper.getMinecraft().player.getUUID()));
@@ -256,7 +265,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
             wrapper.addRenderableWidget(claim);
             hideableWidgets.add(claim);
         });
-        Label range = new Label(addEntity.getX(), refillSwitch.getY() + refillSwitch.getHeight() + 20, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
+        Label range = new Label(addEntity.getX(), protectSwitch.getY() + protectSwitch.getHeight() + 20, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(range));
         Label health = new Label(addEntity.getX(), range.getY() + range.getHeight(), Component.translatable(KTurrets.ID + ".integrity").append(": ").append(String.format("%.1f", turret.getHealth()) + "/" + turret.getMaxHealth()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(health));

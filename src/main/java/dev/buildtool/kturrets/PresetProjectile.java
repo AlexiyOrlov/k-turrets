@@ -67,25 +67,25 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     @Override
     protected boolean canHitEntity(Entity target) {
         Entity entity = getOwner();
-        if (entity instanceof Turret owner) {
+        if (entity instanceof Turret shooter) {
             if (target instanceof Player player) {
-                if (owner.getOwner().isPresent() && player.getUUID().equals(owner.getOwner().get()))
+                if (shooter.getOwner().isPresent() && player.getUUID().equals(shooter.getOwner().get()))
                     return false;
-                return !target.isAlliedTo(owner);
+                return !target.isAlliedTo(shooter);
             }
             if (target instanceof Turret turret) {
-                if (owner.getOwner().isPresent()) {
+                if (shooter.getOwner().isPresent()) {
                     if (turret.getOwner().isPresent()) {
-                        return !owner.getOwner().get().equals(turret.getOwner().get());
+                        return !shooter.getOwner().get().equals(turret.getOwner().get());
                     } else
                         return true;
                 }
                 return true;
             }
             if (target.getType().getCategory().isFriendly()) {
-                return target == owner.getTarget();
+                return target == shooter.getTarget();
             } else {
-                return Turret.decodeTargets(owner.getTargets()).contains(target.getType());
+                return Turret.decodeTargets(shooter.getTargets()).contains(target.getType()) || target==shooter.getTarget();
             }
         }
         return false;

@@ -122,5 +122,7 @@
   "k_turrets.brick.unit.ammo": "Brick unit ammo",
   "k_turrets.bullet.unit.ammo": "Bullet unit ammo",
   "k_turrets.fireball.unit.ammo": "Fireball unit ammo",
-  "k_turrets.reloads.drones": "Reloads drones"
+  "k_turrets.reloads.drones": "Reloads drones",
+  "k_turrets.protect.player": "Protect player",
+  "k_turrets.do.not.protect.player": "Do not protect player"
 }

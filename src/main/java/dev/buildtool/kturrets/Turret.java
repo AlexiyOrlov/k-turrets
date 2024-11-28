@@ -69,6 +69,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     protected static final EntityDataAccessor<Boolean> REFILL_INVENTORY = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     public boolean noAmmo;
+    private static final EntityDataAccessor<Boolean> PROTECT_OWNER=SynchedEntityData.defineId(Turret.class,EntityDataSerializers.BOOLEAN);
     /**
      * Players that are not allied to the owner
      */
@@ -115,6 +116,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.define(OWNER_NAME, "");
         entityData.define(IGNORED_PLAYERS, new CompoundTag());
         entityData.define(REFILL_INVENTORY, true);
+        entityData.define(PROTECT_OWNER,true);
     }
 
     public String getAutomaticTeam() {
@@ -163,6 +165,16 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
 
     public boolean isRefillingInventory() {
         return entityData.get(REFILL_INVENTORY);
+    }
+
+    public boolean isProtectingOwner()
+    {
+        return entityData.get(PROTECT_OWNER);
+    }
+
+    public void setProtectOwner(boolean p)
+    {
+        entityData.set(PROTECT_OWNER,p);
     }
 
     @Override
@@ -301,6 +313,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.putString("Owner name", getOwnerName());
         compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
         compoundNBT.putBoolean("Refill inventory", isRefillingInventory());
+        compoundNBT.putBoolean("Protect owner",isProtectingOwner());
     }
 
     @Override
@@ -322,6 +335,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         entityData.set(IGNORED_PLAYERS, exceptions);
         setTeamAutomatically(compoundNBT.getString("Team"));
         setRefillInventory(compoundNBT.getBoolean("Refill inventory"));
+        setProtectOwner(compoundNBT.getBoolean("Protect owner"));
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
