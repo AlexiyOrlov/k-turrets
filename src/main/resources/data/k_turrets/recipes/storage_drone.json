@@ -10,7 +10,7 @@
       "item": "minecraft:barrel"
     },
     "d": {
-      "item": "minecraft:dispenser"
+      "item": "minecraft:gold_block"
     },
     "s": {
       "tag": "forge:ingots/titanium"
