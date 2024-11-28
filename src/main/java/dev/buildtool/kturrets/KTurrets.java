@@ -249,7 +249,6 @@ public class KTurrets {
                         UUID uuid=serverPlayer.getUUID();
                         ItemStack egg = new ItemStack(Objects.requireNonNull(ForgeSpawnEggItem.fromEntityType(turret.getType())));
                         egg.getOrCreateTag().put("Contained", turret.serializeNBT());
-                        egg.getTag().putUUID("UUID", turret.getUUID());
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
                         if(FMLEnvironment.dist.isDedicatedServer()) {
                             UnitLimitCapability limitCapability = serverWorld.getCapability(RegisterCapability.unitCapability, null).orElse(null);

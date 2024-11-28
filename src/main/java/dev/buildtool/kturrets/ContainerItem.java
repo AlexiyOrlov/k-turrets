@@ -106,10 +106,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
     public void appendHoverText(ItemStack itemStack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
         super.appendHoverText(itemStack, p_41422_, components, p_41424_);
         if (itemStack.hasTag()) {
-            CompoundTag compoundTag = itemStack.getTag();
-            assert compoundTag != null;
-            if (compoundTag.contains("UUID"))
-                components.add(Component.literal(String.valueOf(compoundTag.getUUID("UUID")).substring(0, 13) + "..."));
+            components.add(Component.translatable("k_turrets.deployed"));
         }
     }
 }

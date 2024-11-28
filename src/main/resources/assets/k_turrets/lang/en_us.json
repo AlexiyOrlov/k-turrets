@@ -128,5 +128,6 @@
   "k_turrets.pushable": "Be pushable?",
   "k_turrets.player.protection": "Attack entity that attacks the player, even if it's not in targets?",
   "k_turrets.refill.info": "Take ammo from adjacent inventory?",
-  "k_turrets.protection.from.players": "Attack alien players?"
+  "k_turrets.protection.from.players": "Attack alien players?",
+  "k_turrets.deployed": "Deployed"
 }
