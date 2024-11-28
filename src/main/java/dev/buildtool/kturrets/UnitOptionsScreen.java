@@ -1,16 +1,5 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.arrow.ArrowDrone;
-import dev.buildtool.kturrets.arrow.ArrowTurret;
-import dev.buildtool.kturrets.brick.BrickDrone;
-import dev.buildtool.kturrets.brick.BrickTurret;
-import dev.buildtool.kturrets.bullet.BulletDrone;
-import dev.buildtool.kturrets.bullet.BulletTurret;
-import dev.buildtool.kturrets.cobble.CobbleDrone;
-import dev.buildtool.kturrets.cobble.CobbleTurret;
-import dev.buildtool.kturrets.fireball.FireballDrone;
-import dev.buildtool.kturrets.fireball.FireballTurret;
-import dev.buildtool.kturrets.gauss.GaussTurret;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.IntegerColor;
@@ -21,13 +10,8 @@ import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.TextField;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
-import dev.ftb.mods.ftblibrary.ui.misc.AbstractButtonListScreen;
-import dev.ftb.mods.ftblibrary.util.client.PositionedIngredient;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.PlainTextButton;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -35,10 +19,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class UnitOptionsScreen extends ButtonListScreen {
     protected Turret turret;
@@ -124,7 +106,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
                     List<ResourceLocation> entityTypes= new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
                     int yOffset = 20;
                     entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITY_TYPES::getKey).toList());
-                    for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 14))) {
+                    for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 20))) {
                         Label hint = new Label(addEntity.getX(), addEntity.getY() + yOffset, Component.literal(ChatFormatting.YELLOW + entityType.toString()), wrapper, p_93751_ -> {
                             addEntity.setValue(p_93751_.getMessage().getString().substring(2));
                             suggestions.forEach(wrapper::removeWidget);
