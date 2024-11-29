@@ -42,10 +42,13 @@ public class ArrowDroneContainer extends Container2 {
                 return ItemStack.EMPTY;
             if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 19, false))
                 return ItemStack.EMPTY;
-            if(itemStack.is(KItems.LIGHT_UPGRADE.get()) && !moveItemStackTo(itemStack,19,20,false))
+            else if(itemStack.is(KItems.LIGHT_UPGRADE.get()) && !moveItemStackTo(itemStack,19,20,false))
                 return ItemStack.EMPTY;
+            else if (itemStack.is(KItems.RECALL_UPGRADE.get()) && !moveItemStackTo(itemStack, 20, 21, false)) {
+                return ItemStack.EMPTY;
+            }
         } else {
-            if (!moveItemStackTo(itemStack, 20, slots.size(), false))
+            if (!moveItemStackTo(itemStack, 21, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);
