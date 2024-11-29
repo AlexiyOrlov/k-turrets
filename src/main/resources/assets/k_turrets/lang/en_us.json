@@ -129,5 +129,9 @@
   "k_turrets.player.protection": "Attack entity that attacks the player, even if it's not in targets?",
   "k_turrets.refill.info": "Take ammo from adjacent inventory?",
   "k_turrets.protection.from.players": "Attack alien players?",
-  "k_turrets.deployed": "Deployed"
+  "k_turrets.deployed": "Deployed",
+  "k_turrets.fire.rate": "Fire rate",
+  "k_turrets.shots.per.second": "shot(s) per second",
+  "k_turrets.damage.info": "Damage",
+  "k_turrets.armor.info": "Armor"
 }
