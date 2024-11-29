@@ -118,8 +118,8 @@ public class KTurrets {
             items.accept(KItems.COBBLE_TURRET.get());
             items.accept(KItems.ARROW_TURRET.get());
             items.accept(KItems.FIRECHARGE_TURRET.get());
-            items.accept(KItems.BRICK_TURRET.get());
             items.accept(KItems.BULLET_TURRET.get());
+            items.accept(KItems.BRICK_TURRET.get());
             items.accept(KItems.GAUSS_TURRET.get());
 
             items.accept(KItems.EXPLOSIVE_POWDER.get());
@@ -133,8 +133,8 @@ public class KTurrets {
             items.accept(KItems.COBBLE_DRONE.get());
             items.accept(KItems.ARROW_DRONE.get());
             items.accept(KItems.FIREBALL_DRONE.get());
-            items.accept(KItems.BRICK_DRONE.get());
             items.accept(KItems.BULLET_DRONE.get());
+            items.accept(KItems.BRICK_DRONE.get());
             items.accept(KItems.GAUSS_DRONE.get());
 
             items.accept(KItems.RELOADER.get());
