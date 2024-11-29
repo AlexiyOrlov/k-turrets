@@ -31,7 +31,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
     private final ArrayList<BetterButton> hideableWidgets=new ArrayList<>();
     private dev.buildtool.satako.gui.TextField addEntity;
     private final List<String> exceptions=new ArrayList<>();
-    private ArrayList<TextButton> exceptionButtons=new ArrayList<>();
+    private final ArrayList<TextButton> exceptionButtons=new ArrayList<>();
 
     public UnitOptionsScreen(Turret turret) {
         this.turret=turret;
