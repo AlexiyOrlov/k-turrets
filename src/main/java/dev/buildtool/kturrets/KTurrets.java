@@ -101,6 +101,7 @@ public class KTurrets {
     public static ForgeConfigSpec.BooleanValue SET_OWNER_AUTO;
     public static ForgeConfigSpec.IntValue OWNER_FOLLOW_DISTANCE;
     public static ForgeConfigSpec.DoubleValue STORAGE_DRONE_HEALTH;
+    public static ForgeConfigSpec.DoubleValue STORAGE_DRONE_ARMOR;
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
@@ -212,6 +213,7 @@ public class KTurrets {
             builder.pop();
             builder.push("Storage drone");
             STORAGE_DRONE_HEALTH=builder.defineInRange("Health",50d,10,Double.MAX_VALUE);
+            STORAGE_DRONE_ARMOR=builder.defineInRange("Armor",0,0,100d);
             builder.pop();
             builder.pop();
             return builder.build();
