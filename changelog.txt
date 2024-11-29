@@ -7,6 +7,7 @@ improved options UI;
 drones are not moved by liquids;
 added ammo info to tooltip;
 added helpful tooltips;
+fixed storage drone recipe;
 
 3.0.34:
 changed Ammo reloader recipe;
