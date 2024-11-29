@@ -75,13 +75,7 @@ public class KItems {
             }
         });
         LIGHT_UPGRADE=ITEMS.register("light_upgrade",() -> new Item(new Item.Properties().stacksTo(4)));
-        MAGNET_UPGRADE=ITEMS.register("magnet_upgrade",() -> new Magnet(new Item.Properties().stacksTo(1)){
-            @Override
-            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-                super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-                pTooltipComponents.add(Component.translatable("k_turrets.magnet.description"));
-            }
-        });
+        MAGNET_UPGRADE=ITEMS.register("magnet_upgrade",() -> new Magnet(new Item.Properties().stacksTo(1)));
         RECALL_UPGRADE=ITEMS.register("recall_upgrade",() -> new Item(defaults().stacksTo(4)){
             @Override
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {

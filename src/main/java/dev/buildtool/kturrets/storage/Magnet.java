@@ -49,6 +49,7 @@ public class Magnet extends Item implements MenuProvider {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.translatable("k_turrets.magnet.description"));
         pTooltipComponents.add(Component.translatable("k_turrets.mode").append(": ").append(pStack.getOrCreateTag().getBoolean(KTurrets.FILTER)?Component.translatable("k_turrets.whitelist.items"):Component.translatable("k_turrets.blacklist.items")));
         pTooltipComponents.add(Component.translatable("k_turrets.right.click"));
     }
