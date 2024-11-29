@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ada",
-    "sss",
-    "sss"
+    "sfs",
+    "sfs"
   ],
   "key": {
     "a": {
@@ -14,6 +14,9 @@
     },
     "s": {
       "tag": "forge:ingots/titanium"
+    },
+    "f": {
+      "item": "minecraft:feather"
     }
   },
   "result": {
