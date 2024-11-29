@@ -70,11 +70,11 @@ public class KItems {
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
-                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.CHARGE_TURRET_DAMAGE.get()));
-                components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.CHARGE_TURRET_HEALTH.get())));
-                components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.CHARGE_TURRET_ARMOR.get())));
-                components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.CHARGE_TURRET_RANGE.get())));
-                components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.CHARGE_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
+                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.FIREBALL_TURRET_DAMAGE.get()));
+                components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.FIREBALL_TURRET_HEALTH.get())));
+                components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.FIREBALL_TURRET_ARMOR.get())));
+                components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.FIREBALL_TURRET_RANGE.get())));
+                components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.FIREBALL_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
         BRICK_TURRET = ITEMS.register("brick_turret_item", () -> new ContainerItem(KEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults(), ContainerItem.Unit.TURRET){
@@ -170,11 +170,11 @@ public class KItems {
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
-                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.CHARGE_TURRET_DAMAGE.get()));
-                components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.CHARGE_TURRET_HEALTH.get()*0.83)));
-                components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.CHARGE_TURRET_ARMOR.get()*0.34)));
-                components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.CHARGE_TURRET_RANGE.get())));
-                components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.CHARGE_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
+                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.FIREBALL_TURRET_DAMAGE.get()));
+                components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.FIREBALL_TURRET_HEALTH.get()*0.83)));
+                components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.FIREBALL_TURRET_ARMOR.get()*0.34)));
+                components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.FIREBALL_TURRET_RANGE.get())));
+                components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.FIREBALL_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
 

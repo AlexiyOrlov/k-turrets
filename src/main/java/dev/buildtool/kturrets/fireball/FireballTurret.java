@@ -38,7 +38,7 @@ public class FireballTurret extends Turret {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
+        goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.FIREBALL_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (livingEntity instanceof Player player) {
@@ -114,6 +114,6 @@ public class FireballTurret extends Turret {
 
     @Override
     public int getDamage() {
-        return KTurrets.CHARGE_TURRET_DAMAGE.get();
+        return KTurrets.FIREBALL_TURRET_DAMAGE.get();
     }
 }

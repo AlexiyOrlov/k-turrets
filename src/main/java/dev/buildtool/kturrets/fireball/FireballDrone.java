@@ -20,7 +20,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 public class FireballDrone extends Drone {
@@ -38,7 +37,7 @@ public class FireballDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(5, new RestrictedRangedAttackGoal(this, 1, KTurrets.CHARGE_TURRET_RATE.get(), (float) getRange()));
+        goalSelector.addGoal(5, new RestrictedRangedAttackGoal(this, 1, KTurrets.FIREBALL_TURRET_RATE.get(), (float) getRange()));
         targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
                 livingEntity -> {
                     if (livingEntity instanceof Player player) {
@@ -114,6 +113,6 @@ public class FireballDrone extends Drone {
 
     @Override
     public int getDamage() {
-        return KTurrets.CHARGE_TURRET_DAMAGE.get();
+        return KTurrets.FIREBALL_TURRET_DAMAGE.get();
     }
 }

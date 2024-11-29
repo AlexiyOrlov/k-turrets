@@ -55,7 +55,7 @@ class SmallFireball2 extends SmallFireball {
                 int i = entity.getRemainingFireTicks();
                 entity.setSecondsOnFire(5);
                 DamageSource fireball = level().damageSources().source(KTDamageTypes.TURRET_FIREBALL, turret);
-                boolean flag = entity.hurt(fireball, KTurrets.CHARGE_TURRET_DAMAGE.get());
+                boolean flag = entity.hurt(fireball, KTurrets.FIREBALL_TURRET_DAMAGE.get());
                 if (!flag) {
                     entity.setRemainingFireTicks(i);
                 } else {
