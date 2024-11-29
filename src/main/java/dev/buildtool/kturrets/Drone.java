@@ -219,9 +219,7 @@ public abstract class Drone extends Turret {
     }
 
     @Override
-    protected List<ItemHandler> getContainedItems() {
-        return List.of(upgrades);
-    }
+    protected abstract List<ItemHandler> getContainedItems();
 
     @Override
     public void tick() {
