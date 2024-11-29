@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.registers;
 
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.MagnetMenu;
+import dev.buildtool.kturrets.storage.MagnetMenu;
 import dev.buildtool.kturrets.ReloaderMenu;
 import dev.buildtool.kturrets.arrow.ArrowDroneContainer;
 import dev.buildtool.kturrets.arrow.ArrowTurretContainer;

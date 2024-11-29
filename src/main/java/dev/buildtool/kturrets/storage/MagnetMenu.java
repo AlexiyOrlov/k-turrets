@@ -1,15 +1,13 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
-import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;

@@ -1,5 +1,6 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.storage;
 
+import dev.buildtool.kturrets.KTurrets;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;

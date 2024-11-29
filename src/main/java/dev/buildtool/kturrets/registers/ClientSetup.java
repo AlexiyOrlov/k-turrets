@@ -7,13 +7,10 @@ import dev.buildtool.kturrets.bullet.*;
 import dev.buildtool.kturrets.cobble.*;
 import dev.buildtool.kturrets.fireball.*;
 import dev.buildtool.kturrets.gauss.*;
-import dev.buildtool.kturrets.storage.StorageDroneMenu;
-import dev.buildtool.kturrets.storage.StorageDroneModel;
-import dev.buildtool.kturrets.storage.StorageDroneMenuScreen;
+import dev.buildtool.kturrets.storage.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -42,7 +39,7 @@ public class ClientSetup {
 
         MenuScreens.register(KContainers.RELOADER.get(), (MenuScreens.ScreenConstructor<ReloaderMenu, ReloaderScreen>) (p1, p2, p3) -> new ReloaderScreen(p1, p2, p3, true));
 
-        MenuScreens.register(KContainers.MAGNET.get(),(MenuScreens.ScreenConstructor<MagnetMenu,MagnetScreen>) MagnetScreen::new);
+        MenuScreens.register(KContainers.MAGNET.get(),(MenuScreens.ScreenConstructor<MagnetMenu, MagnetScreen>) MagnetScreen::new);
     }
 
     @SubscribeEvent

@@ -1,7 +1,7 @@
-package dev.buildtool.kturrets;
+package dev.buildtool.kturrets.storage;
 
+import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.MagnetFilterState;
-import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.gui.ContainerScreen2;
 import dev.buildtool.satako.gui.SwitchButton;
 import net.minecraft.network.chat.Component;
@@ -20,7 +20,7 @@ public class MagnetScreen extends ContainerScreen2<MagnetMenu> {
     public void init() {
         super.init();
         MutableComponent whitelist=Component.translatable("k_turrets.whitelist");
-        addRenderableWidget(new SwitchButton(centerX-font.width(whitelist)/2-5,topPos+getSlots().get(25).y+20,whitelist,Component.translatable("k_turrets.blacklist"),magnet.getOrCreateTag().getBoolean(KTurrets.FILTER),pButton -> {
+        addRenderableWidget(new SwitchButton(centerX-font.width(whitelist)/2-5,topPos+getSlots().get(25).y+20,whitelist,Component.translatable("k_turrets.blacklist"),magnet.getOrCreateTag().getBoolean(KTurrets.FILTER), pButton -> {
             SwitchButton switchButton= (SwitchButton) pButton;
             switchButton.state=!switchButton.state;
             magnet.getTag().putBoolean(KTurrets.FILTER,switchButton.state);
