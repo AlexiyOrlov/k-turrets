@@ -8,6 +8,7 @@ drones are not moved by liquids;
 added ammo info to tooltip;
 added helpful tooltips;
 fixed storage drone recipe;
+added player names as suggestions for exceptions;
 
 3.0.34:
 changed Ammo reloader recipe;
