@@ -23,7 +23,6 @@ import net.minecraftforge.network.NetworkHooks;
 
 public abstract class PresetProjectile extends AbstractHurtingProjectile {
     protected static final EntityDataAccessor<Integer> DAMAGE = SynchedEntityData.defineId(PresetProjectile.class, EntityDataSerializers.INT);
-    protected Turret turret;
     protected static double MOVEMENT_MULTIPLIER = KTurrets.PROJECTILE_SPEED.get();
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50173_1_, net.minecraft.world.level.Level p_i50173_2_) {
         super(p_i50173_1_, p_i50173_2_);
@@ -32,7 +31,6 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
     public PresetProjectile(EntityType<? extends AbstractHurtingProjectile> p_i50175_1_, Turret shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, net.minecraft.world.level.Level world) {
         super(p_i50175_1_, shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
         setPos(shooter.getX(), shooter.getEyeY(), shooter.getZ());
-        turret = shooter;
         xPower *= MOVEMENT_MULTIPLIER;
         yPower *= MOVEMENT_MULTIPLIER;
         zPower *= MOVEMENT_MULTIPLIER;
