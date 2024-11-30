@@ -149,7 +149,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
                     mainPanel.refreshWidgets();
                 }
             }
-            else {
+            else if(!string.isEmpty()){
                 EntityType<?> entityTypesValue = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(string));
                 targets.add(entityTypesValue);
                 KTurrets.channel.sendToServer(new SetTarget(true, string, turret.getId()));
