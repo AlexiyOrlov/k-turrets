@@ -11,6 +11,7 @@ import dev.ftb.mods.ftblibrary.ui.TextField;
 import dev.ftb.mods.ftblibrary.ui.input.Key;
 import dev.ftb.mods.ftblibrary.ui.input.MouseButton;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +20,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
@@ -104,24 +106,49 @@ public class UnitOptionsScreen extends ButtonListScreen {
                 suggestions.clear();
                 String text = addEntity.getValue();
                 if (!text.isEmpty()) {
-                    List<ResourceLocation> entityTypes= new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
                     int yOffset = 20;
-                    entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITY_TYPES::getKey).toList());
-                    for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 20))) {
-                        Label hint = new Label(addEntity.getX(), addEntity.getY() + yOffset, Component.literal(ChatFormatting.YELLOW + entityType.toString()), wrapper, p_93751_ -> {
-                            addEntity.setValue(p_93751_.getMessage().getString().substring(2));
-                            suggestions.forEach(wrapper::removeWidget);
-                            suggestions.clear();
+                    if(text.startsWith("!"))
+                    {
+                        List<? extends Player> players=turret.level().players();
+                        players.remove(Minecraft.getInstance().player);
+                        for (Player player : players) {
+                            Label hint=new Label(addEntity.getX(),addEntity.getY()+yOffset,player.getName(),wrapper,button -> {
+                                addEntity.setValue("!"+button.getMessage().getString());
+                                suggestions.forEach(wrapper::removeWidget);
+                                suggestions.clear();
+                                hideableWidgets.forEach(betterButton -> betterButton.setHidden(false));
+                            },Constants.BLACK);
+                            wrapper.addRenderableWidget(hint);
+                            suggestions.add(hint);
+                            yOffset+=14;
+                        }
+                        if(!players.isEmpty())
+                        {
+                            hideableWidgets.forEach(betterButton -> betterButton.setHidden(true));
+                        }
+                        else
                             hideableWidgets.forEach(betterButton -> betterButton.setHidden(false));
-                        },new IntegerColor(0xff000000));
-                        wrapper.addRenderableWidget(hint);
-                        suggestions.add(hint);
-                        yOffset += 14;
                     }
-                    if (!entityTypes.isEmpty()) {
-                        hideableWidgets.forEach(betterButton -> betterButton.setHidden(true));
-                    } else {
-                        hideableWidgets.forEach(betterButton -> betterButton.setHidden(false));
+                    else {
+                        List<ResourceLocation> entityTypes = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getKeys().stream().filter(resourceLocation -> resourceLocation.toString().contains(text)).toList());
+
+                        entityTypes.removeAll(targets.stream().map(ForgeRegistries.ENTITY_TYPES::getKey).toList());
+                        for (ResourceLocation entityType : entityTypes.subList(0, Math.min(entityTypes.size(), 20))) {
+                            Label hint = new Label(addEntity.getX(), addEntity.getY() + yOffset, Component.literal(ChatFormatting.YELLOW + entityType.toString()), wrapper, p_93751_ -> {
+                                addEntity.setValue(p_93751_.getMessage().getString().substring(2));
+                                suggestions.forEach(wrapper::removeWidget);
+                                suggestions.clear();
+                                hideableWidgets.forEach(betterButton -> betterButton.setHidden(false));
+                            }, Constants.BLACK);
+                            wrapper.addRenderableWidget(hint);
+                            suggestions.add(hint);
+                            yOffset += 14;
+                        }
+                        if (!entityTypes.isEmpty()) {
+                            hideableWidgets.forEach(betterButton -> betterButton.setHidden(true));
+                        } else {
+                            hideableWidgets.forEach(betterButton -> betterButton.setHidden(false));
+                        }
                     }
                 } else {
                     hideableWidgets.forEach(betterButton -> betterButton.setHidden(false));
