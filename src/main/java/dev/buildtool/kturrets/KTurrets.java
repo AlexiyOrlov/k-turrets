@@ -144,6 +144,7 @@ public class KTurrets {
             items.accept(KItems.LIGHT_UPGRADE.get());
             items.accept(KItems.MAGNET_UPGRADE.get());
             items.accept(KItems.RECALL_UPGRADE.get());
+            items.accept(KItems.EXP_LINK.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 

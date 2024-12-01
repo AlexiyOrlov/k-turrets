@@ -70,6 +70,18 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     public boolean noAmmo;
     private static final EntityDataAccessor<Boolean> PROTECT_OWNER=SynchedEntityData.defineId(Turret.class,EntityDataSerializers.BOOLEAN);
+    public ItemHandler upgrades=new ItemHandler(1){
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return stack.is(KItems.EXP_LINK.get());
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+    };
+
     /**
      * Players that are not allied to the owner
      */
@@ -313,6 +325,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         compoundNBT.put("Exceptions", entityData.get(IGNORED_PLAYERS));
         compoundNBT.putBoolean("Refill inventory", isRefillingInventory());
         compoundNBT.putBoolean("Protect owner",isProtectingOwner());
+        compoundNBT.put("Upgrades",upgrades.serializeNBT());
     }
 
     @Override
@@ -335,6 +348,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         setTeamAutomatically(compoundNBT.getString("Team"));
         setRefillInventory(compoundNBT.getBoolean("Refill inventory"));
         setProtectOwner(compoundNBT.getBoolean("Protect owner"));
+        upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {

@@ -2,40 +2,48 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public class ArrowTurretContainer extends Container2 {
     public ArrowTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
         super(KContainers.ARROW_TURRET.get(), i);
         ArrowTurret turret = (ArrowTurret) playerInventory.player.level().getEntity(packetBuffer.readInt());
-        addSlot(new ItemHandlerSlot(turret.weapon, 0, 4 * 18, 0));
+        addSlot(new ItemHandlerSlot(turret.weapon, 0, 4 * 18, 0).setColor(Constants.GREEN).setTooltip(List.of(Component.translatable("k_turrets.bow.or.crossbow"))));
         int slot = 0;
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {
-                addSlot(new ItemHandlerSlot(turret.ammo, slot++, k * 18, j * 18 + 18 * 2));
+                addSlot(new ItemHandlerSlot(turret.ammo, slot++, k * 18, j * 18 + 18));
             }
         }
+        addSlot(new ItemHandlerSlot(turret.upgrades,0,4*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.exp.link.slot"))).setColor(KTurrets.upgradeSlotColor));
 
-        addPlayerInventory(0, 5 * 18, playerInventory);
+        addPlayerInventory(0, 6* 18, playerInventory);
     }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 27) {
+        if (index > 28) {
             if ((itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) && !moveItemStackTo(itemStack, 0, 1, false))
                 return ItemStack.EMPTY;
             if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 28, false))
                 return ItemStack.EMPTY;
+            if(itemStack.is(KItems.EXP_LINK.get()) && !moveItemStackTo(itemStack,28,29,false))
+                return ItemStack.EMPTY;
         } else {
-            if (!moveItemStackTo(itemStack, 28, 64, false))
+            if (!moveItemStackTo(itemStack, 29, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

@@ -41,7 +41,7 @@ public class KItems {
     public static RegistryObject<Item> TARGET_COPIER;
     public static RegistryObject<Item> RELOADER;
     public static RegistryObject<Item> STORAGE_DRONE;
-    public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE,RECALL_UPGRADE;
+    public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE,RECALL_UPGRADE,EXP_LINK;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET){
@@ -208,6 +208,13 @@ public class KItems {
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
                 super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
                 pTooltipComponents.add(Component.translatable("k_turrets.recall.description"));
+            }
+        });
+        EXP_LINK=ITEMS.register("exp_link",() -> new Item(defaults().stacksTo(4)){
+            @Override
+            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+                super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+                pTooltipComponents.add(Component.translatable("k_turrets.exp.link.info"));
             }
         });
     }

@@ -93,7 +93,7 @@ public class ArrowTurret extends Turret {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Arrays.asList(ammo, weapon);
+        return Arrays.asList(ammo, weapon,upgrades);
     }
 
     @Override

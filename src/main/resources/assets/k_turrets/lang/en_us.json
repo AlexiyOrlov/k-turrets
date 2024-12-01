@@ -14,6 +14,7 @@
   "item.k_turrets.light_upgrade": "Lantern",
   "item.k_turrets.magnet_upgrade": "Item Magnet",
   "item.k_turrets.recall_upgrade": "Recall Upgrade",
+  "item.k_turrets.exp_link": "Experience Link",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -133,5 +134,8 @@
   "k_turrets.fire.rate": "Fire rate",
   "k_turrets.shots.per.second": "shot(s) per second",
   "k_turrets.damage.info": "Damage",
-  "k_turrets.armor.info": "Armor"
+  "k_turrets.armor.info": "Armor",
+  "k_turrets.exp.link.info": "Entities killed by the unit will drop experience",
+  "k_turrets.exp.link.slot": "Experience link slot",
+  "k_turrets.bow.or.crossbow": "Slot for bow or crossbow"
 }

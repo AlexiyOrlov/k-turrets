@@ -104,7 +104,7 @@ public class FireballTurret extends Turret {
 
     @Override
     protected List<ItemHandler> getContainedItems() {
-        return Collections.singletonList(ammo);
+        return List.of(ammo,upgrades);
     }
 
     @Override
