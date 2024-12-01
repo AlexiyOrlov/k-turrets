@@ -40,7 +40,7 @@ class SmallFireball2 extends SmallFireball {
             if (target.getType().getCategory().isFriendly()) {
                 return target == owner.getTarget();
             } else {
-                return Turret.decodeTargets(owner.getTargets()).contains(target.getType());
+                return Turret.decodeTargets(owner.getTargets()).contains(target.getType()) || target==owner.getTarget();
             }
         }
         return false;
