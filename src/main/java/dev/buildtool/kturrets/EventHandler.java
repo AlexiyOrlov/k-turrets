@@ -1,5 +1,7 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.satako.Functions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -41,8 +43,13 @@ public class EventHandler {
             Level level = entity.level();
             if (level instanceof ServerLevel serverLevel) {
                 Entity deathCauser = livingDeathEvent.getSource().getEntity();
-                if (deathCauser instanceof Turret turret) {
-                    if(!turret.upgrades.getStackInSlot(0).isEmpty())
+                if(deathCauser instanceof Drone drone)
+                {
+                    if(Functions.contains(KItems.EXP_LINK.get(), drone.upgrades))
+                        ExperienceOrb.award(serverLevel,entity.getPosition(1),entity.getExperienceReward());
+                }
+                else if (deathCauser instanceof Turret turret) {
+                    if(Functions.contains(KItems.EXP_LINK.get(), turret.upgrades))
                         ExperienceOrb.award(serverLevel, entity.getPosition(1), entity.getExperienceReward());
                 }
             }
