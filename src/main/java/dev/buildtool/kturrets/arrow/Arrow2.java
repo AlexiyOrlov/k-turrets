@@ -25,7 +25,6 @@ import net.minecraft.world.phys.Vec3;
 
 
 public class Arrow2 extends Arrow {
-    private final Turret turret;
 
     public Arrow2(Level world, AbstractArrow abstractArrowEntity, Turret shooter, float f, float dx, float dy, float dz) {
         super(EntityType.ARROW, world);
@@ -38,7 +37,6 @@ public class Arrow2 extends Arrow {
             arrow.effects.forEach(this::addEffect);
         }
         setOwner(abstractArrowEntity.getOwner());
-        turret = shooter;
     }
 
     @Override
