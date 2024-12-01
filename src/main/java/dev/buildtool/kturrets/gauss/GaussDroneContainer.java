@@ -25,24 +25,24 @@ public class GaussDroneContainer extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,0,4*18-9,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.recall.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,1,5*18-9,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.lantern.slot"))));
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,0,3*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,1,4*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(gaussDrone.upgrades,2,5*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+
         addPlayerInventory(0, 4 * 18, inventory);
     }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 18) {
+        if (index > 20) {
             if (itemStack.is(KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, 18, false))
                 return ItemStack.EMPTY;
-            else if (itemStack.is(KItems.LIGHT_UPGRADE.get()) && !moveItemStackTo(itemStack, 18, 19, false)) {
-                return ItemStack.EMPTY;
-            } else if (itemStack.is(KItems.RECALL_UPGRADE.get()) && !moveItemStackTo(itemStack, 19, 20, false)) {
+            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get())) && !moveItemStackTo(itemStack, 18, 21, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!moveItemStackTo(itemStack, 20, slots.size(), false))
+            if (!moveItemStackTo(itemStack, 21, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);
