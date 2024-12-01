@@ -4,6 +4,7 @@ import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.*;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -38,21 +39,18 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
     private BlockPos previousPosition=BlockPos.ZERO;
 
-    /**
-     * Slot 0 is for lantern
-     * Slot 1 is for recall upgrade
-     * Slot 2 is for magnet
-     */
     public ItemHandler upgrades=new ItemHandler(3)
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(slot==0)
-                return stack.is(KItems.LIGHT_UPGRADE.get());
-            else if (slot == 1) {
-                return stack.is(KItems.RECALL_UPGRADE.get());
-            } else if (slot == 2) {
-                return stack.is(KItems.MAGNET_UPGRADE.get());
+            if(stack.is(KItems.RECALL_UPGRADE.get()))
+                return !Functions.contains(KItems.RECALL_UPGRADE.get(),this);
+            else if(stack.is(KItems.MAGNET_UPGRADE.get()))
+                return !Functions.contains(KItems.MAGNET_UPGRADE.get(), this);
+            else if(stack.is(KItems.LIGHT_UPGRADE.get()))
+                return !Functions.contains(KItems.LIGHT_UPGRADE.get(), this);
+            else if (stack.is(KItems.EXP_LINK.get())) {
+                return !Functions.contains(KItems.EXP_LINK.get(), this);
             }
             return false;
         }
