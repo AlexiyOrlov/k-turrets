@@ -62,7 +62,7 @@ import java.util.*;
 public class KTurrets {
     public static final String ID = "k_turrets";
     public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
-    public static final IntegerColor upgradeSlotColor = new IntegerColor(0xfffa5c82);
+    public static final IntegerColor upgradeSlotColor = new IntegerColor(0xffF5CE45);
     static private final String NP = "1.0";
     public static final Type TYPE = new TypeToken<ArrayListMultimap<UUID, String>>() {
     }.getType();
