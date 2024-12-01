@@ -100,7 +100,7 @@ public class StorageDrone extends Drone {
     public void tick() {
         super.tick();
         if(!level().isClientSide) {
-            ItemStack magnet = upgrades.getStackInSlot(2);
+            ItemStack magnet=Functions.findItem(KItems.MAGNET_UPGRADE.get(), upgrades);
             if (magnet.is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
                 List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
                 itemEntities.forEach(itemEntity -> {
