@@ -3,6 +3,7 @@ package dev.buildtool.kturrets;
 import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
+import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.kturrets.tasks.*;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -46,7 +47,7 @@ public abstract class Drone extends Turret {
             if(stack.is(KItems.RECALL_UPGRADE.get()))
                 return !Functions.contains(KItems.RECALL_UPGRADE.get(),this);
             else if(stack.is(KItems.MAGNET_UPGRADE.get()))
-                return !Functions.contains(KItems.MAGNET_UPGRADE.get(), this);
+                return Drone.this instanceof StorageDrone && !Functions.contains(KItems.MAGNET_UPGRADE.get(), this);
             else if(stack.is(KItems.LIGHT_UPGRADE.get()))
                 return !Functions.contains(KItems.LIGHT_UPGRADE.get(), this);
             else if (stack.is(KItems.EXP_LINK.get())) {
