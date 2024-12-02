@@ -11,7 +11,7 @@
   },
   "cobble_shoot": {
     "sounds": [
-      "k_turrets:cobble_shoot"
+      "k_turrets:cobble_shot2"
     ]
   },
   "drone_fly": {
