@@ -42,6 +42,7 @@ public class KItems {
     public static RegistryObject<Item> RELOADER;
     public static RegistryObject<Item> STORAGE_DRONE;
     public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE,RECALL_UPGRADE,EXP_LINK;
+    public static RegistryObject<Item> PROPELLER;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET){
@@ -217,6 +218,7 @@ public class KItems {
                 pTooltipComponents.add(Component.translatable("k_turrets.exp.link.info"));
             }
         });
+        PROPELLER=ITEMS.register("propeller",() -> new Item(defaults()));
     }
 
     private static Item.Properties defaults() {

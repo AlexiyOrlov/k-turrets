@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CtC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:copper_block"
+    },
+    "t": {
+      "tag": "forge:ingots/titanium"
+    }
+  },
+  "result": {
+    "item": "k_turrets:propeller"
+  }
+}

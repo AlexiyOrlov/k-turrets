@@ -13,7 +13,7 @@
       "item": "minecraft:cobblestone"
     },
     "s": {
-      "tag": "forge:ingots/titanium"
+      "item": "k_turrets:propeller"
     },
     "f": {
       "item": "minecraft:feather"

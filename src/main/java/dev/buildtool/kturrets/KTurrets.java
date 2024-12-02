@@ -128,6 +128,7 @@ public class KTurrets {
             items.accept(KItems.DEEPSLATE_TITANIUM_ORE.get());
             items.accept(KItems.RAW_TITANIUM.get());
             items.accept(KItems.TITANIUM_INGOT.get());
+            items.accept(KItems.PROPELLER.get());
             items.accept(KItems.TARGET_COPIER.get());
 
             items.accept(KItems.COBBLE_DRONE.get());
