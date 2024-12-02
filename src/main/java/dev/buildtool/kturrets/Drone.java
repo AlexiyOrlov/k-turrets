@@ -51,7 +51,7 @@ public abstract class Drone extends Turret {
             else if(stack.is(KItems.LIGHT_UPGRADE.get()))
                 return !Functions.contains(KItems.LIGHT_UPGRADE.get(), this);
             else if (stack.is(KItems.EXP_LINK.get())) {
-                return !Functions.contains(KItems.EXP_LINK.get(), this);
+                return (!(Drone.this instanceof StorageDrone)) && !Functions.contains(KItems.EXP_LINK.get(), this);
             }
             return false;
         }
