@@ -9,6 +9,7 @@ added ammo info to tooltip;
 added helpful tooltips;
 fixed storage drone recipe;
 added player names as suggestions for exceptions;
+added copper plates and propellers, used in turret and drone crafting;
 
 3.0.34:
 changed Ammo reloader recipe;
