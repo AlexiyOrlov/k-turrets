@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.brick;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -64,7 +65,7 @@ public class BrickTurret extends Turret {
                     Brick brick = new Brick(this, xa, ya, za, level());
                     brick.setDamage(bricksItem.is(Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
-                    playSound(SoundEvents.WITCH_THROW, 1, 0.5f);
+                    playSound(Sounds.BRICK_SHOT.get(), 0.4f, 1);
                     bricksItem.shrink(1);
                     break;
                 }
