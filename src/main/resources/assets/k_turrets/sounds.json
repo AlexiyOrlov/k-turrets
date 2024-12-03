@@ -21,7 +21,7 @@
   },
   "brick_shoot": {
     "sounds": [
-      "k_turrets:pistol_shot"
+      "k_turrets:suppressed-shot"
     ]
   }
 }

@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.brick;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
 import dev.buildtool.satako.Functions;
@@ -62,7 +63,7 @@ public class BrickDrone extends Drone {
                     Brick brick = new Brick(this, xa, ya, za, level());
                     brick.setDamage(ammoItem.is(KTurrets.BRICK_UNIT_AMMO_TAG1) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
-                    playSound(SoundEvents.WITCH_THROW, 1, 0.5f);
+                    playSound(Sounds.BRICK_SHOT.get(), 0.4f, 1);
                     ammoItem.shrink(1);
                     break;
                 }
