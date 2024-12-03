@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
@@ -98,7 +99,8 @@ public class UnitOptionsScreen extends ButtonListScreen {
 
     public void initialize()
     {
-        addEntity = new dev.buildtool.satako.gui.TextField(width/2, 10,Component.empty(),width/2){
+        int elementYPos=10;
+        addEntity = new dev.buildtool.satako.gui.TextField(width/2, elementYPos,Component.empty(),width/2){
             @Override
             public boolean keyReleased(int pKeyCode, int pScanCode, int pModifiers) {
                 suggestions.forEach(wrapper::removeWidget);
@@ -158,7 +160,8 @@ public class UnitOptionsScreen extends ButtonListScreen {
 
         };
         wrapper.addRenderableWidget(addEntity);
-        BetterButton addButton = new BetterButton(addEntity.getX(), addEntity.getY() + addEntity.getHeight()+4, Component.translatable("k_turrets.add.entity.type"), button -> {
+        elementYPos+=24;
+        BetterButton addButton = new BetterButton(addEntity.getX(), elementYPos, Component.translatable("k_turrets.add.entity.type"), button -> {
             String string = addEntity.getValue();
             if(string.startsWith("!") && string.length()>1)
             {
@@ -187,14 +190,17 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(addButton);
         hideableWidgets.add(addButton);
-        BetterButton dismantle=new BetterButton(addEntity.getX(),addButton.getY()+addButton.getHeight(),Component.translatable("k_turrets.dismantle"),pButton -> {
+        elementYPos+=20;
+
+        BetterButton dismantle=new BetterButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.dismantle"),pButton -> {
             wrapper.closeGui();
             KTurrets.channel.sendToServer(new DismantleTurret(turret.getId()));
         });
         wrapper.addRenderableWidget(dismantle);
         hideableWidgets.add(dismantle);
+        elementYPos+=20;
 
-        BetterButton clearTargets=new BetterButton(addEntity.getX(),dismantle.getY()+dismantle.getHeight(),Component.translatable("k_turrets.clear.list"),pButton -> {
+        BetterButton clearTargets=new BetterButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.clear.list"),pButton -> {
             targets.clear();
             mainPanel.clearWidgets();
             KTurrets.channel.sendToServer(new TurretTargets(new CompoundTag(),turret.getId()));
@@ -202,7 +208,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(clearTargets);
         hideableWidgets.add(clearTargets);
 
-        BetterButton resetTargets=new BetterButton(clearTargets.getX()+clearTargets.getElementWidth(),clearTargets.getY(),Component.translatable("k_turrets.reset.list"),pButton -> {
+        BetterButton resetTargets=new BetterButton(clearTargets.getX()+clearTargets.getElementWidth(),elementYPos,Component.translatable("k_turrets.reset.list"),pButton -> {
             List<EntityType<?>> entityTypeList = ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList();
             targets.addAll(entityTypeList);
             refreshWidgets();
@@ -215,8 +221,9 @@ public class UnitOptionsScreen extends ButtonListScreen {
         });
         wrapper.addRenderableWidget(resetTargets);
         hideableWidgets.add(resetTargets);
+        elementYPos+=20;
 
-        SwitchButton mobility=new SwitchButton(addEntity.getX(),resetTargets.getY()+resetTargets.getHeight(),Component.translatable("k_turrets.mobile"),Component.translatable("k_turrets.immobile"),turret.isMoveable(),pButton -> {
+        SwitchButton mobility=new SwitchButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.mobile"),Component.translatable("k_turrets.immobile"),turret.isMoveable(),pButton -> {
            SwitchButton switchButton1= (SwitchButton) pButton;
            switchButton1.state=!switchButton1.state;
            turret.setMoveable(switchButton1.state);
@@ -225,18 +232,22 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(mobility);
         hideableWidgets.add(mobility);
         mobility.setTooltip(Tooltip.create(Component.translatable("k_turrets.pushable")));
+        elementYPos+=20;
 
-        SwitchButton playerProtection=new SwitchButton(addEntity.getX(),mobility.getY()+mobility.getHeight(),Component.translatable("k_turrets.protect.from.players"),Component.translatable("k_turrets.not.protect.from.players"),turret.isProtectingFromPlayers(),pButton -> {
-            SwitchButton switchButton1= (SwitchButton) pButton;
-            switchButton1.state=!switchButton1.state;
-            turret.setProtectionFromPlayers(switchButton1.state);
-            KTurrets.channel.sendToServer(new TogglePlayerProtection(switchButton1.state,turret.getId()));
-        });
-        wrapper.addRenderableWidget(playerProtection);
-        hideableWidgets.add(playerProtection);
-        playerProtection.setTooltip(Tooltip.create(Component.translatable("k_turrets.protection.from.players")));
+        if(FMLEnvironment.dist.isDedicatedServer()) {
+            SwitchButton playerProtection = new SwitchButton(addEntity.getX(), elementYPos, Component.translatable("k_turrets.protect.from.players"), Component.translatable("k_turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), pButton -> {
+                SwitchButton switchButton1 = (SwitchButton) pButton;
+                switchButton1.state = !switchButton1.state;
+                turret.setProtectionFromPlayers(switchButton1.state);
+                KTurrets.channel.sendToServer(new TogglePlayerProtection(switchButton1.state, turret.getId()));
+            });
+            wrapper.addRenderableWidget(playerProtection);
+            hideableWidgets.add(playerProtection);
+            playerProtection.setTooltip(Tooltip.create(Component.translatable("k_turrets.protection.from.players")));
+            elementYPos+=20;
+        }
 
-        SwitchButton refillSwitch=new SwitchButton(addEntity.getX(),playerProtection.getY()+playerProtection.getHeight(),Component.translatable("k_turrets.refill.inventory"),Component.translatable("k_turrets.dont.refill.inventory"),turret.isRefillingInventory(),pButton -> {
+        SwitchButton refillSwitch=new SwitchButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.refill.inventory"),Component.translatable("k_turrets.dont.refill.inventory"),turret.isRefillingInventory(),pButton -> {
             SwitchButton b= (SwitchButton) pButton;
             b.state=!b.state;
             turret.setRefillInventory(b.state);
@@ -245,8 +256,9 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(refillSwitch);
         hideableWidgets.add(refillSwitch);
         refillSwitch.setTooltip(Tooltip.create(Component.translatable("k_turrets.refill.info")));
+        elementYPos+=20;
 
-        SwitchButton protectSwitch=new SwitchButton(addEntity.getX(),refillSwitch.getY()+refillSwitch.getHeight(),Component.translatable("k_turrets.protect.player"),Component.translatable("k_turrets.do.not.protect.player"),turret.isProtectingOwner(),pButton -> {
+        SwitchButton protectSwitch=new SwitchButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.protect.player"),Component.translatable("k_turrets.do.not.protect.player"),turret.isProtectingOwner(),pButton -> {
            SwitchButton switchButton= (SwitchButton) pButton;
            switchButton.state=!switchButton.state;
            turret.setProtectOwner(switchButton.state);
@@ -255,11 +267,13 @@ public class UnitOptionsScreen extends ButtonListScreen {
         wrapper.addRenderableWidget(protectSwitch);
         hideableWidgets.add(protectSwitch);
         protectSwitch.setTooltip(Tooltip.create(Component.translatable("k_turrets.player.protection")));
+        elementYPos+=20;
 
+        int finalElementYPos = elementYPos;
         turret.getOwner().ifPresentOrElse(uuid -> {
             if(turret instanceof Drone drone)
             {
-                DropDownButton dropDownButton=new DropDownButton(addEntity.getX(),protectSwitch.getY()+protectSwitch.getHeight(),wrapper,Component.literal(""));
+                DropDownButton dropDownButton=new DropDownButton(addEntity.getX(), finalElementYPos,wrapper,Component.literal(""));
                 LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
                 RadioButton follow=new RadioButton(addEntity.getX(),dropDownButton.getY()+dropDownButton.getHeight(),Component.translatable("k_turrets.following.owner"));
                 linkedHashMap.put(follow.getMessage(),pButton -> {
@@ -295,7 +309,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
             }
         },()->
         {
-            BetterButton claim=new BetterButton(addEntity.getX(),protectSwitch.getY()+protectSwitch.getHeight(),Component.translatable("k_turrets.claim.drone"),pButton -> {
+            BetterButton claim=new BetterButton(addEntity.getX(),finalElementYPos,Component.translatable("k_turrets.claim.drone"),pButton -> {
                 turret.setOwner(wrapper.getMinecraft().player.getUUID());
                 wrapper.closeGui();
                 KTurrets.channel.sendToServer(new ClaimTurret(turret.getId(),wrapper.getMinecraft().player.getUUID()));
@@ -303,19 +317,23 @@ public class UnitOptionsScreen extends ButtonListScreen {
             wrapper.addRenderableWidget(claim);
             hideableWidgets.add(claim);
         });
-        Label range = new Label(addEntity.getX(), protectSwitch.getY() + protectSwitch.getHeight() + 20, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
+        elementYPos+=20;
+        Label range = new Label(addEntity.getX(), elementYPos, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(range));
-        Label health = new Label(addEntity.getX(), range.getY() + range.getHeight(), Component.translatable(KTurrets.ID + ".integrity").append(": ").append(String.format("%.1f", turret.getHealth()) + "/" + turret.getMaxHealth()), Constants.BLACK);
+        elementYPos+=18;
+        Label health = new Label(addEntity.getX(), elementYPos, Component.translatable(KTurrets.ID + ".integrity").append(": ").append(String.format("%.1f", turret.getHealth()) + "/" + turret.getMaxHealth()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(health));
         int primaryDamage=turret.getDamage();
         int secondaryDamage= turret.getSecondaryDamage();
         MutableComponent damageText = Component.translatable("k_turrets.damage", primaryDamage);
         if(secondaryDamage>0)
             damageText.append("/"+secondaryDamage);
-        Label damage=new Label(addEntity.getX(),health.getY()+range.getHeight(), damageText,Constants.BLACK);
+        elementYPos+=18;
+        Label damage=new Label(addEntity.getX(),elementYPos, damageText,Constants.BLACK);
         hideableWidgets.add(damage);
         wrapper.addRenderableWidget(damage);
-        Label armor=new Label(addEntity.getX(),damage.getY()+damage.getHeight(),Component.translatable("k_turrets.armor",String.format("%.1f",turret.getAttribute(Attributes.ARMOR).getValue())),Constants.BLACK);
+        elementYPos+=18;
+        Label armor=new Label(addEntity.getX(),elementYPos,Component.translatable("k_turrets.armor",String.format("%.1f",turret.getAttribute(Attributes.ARMOR).getValue())),Constants.BLACK);
         hideableWidgets.add(armor);
         wrapper.addRenderableWidget(armor);
     }
