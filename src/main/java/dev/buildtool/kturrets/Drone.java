@@ -40,7 +40,7 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
     private BlockPos previousPosition=BlockPos.ZERO;
 
-    public ItemHandler upgrades=new ItemHandler(3)
+    public ItemHandler upgrades=new ItemHandler(4)
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
@@ -52,6 +52,8 @@ public abstract class Drone extends Turret {
                 return !Functions.contains(KItems.LIGHT_UPGRADE.get(), this);
             else if (stack.is(KItems.EXP_LINK.get())) {
                 return (!(Drone.this instanceof StorageDrone)) && !Functions.contains(KItems.EXP_LINK.get(), this);
+            } else if (stack.is(KItems.FIRE_SHIELD.get())) {
+                return !Functions.contains(KItems.FIRE_SHIELD.get(), this);
             }
             return false;
         }
@@ -160,7 +162,7 @@ public abstract class Drone extends Turret {
         setGuardPosition(BlockPos.of(compoundNBT.getLong("Guard position")));
         setBehavior(Behavior.values()[compoundNBT.getByte("Behavior")]);
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
-        upgrades.setSize(3);
+        upgrades.setSize(4);
         previousPosition=BlockPos.of(compoundNBT.getLong("Previous light position"));
     }
 

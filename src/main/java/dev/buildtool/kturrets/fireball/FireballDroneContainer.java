@@ -28,6 +28,7 @@ public class FireballDroneContainer extends Container2 {
         addSlot(new ItemHandlerSlot(fireballDrone.upgrades,0,3*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
         addSlot(new ItemHandlerSlot(fireballDrone.upgrades,1,4*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
         addSlot(new ItemHandlerSlot(fireballDrone.upgrades,2,5*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(fireballDrone.upgrades,3,6*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
 
         addPlayerInventory(0, 4 * 18, inventory);
     }
@@ -35,14 +36,14 @@ public class FireballDroneContainer extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 20) {
-            if (itemStack.is(KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 0, 18, false))
+        if (index > KTurrets.droneSlotCount) {
+            if (itemStack.is(KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 0, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount, false))
                 return ItemStack.EMPTY;
-            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get())) && !moveItemStackTo(itemStack, 18, 21, false)) {
+            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get())) && !moveItemStackTo(itemStack, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount,KTurrets.droneSlotCount, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!moveItemStackTo(itemStack, 21, slots.size(), false))
+            if (!moveItemStackTo(itemStack, KTurrets.droneSlotCount+KTurrets.droneUpgradeCount, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

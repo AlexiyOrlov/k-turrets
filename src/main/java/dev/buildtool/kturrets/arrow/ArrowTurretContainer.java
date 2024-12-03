@@ -27,7 +27,8 @@ public class ArrowTurretContainer extends Container2 {
                 addSlot(new ItemHandlerSlot(turret.ammo, slot++, k * 18, j * 18 + 18));
             }
         }
-        addSlot(new ItemHandlerSlot(turret.upgrades,0,4*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.exp.link.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,0,4*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,1,5*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
 
         addPlayerInventory(0, 6* 18, playerInventory);
     }
@@ -35,15 +36,15 @@ public class ArrowTurretContainer extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 28) {
+        if (index > KTurrets.turretSlotCount +1) {
             if ((itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) && !moveItemStackTo(itemStack, 0, 1, false))
                 return ItemStack.EMPTY;
-            if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 28, false))
+            if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, KTurrets.turretSlotCount, false))
                 return ItemStack.EMPTY;
-            if(itemStack.is(KItems.EXP_LINK.get()) && !moveItemStackTo(itemStack,28,29,false))
+            if((itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get())) && !moveItemStackTo(itemStack,KTurrets.turretSlotCount,KTurrets.turretSlotCount+KTurrets.turretSlotCount,false))
                 return ItemStack.EMPTY;
         } else {
-            if (!moveItemStackTo(itemStack, 29, slots.size(), false))
+            if (!moveItemStackTo(itemStack, KTurrets.turretSlotCount +KTurrets.turretUpgradeCount, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

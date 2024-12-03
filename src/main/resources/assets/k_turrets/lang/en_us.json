@@ -17,6 +17,7 @@
   "item.k_turrets.exp_link": "Experience Link",
   "item.k_turrets.propeller": "Propeller",
   "item.k_turrets.copper_plate": "Copper Plate",
+  "item.k_turrets.fire_shield": "Fire Shield",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -140,5 +141,6 @@
   "k_turrets.exp.link.info": "Entities killed by the unit will drop experience",
   "k_turrets.exp.link.slot": "Experience link slot",
   "k_turrets.bow.or.crossbow": "Slot for bow or crossbow",
-  "k_turrets.upgrade.slot": "Upgrade slot"
+  "k_turrets.upgrade.slot": "Upgrade slot",
+  "k_turrets.fire.shield.info": "Protects the unit from fire damage"
 }

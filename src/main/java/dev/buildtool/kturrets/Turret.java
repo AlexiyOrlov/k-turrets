@@ -70,10 +70,10 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     public boolean noAmmo;
     private static final EntityDataAccessor<Boolean> PROTECT_OWNER=SynchedEntityData.defineId(Turret.class,EntityDataSerializers.BOOLEAN);
-    public ItemHandler upgrades=new ItemHandler(1){
+    public ItemHandler upgrades=new ItemHandler(2){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(KItems.EXP_LINK.get());
+            return stack.is(KItems.EXP_LINK.get()) || stack.is(KItems.FIRE_SHIELD.get());
         }
 
         @Override
@@ -349,6 +349,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         setRefillInventory(compoundNBT.getBoolean("Refill inventory"));
         setProtectOwner(compoundNBT.getBoolean("Protect owner"));
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
+        upgrades.setSize(2);
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {
@@ -647,5 +648,10 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
     public int getSecondaryDamage()
     {
         return 0;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return Functions.contains(KItems.FIRE_SHIELD.get(), upgrades);
     }
 }

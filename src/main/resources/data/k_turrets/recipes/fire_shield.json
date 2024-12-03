@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iti",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:blue_ice"
+    },
+    "t": {
+      "tag": "forge:ingots/titanium"
+    }
+  },
+  "result": {
+    "item": "k_turrets:fire_shield"
+  }
+}

@@ -113,6 +113,7 @@ public class KTurrets {
     public static Logger logger= LogManager.getLogger("K-Turrets");
 
     public static ArrayListMultimap<String,String> serverUnitDeaths=ArrayListMultimap.create();
+    public static final int turretSlotCount =28, turretUpgradeCount=2,droneSlotCount=22,droneUpgradeCount=4;
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
             items.accept(KItems.COBBLE_TURRET.get());
@@ -147,6 +148,7 @@ public class KTurrets {
             items.accept(KItems.MAGNET_UPGRADE.get());
             items.accept(KItems.RECALL_UPGRADE.get());
             items.accept(KItems.EXP_LINK.get());
+            items.accept(KItems.FIRE_SHIELD.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
