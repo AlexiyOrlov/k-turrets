@@ -72,7 +72,8 @@ public abstract class Drone extends Turret {
     }
 
     public enum Behavior{
-        FOLLOW,
+        FOLLOW_AND_ATTACK,
+        FOLLOW_ONLY,
         GUARD,
         STAY
     }
@@ -231,7 +232,7 @@ public abstract class Drone extends Turret {
                 getOwner().ifPresent(uuid1 -> {
                     Player player = level().getPlayerByUUID(uuid1);
                     if (player != null) {
-                        if (getBehavior() == Behavior.FOLLOW && distanceTo(player) > 128) {
+                        if (getBehavior() == Behavior.FOLLOW_AND_ATTACK && distanceTo(player) > 128) {
                             teleportTo(player.getX(), player.getY() + 2, player.getZ());
                         }
                     }

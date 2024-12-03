@@ -25,7 +25,7 @@ public class AttackTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
     @Override
     public boolean canUse() {
         if (turret instanceof Drone drone) {
-            return ((drone.getBehavior()== Drone.Behavior.GUARD) || drone.getBehavior()== Drone.Behavior.FOLLOW) && drone.isArmed() && super.canUse();
+            return ((drone.getBehavior()== Drone.Behavior.GUARD) || drone.getBehavior()== Drone.Behavior.FOLLOW_AND_ATTACK) && drone.isArmed() && super.canUse();
         }
         return turret.isArmed() && super.canUse();
     }
@@ -33,7 +33,7 @@ public class AttackTargetGoal extends NearestAttackableTargetGoal<LivingEntity> 
     @Override
     public boolean canContinueToUse() {
         if (turret instanceof Drone drone) {
-            return ((drone.getBehavior()== Drone.Behavior.GUARD) || drone.getBehavior()== Drone.Behavior.FOLLOW) && drone.isArmed() && super.canContinueToUse();
+            return ((drone.getBehavior()== Drone.Behavior.GUARD) || drone.getBehavior()== Drone.Behavior.FOLLOW_AND_ATTACK) && drone.isArmed() && super.canContinueToUse();
         }
         return turret.isArmed() && super.canContinueToUse();
     }

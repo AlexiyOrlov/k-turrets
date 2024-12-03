@@ -16,7 +16,7 @@ public class FollowOwnerGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return drone.getBehavior()== Drone.Behavior.FOLLOW && drone.getOwner().isPresent();
+        return (drone.getBehavior()== Drone.Behavior.FOLLOW_AND_ATTACK ||drone.getBehavior()== Drone.Behavior.FOLLOW_ONLY) && drone.getOwner().isPresent();
     }
 
     @Override

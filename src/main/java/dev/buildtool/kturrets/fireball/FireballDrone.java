@@ -52,12 +52,12 @@ public class FireballDrone extends Drone {
                 }) {
             @Override
             public boolean canUse() {
-                return ((getBehavior()==Behavior.GUARD) || getBehavior()==Behavior.FOLLOW) && isArmed() && super.canUse();
+                return ((getBehavior()==Behavior.GUARD) || getBehavior()==Behavior.FOLLOW_AND_ATTACK) && isArmed() && super.canUse();
             }
 
             @Override
             public boolean canContinueToUse() {
-                return ((getBehavior()==Behavior.GUARD || getBehavior()==Behavior.FOLLOW) && isArmed() && super.canContinueToUse());
+                return ((getBehavior()==Behavior.GUARD || getBehavior()==Behavior.FOLLOW_AND_ATTACK) && isArmed() && super.canContinueToUse());
             }
         });
     }

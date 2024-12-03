@@ -2,7 +2,6 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.Constants;
-import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.UniqueList;
 import dev.buildtool.satako.gui.*;
 import dev.ftb.mods.ftblibrary.icon.Icons;
@@ -264,12 +263,19 @@ public class UnitOptionsScreen extends ButtonListScreen {
                 LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
                 RadioButton follow=new RadioButton(addEntity.getX(),dropDownButton.getY()+dropDownButton.getHeight(),Component.translatable("k_turrets.following.owner"));
                 linkedHashMap.put(follow.getMessage(),pButton -> {
-                    drone.setBehavior(Drone.Behavior.FOLLOW);
+                    drone.setBehavior(Drone.Behavior.FOLLOW_AND_ATTACK);
                     dropDownButton.onPress();
-                    KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW));
+                    KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW_AND_ATTACK));
                     dropDownButton.setMessage(pButton.getMessage());
                 });
-                RadioButton guard=new RadioButton(addEntity.getX(),follow.getY()+follow.getElementHeight(),Component.translatable("k_turrets.guard.area"));
+                RadioButton followOnly=new RadioButton(addEntity.getX(),follow.getY()+follow.getElementHeight(),Component.translatable("k_turrets.only.follow"));
+                linkedHashMap.put(followOnly.getMessage(),pButton -> {
+                    drone.setBehavior(Drone.Behavior.FOLLOW_ONLY);
+                    dropDownButton.onPress();
+                    KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW_ONLY));
+                    dropDownButton.setMessage(pButton.getMessage());
+                });
+                RadioButton guard=new RadioButton(addEntity.getX(),followOnly.getY()+followOnly.getElementHeight(),Component.translatable("k_turrets.guard.area"));
                 linkedHashMap.put(guard.getMessage(),pButton -> {
                     drone.setBehavior(Drone.Behavior.GUARD);
                     dropDownButton.onPress();

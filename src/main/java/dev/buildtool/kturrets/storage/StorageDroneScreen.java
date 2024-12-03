@@ -5,11 +5,8 @@ import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.gui.*;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-
-import java.util.LinkedHashMap;
 
 public class StorageDroneScreen extends Screen2 {
     private final StorageDrone drone;
@@ -43,13 +40,13 @@ public class StorageDroneScreen extends Screen2 {
             }));
         } else {
             MutableComponent follow=Component.translatable("k_turrets.following.owner");
-            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY,follow,Component.translatable("k_turrets.staying"),drone.getBehavior()== Drone.Behavior.FOLLOW, pButton -> {
+            SwitchButton toggle=new SwitchButton(centerX-font.width(follow)/2,centerY,follow,Component.translatable("k_turrets.staying"),drone.getBehavior()== Drone.Behavior.FOLLOW_AND_ATTACK, pButton -> {
                SwitchButton switchButton= (SwitchButton) pButton;
                switchButton.state=!switchButton.state;
                if(switchButton.state)
                {
-                   drone.setBehavior(Drone.Behavior.FOLLOW);
-                   KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW));
+                   drone.setBehavior(Drone.Behavior.FOLLOW_AND_ATTACK);
+                   KTurrets.channel.sendToServer(new SetBehavior(drone.getId(), Drone.Behavior.FOLLOW_AND_ATTACK));
                }
                else {
                    drone.setBehavior(Drone.Behavior.STAY);
