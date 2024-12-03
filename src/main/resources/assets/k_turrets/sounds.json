@@ -23,5 +23,10 @@
     "sounds": [
       "k_turrets:suppressed-shot"
     ]
+  },
+  "arrow_shoot": {
+    "sounds": [
+      "k_turrets:senitiel_pistol"
+    ]
   }
 }

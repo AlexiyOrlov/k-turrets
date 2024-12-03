@@ -14,4 +14,5 @@ public class Sounds {
     public static final RegistryObject<SoundEvent> COBBLE_SHOT = SOUNDS.register("cobble_shoot", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(KTurrets.ID, "cobble_shoot")));
     public static final RegistryObject<SoundEvent> DRONE_FLY = SOUNDS.register("drone_fly", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(KTurrets.ID, "drone_fly")));
     public static final RegistryObject<SoundEvent> BRICK_SHOT=SOUNDS.register("brick_shoot",() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(KTurrets.ID,"brick_shoot")));
+    public static final RegistryObject<SoundEvent> ARROW_SHOT=SOUNDS.register("arrow_shoot",() -> SoundEvent.createVariableRangeEvent(new ResourceLocation(KTurrets.ID,"arrow_shoot")));
 }
