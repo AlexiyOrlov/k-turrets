@@ -10,6 +10,7 @@ added helpful tooltips;
 added player names as suggestions for exceptions;
 added copper plates and propellers, used in turret and drone crafting;
 changed drone and turret recipes;
+added 'follow, don't attack' option for drones;
 
 3.0.34:
 changed Ammo reloader recipe;
