@@ -18,5 +18,10 @@
     "sounds": [
       "k_turrets:fan"
     ]
+  },
+  "brick_shoot": {
+    "sounds": [
+      "k_turrets:pistol_shot"
+    ]
   }
 }
