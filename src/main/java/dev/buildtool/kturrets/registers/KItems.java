@@ -218,7 +218,7 @@ public class KItems {
                 pTooltipComponents.add(Component.translatable("k_turrets.exp.link.info"));
             }
         });
-        FIRE_SHIELD =ITEMS.register("fire_shield",() -> new Item(defaults())
+        FIRE_SHIELD =ITEMS.register("fire_shield",() -> new Item(defaults().stacksTo(4))
         {
             @Override
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
