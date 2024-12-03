@@ -28,6 +28,7 @@ public class StorageDroneMenu extends Container2 {
         addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
         addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
         addSlot(new ItemHandlerSlot(storageDrone.upgrades,2,5*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades,3,6*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
 
         addPlayerInventory(inventory.player, 0, 5 * 18);
     }
@@ -36,11 +37,13 @@ public class StorageDroneMenu extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack stack = getSlot(index).getItem();
         if (index < 30) {
-            if (!moveItemStackTo(stack, 30, slots.size(), false))
+            if (!moveItemStackTo(stack, 31, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         else {
-            if((stack.is(KItems.LIGHT_UPGRADE.get()) || stack.is(KItems.RECALL_UPGRADE.get()) || stack.is(KItems.MAGNET_UPGRADE.get())) && !moveItemStackTo(stack,27,30,false))
+            if((stack.is(KItems.LIGHT_UPGRADE.get()) || stack.is(KItems.RECALL_UPGRADE.get()) || stack.is(KItems.MAGNET_UPGRADE.get()) || stack.is(KItems.FIRE_SHIELD.get())) && !moveItemStackTo(stack,27,30,false))
+                return ItemStack.EMPTY;
+            else if(!moveItemStackTo(stack,0,27,false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);
