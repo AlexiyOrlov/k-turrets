@@ -13,7 +13,7 @@
       "item": "minecraft:ender_pearl"
     },
     "s": {
-      "tag": "forge:plates/copper"
+      "item": "k_turrets:copper_plate"
     }
   },
   "result": {
