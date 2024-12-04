@@ -10,7 +10,7 @@
       "item": "minecraft:blue_ice"
     },
     "t": {
-      "tag": "forge:ingots/titanium"
+      "item": "k_turrets:titanium_ingot"
     }
   },
   "result": {
