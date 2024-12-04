@@ -48,7 +48,7 @@ public class KEntities {
     public static final RegistryObject<EntityType<CobbleDrone>> COBBLE_DRONE = ENTITIES.register("cobble_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new CobbleDrone(p_20723_), MobCategory.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("cobble_drone")));
     public static final RegistryObject<EntityType<ArrowDrone>> ARROW_DRONE = ENTITIES.register("arrow_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new ArrowDrone(p_20723_), MobCategory.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("arrow_drone")));
     public static final RegistryObject<EntityType<GaussDrone>> GAUSS_DRONE = ENTITIES.register("gauss_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new GaussDrone(p_20723_), MobCategory.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("gauss_drone")));
-    public static final RegistryObject<EntityType<FireballDrone>> FIRECHARGE_DRONE = ENTITIES.register("firecharge_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new FireballDrone(p_20723_), MobCategory.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).fireImmune().build("firecharge_drone")));
+    public static final RegistryObject<EntityType<FireballDrone>> FIRECHARGE_DRONE = ENTITIES.register("firecharge_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new FireballDrone(p_20723_), MobCategory.MISC).sized(DRONE_WIDTH, DRONE_WIDTH).build("firecharge_drone")));
 
     public static final RegistryObject<EntityType<StorageDrone>> STORAGE_DRONE = ENTITIES.register("storage_drone", () -> cast(EntityType.Builder.of((p_20722_, p_20723_) -> new StorageDrone(p_20723_), MobCategory.MISC).sized(0.7f, 0.7f).build("storage_drone")));
 
