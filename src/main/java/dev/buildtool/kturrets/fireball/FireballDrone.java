@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.fireball;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -38,28 +39,7 @@ public class FireballDrone extends Drone {
     protected void registerGoals() {
         super.registerGoals();
         goalSelector.addGoal(5, new RestrictedRangedAttackGoal(this, 1, KTurrets.FIREBALL_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (livingEntity instanceof Player player) {
-                        if (isProtectingFromPlayers())
-                            return alienPlayers.test(player);
-                        else return false;
-                    }
-                    if (livingEntity instanceof LivingEntity entity) {
-                        return !entity.fireImmune() && decodeTargets(getTargets()).contains(entity.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return ((getBehavior()==Behavior.GUARD) || getBehavior()==Behavior.FOLLOW_AND_ATTACK) && isArmed() && super.canUse();
-            }
-
-            @Override
-            public boolean canContinueToUse() {
-                return ((getBehavior()==Behavior.GUARD || getBehavior()==Behavior.FOLLOW_AND_ATTACK) && isArmed() && super.canContinueToUse());
-            }
-        });
+        targetSelector.addGoal(5, new AttackTargetGoal(this));
     }
 
     @Override

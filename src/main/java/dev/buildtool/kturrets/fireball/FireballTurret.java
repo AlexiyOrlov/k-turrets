@@ -3,6 +3,7 @@ package dev.buildtool.kturrets.fireball;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
 import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
@@ -39,28 +40,7 @@ public class FireballTurret extends Turret {
     protected void registerGoals() {
         super.registerGoals();
         goalSelector.addGoal(5, new RangedAttackGoal(this, 0, KTurrets.FIREBALL_TURRET_RATE.get(), (float) getRange()));
-        targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, LivingEntity.class, 0, true, true,
-                livingEntity -> {
-                    if (livingEntity instanceof Player player) {
-                        if (isProtectingFromPlayers())
-                            return alienPlayers.test(player);
-                        else return false;
-                    }
-                    if (livingEntity instanceof LivingEntity entity) {
-                        return !entity.fireImmune() && decodeTargets(getTargets()).contains(entity.getType());
-                    }
-                    return false;
-                }) {
-            @Override
-            public boolean canUse() {
-                return isArmed() && super.canUse();
-            }
-
-            @Override
-            public boolean canContinueToUse() {
-                return isArmed() && super.canContinueToUse();
-            }
-        });
+        targetSelector.addGoal(5,new AttackTargetGoal(this));
     }
 
     @Override
