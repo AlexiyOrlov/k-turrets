@@ -252,4 +252,9 @@ public abstract class Drone extends Turret {
                 level().removeBlock(previousPosition, false);
         }
     }
+
+    @Override
+    public boolean fireImmune() {
+        return Functions.contains(KItems.FIRE_SHIELD.get(), upgrades);
+    }
 }
