@@ -1,19 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "rir",
-    "iti",
-    "ppp"
+    "ccc",
+    "ctc",
+    "pcp"
   ],
   "key": {
     "p": {
       "item": "minecraft:ender_pearl"
     },
-    "r": {
-      "item": "minecraft:redstone_block"
-    },
-    "i": {
-      "item": "minecraft:iron_block"
+    "c": {
+      "item": "k_turrets:copper_plate"
     },
     "t": {
       "item": "k_turrets:titanium_ingot"
