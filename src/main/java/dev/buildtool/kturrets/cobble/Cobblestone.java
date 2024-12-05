@@ -16,10 +16,4 @@ public class Cobblestone extends PresetProjectile {
     public Cobblestone(Turret shooter, double p_i50175_3_, double p_i50175_5_, double p_i50175_7_, Level world) {
         super(KEntities.COBBLESTONE.get(), shooter, p_i50175_3_, p_i50175_5_, p_i50175_7_, world);
     }
-
-    @Override
-    protected void onHit(HitResult p_70227_1_) {
-        super.onHit(p_70227_1_);
-        level().playSound(null, blockPosition(), SoundEvents.NETHER_BRICKS_BREAK, SoundSource.NEUTRAL, 1, 1);
-    }
 }
