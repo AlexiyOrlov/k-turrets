@@ -65,7 +65,7 @@ public class BrickTurret extends Turret {
                     Brick brick = new Brick(this, xa, ya, za, level());
                     brick.setDamage(bricksItem.is(Tags.Items.INGOTS_BRICK) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
-                    playSound(Sounds.BRICK_SHOT.get(), 0.4f, 1);
+                    playSound(Sounds.BRICK_SHOT.get(), 0.3f, 1);
                     bricksItem.shrink(1);
                     break;
                 }
