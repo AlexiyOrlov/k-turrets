@@ -464,16 +464,17 @@ public class KTurrets {
                         CraftingMenu craftingMenu=new CraftingMenu(-1,contextSupplier.get().getSender().getInventory());
                         TransientCraftingContainer craftingContainer=new TransientCraftingContainer(craftingMenu,3,3);
                         itemCounts.forEach((item, integer) -> {
+                            ItemStack stack=new ItemStack(item);
+                            //try 3x3 recipe
                             if(integer>8)
                             {
-                                ItemStack stack=new ItemStack(item);
                                 for (int i = 0; i < 9; i++) {
                                     craftingContainer.setItem(i,stack);
                                 }
                             }
                             serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
                                 ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
-                                if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty())
+                                if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty() && out.getCount()==1)
                                 {
                                     int toMake=integer/9;
                                     for (int i = 0; i < toMake; i++) {
@@ -488,6 +489,34 @@ public class KTurrets {
                                 }
                             });
                             for (int i = 0; i < 9; i++) {
+                                craftingContainer.setItem(i,ItemStack.EMPTY);
+                            }
+
+                            //try 2x2 recipe
+                            if(integer>3)
+                            {
+                                craftingContainer.setItem(0,stack);
+                                craftingContainer.setItem(1,stack);
+                                craftingContainer.setItem(3,stack);
+                                craftingContainer.setItem(4,stack);
+                            }
+                            serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
+                                ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
+                                if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty() && out.getCount()==1)
+                                {
+                                    int toMake=integer/4;
+                                    for (int i = 0; i < toMake; i++) {
+                                        if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
+                                            Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                        }
+                                    }
+                                    int toConsume=toMake*4;
+                                    for (int j = 0; j < toConsume; j++) {
+                                        Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
+                                    }
+                                }
+                            });
+                            for (int i = 0; i < 5; i++) {
                                 craftingContainer.setItem(i,ItemStack.EMPTY);
                             }
                         });
