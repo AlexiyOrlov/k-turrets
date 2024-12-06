@@ -485,14 +485,14 @@ public class KTurrets {
                                         if(reverseOut.is(item))
                                         {
                                             int toMake=integer/9;
+                                            int toConsume=toMake*9;
+                                            for (int j = 0; j < toConsume; j++) {
+                                                Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
+                                            }
                                             for (int i = 0; i < toMake; i++) {
                                                 if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
                                                     Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
                                                 }
-                                            }
-                                            int toConsume=toMake*9;
-                                            for (int j = 0; j < toConsume; j++) {
-                                                Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
                                             }
                                         }
                                     });
@@ -521,14 +521,14 @@ public class KTurrets {
                                     //check reverse crafting
                                     serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainerReverse,serverLevel).ifPresent(craftingRecipe1 -> {
                                         int toMake=integer/4;
+                                        int toConsume=toMake*4;
+                                        for (int j = 0; j < toConsume; j++) {
+                                            Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
+                                        }
                                         for (int i = 0; i < toMake; i++) {
                                             if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
                                                 Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
                                             }
-                                        }
-                                        int toConsume=toMake*4;
-                                        for (int j = 0; j < toConsume; j++) {
-                                            Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
                                         }
                                     });
                                 }
