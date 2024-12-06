@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.*;
 import dev.buildtool.kturrets.storage.StorageDrone;
+import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.IntegerColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -22,13 +23,17 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.CraftingMenu;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -446,6 +451,49 @@ public class KTurrets {
                 contextSupplier.get().setPacketHandled(true);
             }
         });
+        channel.registerMessage(packetIndex++,CompressItems.class,(compressItems, byteBuf) -> byteBuf.writeInt(compressItems.droneId),
+                byteBuf -> new CompressItems(byteBuf.readInt()),(compressItems, contextSupplier) -> {
+                    ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
+                    Entity entity=serverLevel.getEntity(compressItems.droneId);
+                    if(entity instanceof StorageDrone storageDrone)
+                    {
+                        HashMap<Item,Integer> itemCounts=new HashMap<>(27);
+                        for (ItemStack item : storageDrone.itemHandler.getItems()) {
+                            itemCounts.merge(item.getItem(),item.getCount(), Integer::sum);
+                        }
+                        CraftingMenu craftingMenu=new CraftingMenu(-1,contextSupplier.get().getSender().getInventory());
+                        TransientCraftingContainer craftingContainer=new TransientCraftingContainer(craftingMenu,3,3);
+                        itemCounts.forEach((item, integer) -> {
+                            if(integer>8)
+                            {
+                                ItemStack stack=new ItemStack(item);
+                                for (int i = 0; i < 9; i++) {
+                                    craftingContainer.setItem(i,stack);
+                                }
+                            }
+                            serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
+                                ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
+                                if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty())
+                                {
+                                    int toMake=integer/9;
+                                    for (int i = 0; i < toMake; i++) {
+                                        if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
+                                            Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                        }
+                                    }
+                                    int toConsume=toMake*9;
+                                    for (int j = 0; j < toConsume; j++) {
+                                        Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
+                                    }
+                                }
+                            });
+                            for (int i = 0; i < 9; i++) {
+                                craftingContainer.setItem(i,ItemStack.EMPTY);
+                            }
+                        });
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);

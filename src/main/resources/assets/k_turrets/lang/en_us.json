@@ -143,5 +143,6 @@
   "k_turrets.bow.or.crossbow": "Slot for bow or crossbow",
   "k_turrets.upgrade.slot": "Upgrade slot",
   "k_turrets.fire.shield.info": "Protects the unit from fire damage",
-  "k_turrets.only.follow": "Follow, don't attack"
+  "k_turrets.only.follow": "Follow, don't attack",
+  "k_turrets.compress.items": "Compress items"
 }

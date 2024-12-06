@@ -14,10 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public class StorageDroneMenu extends Container2 {
-
+    StorageDrone storageDrone;
     public StorageDroneMenu(int i, Inventory inventory, FriendlyByteBuf byteBuf) {
         super(KContainers.STORAGE_DRONE.get(), i);
-        StorageDrone storageDrone = (StorageDrone) inventory.player.level().getEntity(byteBuf.readInt());
+        storageDrone = (StorageDrone) inventory.player.level().getEntity(byteBuf.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {
