@@ -33,7 +33,7 @@ public class CobbleTurretContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > KTurrets.turretSlotCount) {
-            if ((itemStack.is(KTurrets.COBBLE_UNIT_AMMO_TAG) || itemStack.is(KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, KTurrets.turretSlotCount -1, false))
+            if (itemStack.is(KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, KTurrets.turretSlotCount -1, false))
                 return ItemStack.EMPTY;
             if((itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get())) &&!moveItemStackTo(itemStack,KTurrets.turretSlotCount -1,KTurrets.turretSlotCount-1+KTurrets.turretUpgradeCount,false))
                 return ItemStack.EMPTY;

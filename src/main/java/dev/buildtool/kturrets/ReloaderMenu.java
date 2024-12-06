@@ -2,13 +2,11 @@ package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.KContainers;
 import dev.buildtool.satako.Container2;
-import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.gui.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ReloaderMenu extends Container2 {
@@ -50,7 +48,7 @@ public class ReloaderMenu extends Container2 {
                 return ItemStack.EMPTY;
             if ((itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG1) || itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 36, 54, false))
                 return ItemStack.EMPTY;
-            if ((itemStack.is( KTurrets.BULLET_UNIT_AMMO_TAG1) || itemStack.is( KTurrets.BULLET_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 18, 36, false))
+            if (itemStack.is( KTurrets.BULLET_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 18, 36, false))
                 return ItemStack.EMPTY;
             if (itemStack.is( KTurrets.FIREBALL_UNIT_AMMO) && !moveItemStackTo(itemStack, 54, 72, false))
                 return ItemStack.EMPTY;

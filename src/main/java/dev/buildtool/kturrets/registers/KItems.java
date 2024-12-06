@@ -24,7 +24,7 @@ public class KItems {
     public static RegistryObject<Item> BRICK_TURRET;
     public static RegistryObject<Item> BULLET_TURRET;
     public static RegistryObject<Item> FIRECHARGE_TURRET;
-    public static RegistryObject<Item> GAUSS_BULLET;
+    public static RegistryObject<Item> GAUSS_BULLET,BULLET;
     public static RegistryObject<Item> GAUSS_TURRET;
     public static RegistryObject<Item> COBBLE_TURRET;
     public static RegistryObject<Item> EXPLOSIVE_POWDER;
@@ -60,7 +60,7 @@ public class KItems {
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
-                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.GOLD_BULLET_DAMAGE.get()+"/"+KTurrets.IRON_BULLET_DAMAGE.get()));
+                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.IRON_BULLET_DAMAGE.get()));
                 components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.BULLET_TURRET_HEALTH.get())));
                 components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.BULLET_TURRET_ARMOR.get())));
                 components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.BULLET_TURRET_RANGE.get())));
@@ -127,7 +127,7 @@ public class KItems {
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
-                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.GOLD_BULLET_DAMAGE.get()+"/"+KTurrets.IRON_BULLET_DAMAGE.get()));
+                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.IRON_BULLET_DAMAGE.get()));
                 components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.BULLET_TURRET_HEALTH.get()*0.83)));
                 components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.BULLET_TURRET_ARMOR.get()*0.34)));
                 components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.BULLET_TURRET_RANGE.get())));
@@ -228,6 +228,7 @@ public class KItems {
         });
         PROPELLER=ITEMS.register("propeller",() -> new Item(defaults()));
         COPPER_PLATE=ITEMS.register("copper_plate",() -> new Item(defaults()));
+        BULLET=ITEMS.register("bullet",() -> new Item(defaults()));
     }
 
     private static Item.Properties defaults() {

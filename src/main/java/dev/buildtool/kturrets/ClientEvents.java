@@ -112,7 +112,7 @@ public class ClientEvents {
             tooltip.add(Component.translatable("k_turrets.gauss.unit.ammo"));
         if(stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2))
             tooltip.add(Component.translatable("k_turrets.brick.unit.ammo"));
-        if(stack.is(KTurrets.BULLET_UNIT_AMMO_TAG1) || stack.is(KTurrets.BULLET_UNIT_AMMO_TAG2))
+        if(stack.is(KTurrets.BULLET_UNIT_AMMO_TAG))
             tooltip.add(Component.translatable("k_turrets.bullet.unit.ammo"));
         if(stack.is(KTurrets.FIREBALL_UNIT_AMMO))
             tooltip.add(Component.translatable("k_turrets.fireball.unit.ammo"));

@@ -33,7 +33,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -84,7 +83,6 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue BULLET_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue BULLET_TURRET_RANGE;
     public static ForgeConfigSpec.DoubleValue BULLET_TURRET_ARMOR;
-    public static ForgeConfigSpec.IntValue GOLD_BULLET_DAMAGE;
     public static ForgeConfigSpec.IntValue IRON_BULLET_DAMAGE;
     public static ForgeConfigSpec.DoubleValue FIREBALL_TURRET_HEALTH;
     public static ForgeConfigSpec.DoubleValue FIREBALL_TURRET_RANGE;
@@ -110,8 +108,7 @@ public class KTurrets {
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
     public static TagKey<Item> BRICK_UNIT_AMMO_TAG1 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo1"));
     public static TagKey<Item> BRICK_UNIT_AMMO_TAG2 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo2"));
-    public static TagKey<Item> BULLET_UNIT_AMMO_TAG1 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo1"));
-    public static TagKey<Item> BULLET_UNIT_AMMO_TAG2 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo2"));
+    public static TagKey<Item> BULLET_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo"));
     public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
     public static TagKey<Item> GAUSS_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
 
@@ -188,7 +185,6 @@ public class KTurrets {
             BULLET_TURRET_ARMOR = builder.defineInRange("Armor", 3d, 0d, 100d);
             BULLET_TURRET_RATE = builder.comment("In ticks").worldRestart().defineInRange("Fire rate", 20, 1, 60);
             IRON_BULLET_DAMAGE = builder.defineInRange("Iron bullet damage", 8, 1, 100);
-            GOLD_BULLET_DAMAGE = builder.defineInRange("Gold bullet damage", 7, 1, 100);
             builder.pop();
             builder.push("Fire charge turret");
             FIREBALL_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
@@ -569,11 +565,8 @@ public class KTurrets {
         ITagManager<Item> tags = ForgeRegistries.ITEMS.tags();
         tags.getTag(COBBLE_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
-        logger.info("Bullet unit ammo 1:");
-        tags.getTag(BULLET_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("Bullet unit ammo 2:");
-        tags.getTag(BULLET_UNIT_AMMO_TAG2).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("");
+        logger.info("Bullet unit ammo:");
+        tags.getTag(BULLET_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("Brick unit ammo 1:");
         tags.getTag(BRICK_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("Brick unit ammo 2:");

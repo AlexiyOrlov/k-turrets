@@ -15,6 +15,8 @@ removed fire immunity from fireball units;
 fireball units can attack all mobs;
 removed titanium ingot from item tag;
 added item compression function to storage drone;
+removed secondary bullet unit ammo;
+introduced bullets for bullet units;
 
 3.0.34:
 changed Ammo reloader recipe;

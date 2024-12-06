@@ -3,7 +3,6 @@ package dev.buildtool.kturrets;
 import dev.buildtool.kturrets.registers.KBlockEntities;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.satako.BlockEntity2;
-import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
@@ -15,7 +14,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,7 +36,7 @@ public class ReloaderBlockEntity extends BlockEntity2 implements MenuProvider {
             if (slot <= 17)
                 return stack.is(KTurrets.ARROW_UNIT_AMMO_TAG);
             if (slot <= 35)
-                return stack.is(KTurrets.BULLET_UNIT_AMMO_TAG2) || stack.is(KTurrets.BULLET_UNIT_AMMO_TAG1);
+                return stack.is(KTurrets.BULLET_UNIT_AMMO_TAG);
             if (slot <= 53)
                 return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2);
             if (slot <= 71)
