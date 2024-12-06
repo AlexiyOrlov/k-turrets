@@ -10,7 +10,6 @@ import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 public class BrickDrone extends Drone {
@@ -31,7 +29,7 @@ public class BrickDrone extends Drone {
     protected ItemHandler ammo = new ItemHandler(18) {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2);
+            return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG);
         }
     };
 
@@ -61,7 +59,7 @@ public class BrickDrone extends Drone {
                     double ya = target.getEyeY() - getEyeY();
                     double za = target.getZ() - getZ();
                     Brick brick = new Brick(this, xa, ya, za, level());
-                    brick.setDamage(ammoItem.is(KTurrets.BRICK_UNIT_AMMO_TAG1) ? KTurrets.BRICK_DAMAGE.get() : KTurrets.NETHERBRICK_DAMAGE.get());
+                    brick.setDamage(KTurrets.BRICK_DAMAGE.get());
                     level().addFreshEntity(brick);
                     playSound(Sounds.BRICK_SHOT.get(), 0.3f, 1);
                     ammoItem.shrink(1);

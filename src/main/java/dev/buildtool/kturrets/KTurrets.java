@@ -106,8 +106,7 @@ public class KTurrets {
     public static DeferredRegister<CreativeModeTab> TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ID);
     public static TagKey<Item> COBBLE_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "cobble_unit_ammo"));
     public static TagKey<Item> ARROW_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "arrow_unit_ammo"));
-    public static TagKey<Item> BRICK_UNIT_AMMO_TAG1 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo1"));
-    public static TagKey<Item> BRICK_UNIT_AMMO_TAG2 = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo2"));
+    public static TagKey<Item> BRICK_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "brick_unit_ammo"));
     public static TagKey<Item> BULLET_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "bullet_unit_ammo"));
     public static TagKey<Item> FIREBALL_UNIT_AMMO = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "fireball_unit_ammo"));
     public static TagKey<Item> GAUSS_UNIT_AMMO_TAG = ForgeRegistries.ITEMS.tags().createTagKey(new ResourceLocation(ID, "gauss_unit_ammo"));
@@ -562,16 +561,15 @@ public class KTurrets {
     @SubscribeEvent
     public void showAmmo(ServerStartedEvent serverStartedEvent)
     {
-        logger.info("Cobble unit ammo:");
         ITagManager<Item> tags = ForgeRegistries.ITEMS.tags();
+        logger.info("Cobble unit ammo:");
         tags.getTag(COBBLE_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Bullet unit ammo:");
         tags.getTag(BULLET_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("Brick unit ammo 1:");
-        tags.getTag(BRICK_UNIT_AMMO_TAG1).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("Brick unit ammo 2:");
-        tags.getTag(BRICK_UNIT_AMMO_TAG2).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
+        logger.info("");
+        logger.info("Brick unit ammo:");
+        tags.getTag(BRICK_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
         logger.info("");
         logger.info("Gauss unit ammo:");
         tags.getTag(GAUSS_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));

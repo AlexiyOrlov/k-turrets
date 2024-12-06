@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import java.util.List;
 
 public class BrickDroneContainer extends Container2 {
@@ -36,7 +35,7 @@ public class BrickDroneContainer extends Container2 {
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
         if (index > KTurrets.droneSlotCount) {
-            if ((itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 0, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount, false))
+            if (itemStack.is(KTurrets.BRICK_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount, false))
                     return ItemStack.EMPTY;
             else if((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get())) && !moveItemStackTo(itemStack,KTurrets.droneSlotCount-KTurrets.droneUpgradeCount,KTurrets.droneSlotCount,false))
                 return ItemStack.EMPTY;

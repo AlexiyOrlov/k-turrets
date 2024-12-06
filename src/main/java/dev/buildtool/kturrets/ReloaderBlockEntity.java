@@ -38,7 +38,7 @@ public class ReloaderBlockEntity extends BlockEntity2 implements MenuProvider {
             if (slot <= 35)
                 return stack.is(KTurrets.BULLET_UNIT_AMMO_TAG);
             if (slot <= 53)
-                return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG1) || stack.is(KTurrets.BRICK_UNIT_AMMO_TAG2);
+                return stack.is(KTurrets.BRICK_UNIT_AMMO_TAG);
             if (slot <= 71)
                 return stack.is(KTurrets.FIREBALL_UNIT_AMMO);
             if (slot <= 89)

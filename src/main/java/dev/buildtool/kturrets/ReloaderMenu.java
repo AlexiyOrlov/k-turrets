@@ -46,7 +46,7 @@ public class ReloaderMenu extends Container2 {
                 return ItemStack.EMPTY;
             if (itemStack.is(KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 72, 90, false))
                 return ItemStack.EMPTY;
-            if ((itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG1) || itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG2)) && !moveItemStackTo(itemStack, 36, 54, false))
+            if (itemStack.is( KTurrets.BRICK_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 36, 54, false))
                 return ItemStack.EMPTY;
             if (itemStack.is( KTurrets.BULLET_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 18, 36, false))
                 return ItemStack.EMPTY;
