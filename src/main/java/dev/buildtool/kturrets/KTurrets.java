@@ -127,6 +127,7 @@ public class KTurrets {
 
             items.accept(KItems.EXPLOSIVE_POWDER.get());
             items.accept(KItems.GAUSS_BULLET.get());
+            items.accept(KItems.BULLET.get());
             items.accept(KItems.TITANIUM_ORE.get());
             items.accept(KItems.DEEPSLATE_TITANIUM_ORE.get());
             items.accept(KItems.RAW_TITANIUM.get());
