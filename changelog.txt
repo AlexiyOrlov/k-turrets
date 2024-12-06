@@ -14,6 +14,7 @@ added 'follow, don't attack' option for drones;
 removed fire immunity from fireball units;
 fireball units can attack all mobs;
 removed titanium ingot from item tag;
+added item compression function to storage drone;
 
 3.0.34:
 changed Ammo reloader recipe;
