@@ -17,6 +17,6 @@ public class StorageDroneMenuScreen extends ContainerScreen2<StorageDroneMenu> {
         super.init();
         Component compress=Component.translatable("k_turrets.compress.items");
         StorageDroneMenu droneMenu=menu;
-        addRenderableWidget(new BetterButton(getGuiLeft()-font.width(compress)-20,centerY-10,compress,pButton -> KTurrets.channel.sendToServer(new CompressItems(droneMenu.storageDrone.getId()))));
+        addRenderableWidget(new BetterButton(getGuiLeft()-font.width(compress)-20,centerY-20,compress,pButton -> KTurrets.channel.sendToServer(new CompressItems(droneMenu.storageDrone.getId()))));
     }
 }
