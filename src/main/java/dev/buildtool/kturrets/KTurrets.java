@@ -165,7 +165,7 @@ public class KTurrets {
         KBlocks.BLOCKS.register(eventBus);
         TAB_REGISTER.register(eventBus);
         KBlockEntities.BLOCK_ENTITIES.register(eventBus);
-
+        //TODO rename config options
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");
             PROJECTILE_SPEED = builder.defineInRange("Turret and drone projectile speed", 50, 0.1, 50);
