@@ -89,7 +89,7 @@ public class KTurrets {
     public static ForgeConfigSpec.DoubleValue FIREBALL_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue FIREBALL_TURRET_DAMAGE;
     public static ForgeConfigSpec.DoubleValue BRICK_TURRET_HEALTH, BRICK_TURRET_RANGE, BRICK_TURRET_ARMOR;
-    public static ForgeConfigSpec.IntValue BRICK_DAMAGE, NETHERBRICK_DAMAGE, BRICK_TURRET_RATE;
+    public static ForgeConfigSpec.IntValue BRICK_DAMAGE, BRICK_TURRET_RATE;
     public static ForgeConfigSpec.DoubleValue GAUSS_TURRET_HEALTH, GAUSS_TURRET_RANGE, GAUSS_TURRET_ARMOR;
     public static ForgeConfigSpec.IntValue GAUSS_TURRET_DAMAGE, GAUSS_TURRET_RATE;
     public static ForgeConfigSpec.DoubleValue COBBLE_TURRET_HEALTH, COBBLE_TURRET_RANGE, COBBLE_TURRET_ARMOR;
@@ -199,7 +199,6 @@ public class KTurrets {
             BRICK_TURRET_ARMOR = builder.defineInRange("Armor", 3, 0d, 100d);
             BRICK_TURRET_RATE = builder.comment("In ticks").worldRestart().defineInRange("Fire rate", 20, 1, 60);
             BRICK_DAMAGE = builder.defineInRange("Brick damage", 9, 1, 100);
-            NETHERBRICK_DAMAGE = builder.defineInRange("Nether brick damage", 10, 1, 100);
             builder.pop();
             builder.push("Gauss turret");
             GAUSS_TURRET_HEALTH = builder.defineInRange("Health", 60d, 10d, Double.MAX_VALUE);
