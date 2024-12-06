@@ -135,7 +135,7 @@
   "k_turrets.protection.from.players": "Attack alien players?",
   "k_turrets.deployed": "Deployed",
   "k_turrets.fire.rate": "Fire rate",
-  "k_turrets.shots.per.second": "shot(s) per second",
+  "k_turrets.shots.per.second": "shot(s)/s",
   "k_turrets.damage.info": "Damage",
   "k_turrets.armor.info": "Armor",
   "k_turrets.exp.link.info": "Entities killed by the unit will drop experience",
