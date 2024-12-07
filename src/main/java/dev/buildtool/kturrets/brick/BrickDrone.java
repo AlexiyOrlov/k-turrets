@@ -93,9 +93,4 @@ public class BrickDrone extends Drone {
     public int getDamage() {
         return KTurrets.BRICK_DAMAGE.get();
     }
-
-    @Override
-    public int getSecondaryDamage() {
-        return KTurrets.NETHERBRICK_DAMAGE.get();
-    }
 }
