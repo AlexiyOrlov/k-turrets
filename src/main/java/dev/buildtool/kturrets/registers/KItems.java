@@ -82,7 +82,7 @@ public class KItems {
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
-                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.BRICK_DAMAGE.get()+"/"+KTurrets.NETHERBRICK_DAMAGE.get()));
+                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.BRICK_DAMAGE.get()));
                 components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.BRICK_TURRET_HEALTH.get())));
                 components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.BRICK_TURRET_ARMOR.get())));
                 components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.BRICK_TURRET_RANGE.get())));
@@ -116,7 +116,7 @@ public class KItems {
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
-                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.BRICK_DAMAGE.get()+"/"+KTurrets.NETHERBRICK_DAMAGE.get()));
+                components.add(Component.translatable("k_turrets.damage.info").append(": "+KTurrets.BRICK_DAMAGE.get()));
                 components.add(Component.translatable("k_turrets.integrity").append(": "+String.format("%.1f",KTurrets.BRICK_TURRET_HEALTH.get()*0.83)));
                 components.add(Component.translatable("k_turrets.armor.info").append(": "+String.format("%.1f",KTurrets.BRICK_TURRET_ARMOR.get()*0.34)));
                 components.add(Component.translatable("k_turrets.range").append(": "+String.format("%.1f",KTurrets.BRICK_TURRET_RANGE.get())));
