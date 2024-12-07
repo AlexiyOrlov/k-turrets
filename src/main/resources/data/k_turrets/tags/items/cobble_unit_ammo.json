@@ -1,5 +1,8 @@
 {
   "values": [
-    "#minecraft:stone_tool_materials"
+    "#minecraft:stone_tool_materials",
+    "minecraft:diorite",
+    "minecraft:granite",
+    "minecraft:andesite"
   ]
 }
