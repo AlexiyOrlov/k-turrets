@@ -18,6 +18,7 @@ added item compression function to storage drone;
 removed secondary bullet unit ammo;
 removed secondary brick unit ammo;
 introduced bullets for bullet units;
+added diorite, andesite and granite to cobblestone unit ammo;
 
 3.0.34:
 changed Ammo reloader recipe;
