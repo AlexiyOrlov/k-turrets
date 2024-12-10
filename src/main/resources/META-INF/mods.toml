@@ -24,7 +24,7 @@ logoFile = "k-turrets.png" #optional
 # A text field displayed in the mod UI
 credits = "Mapping_bl (French tr.)" #optional
 # A text field displayed in the mod UI
-authors = "Alexiy" #optional
+authors = "Krosenut" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
 Adds 6 configurable turrets and drones to destroy enemies.
