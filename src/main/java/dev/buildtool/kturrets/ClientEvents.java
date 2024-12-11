@@ -60,6 +60,25 @@ public class ClientEvents {
                 }
             }
         }
+        LivingEntity livingEntity = renderLivingEvent.getEntity();
+        Player player = Minecraft.getInstance().player;
+        if (livingEntity instanceof Turret turret) {
+            if (player.distanceTo(turret) < 23) {
+                if (turret.noAmmo && !(turret instanceof StorageDrone)) {PoseStack poseStack = renderLivingEvent.getPoseStack();
+                    poseStack.translate(0, -13, 0);                    Font font = renderLivingEvent.getRenderer().getFont();
+                    Component noAmmo = Component.translatable("k_turrets.no.ammo");
+                    if (turret.getOwner().isEmpty() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
+                        poseStack.pushPose();
+                        poseStack.scale(0.03f, 0.03f, 0.03f);
+                        poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+                        poseStack.mulPose(Axis.YP.rotationDegrees(180));
+                        poseStack.mulPose(Axis.XP.rotationDegrees(180));
+                        font.drawInBatch(noAmmo, 0, 0, ChatFormatting.RED.getColor(), false, poseStack.last().pose(), renderLivingEvent.getMultiBufferSource(), Font.DisplayMode.NORMAL, 0, 15728880);
+                        poseStack.popPose();
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
