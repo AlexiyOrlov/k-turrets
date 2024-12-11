@@ -275,7 +275,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
             {
                 DropDownButton dropDownButton=new DropDownButton(addEntity.getX(), finalElementYPos,wrapper,Component.literal(""));
                 LinkedHashMap<Component, Button.OnPress> linkedHashMap = new LinkedHashMap<>(3);
-                RadioButton follow=new RadioButton(addEntity.getX(),dropDownButton.getY()+dropDownButton.getHeight(),Component.translatable("k_turrets.following.owner"));
+                RadioButton follow=new RadioButton(addEntity.getX(),dropDownButton.getY()+dropDownButton.getHeight(),Component.translatable("k_turrets.follow_and_attack.owner"));
                 linkedHashMap.put(follow.getMessage(),pButton -> {
                     drone.setBehavior(Drone.Behavior.FOLLOW_AND_ATTACK);
                     dropDownButton.onPress();
