@@ -578,7 +578,6 @@ public class KTurrets {
         logger.info("");
         logger.info("Arrow unit ammo:");
         tags.getTag(ARROW_UNIT_AMMO_TAG).stream().forEach(item -> logger.info(ForgeRegistries.ITEMS.getKey(item)));
-        logger.info("");
 
         if(serverStartedEvent.getServer().isDedicatedServer()) {
             File dir = serverStartedEvent.getServer().getServerDirectory();
