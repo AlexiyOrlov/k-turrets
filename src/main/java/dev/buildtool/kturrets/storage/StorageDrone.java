@@ -6,6 +6,7 @@ import dev.buildtool.kturrets.packets.PickupParticles;
 import dev.buildtool.kturrets.registers.KBlocks;
 import dev.buildtool.kturrets.registers.KEntities;
 import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.tasks.AvoidAggressors;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
@@ -166,5 +167,11 @@ public class StorageDrone extends Drone {
     public boolean isMagnetActive()
     {
         return entityData.get(MAGNET_ACTIVE);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        goalSelector.addGoal(1,new AvoidAggressors(this));
     }
 }
