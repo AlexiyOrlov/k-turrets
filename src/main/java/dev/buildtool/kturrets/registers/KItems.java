@@ -226,7 +226,7 @@ public class KItems {
                 pTooltipComponents.add(Component.translatable("k_turrets.fire.shield.info"));
             }
         });
-        PROPELLER=ITEMS.register("propeller",() -> new Item(defaults()));
+//        PROPELLER=ITEMS.register("propeller",() -> new Item(defaults()));
         COPPER_PLATE=ITEMS.register("copper_plate",() -> new Item(defaults()));
         BULLET=ITEMS.register("bullet",() -> new Item(defaults()));
     }
