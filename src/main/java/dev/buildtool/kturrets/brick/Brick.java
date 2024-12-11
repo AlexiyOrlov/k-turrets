@@ -22,10 +22,4 @@ public class Brick extends PresetProjectile {
         super.tick();
         yRotO += 1f;
     }
-
-    @Override
-    protected void onHit(HitResult p_70227_1_) {
-        super.onHit(p_70227_1_);
-        level().playSound(null, blockPosition(), SoundEvents.GILDED_BLACKSTONE_BREAK, SoundSource.NEUTRAL, 1, 1);
-    }
 }
