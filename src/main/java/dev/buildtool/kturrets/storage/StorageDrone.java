@@ -20,6 +20,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -35,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class StorageDrone extends Drone {
     private static final EntityDataAccessor<Boolean> MAGNET_ACTIVE= SynchedEntityData.defineId(StorageDrone.class, EntityDataSerializers.BOOLEAN);
@@ -172,6 +175,15 @@ public class StorageDrone extends Drone {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        goalSelector.addGoal(1,new AvoidAggressors(this));
+        goalSelector.addGoal(1,new AvoidEntityGoal<>(this, Mob.class, living -> {
+            if (getOwner().isPresent()) {
+                Player owner = level().getPlayerByUUID(getOwnerUUID());
+                if (owner != null) {
+                    Mob mob = (Mob) living;
+                    return mob.getTarget() == owner;
+                }
+            }
+            return false;
+        }, 6, 1, 1, living -> true));
     }
 }

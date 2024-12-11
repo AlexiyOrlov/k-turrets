@@ -64,7 +64,7 @@ public abstract class Drone extends Turret {
         }
     };
 
-    public Drone(EntityType<? extends Mob> entityType, Level world) {
+    public Drone(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
         moveControl = new DroneMovementControl(this, 20, true);
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);

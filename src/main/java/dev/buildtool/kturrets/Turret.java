@@ -58,7 +58,7 @@ import java.util.function.Predicate;
 /**
  * Extends Mob entity because of goals
  */
-public abstract class Turret extends Mob implements RangedAttackMob, MenuProvider, Container {
+public abstract class Turret extends PathfinderMob implements RangedAttackMob, MenuProvider, Container {
     private static final EntityDataAccessor<CompoundTag> TARGETS = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Optional<UUID>> OWNER = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.OPTIONAL_UUID);
     protected static final EntityDataAccessor<Boolean> MOVEABLE = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.BOOLEAN);
@@ -100,7 +100,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
         return false;
     };
 
-    public Turret(EntityType<? extends Mob> entityType, Level world) {
+    public Turret(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -486,6 +486,7 @@ public abstract class Turret extends Mob implements RangedAttackMob, MenuProvide
      */
     public abstract boolean isArmed();
 
+    @Nullable
     public UUID getOwnerUUID() {
         return getOwner().isPresent() ? getOwner().get() : null;
     }
