@@ -317,11 +317,11 @@ public class UnitOptionsScreen extends ButtonListScreen {
             wrapper.addRenderableWidget(claim);
             hideableWidgets.add(claim);
         });
-        elementYPos+=20;
-        Label range = new Label(addEntity.getX(), elementYPos, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
+        elementYPos+=24;
+        Label range = new Label(addEntity.getX()+4, elementYPos, Component.translatable(KTurrets.ID + ".range").append(": ").append("" + turret.getRange()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(range));
         elementYPos+=18;
-        Label health = new Label(addEntity.getX(), elementYPos, Component.translatable(KTurrets.ID + ".integrity").append(": ").append(String.format("%.1f", turret.getHealth()) + "/" + turret.getMaxHealth()), Constants.BLACK);
+        Label health = new Label(range.getX(), elementYPos, Component.translatable(KTurrets.ID + ".integrity").append(": ").append(String.format("%.1f", turret.getHealth()) + "/" + turret.getMaxHealth()), Constants.BLACK);
         hideableWidgets.add(wrapper.addRenderableWidget(health));
         int primaryDamage=turret.getDamage();
         int secondaryDamage= turret.getSecondaryDamage();
@@ -329,11 +329,11 @@ public class UnitOptionsScreen extends ButtonListScreen {
         if(secondaryDamage>0)
             damageText.append("/"+secondaryDamage);
         elementYPos+=18;
-        Label damage=new Label(addEntity.getX(),elementYPos, damageText,Constants.BLACK);
+        Label damage=new Label(range.getX(),elementYPos, damageText,Constants.BLACK);
         hideableWidgets.add(damage);
         wrapper.addRenderableWidget(damage);
         elementYPos+=18;
-        Label armor=new Label(addEntity.getX(),elementYPos,Component.translatable("k_turrets.armor",String.format("%.1f",turret.getAttribute(Attributes.ARMOR).getValue())),Constants.BLACK);
+        Label armor=new Label(range.getX(),elementYPos,Component.translatable("k_turrets.armor",String.format("%.1f",turret.getAttribute(Attributes.ARMOR).getValue())),Constants.BLACK);
         hideableWidgets.add(armor);
         wrapper.addRenderableWidget(armor);
     }
