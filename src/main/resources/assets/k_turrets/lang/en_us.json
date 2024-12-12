@@ -73,9 +73,9 @@
   "k_turrets.filters.copied": "Copied targets and exceptions",
 
   "death.attack.turret_bullet": "%1$s was shot by a bullet",
-  "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
-  "death.attack.k_turrets.brick": "%1$s was hit by a brick",
-  "death.attack.k_turrets.cobblestone": "%1$s was stoned by cobblestone",
+  "death.attack.gauss_bullet": "%1$s was shot by a Gauss bullet",
+  "death.attack.brick": "%1$s was hit by a brick",
+  "death.attack.cobblestone": "%1$s was stoned by cobblestone",
   "death.attack.turret_arrow": "%1$s was shot by an arrow",
 
   "entity.k_turrets.fire_charge_turret": "Fireball Turret",
