@@ -234,18 +234,16 @@ public class UnitOptionsScreen extends ButtonListScreen {
         mobility.setTooltip(Tooltip.create(Component.translatable("k_turrets.pushable")));
         elementYPos+=20;
 
-        if(FMLEnvironment.dist.isDedicatedServer()) {
-            SwitchButton playerProtection = new SwitchButton(addEntity.getX(), elementYPos, Component.translatable("k_turrets.protect.from.players"), Component.translatable("k_turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), pButton -> {
-                SwitchButton switchButton1 = (SwitchButton) pButton;
-                switchButton1.state = !switchButton1.state;
-                turret.setProtectionFromPlayers(switchButton1.state);
-                KTurrets.channel.sendToServer(new TogglePlayerProtection(switchButton1.state, turret.getId()));
-            });
-            wrapper.addRenderableWidget(playerProtection);
-            hideableWidgets.add(playerProtection);
-            playerProtection.setTooltip(Tooltip.create(Component.translatable("k_turrets.protection.from.players")));
-            elementYPos+=20;
-        }
+        SwitchButton playerProtection = new SwitchButton(addEntity.getX(), elementYPos, Component.translatable("k_turrets.protect.from.players"), Component.translatable("k_turrets.not.protect.from.players"), turret.isProtectingFromPlayers(), pButton -> {
+            SwitchButton switchButton1 = (SwitchButton) pButton;
+            switchButton1.state = !switchButton1.state;
+            turret.setProtectionFromPlayers(switchButton1.state);
+            KTurrets.channel.sendToServer(new TogglePlayerProtection(switchButton1.state, turret.getId()));
+        });
+        wrapper.addRenderableWidget(playerProtection);
+        hideableWidgets.add(playerProtection);
+        playerProtection.setTooltip(Tooltip.create(Component.translatable("k_turrets.protection.from.players")));
+        elementYPos+=20;
 
         SwitchButton refillSwitch=new SwitchButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.refill.inventory"),Component.translatable("k_turrets.dont.refill.inventory"),turret.isRefillingInventory(),pButton -> {
             SwitchButton b= (SwitchButton) pButton;
