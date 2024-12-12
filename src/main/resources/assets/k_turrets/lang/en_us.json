@@ -72,7 +72,7 @@
   "k_turrets.filters.stored": "Stored targets and exceptions",
   "k_turrets.filters.copied": "Copied targets and exceptions",
 
-  "death.attack.k_turrets.bullet": "%1$s was shot by a bullet",
+  "death.attack.turret_bullet": "%1$s was shot by a bullet",
   "death.attack.k_turrets.gauss_bullet": "%1$s was shot by a Gauss bullet",
   "death.attack.k_turrets.brick": "%1$s was hit by a brick",
   "death.attack.k_turrets.cobblestone": "%1$s was stoned by cobblestone",
