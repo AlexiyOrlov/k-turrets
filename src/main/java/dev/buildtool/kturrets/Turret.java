@@ -10,7 +10,7 @@ import dev.buildtool.kturrets.tasks.RevengeTask;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import dev.buildtool.satako.UniqueList;
-import dev.buildtool.satako.gui.CombinedScreen;
+import dev.buildtool.satako.clientside.gui.CombinedScreen;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;

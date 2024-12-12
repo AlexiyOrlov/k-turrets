@@ -4,7 +4,9 @@ import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.kturrets.registers.KItems;
-import dev.buildtool.satako.gui.*;
+import dev.buildtool.satako.clientside.gui.BetterButton;
+import dev.buildtool.satako.clientside.gui.Screen2;
+import dev.buildtool.satako.clientside.gui.SwitchButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 

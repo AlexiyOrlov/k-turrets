@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.CompressItems;
-import dev.buildtool.satako.gui.BetterButton;
-import dev.buildtool.satako.gui.ContainerScreen2;
+import dev.buildtool.satako.clientside.gui.BetterButton;
+import dev.buildtool.satako.clientside.gui.ContainerScreen2;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -17,6 +17,6 @@ public class StorageDroneMenuScreen extends ContainerScreen2<StorageDroneMenu> {
         super.init();
         Component compress=Component.translatable("k_turrets.compress.items");
         StorageDroneMenu droneMenu=menu;
-        addRenderableWidget(new BetterButton(getGuiLeft()-font.width(compress)-20,centerY-20,compress,pButton -> KTurrets.channel.sendToServer(new CompressItems(droneMenu.storageDrone.getId()))));
+        addRenderableWidget(new BetterButton(getGuiLeft()-font.width(compress)-20,centerY-20,compress, pButton -> KTurrets.channel.sendToServer(new CompressItems(droneMenu.storageDrone.getId()))));
     }
 }

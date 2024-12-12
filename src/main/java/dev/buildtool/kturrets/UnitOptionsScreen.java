@@ -3,7 +3,7 @@ package dev.buildtool.kturrets;
 import dev.buildtool.kturrets.packets.*;
 import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.UniqueList;
-import dev.buildtool.satako.gui.*;
+import dev.buildtool.satako.clientside.gui.*;
 import dev.ftb.mods.ftblibrary.icon.Icons;
 import dev.ftb.mods.ftblibrary.ui.*;
 import dev.ftb.mods.ftblibrary.ui.TextField;
@@ -31,7 +31,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
     private final UniqueList<EntityType<?>> targets;
     public CombinedScreen wrapper;
     private final ArrayList<BetterButton> hideableWidgets=new ArrayList<>();
-    private dev.buildtool.satako.gui.TextField addEntity;
+    private dev.buildtool.satako.clientside.gui.TextField addEntity;
     private final List<String> exceptions=new ArrayList<>();
     private final ArrayList<TextButton> exceptionButtons=new ArrayList<>();
 
@@ -76,7 +76,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         super.addWidgets();
         Panel rightPanel = new Panel(this) {
             private BetterButton addButton;
-            private dev.buildtool.satako.gui.TextField addEntity;
+            private TextField addEntity;
 
             @Override
             public void addWidgets() {
@@ -100,7 +100,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
     public void initialize()
     {
         int elementYPos=10;
-        addEntity = new dev.buildtool.satako.gui.TextField(width/2, elementYPos,Component.empty(),width/2){
+        addEntity = new dev.buildtool.satako.clientside.gui.TextField(width/2, elementYPos,Component.empty(),width/2){
             @Override
             public boolean keyReleased(int pKeyCode, int pScanCode, int pModifiers) {
                 suggestions.forEach(wrapper::removeWidget);
@@ -223,7 +223,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
         hideableWidgets.add(resetTargets);
         elementYPos+=20;
 
-        SwitchButton mobility=new SwitchButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.mobile"),Component.translatable("k_turrets.immobile"),turret.isMoveable(),pButton -> {
+        SwitchButton mobility=new SwitchButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.mobile"),Component.translatable("k_turrets.immobile"),turret.isMoveable(), pButton -> {
            SwitchButton switchButton1= (SwitchButton) pButton;
            switchButton1.state=!switchButton1.state;
            turret.setMoveable(switchButton1.state);

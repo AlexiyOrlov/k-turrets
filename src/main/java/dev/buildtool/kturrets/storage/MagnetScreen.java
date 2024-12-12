@@ -2,8 +2,8 @@ package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.MagnetFilterState;
-import dev.buildtool.satako.gui.ContainerScreen2;
-import dev.buildtool.satako.gui.SwitchButton;
+import dev.buildtool.satako.clientside.gui.ContainerScreen2;
+import dev.buildtool.satako.clientside.gui.SwitchButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Inventory;
