@@ -78,27 +78,6 @@ public class UnitOptionsScreen extends ButtonListScreen {
     }
 
     @Override
-    public void addWidgets() {
-        super.addWidgets();
-        Panel rightPanel = new Panel(this) {
-            private BetterButton addButton;
-            private TextField addEntity;
-
-            @Override
-            public void addWidgets() {
-
-            }
-
-            @Override
-            public void alignWidgets() {
-
-            }
-        };
-        rightPanel.setPosAndSize(mainPanel.width+90,10,width- mainPanel.width,height);
-        add(rightPanel);
-    }
-
-    @Override
     public boolean onClosedByKey(Key key) {
         return addEntity.isFocused() ? key.esc() : key.escOrInventory();
     }
@@ -208,7 +187,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
 
         BetterButton clearTargets=new BetterButton(addEntity.getX(),elementYPos,Component.translatable("k_turrets.clear.list"),pButton -> {
             targets.clear();
-            mainPanel.clearWidgets();
+            mainPanel.refreshWidgets();
             KTurrets.channel.sendToServer(new TurretTargets(new CompoundTag(),turret.getId()));
         });
         wrapper.addRenderableWidget(clearTargets);
