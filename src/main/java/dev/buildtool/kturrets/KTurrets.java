@@ -618,7 +618,7 @@ public class KTurrets {
                             }
                         }
                     } else
-                        logger.info("   Skipping loot pool");
+                        logger.info("   Skipping regular loot pool");
                 });
             }
         }
