@@ -168,7 +168,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
                 String playerName=string.substring(1);
                 if(exceptions.contains(playerName))
                 {
-                    wrapper.addPopup(Component.translatable("k_turrets.player.is.already.in.exceptions"));
+                    wrapper.addPopup(Component.translatable("k_turrets.player.is.already.in.exceptions",playerName));
                 }
                 else {
                     turret.addPlayerToExceptions(playerName);
