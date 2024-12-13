@@ -11,6 +11,7 @@ import dev.buildtool.kturrets.registers.*;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.IntegerColor;
+import dev.buildtool.satako.Methods;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -236,7 +237,7 @@ public class KTurrets {
             return builder.build();
         });
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, pair.getRight());
-        loadConfig(pair.getRight(), FMLPaths.CONFIGDIR.get().resolve("k_turrets-common.toml").toString());
+        Methods.loadConfig(pair,"k_turrets-common.toml");
 
         channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(ID, "network"), () -> NP, NP::equals, NP::equals);
         int packetIndex = 0;
@@ -563,12 +564,6 @@ public class KTurrets {
         }).getRight());
 
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    public static void loadConfig(ForgeConfigSpec config, String path) {
-        final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
-        file.load();
-        config.setConfig(file);
     }
 
     @SubscribeEvent
