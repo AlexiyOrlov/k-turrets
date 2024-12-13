@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets.storage;
 
-import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KTContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -14,7 +14,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 public class MagnetMenu extends Container2 {
     public MagnetMenu(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
-        super(KContainers.MAGNET.get(), i);
+        super(KTContainers.MAGNET.get(), i);
         ItemStack magnet=inventory.getSelected();
         magnet.getCapability(ForgeCapabilities.ITEM_HANDLER,null).ifPresent(iItemHandler -> {
             int index=0;

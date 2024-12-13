@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.fireball;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
 import dev.buildtool.satako.Functions;
@@ -11,7 +11,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.SmallFireball;
@@ -32,7 +31,7 @@ public class FireballDrone extends Drone {
     };
 
     public FireballDrone(Level world) {
-        super(KEntities.FIRECHARGE_DRONE.get(), world);
+        super(KTEntities.FIRECHARGE_DRONE.get(), world);
     }
 
     @Override

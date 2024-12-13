@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.brick;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class BrickDrone extends Drone {
     public BrickDrone(Level world) {
-        super(KEntities.BRICK_DRONE.get(), world);
+        super(KTEntities.BRICK_DRONE.get(), world);
     }
 
     protected ItemHandler ammo = new ItemHandler(18) {

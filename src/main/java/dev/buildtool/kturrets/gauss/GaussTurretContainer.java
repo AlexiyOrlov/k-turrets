@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KTContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GaussTurretContainer extends Container2 {
     public GaussTurretContainer(int i, Inventory inventory, FriendlyByteBuf buffer) {
-        super(KContainers.GAUSS_TURRET.get(), i);
+        super(KTContainers.GAUSS_TURRET.get(), i);
         GaussTurret turret = (GaussTurret) inventory.player.level().getEntity(buffer.readInt());
         int ind = 0;
         for (int j = 0; j < 3; j++) {

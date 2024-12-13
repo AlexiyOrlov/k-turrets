@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
 import dev.buildtool.satako.Functions;
@@ -45,7 +45,7 @@ public class ArrowDrone extends Drone {
     };
 
     public ArrowDrone(Level world) {
-        super(KEntities.ARROW_DRONE.get(), world);
+        super(KTEntities.ARROW_DRONE.get(), world);
     }
 
     @Override

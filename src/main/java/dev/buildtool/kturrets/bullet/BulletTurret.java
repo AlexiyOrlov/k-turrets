@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
@@ -31,7 +31,7 @@ public class BulletTurret extends Turret {
     };
 
     public BulletTurret(Level world) {
-        super(KEntities.BULLET_TURRET.get(), world);
+        super(KTEntities.BULLET_TURRET.get(), world);
     }
 
     @Override

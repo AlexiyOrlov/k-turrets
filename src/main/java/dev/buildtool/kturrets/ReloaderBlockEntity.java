@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.registers.KBlockEntities;
+import dev.buildtool.kturrets.registers.KTBlockEntities;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.satako.BlockEntity2;
 import dev.buildtool.satako.ItemHandler;
@@ -50,7 +50,7 @@ public class ReloaderBlockEntity extends BlockEntity2 implements MenuProvider {
     };
 
     public ReloaderBlockEntity(BlockPos position, BlockState blockState) {
-        super(KBlockEntities.RELOADER.get(), position, blockState);
+        super(KTBlockEntities.RELOADER.get(), position, blockState);
     }
 
     static <T extends BlockEntity> void work(Level level, BlockPos pos, BlockState blockState, T t) {

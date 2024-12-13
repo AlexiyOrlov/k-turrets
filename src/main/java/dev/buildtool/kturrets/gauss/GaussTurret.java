@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 
 public class GaussTurret extends Turret {
@@ -31,7 +30,7 @@ public class GaussTurret extends Turret {
     };
 
     public GaussTurret(Level world) {
-        super(KEntities.GAUSS_TURRET.get(), world);
+        super(KTEntities.GAUSS_TURRET.get(), world);
     }
 
     @Override

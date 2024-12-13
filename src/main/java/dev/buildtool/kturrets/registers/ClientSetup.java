@@ -21,25 +21,25 @@ public class ClientSetup {
     @SuppressWarnings("RedundantCast")
     @SubscribeEvent
     public static void register(FMLClientSetupEvent clientSetupEvent) {
-        MenuScreens.register(KContainers.ARROW_TURRET.get(), (MenuScreens.ScreenConstructor<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
-        MenuScreens.register(KContainers.BULLET_TURRET.get(), (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.FIRE_CHARGE_TURRET.get(), (MenuScreens.ScreenConstructor<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.BRICK_TURRET.get(), (MenuScreens.ScreenConstructor<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.GAUSS_TURRET.get(), (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.COBBLE_TURRET.get(), (MenuScreens.ScreenConstructor<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.ARROW_TURRET.get(), (MenuScreens.ScreenConstructor<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
+        MenuScreens.register(KTContainers.BULLET_TURRET.get(), (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.FIRE_CHARGE_TURRET.get(), (MenuScreens.ScreenConstructor<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.BRICK_TURRET.get(), (MenuScreens.ScreenConstructor<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.GAUSS_TURRET.get(), (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.COBBLE_TURRET.get(), (MenuScreens.ScreenConstructor<CobbleTurretContainer, CobbleTurretScreen>) (p1, p2, p3) -> new CobbleTurretScreen(p1, p2, p3, true));
 
-        MenuScreens.register(KContainers.BRICK_DRONE.get(), (MenuScreens.ScreenConstructor<BrickDroneContainer, BrickDroneScreen>) (p1, p2, p3) -> new BrickDroneScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.BULLET_DRONE.get(), (MenuScreens.ScreenConstructor<BulletDroneContainer, BulletDroneScreen>) (p1, p2, p3) -> new BulletDroneScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.COBBLE_DRONE.get(), (MenuScreens.ScreenConstructor<CobbleDroneContainer, CobbleDroneScreen>) (p1, p2, p3) -> new CobbleDroneScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.ARROW_DRONE.get(), (MenuScreens.ScreenConstructor<ArrowDroneContainer, ArrowDroneScreen>) (p1, p2, p3) -> new ArrowDroneScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.GAUSS_DRONE.get(), (MenuScreens.ScreenConstructor<GaussDroneContainer, GaussDroneScreen>) (p1, p2, p3) -> new GaussDroneScreen(p1, p2, p3, true));
-        MenuScreens.register(KContainers.FIRECHARGE_DRONE.get(), (MenuScreens.ScreenConstructor<FireballDroneContainer, FireballDroneScreen>) (p1, p2, p3) -> new FireballDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.BRICK_DRONE.get(), (MenuScreens.ScreenConstructor<BrickDroneContainer, BrickDroneScreen>) (p1, p2, p3) -> new BrickDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.BULLET_DRONE.get(), (MenuScreens.ScreenConstructor<BulletDroneContainer, BulletDroneScreen>) (p1, p2, p3) -> new BulletDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.COBBLE_DRONE.get(), (MenuScreens.ScreenConstructor<CobbleDroneContainer, CobbleDroneScreen>) (p1, p2, p3) -> new CobbleDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.ARROW_DRONE.get(), (MenuScreens.ScreenConstructor<ArrowDroneContainer, ArrowDroneScreen>) (p1, p2, p3) -> new ArrowDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.GAUSS_DRONE.get(), (MenuScreens.ScreenConstructor<GaussDroneContainer, GaussDroneScreen>) (p1, p2, p3) -> new GaussDroneScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.FIRECHARGE_DRONE.get(), (MenuScreens.ScreenConstructor<FireballDroneContainer, FireballDroneScreen>) (p1, p2, p3) -> new FireballDroneScreen(p1, p2, p3, true));
 
-        MenuScreens.register(KContainers.STORAGE_DRONE.get(), (MenuScreens.ScreenConstructor<StorageDroneMenu, StorageDroneMenuScreen>) StorageDroneMenuScreen::new);
+        MenuScreens.register(KTContainers.STORAGE_DRONE.get(), (MenuScreens.ScreenConstructor<StorageDroneMenu, StorageDroneMenuScreen>) StorageDroneMenuScreen::new);
 
-        MenuScreens.register(KContainers.RELOADER.get(), (MenuScreens.ScreenConstructor<ReloaderMenu, ReloaderScreen>) (p1, p2, p3) -> new ReloaderScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.RELOADER.get(), (MenuScreens.ScreenConstructor<ReloaderMenu, ReloaderScreen>) (p1, p2, p3) -> new ReloaderScreen(p1, p2, p3, true));
 
-        MenuScreens.register(KContainers.MAGNET.get(),(MenuScreens.ScreenConstructor<MagnetMenu, MagnetScreen>) MagnetScreen::new);
+        MenuScreens.register(KTContainers.MAGNET.get(),(MenuScreens.ScreenConstructor<MagnetMenu, MagnetScreen>) MagnetScreen::new);
     }
 
     @SubscribeEvent
@@ -67,25 +67,25 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers renderers) {
-        renderers.registerEntityRenderer(KEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretModelv3<>(manager.bakeLayer(ArrowTurretModelv3.LAYER_LOCATION)), "arrow_turret2", 0.4f));
-        renderers.registerEntityRenderer(KEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretModelv4<>(manager.bakeLayer(CobbleTurretModelv4.LAYER_LOCATION)), "cobble_turret2", 0.2f));
-        renderers.registerEntityRenderer(KEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", 0.2f));
-        renderers.registerEntityRenderer(KEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", 0.4f));
-        renderers.registerEntityRenderer(KEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FireballTurretModelv4<>(manager.bakeLayer(FireballTurretModelv4.LAYER_LOCATION)), "fireball_turret", 0.3f));
-        renderers.registerEntityRenderer(KEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretModelv4<>(manager.bakeLayer(BulletTurretModelv4.LAYER_LOCATION)), "bullet_turret4", 0.4f));
+        renderers.registerEntityRenderer(KTEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretModelv3<>(manager.bakeLayer(ArrowTurretModelv3.LAYER_LOCATION)), "arrow_turret2", 0.4f));
+        renderers.registerEntityRenderer(KTEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretModelv4<>(manager.bakeLayer(CobbleTurretModelv4.LAYER_LOCATION)), "cobble_turret2", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", 0.4f));
+        renderers.registerEntityRenderer(KTEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FireballTurretModelv4<>(manager.bakeLayer(FireballTurretModelv4.LAYER_LOCATION)), "fireball_turret", 0.3f));
+        renderers.registerEntityRenderer(KTEntities.BULLET_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BulletTurretModelv4<>(manager.bakeLayer(BulletTurretModelv4.LAYER_LOCATION)), "bullet_turret4", 0.4f));
 
-        renderers.registerEntityRenderer(KEntities.BRICK_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new BrickDroneModel<>(p_174010_.bakeLayer(BrickDroneModel.LAYER_LOCATION)), "brick_drone", 0.2f));
-        renderers.registerEntityRenderer(KEntities.BULLET_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new BulletDroneModel<>(p_174010_.bakeLayer(BulletDroneModel.LAYER_LOCATION)), "bullet_drone", 0.2f));
-        renderers.registerEntityRenderer(KEntities.COBBLE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new CobbleDroneModelv2<>(p_174010_.bakeLayer(CobbleDroneModelv2.LAYER_LOCATION)), "cobble_drone", 0.2f));
-        renderers.registerEntityRenderer(KEntities.ARROW_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new ArrowDroneModel<>(p_174010_.bakeLayer(ArrowDroneModel.LAYER_LOCATION)), "arrow_drone", 0.2f));
-        renderers.registerEntityRenderer(KEntities.GAUSS_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new GaussDroneModel<>(p_174010_.bakeLayer(GaussDroneModel.LAYER_LOCATION)), "gauss_drone", 0.2f));
-        renderers.registerEntityRenderer(KEntities.FIRECHARGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new FireballDroneModel<>(p_174010_.bakeLayer(FireballDroneModel.LAYER_LOCATION)), "firecharge_drone", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.BRICK_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new BrickDroneModel<>(p_174010_.bakeLayer(BrickDroneModel.LAYER_LOCATION)), "brick_drone", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.BULLET_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new BulletDroneModel<>(p_174010_.bakeLayer(BulletDroneModel.LAYER_LOCATION)), "bullet_drone", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.COBBLE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new CobbleDroneModelv2<>(p_174010_.bakeLayer(CobbleDroneModelv2.LAYER_LOCATION)), "cobble_drone", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.ARROW_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new ArrowDroneModel<>(p_174010_.bakeLayer(ArrowDroneModel.LAYER_LOCATION)), "arrow_drone", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.GAUSS_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new GaussDroneModel<>(p_174010_.bakeLayer(GaussDroneModel.LAYER_LOCATION)), "gauss_drone", 0.2f));
+        renderers.registerEntityRenderer(KTEntities.FIRECHARGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new FireballDroneModel<>(p_174010_.bakeLayer(FireballDroneModel.LAYER_LOCATION)), "firecharge_drone", 0.2f));
 
-        renderers.registerEntityRenderer(KEntities.STORAGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new StorageDroneModel(p_174010_.bakeLayer(StorageDroneModel.LAYER_LOCATION)), "storage_drone", 0.4f));
+        renderers.registerEntityRenderer(KTEntities.STORAGE_DRONE.get(), p_174010_ -> new EntityRenderer2<>(p_174010_, new StorageDroneModel(p_174010_.bakeLayer(StorageDroneModel.LAYER_LOCATION)), "storage_drone", 0.4f));
 
-        renderers.registerEntityRenderer(KEntities.BRICK.get(), BrickRenderer::new);
-        renderers.registerEntityRenderer(KEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);
-        renderers.registerEntityRenderer(KEntities.COBBLESTONE.get(), CobblestoneRenderer::new);
-        renderers.registerEntityRenderer(KEntities.BULLET.get(), BulletRenderer::new);
+        renderers.registerEntityRenderer(KTEntities.BRICK.get(), BrickRenderer::new);
+        renderers.registerEntityRenderer(KTEntities.GAUSS_BULLET.get(), GaussBulletRenderer::new);
+        renderers.registerEntityRenderer(KTEntities.COBBLESTONE.get(), CobblestoneRenderer::new);
+        renderers.registerEntityRenderer(KTEntities.BULLET.get(), BulletRenderer::new);
     }
 }

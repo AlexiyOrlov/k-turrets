@@ -11,13 +11,7 @@ import dev.buildtool.kturrets.registers.*;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.IntegerColor;
-import net.minecraft.advancements.critereon.LootTableTrigger;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.EntityLootSubProvider;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.loot.packs.VanillaEntityLoot;
-import net.minecraft.data.loot.packs.VanillaLootTableProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -35,19 +29,12 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
-import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -86,7 +73,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -182,13 +168,13 @@ public class KTurrets {
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        KEntities.ENTITIES.register(eventBus);
+        KTEntities.ENTITIES.register(eventBus);
         KItems.ITEMS.register(eventBus);
-        KContainers.CONTAINERS.register(eventBus);
+        KTContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
-        KBlocks.BLOCKS.register(eventBus);
+        KTBlocks.BLOCKS.register(eventBus);
         TAB_REGISTER.register(eventBus);
-        KBlockEntities.BLOCK_ENTITIES.register(eventBus);
+        KTBlockEntities.BLOCK_ENTITIES.register(eventBus);
         //TODO rename config options
         Pair<ForgeConfigSpec, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(builder -> {
             builder.push("Common");

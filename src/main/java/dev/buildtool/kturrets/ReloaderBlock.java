@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.registers.KBlockEntities;
+import dev.buildtool.kturrets.registers.KTBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +35,7 @@ public class ReloaderBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return KBlockEntities.RELOADER.get().create(blockPos, blockState);
+        return KTBlockEntities.RELOADER.get().create(blockPos, blockState);
     }
 
     @Nullable

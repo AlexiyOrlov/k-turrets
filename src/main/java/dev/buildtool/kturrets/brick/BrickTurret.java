@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.brick;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -32,7 +31,7 @@ public class BrickTurret extends Turret {
     };
 
     public BrickTurret(Level world) {
-        super(KEntities.BRICK_TURRET.get(), world);
+        super(KTEntities.BRICK_TURRET.get(), world);
     }
 
     @Override

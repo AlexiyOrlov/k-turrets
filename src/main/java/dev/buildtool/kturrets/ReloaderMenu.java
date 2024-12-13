@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KTContainers;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.IntegerColor;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -13,7 +13,7 @@ public class ReloaderMenu extends Container2 {
     private ReloaderBlockEntity reloaderBlockEntity;
 
     public ReloaderMenu(int i, Inventory inventory, FriendlyByteBuf byteBuf) {
-        super(KContainers.RELOADER.get(), i);
+        super(KTContainers.RELOADER.get(), i);
         Player player = inventory.player;
         reloaderBlockEntity = (ReloaderBlockEntity) player.level().getBlockEntity(byteBuf.readBlockPos());
         int index = 0;

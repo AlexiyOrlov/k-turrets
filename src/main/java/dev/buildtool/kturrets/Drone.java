@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.registers.KBlocks;
+import dev.buildtool.kturrets.registers.KTBlocks;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.storage.StorageDrone;
@@ -244,13 +244,13 @@ public abstract class Drone extends Turret {
             if (!Functions.findItem(KItems.LIGHT_UPGRADE.get(), upgrades).isEmpty()) {
                 BlockPos currentPos = getOnPos();
                 if (level().isEmptyBlock(currentPos)) {
-                    if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+                    if (level().getBlockState(previousPosition).is(KTBlocks.LIGHT_BLOCK.get()))
                         level().removeBlock(previousPosition, false);
-                    level().setBlock(currentPos, KBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
+                    level().setBlock(currentPos, KTBlocks.LIGHT_BLOCK.get().defaultBlockState(), 2);
                     previousPosition = currentPos;
                 }
 
-            } else if (level().getBlockState(previousPosition).is(KBlocks.LIGHT_BLOCK.get()))
+            } else if (level().getBlockState(previousPosition).is(KTBlocks.LIGHT_BLOCK.get()))
                 level().removeBlock(previousPosition, false);
         }
     }

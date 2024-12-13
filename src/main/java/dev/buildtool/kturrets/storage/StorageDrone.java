@@ -3,15 +3,11 @@ package dev.buildtool.kturrets.storage;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.PickupParticles;
-import dev.buildtool.kturrets.registers.KBlocks;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.KItems;
-import dev.buildtool.kturrets.tasks.AvoidAggressors;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,13 +27,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class StorageDrone extends Drone {
     private static final EntityDataAccessor<Boolean> MAGNET_ACTIVE= SynchedEntityData.defineId(StorageDrone.class, EntityDataSerializers.BOOLEAN);
@@ -49,7 +43,7 @@ public class StorageDrone extends Drone {
     };
 
     public StorageDrone(Level world) {
-        super(KEntities.STORAGE_DRONE.get(), world);
+        super(KTEntities.STORAGE_DRONE.get(), world);
     }
 
     @Override

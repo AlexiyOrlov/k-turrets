@@ -22,7 +22,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class KContainers {
+public class KTContainers {
     public static DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, KTurrets.ID);
 
     public static RegistryObject<MenuType<ArrowTurretContainer>> ARROW_TURRET=CONTAINERS.register("arrow_turret", () -> IForgeMenuType.create(ArrowTurretContainer::new));;

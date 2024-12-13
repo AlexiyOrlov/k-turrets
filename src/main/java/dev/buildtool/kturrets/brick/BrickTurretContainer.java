@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.brick;
 
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KTContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class BrickTurretContainer extends Container2 {
     public BrickTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf buffer) {
-        super(KContainers.BRICK_TURRET.get(), i);
+        super(KTContainers.BRICK_TURRET.get(), i);
         BrickTurret turret = (BrickTurret) playerInventory.player.level().getEntity(buffer.readInt());
         int index = 0;
         for (int j = 0; j < 3; j++) {

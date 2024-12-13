@@ -21,15 +21,12 @@ import dev.buildtool.kturrets.storage.StorageDrone;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.HashMap;
-
 @SuppressWarnings("unchecked")
-public class KEntities {
+public class KTEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, KTurrets.ID);
     public static final float DRONE_WIDTH = 0.6f;
     public static final RegistryObject<EntityType<ArrowTurret>> ARROW_TURRET = ENTITIES.register("arrow_turret", () -> cast(EntityType.Builder.of((p_create_1_, p_create_2_) -> new ArrowTurret(p_create_2_), MobCategory.MISC).sized(DRONE_WIDTH, 0.8f).build("arrow_turret")));

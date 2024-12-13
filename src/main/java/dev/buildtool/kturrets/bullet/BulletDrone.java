@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
@@ -30,7 +30,7 @@ public class BulletDrone extends Drone {
     };
 
     public BulletDrone(Level world) {
-        super(KEntities.BULLET_DRONE.get(), world);
+        super(KTEntities.BULLET_DRONE.get(), world);
     }
 
     @Override

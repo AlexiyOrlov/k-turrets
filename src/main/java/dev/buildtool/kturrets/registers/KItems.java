@@ -45,7 +45,7 @@ public class KItems {
     public static RegistryObject<Item> PROPELLER,COPPER_PLATE;
 
     static {
-        ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET){
+        ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KTEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -56,7 +56,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.ARROW_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        BULLET_TURRET = ITEMS.register("bullet_turret_item", () -> new ContainerItem(KEntities.BULLET_TURRET, 0xA2A1A0, 0x009EA2, defaults(), ContainerItem.Unit.TURRET){
+        BULLET_TURRET = ITEMS.register("bullet_turret_item", () -> new ContainerItem(KTEntities.BULLET_TURRET, 0xA2A1A0, 0x009EA2, defaults(), ContainerItem.Unit.TURRET){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -67,7 +67,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.BULLET_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        FIRECHARGE_TURRET = ITEMS.register("firecharge_turret_item", () -> new ContainerItem(KEntities.FIRE_CHARGE_TURRET, 0x0, 0xA20005, defaults(), ContainerItem.Unit.TURRET){
+        FIRECHARGE_TURRET = ITEMS.register("firecharge_turret_item", () -> new ContainerItem(KTEntities.FIRE_CHARGE_TURRET, 0x0, 0xA20005, defaults(), ContainerItem.Unit.TURRET){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -78,7 +78,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.FIREBALL_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        BRICK_TURRET = ITEMS.register("brick_turret_item", () -> new ContainerItem(KEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults(), ContainerItem.Unit.TURRET){
+        BRICK_TURRET = ITEMS.register("brick_turret_item", () -> new ContainerItem(KTEntities.BRICK_TURRET, 0x0B00FF, 0xFF6C02, defaults(), ContainerItem.Unit.TURRET){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -89,7 +89,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.BRICK_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ContainerItem(KEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults(), ContainerItem.Unit.TURRET){
+        GAUSS_TURRET = ITEMS.register("gauss_turret_item", () -> new ContainerItem(KTEntities.GAUSS_TURRET, 0xA0A0A0, 0x505050, defaults(), ContainerItem.Unit.TURRET){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -100,7 +100,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float)20/KTurrets.GAUSS_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ContainerItem(KEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults(), ContainerItem.Unit.TURRET){
+        COBBLE_TURRET = ITEMS.register("cobble_turret_item", () -> new ContainerItem(KTEntities.COBBLE_TURRET, 0x46778b, 0x2d4c59, defaults(), ContainerItem.Unit.TURRET){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -112,7 +112,7 @@ public class KItems {
             }
         });
 
-        BRICK_DRONE = ITEMS.register("brick_drone_item", () -> new ContainerItem(KEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults(), ContainerItem.Unit.DRONE){
+        BRICK_DRONE = ITEMS.register("brick_drone_item", () -> new ContainerItem(KTEntities.BRICK_DRONE, 0xFF6C02, 0x0B00FF, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -123,7 +123,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.BRICK_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        BULLET_DRONE = ITEMS.register("bullet_drone_item", () -> new ContainerItem(KEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults(), ContainerItem.Unit.DRONE){
+        BULLET_DRONE = ITEMS.register("bullet_drone_item", () -> new ContainerItem(KTEntities.BULLET_DRONE, 0x009EA2, 0xA2A1A0, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -134,7 +134,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.BULLET_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        COBBLE_DRONE = ITEMS.register("cobble_drone_item", () -> new ContainerItem(KEntities.COBBLE_DRONE, 0x2d4c59, 0x46778b, defaults(), ContainerItem.Unit.DRONE){
+        COBBLE_DRONE = ITEMS.register("cobble_drone_item", () -> new ContainerItem(KTEntities.COBBLE_DRONE, 0x2d4c59, 0x46778b, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -145,7 +145,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.COBBLE_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new ContainerItem(KEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE){
+        ARROW_DRONE = ITEMS.register("arrow_drone_item", () -> new ContainerItem(KTEntities.ARROW_DRONE, 0xA2A009, 0x0CA207, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -156,7 +156,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.ARROW_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(KEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE){
+        GAUSS_DRONE = ITEMS.register("gauss_drone_item", () -> new ContainerItem(KTEntities.GAUSS_DRONE, 0x505050, 0xA0A0A0, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -167,7 +167,7 @@ public class KItems {
                 components.add(Component.translatable("k_turrets.fire.rate").append(": "+String.format("%.1f",(float) 20/KTurrets.GAUSS_TURRET_RATE.get())).append(" ").append(Component.translatable("k_turrets.shots.per.second")));
             }
         });
-        FIREBALL_DRONE = ITEMS.register("firecharge_drone_item", () -> new ContainerItem(KEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE){
+        FIREBALL_DRONE = ITEMS.register("firecharge_drone_item", () -> new ContainerItem(KTEntities.FIRECHARGE_DRONE, 0xA20005, 0x0, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -179,7 +179,7 @@ public class KItems {
             }
         });
 
-        STORAGE_DRONE = ITEMS.register("storage_drone_item", () -> new ContainerItem(KEntities.STORAGE_DRONE, 0x000000, 0x000000, defaults(), ContainerItem.Unit.DRONE){
+        STORAGE_DRONE = ITEMS.register("storage_drone_item", () -> new ContainerItem(KTEntities.STORAGE_DRONE, 0x000000, 0x000000, defaults(), ContainerItem.Unit.DRONE){
             @Override
             public void appendHoverText(ItemStack itemStack, @Nullable Level pLevel, List<Component> components, TooltipFlag tooltipFlag) {
                 super.appendHoverText(itemStack, pLevel, components, tooltipFlag);
@@ -190,12 +190,12 @@ public class KItems {
 
         GAUSS_BULLET = ITEMS.register("gauss_bullet", () -> new Item(defaults()));
         EXPLOSIVE_POWDER = ITEMS.register("explosive_powder", () -> new Item(defaults()));
-        TITANIUM_ORE = ITEMS.register("titanium_ore", () -> new BlockItem(KBlocks.TITANIUM_ORE.get(), defaults()));
-        DEEPSLATE_TITANIUM_ORE = ITEMS.register("deepslate_titanium_ore", () -> new BlockItem(KBlocks.DEEP_SLATE_TITANIUM_ORE.get(), defaults()));
+        TITANIUM_ORE = ITEMS.register("titanium_ore", () -> new BlockItem(KTBlocks.TITANIUM_ORE.get(), defaults()));
+        DEEPSLATE_TITANIUM_ORE = ITEMS.register("deepslate_titanium_ore", () -> new BlockItem(KTBlocks.DEEP_SLATE_TITANIUM_ORE.get(), defaults()));
         RAW_TITANIUM = ITEMS.register("raw_titanium", () -> new Item(defaults()));
         TITANIUM_INGOT = ITEMS.register("titanium_ingot", () -> new Item(defaults()));
         TARGET_COPIER = ITEMS.register("wrench", () -> new TargetCopier(defaults().stacksTo(1)));
-        RELOADER = ITEMS.register("reloader", () -> new BlockItem(KBlocks.RELOADER.get(), defaults()){
+        RELOADER = ITEMS.register("reloader", () -> new BlockItem(KTBlocks.RELOADER.get(), defaults()){
             @Override
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
                 super.appendHoverText(pStack, pLevel, pTooltip, pFlag);

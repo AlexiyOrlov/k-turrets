@@ -12,7 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class KBlocks {
+public class KTBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, KTurrets.ID);
 
     public static final RegistryObject<Block> TITANIUM_ORE = BLOCKS.register("titanium_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3, 3).lightLevel(value -> FMLLoader.isProduction() ? 0 : 15)));

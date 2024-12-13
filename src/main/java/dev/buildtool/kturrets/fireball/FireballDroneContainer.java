@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.fireball;
 
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KContainers;
+import dev.buildtool.kturrets.registers.KTContainers;
 import dev.buildtool.kturrets.registers.KItems;
 import dev.buildtool.satako.Container2;;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class FireballDroneContainer extends Container2 {
     public FireballDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
-        super(KContainers.FIRECHARGE_DRONE.get(), i);
+        super(KTContainers.FIRECHARGE_DRONE.get(), i);
         FireballDrone fireballDrone = (FireballDrone) inventory.player.level().getEntity(friendlyByteBuf.readInt());
         int index = 0;
         for (int j = 0; j < 2; j++) {

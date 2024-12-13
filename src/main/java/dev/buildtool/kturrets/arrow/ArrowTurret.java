@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.Turret;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
@@ -46,7 +46,7 @@ public class ArrowTurret extends Turret {
     };
 
     public ArrowTurret(Level world) {
-        super(KEntities.ARROW_TURRET.get(), world);
+        super(KTEntities.ARROW_TURRET.get(), world);
     }
 
     @Override

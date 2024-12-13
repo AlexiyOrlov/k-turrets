@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
-import dev.buildtool.kturrets.registers.KEntities;
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.tasks.AttackTargetGoal;
 import dev.buildtool.kturrets.tasks.RestrictedRangedAttackGoal;
@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 public class GaussDrone extends Drone {
@@ -31,7 +30,7 @@ public class GaussDrone extends Drone {
     };
 
     public GaussDrone(Level world) {
-        super(KEntities.GAUSS_DRONE.get(), world);
+        super(KTEntities.GAUSS_DRONE.get(), world);
     }
 
     @Override
