@@ -57,6 +57,12 @@ public class UnitOptionsScreen extends ButtonListScreen {
 
     @Override
     public void addButtons(Panel var1) {
+        if(!exceptions.isEmpty())
+        {
+            TextField textField=new TextField(var1);
+            textField.setText(Component.translatable("k_turrets.ignored.players"));
+            var1.add(textField);
+        }
         exceptions.forEach(s -> {
             TextButton textButton = new TextButton(var1, Component.literal(s), true);
             var1.add(textButton);

@@ -145,5 +145,6 @@
   "k_turrets.only.follow": "Follow, don't attack",
   "k_turrets.compress.items": "Compress items",
   "k_turrets.follow_and_attack.owner": "Follow and attack",
-  "k_turrets.looting.link.info": "Entities killed by the unit will drop items that require them to be killed by a player"
+  "k_turrets.looting.link.info": "Entities killed by the unit will drop items that require them to be killed by a player",
+  "k_turrets.ignored.players": "Ignored players:"
 }
