@@ -11,7 +11,13 @@ import dev.buildtool.kturrets.registers.*;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.IntegerColor;
+import net.minecraft.advancements.critereon.LootTableTrigger;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.packs.VanillaEntityLoot;
+import net.minecraft.data.loot.packs.VanillaLootTableProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -29,10 +35,29 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
@@ -61,6 +86,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Mod(KTurrets.ID)
 public class KTurrets {
@@ -114,7 +140,8 @@ public class KTurrets {
     public static Logger logger= LogManager.getLogger("K-Turrets");
 
     public static ArrayListMultimap<String,String> serverUnitDeaths=ArrayListMultimap.create();
-    public static final int turretSlotCount =28, turretUpgradeCount=2,droneSlotCount=22,droneUpgradeCount=4;
+    public static final int turretSlotCount =29, turretUpgradeCount=3,droneSlotCount=23,droneUpgradeCount=5;
+    public static HashMap<ResourceLocation,Pair<Item,NumberProvider>> playerDependentLoot=new HashMap<>();
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
             items.accept(KItems.COBBLE_TURRET.get());
@@ -150,6 +177,7 @@ public class KTurrets {
             items.accept(KItems.RECALL_UPGRADE.get());
             items.accept(KItems.EXP_LINK.get());
             items.accept(KItems.FIRE_SHIELD.get());
+            items.accept(KItems.LOOTING_LINK.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
@@ -395,44 +423,44 @@ public class KTurrets {
             Entity entity=serverLevel.getEntity(setTarget.unit);
             if(entity instanceof Turret turret)
             {
-               List<EntityType<?>> targets= Turret.decodeTargets(turret.getTargets());
-               if(setTarget.state)
-               {
-                   targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
-               }
-               else {
-                   targets.remove(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
-               }
-               turret.setTargets(Turret.encodeTargets(targets));
-               contextSupplier.get().setPacketHandled(true);
+                List<EntityType<?>> targets= Turret.decodeTargets(turret.getTargets());
+                if(setTarget.state)
+                {
+                    targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+                }
+                else {
+                    targets.remove(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+                }
+                turret.setTargets(Turret.encodeTargets(targets));
+                contextSupplier.get().setPacketHandled(true);
             }
         });
 
         channel.registerMessage(packetIndex++, SetBehavior.class,(setBehavior, byteBuf) -> {
-            byteBuf.writeInt(setBehavior.drone);
-            byteBuf.writeEnum(setBehavior.behavior);
-        },byteBuf -> new SetBehavior(byteBuf.readInt(),byteBuf.readEnum(Drone.Behavior.class)),
+                    byteBuf.writeInt(setBehavior.drone);
+                    byteBuf.writeEnum(setBehavior.behavior);
+                },byteBuf -> new SetBehavior(byteBuf.readInt(),byteBuf.readEnum(Drone.Behavior.class)),
                 (setBehavior, contextSupplier) -> {
-            ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
-            Entity entity=serverLevel.getEntity(setBehavior.drone);
-            if(entity instanceof Drone drone)
-            {
-                drone.setBehavior(setBehavior.behavior);
-                contextSupplier.get().setPacketHandled(true);
-            }
-        });
+                    ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
+                    Entity entity=serverLevel.getEntity(setBehavior.drone);
+                    if(entity instanceof Drone drone)
+                    {
+                        drone.setBehavior(setBehavior.behavior);
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
 
         channel.registerMessage(packetIndex++, PickupParticles.class,(pickupParticles, byteBuf) -> {
-            byteBuf.writeDouble(pickupParticles.x);
-            byteBuf.writeDouble(pickupParticles.y);
-            byteBuf.writeDouble(pickupParticles.z);
-        },byteBuf -> new PickupParticles(byteBuf.readDouble(),byteBuf.readDouble(),byteBuf.readDouble()),
+                    byteBuf.writeDouble(pickupParticles.x);
+                    byteBuf.writeDouble(pickupParticles.y);
+                    byteBuf.writeDouble(pickupParticles.z);
+                },byteBuf -> new PickupParticles(byteBuf.readDouble(),byteBuf.readDouble(),byteBuf.readDouble()),
                 (pickupParticles, contextSupplier) -> {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> {
-                contextSupplier.get().setPacketHandled(true);
-                return new ClientProxy().pickupParticles(pickupParticles);
-            });
-        });
+                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> {
+                        contextSupplier.get().setPacketHandled(true);
+                        return new ClientProxy().pickupParticles(pickupParticles);
+                    });
+                });
 
         channel.registerMessage(packetIndex++, SetProtectPlayer.class,(setProtectPlayer, byteBuf) -> {
             byteBuf.writeInt(setProtectPlayer.unitId);
@@ -555,6 +583,59 @@ public class KTurrets {
         final CommentedFileConfig file = CommentedFileConfig.builder(new File(path)).sync().autosave().writingMode(WritingMode.REPLACE).build();
         file.load();
         config.setConfig(file);
+    }
+
+    @SubscribeEvent
+    public void onLootTableLoad(LootTableLoadEvent lootTableLoadEvent)
+    {
+        LootTable lootTable=  lootTableLoadEvent.getTable();
+        ResourceLocation lootTableName = lootTableLoadEvent.getName();
+        if(lootTableName.getPath().contains("entit")) {
+            if(!lootTable.pools.isEmpty()) {
+                logger.info("Checking {} loot table", lootTableName);
+                lootTable.pools.forEach(lootPool -> {
+                    boolean killedByPlayer = false;
+                    LootItemRandomChanceWithLootingCondition randomChanceWithLootingCondition = null;
+                    for (LootItemCondition condition : lootPool.conditions) {
+                        if (condition instanceof LootItemKilledByPlayerCondition) {
+                            killedByPlayer = true;
+                        }
+                        if (condition instanceof LootItemRandomChanceWithLootingCondition) {
+                            randomChanceWithLootingCondition = (LootItemRandomChanceWithLootingCondition) condition;
+                        }
+                    }
+
+                    if (killedByPlayer) {
+                        for (LootPoolEntryContainer entry : lootPool.entries) {
+                            if (entry instanceof LootItem lootItem) {
+                                Item loot = lootItem.item;
+                                for (LootItemFunction function : lootItem.functions) {
+                                    if (function instanceof SetItemCountFunction s) {
+                                        NumberProvider numberProvider = s.value;
+                                        if (numberProvider instanceof ConstantValue constantValue) {
+                                            float value = constantValue.value;
+                                            logger.info("   Including {} with constant set item function {}", loot, value);
+                                            playerDependentLoot.put(lootTableName,Pair.of(loot,numberProvider));
+                                        } else if (numberProvider instanceof UniformGenerator ug) {
+                                            ConstantValue minP = (ConstantValue) ug.min;
+                                            ConstantValue maxP = (ConstantValue) ug.max;
+                                            logger.info("   Including {} with uniform set item function {} - {}", loot, minP.value, maxP.value);
+                                            playerDependentLoot.put(lootTableName,Pair.of(loot,numberProvider));
+                                        }
+                                    }
+                                }
+                                if (randomChanceWithLootingCondition != null) {
+                                    float chanceForItem = randomChanceWithLootingCondition.percent / lootPool.entries.length;
+                                    logger.info("   Including {} with random looting chance {}", loot, chanceForItem);
+                                    playerDependentLoot.put(lootTableName,Pair.of(loot,UniformGenerator.between(0,chanceForItem)));
+                                }
+                            }
+                        }
+                    } else
+                        logger.info("   Skipping loot pool");
+                });
+            }
+        }
     }
 
     @SubscribeEvent

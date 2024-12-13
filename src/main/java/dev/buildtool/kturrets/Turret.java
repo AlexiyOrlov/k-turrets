@@ -70,10 +70,17 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
     private static final EntityDataAccessor<String> OWNER_NAME = SynchedEntityData.defineId(Turret.class, EntityDataSerializers.STRING);
     public boolean noAmmo;
     private static final EntityDataAccessor<Boolean> PROTECT_OWNER=SynchedEntityData.defineId(Turret.class,EntityDataSerializers.BOOLEAN);
-    public ItemHandler upgrades=new ItemHandler(2){
+    public ItemHandler upgrades=new ItemHandler(KTurrets.turretUpgradeCount){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.is(KItems.EXP_LINK.get()) || stack.is(KItems.FIRE_SHIELD.get());
+            if(stack.is(KItems.EXP_LINK.get()))
+                return !Functions.contains(KItems.EXP_LINK.get(), this);
+            else if (stack.is(KItems.FIRE_SHIELD.get())) {
+                return !Functions.contains(KItems.FIRE_SHIELD.get(), this);
+            } else if (stack.is(KItems.LOOTING_LINK.get())) {
+                return !Functions.contains(KItems.LOOTING_LINK.get(), this);
+            }
+            return false;
         }
 
         @Override
@@ -349,7 +356,7 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
         setRefillInventory(compoundNBT.getBoolean("Refill inventory"));
         setProtectOwner(compoundNBT.getBoolean("Protect owner"));
         upgrades.deserializeNBT(compoundNBT.getCompound("Upgrades"));
-        upgrades.setSize(2);
+        upgrades.setSize(KTurrets.turretUpgradeCount);
     }
 
     public static List<EntityType<?>> decodeTargets(CompoundTag compoundNBT) {

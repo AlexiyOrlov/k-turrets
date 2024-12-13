@@ -8,6 +8,7 @@ import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
@@ -28,25 +29,28 @@ public class ArrowDroneContainer extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,0,3*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,1,4*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,2,5*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        MutableComponent upgrade = Component.translatable("k_turrets.upgrade.slot");
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,0,2*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,1,3*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,2,4*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,3,5*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,4,6*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
         addPlayerInventory(0, 6 * 18, inventory);
     }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > 21) {
+        if (index > KTurrets.droneSlotCount) {
             if ((itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) && !moveItemStackTo(itemStack, 0, 1, false))
                 return ItemStack.EMPTY;
-            else if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, 19, false))
+            else if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount+1, false))
                 return ItemStack.EMPTY;
-            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.RECALL_UPGRADE.get())) &&!moveItemStackTo(itemStack,19,22,false)) {
+            else if ((itemStack.is(KItems.LOOTING_LINK.get()) || itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.RECALL_UPGRADE.get())) &&!moveItemStackTo(itemStack,KTurrets.droneSlotCount-KTurrets.droneUpgradeCount+1,KTurrets.droneSlotCount+1,false)) {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!moveItemStackTo(itemStack, 22, slots.size(), false))
+            if (!moveItemStackTo(itemStack, KTurrets.droneSlotCount+1, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

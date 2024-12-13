@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " t ",
+    "tnt",
+    " t "
+  ],
+  "key": {
+    "t": {
+      "item": "k_turrets:titanium_ingot"
+    },
+    "n": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "result": {
+    "item": "k_turrets:looting_link"
+  }
+}

@@ -24,10 +24,11 @@ public class CobbleDroneContainer extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,0,3*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,1,4*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,2,5*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,3,6*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,0,2*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,1,3*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,2,4*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,3,5*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,4,6*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
 
         addPlayerInventory(0, 4 * 18, playerInventory);
     }
@@ -35,14 +36,14 @@ public class CobbleDroneContainer extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > KTurrets.droneSlotCount) {
+        if (index > KTurrets.droneSlotCount-1) {
             if (itemStack.is(KTurrets.COBBLE_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount, false))
                 return ItemStack.EMPTY;
-            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get())) && !moveItemStackTo(itemStack, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount,KTurrets.droneSlotCount, false)) {
+            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get()) || itemStack.is(KItems.LOOTING_LINK.get())) && !moveItemStackTo(itemStack, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount,KTurrets.droneSlotCount, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
-            if (!moveItemStackTo(itemStack, KTurrets.droneSlotCount+KTurrets.droneUpgradeCount, slots.size(), false))
+            if (!moveItemStackTo(itemStack, KTurrets.droneSlotCount, slots.size(), false))
                 return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);

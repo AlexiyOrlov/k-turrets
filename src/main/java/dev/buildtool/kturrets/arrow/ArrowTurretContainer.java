@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.model.ElementsModel;
 
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class ArrowTurretContainer extends Container2 {
                 addSlot(new ItemHandlerSlot(turret.ammo, slot++, k * 18, j * 18 + 18));
             }
         }
-        addSlot(new ItemHandlerSlot(turret.upgrades,0,4*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
-        addSlot(new ItemHandlerSlot(turret.upgrades,1,5*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,0,3*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,1,4*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,2,5*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
 
         addPlayerInventory(0, 6* 18, playerInventory);
     }
@@ -36,16 +38,20 @@ public class ArrowTurretContainer extends Container2 {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemStack = getSlot(index).getItem();
-        if (index > KTurrets.turretSlotCount +1) {
-            if ((itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) && !moveItemStackTo(itemStack, 0, 1, false))
-                return ItemStack.EMPTY;
-            if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, KTurrets.turretSlotCount, false))
-                return ItemStack.EMPTY;
-            if((itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get())) && !moveItemStackTo(itemStack,KTurrets.turretSlotCount,KTurrets.turretSlotCount+KTurrets.turretSlotCount,false))
-                return ItemStack.EMPTY;
-        } else {
-            if (!moveItemStackTo(itemStack, KTurrets.turretSlotCount +KTurrets.turretUpgradeCount, slots.size(), false))
-                return ItemStack.EMPTY;
+        if (index >KTurrets.turretSlotCount+1)
+        {
+            if(itemStack.getItem() instanceof BowItem || itemStack.getItem() instanceof CrossbowItem) {
+                if (!moveItemStackTo(itemStack, 0, 1, false))
+                    return ItemStack.EMPTY;
+            } else if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG)) {
+                if(!moveItemStackTo(itemStack,1,KTurrets.turretSlotCount-KTurrets.turretUpgradeCount,false))
+                    return ItemStack.EMPTY;
+            } else if (itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get()) || itemStack.is(KItems.LOOTING_LINK.get())) {
+                if(!moveItemStackTo(itemStack,KTurrets.turretSlotCount-KTurrets.turretUpgradeCount+2,KTurrets.turretSlotCount,false))
+                    return ItemStack.EMPTY;
+            }
+        } else if (!moveItemStackTo(itemStack, KTurrets.turretSlotCount + 2, slots.size(),false)) {
+            return ItemStack.EMPTY;
         }
         return super.quickMoveStack(playerIn, index);
     }

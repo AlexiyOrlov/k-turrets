@@ -2,12 +2,8 @@ package dev.buildtool.kturrets;
 
 import com.mojang.datafixers.util.Pair;
 import dev.ftb.mods.ftblibrary.ui.*;
-import dev.ftb.mods.ftblibrary.ui.misc.AbstractButtonListScreen;
-import dev.ftb.mods.ftblibrary.ui.misc.AbstractThreePanelScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-
-import java.util.function.BinaryOperator;
 
 public abstract class ButtonListScreen extends ThreePanelScreen{
     private Component title = Component.empty();
@@ -26,7 +22,7 @@ public abstract class ButtonListScreen extends ThreePanelScreen{
         this.titleField = new TextField(this.topPanel);
         this.searchBox = new TextBox(this.topPanel) {
             public void onTextChanged() {
-                ((ButtonListScreen.ButtonPanel)ButtonListScreen.this.mainPanel).refreshWidgets();
+                ButtonListScreen.this.mainPanel.refreshWidgets();
             }
         };
         this.searchBox.ghostText = I18n.get("gui.search_box", new Object[0]);

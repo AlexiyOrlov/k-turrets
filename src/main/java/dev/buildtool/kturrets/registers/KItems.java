@@ -41,7 +41,7 @@ public class KItems {
     public static RegistryObject<Item> TARGET_COPIER;
     public static RegistryObject<Item> RELOADER;
     public static RegistryObject<Item> STORAGE_DRONE;
-    public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE,RECALL_UPGRADE,EXP_LINK, FIRE_SHIELD;
+    public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE,RECALL_UPGRADE,EXP_LINK, FIRE_SHIELD,LOOTING_LINK;
     public static RegistryObject<Item> PROPELLER,COPPER_PLATE;
 
     static {
@@ -224,6 +224,13 @@ public class KItems {
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
                 super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
                 pTooltipComponents.add(Component.translatable("k_turrets.fire.shield.info"));
+            }
+        });
+        LOOTING_LINK=ITEMS.register("looting_link",() -> new Item(defaults().stacksTo(4)){
+            @Override
+            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+                super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+                pTooltipComponents.add(Component.translatable("k_turrets.looting.link.info"));
             }
         });
 //        PROPELLER=ITEMS.register("propeller",() -> new Item(defaults()));

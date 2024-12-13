@@ -18,6 +18,7 @@
   "item.k_turrets.propeller": "Propeller",
   "item.k_turrets.copper_plate": "Copper Plate",
   "item.k_turrets.fire_shield": "Fire Shield",
+  "item.k_turrets.looting_link": "Looting Link",
 
   "item.k_turrets.brick_drone_item": "Brick Drone",
   "item.k_turrets.bullet_drone_item": "Bullet Drone",
@@ -143,5 +144,6 @@
   "k_turrets.fire.shield.info": "Protects the unit from fire damage",
   "k_turrets.only.follow": "Follow, don't attack",
   "k_turrets.compress.items": "Compress items",
-  "k_turrets.follow_and_attack.owner": "Follow and attack"
+  "k_turrets.follow_and_attack.owner": "Follow and attack",
+  "k_turrets.looting.link.info": "Entities killed by the unit will drop items that require them to be killed by a player"
 }
