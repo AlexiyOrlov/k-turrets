@@ -57,7 +57,7 @@ public abstract class ThreePanelScreen extends BaseScreen{
     public void tick() {
         super.tick();
         int prevWidth = this.mainPanel.width;
-        int newWidth = (this.scrollBar.shouldDraw() ? this.getGui().width - this.getScrollbarWidth() - 2 : this.getGui().width) - (Integer)this.mainPanelInset().getFirst() * 2;
+        int newWidth = (this.scrollBar.shouldDraw() ? this.getGui().width - this.getScrollbarWidth() - 2 : this.getGui().width) - this.mainPanelInset().getFirst() * 2;
         if (prevWidth != newWidth) {
             this.mainPanel.setWidth(newWidth);
             this.mainPanel.alignWidgets();
