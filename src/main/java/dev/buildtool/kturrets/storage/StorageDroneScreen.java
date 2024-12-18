@@ -3,7 +3,7 @@ package dev.buildtool.kturrets.storage;
 import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.*;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.clientside.gui.BetterButton;
 import dev.buildtool.satako.clientside.gui.Screen2;
 import dev.buildtool.satako.clientside.gui.SwitchButton;
@@ -58,7 +58,7 @@ public class StorageDroneScreen extends Screen2 {
             });
             addRenderableWidget(toggle);
         }
-        if(drone.upgrades.getStackInSlot(2).is(KItems.MAGNET_UPGRADE.get()))
+        if(drone.upgrades.getStackInSlot(2).is(KTItems.MAGNET_UPGRADE.get()))
         {
             MutableComponent magnetOff=Component.translatable("k_turrets.magnetOff.off");
             addRenderableWidget(new SwitchButton(centerX-font.width(magnetOff.getString())/2,centerY+20,Component.translatable("k_turrets.magnetOff.on"),magnetOff,drone.isMagnetActive(),pButton -> {

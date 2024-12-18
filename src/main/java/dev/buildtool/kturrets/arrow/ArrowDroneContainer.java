@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KTContainers;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -46,7 +46,7 @@ public class ArrowDroneContainer extends Container2 {
                 return ItemStack.EMPTY;
             else if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 1, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount+1, false))
                 return ItemStack.EMPTY;
-            else if ((itemStack.is(KItems.LOOTING_LINK.get()) || itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.RECALL_UPGRADE.get())) &&!moveItemStackTo(itemStack,KTurrets.droneSlotCount-KTurrets.droneUpgradeCount+1,KTurrets.droneSlotCount+1,false)) {
+            else if ((itemStack.is(KTItems.LOOTING_LINK.get()) || itemStack.is(KTItems.LIGHT_UPGRADE.get()) || itemStack.is(KTItems.EXP_LINK.get()) || itemStack.is(KTItems.RECALL_UPGRADE.get())) &&!moveItemStackTo(itemStack,KTurrets.droneSlotCount-KTurrets.droneUpgradeCount+1,KTurrets.droneSlotCount+1,false)) {
                 return ItemStack.EMPTY;
             }
         } else {

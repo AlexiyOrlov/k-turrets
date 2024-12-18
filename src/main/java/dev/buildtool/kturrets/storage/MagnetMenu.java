@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets.storage;
 
 import dev.buildtool.kturrets.registers.KTContainers;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -24,7 +24,7 @@ public class MagnetMenu extends Container2 {
                 }
             }
         });
-        addPlayerInventoryWithLockedItem(0,4*18,inventory.player, KItems.MAGNET_UPGRADE.get());
+        addPlayerInventoryWithLockedItem(0,4*18,inventory.player, KTItems.MAGNET_UPGRADE.get());
     }
 
     @Override

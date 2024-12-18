@@ -1,6 +1,6 @@
 package dev.buildtool.kturrets;
 
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Functions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -54,14 +54,14 @@ public class EventHandler {
                 Entity deathCauser = livingDeathEvent.getSource().getEntity();
                 if(deathCauser instanceof Drone drone)
                 {
-                    if(Functions.contains(KItems.EXP_LINK.get(), drone.upgrades))
+                    if(Functions.contains(KTItems.EXP_LINK.get(), drone.upgrades))
                         ExperienceOrb.award(serverLevel,entity.getPosition(1),entity.getExperienceReward());
                 }
                 else if (deathCauser instanceof Turret turret) {
-                    if(Functions.contains(KItems.EXP_LINK.get(), turret.upgrades))
+                    if(Functions.contains(KTItems.EXP_LINK.get(), turret.upgrades))
                         ExperienceOrb.award(serverLevel, entity.getPosition(1), entity.getExperienceReward());
                 }
-                if((deathCauser instanceof Drone drone && Functions.contains(KItems.LOOTING_LINK.get(), drone.upgrades))|| (deathCauser instanceof Turret turret && Functions.contains(KItems.LOOTING_LINK.get(), turret.upgrades)))
+                if((deathCauser instanceof Drone drone && Functions.contains(KTItems.LOOTING_LINK.get(), drone.upgrades))|| (deathCauser instanceof Turret turret && Functions.contains(KTItems.LOOTING_LINK.get(), turret.upgrades)))
                 {
                     ResourceLocation lootTableName=entity.getLootTable();
                     Pair<Item, NumberProvider> numberProviderPair=KTurrets.playerDependentLoot.get(lootTableName);

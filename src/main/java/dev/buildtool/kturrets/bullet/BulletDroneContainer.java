@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.bullet;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KTContainers;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,7 +38,7 @@ public class BulletDroneContainer extends Container2 {
         if (index > KTurrets.droneSlotCount-1) {
             if (itemStack.is(KTurrets.BULLET_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount, false))
                 return ItemStack.EMPTY;
-            else if ((itemStack.is(KItems.LIGHT_UPGRADE.get()) || itemStack.is(KItems.RECALL_UPGRADE.get()) || itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get()) || itemStack.is(KItems.LOOTING_LINK.get())) && !moveItemStackTo(itemStack, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount,KTurrets.droneSlotCount, false)) {
+            else if ((itemStack.is(KTItems.LIGHT_UPGRADE.get()) || itemStack.is(KTItems.RECALL_UPGRADE.get()) || itemStack.is(KTItems.EXP_LINK.get()) || itemStack.is(KTItems.FIRE_SHIELD.get()) || itemStack.is(KTItems.LOOTING_LINK.get())) && !moveItemStackTo(itemStack, KTurrets.droneSlotCount-KTurrets.droneUpgradeCount,KTurrets.droneSlotCount, false)) {
                 return ItemStack.EMPTY;
             }
         } else {

@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.arrow;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KTContainers;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Constants;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
@@ -45,7 +45,7 @@ public class ArrowTurretContainer extends Container2 {
             } else if (itemStack.is(KTurrets.ARROW_UNIT_AMMO_TAG)) {
                 if(!moveItemStackTo(itemStack,1,KTurrets.turretSlotCount-KTurrets.turretUpgradeCount,false))
                     return ItemStack.EMPTY;
-            } else if (itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get()) || itemStack.is(KItems.LOOTING_LINK.get())) {
+            } else if (itemStack.is(KTItems.EXP_LINK.get()) || itemStack.is(KTItems.FIRE_SHIELD.get()) || itemStack.is(KTItems.LOOTING_LINK.get())) {
                 if(!moveItemStackTo(itemStack,KTurrets.turretSlotCount-KTurrets.turretUpgradeCount+2,KTurrets.turretSlotCount,false))
                     return ItemStack.EMPTY;
             }

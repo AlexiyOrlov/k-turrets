@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.registers.KTBlocks;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.kturrets.registers.Sounds;
 import dev.buildtool.kturrets.storage.StorageDrone;
 import dev.buildtool.kturrets.tasks.*;
@@ -44,18 +44,18 @@ public abstract class Drone extends Turret {
     {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(stack.is(KItems.RECALL_UPGRADE.get()))
-                return !Functions.contains(KItems.RECALL_UPGRADE.get(),this);
-            else if(stack.is(KItems.MAGNET_UPGRADE.get()))
-                return Drone.this instanceof StorageDrone && !Functions.contains(KItems.MAGNET_UPGRADE.get(), this);
-            else if(stack.is(KItems.LIGHT_UPGRADE.get()))
-                return !Functions.contains(KItems.LIGHT_UPGRADE.get(), this);
-            else if (stack.is(KItems.EXP_LINK.get())) {
-                return (!(Drone.this instanceof StorageDrone)) && !Functions.contains(KItems.EXP_LINK.get(), this);
-            } else if (stack.is(KItems.FIRE_SHIELD.get())) {
-                return !Functions.contains(KItems.FIRE_SHIELD.get(), this);
-            } else if (stack.is(KItems.LOOTING_LINK.get())) {
-                return !Functions.contains(KItems.LOOTING_LINK.get(), this);
+            if(stack.is(KTItems.RECALL_UPGRADE.get()))
+                return !Functions.contains(KTItems.RECALL_UPGRADE.get(),this);
+            else if(stack.is(KTItems.MAGNET_UPGRADE.get()))
+                return Drone.this instanceof StorageDrone && !Functions.contains(KTItems.MAGNET_UPGRADE.get(), this);
+            else if(stack.is(KTItems.LIGHT_UPGRADE.get()))
+                return !Functions.contains(KTItems.LIGHT_UPGRADE.get(), this);
+            else if (stack.is(KTItems.EXP_LINK.get())) {
+                return (!(Drone.this instanceof StorageDrone)) && !Functions.contains(KTItems.EXP_LINK.get(), this);
+            } else if (stack.is(KTItems.FIRE_SHIELD.get())) {
+                return !Functions.contains(KTItems.FIRE_SHIELD.get(), this);
+            } else if (stack.is(KTItems.LOOTING_LINK.get())) {
+                return !Functions.contains(KTItems.LOOTING_LINK.get(), this);
             }
             return false;
         }
@@ -230,7 +230,7 @@ public abstract class Drone extends Turret {
         super.tick();
         if(!level().isClientSide)
         {
-            if(level().getGameTime()%40==0 && !Functions.findItem(KItems.RECALL_UPGRADE.get(), upgrades).isEmpty()) {
+            if(level().getGameTime()%40==0 && !Functions.findItem(KTItems.RECALL_UPGRADE.get(), upgrades).isEmpty()) {
                 getOwner().ifPresent(uuid1 -> {
                     Player player = level().getPlayerByUUID(uuid1);
                     if (player != null) {
@@ -241,7 +241,7 @@ public abstract class Drone extends Turret {
                 });
             }
 
-            if (!Functions.findItem(KItems.LIGHT_UPGRADE.get(), upgrades).isEmpty()) {
+            if (!Functions.findItem(KTItems.LIGHT_UPGRADE.get(), upgrades).isEmpty()) {
                 BlockPos currentPos = getOnPos();
                 if (level().isEmptyBlock(currentPos)) {
                     if (level().getBlockState(previousPosition).is(KTBlocks.LIGHT_BLOCK.get()))
@@ -257,6 +257,6 @@ public abstract class Drone extends Turret {
 
     @Override
     public boolean fireImmune() {
-        return Functions.contains(KItems.FIRE_SHIELD.get(), upgrades);
+        return Functions.contains(KTItems.FIRE_SHIELD.get(), upgrades);
     }
 }

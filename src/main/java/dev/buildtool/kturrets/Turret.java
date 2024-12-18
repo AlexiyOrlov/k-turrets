@@ -1,7 +1,7 @@
 package dev.buildtool.kturrets;
 
 import dev.buildtool.kturrets.packets.AmmoCheck;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.kturrets.registers.RegisterCapability;
 import dev.buildtool.kturrets.registers.UnitLimitCapability;
 import dev.buildtool.kturrets.storage.StorageDrone;
@@ -73,12 +73,12 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
     public ItemHandler upgrades=new ItemHandler(KTurrets.turretUpgradeCount){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            if(stack.is(KItems.EXP_LINK.get()))
-                return !Functions.contains(KItems.EXP_LINK.get(), this);
-            else if (stack.is(KItems.FIRE_SHIELD.get())) {
-                return !Functions.contains(KItems.FIRE_SHIELD.get(), this);
-            } else if (stack.is(KItems.LOOTING_LINK.get())) {
-                return !Functions.contains(KItems.LOOTING_LINK.get(), this);
+            if(stack.is(KTItems.EXP_LINK.get()))
+                return !Functions.contains(KTItems.EXP_LINK.get(), this);
+            else if (stack.is(KTItems.FIRE_SHIELD.get())) {
+                return !Functions.contains(KTItems.FIRE_SHIELD.get(), this);
+            } else if (stack.is(KTItems.LOOTING_LINK.get())) {
+                return !Functions.contains(KTItems.LOOTING_LINK.get(), this);
             }
             return false;
         }
@@ -237,7 +237,7 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
-        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && itemInHand.is(KItems.TITANIUM_INGOT.get())) {
+        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && itemInHand.is(KTItems.TITANIUM_INGOT.get())) {
             heal(getHealthRecovered());
             itemInHand.shrink(1);
             return InteractionResult.SUCCESS;
@@ -251,7 +251,7 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
             }
             if (getOwnerName().isEmpty())
                 setOwnerName(playerEntity.getName().getString());
-            if (itemInHand.getItem() == KItems.TARGET_COPIER.get() && !(this instanceof StorageDrone)) {
+            if (itemInHand.getItem() == KTItems.TARGET_COPIER.get() && !(this instanceof StorageDrone)) {
                 if (playerEntity.isCrouching()) {
                     //copy
                     CompoundTag compoundTag = itemInHand.getOrCreateTag();
@@ -660,6 +660,6 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
 
     @Override
     public boolean fireImmune() {
-        return Functions.contains(KItems.FIRE_SHIELD.get(), upgrades);
+        return Functions.contains(KTItems.FIRE_SHIELD.get(), upgrades);
     }
 }

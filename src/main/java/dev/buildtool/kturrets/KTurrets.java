@@ -1,7 +1,5 @@
 package dev.buildtool.kturrets;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -57,7 +55,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -130,47 +127,47 @@ public class KTurrets {
     public static final int turretSlotCount =29, turretUpgradeCount=3,droneSlotCount=23,droneUpgradeCount=5;
     public static HashMap<ResourceLocation,Pair<Item,NumberProvider>> playerDependentLoot=new HashMap<>();
     public KTurrets() {
-        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
-            items.accept(KItems.COBBLE_TURRET.get());
-            items.accept(KItems.ARROW_TURRET.get());
-            items.accept(KItems.FIRECHARGE_TURRET.get());
-            items.accept(KItems.BULLET_TURRET.get());
-            items.accept(KItems.BRICK_TURRET.get());
-            items.accept(KItems.GAUSS_TURRET.get());
+        CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KTItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
+            items.accept(KTItems.COBBLE_TURRET.get());
+            items.accept(KTItems.ARROW_TURRET.get());
+            items.accept(KTItems.FIRECHARGE_TURRET.get());
+            items.accept(KTItems.BULLET_TURRET.get());
+            items.accept(KTItems.BRICK_TURRET.get());
+            items.accept(KTItems.GAUSS_TURRET.get());
 
-            items.accept(KItems.EXPLOSIVE_POWDER.get());
-            items.accept(KItems.GAUSS_BULLET.get());
-            items.accept(KItems.BULLET.get());
-            items.accept(KItems.TITANIUM_ORE.get());
-            items.accept(KItems.DEEPSLATE_TITANIUM_ORE.get());
-            items.accept(KItems.RAW_TITANIUM.get());
-            items.accept(KItems.TITANIUM_INGOT.get());
-            items.accept(KItems.COPPER_PLATE.get());
-            items.accept(KItems.TARGET_COPIER.get());
+            items.accept(KTItems.EXPLOSIVE_POWDER.get());
+            items.accept(KTItems.GAUSS_BULLET.get());
+            items.accept(KTItems.BULLET.get());
+            items.accept(KTItems.TITANIUM_ORE.get());
+            items.accept(KTItems.DEEPSLATE_TITANIUM_ORE.get());
+            items.accept(KTItems.RAW_TITANIUM.get());
+            items.accept(KTItems.TITANIUM_INGOT.get());
+            items.accept(KTItems.COPPER_PLATE.get());
+            items.accept(KTItems.TARGET_COPIER.get());
 
-            items.accept(KItems.COBBLE_DRONE.get());
-            items.accept(KItems.ARROW_DRONE.get());
-            items.accept(KItems.FIREBALL_DRONE.get());
-            items.accept(KItems.BULLET_DRONE.get());
-            items.accept(KItems.BRICK_DRONE.get());
-            items.accept(KItems.GAUSS_DRONE.get());
+            items.accept(KTItems.COBBLE_DRONE.get());
+            items.accept(KTItems.ARROW_DRONE.get());
+            items.accept(KTItems.FIREBALL_DRONE.get());
+            items.accept(KTItems.BULLET_DRONE.get());
+            items.accept(KTItems.BRICK_DRONE.get());
+            items.accept(KTItems.GAUSS_DRONE.get());
 
-            items.accept(KItems.RELOADER.get());
+            items.accept(KTItems.RELOADER.get());
 
-            items.accept(KItems.STORAGE_DRONE.get());
+            items.accept(KTItems.STORAGE_DRONE.get());
 
-            items.accept(KItems.LIGHT_UPGRADE.get());
-            items.accept(KItems.MAGNET_UPGRADE.get());
-            items.accept(KItems.RECALL_UPGRADE.get());
-            items.accept(KItems.EXP_LINK.get());
-            items.accept(KItems.FIRE_SHIELD.get());
-            items.accept(KItems.LOOTING_LINK.get());
+            items.accept(KTItems.LIGHT_UPGRADE.get());
+            items.accept(KTItems.MAGNET_UPGRADE.get());
+            items.accept(KTItems.RECALL_UPGRADE.get());
+            items.accept(KTItems.EXP_LINK.get());
+            items.accept(KTItems.FIRE_SHIELD.get());
+            items.accept(KTItems.LOOTING_LINK.get());
         }).build();
         TAB_REGISTER.register("only", () -> creativeModeTab);
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         KTEntities.ENTITIES.register(eventBus);
-        KItems.ITEMS.register(eventBus);
+        KTItems.ITEMS.register(eventBus);
         KTContainers.CONTAINERS.register(eventBus);
         Sounds.SOUNDS.register(eventBus);
         KTBlocks.BLOCKS.register(eventBus);
@@ -390,7 +387,7 @@ public class KTurrets {
                 (magnetFilterState, contextSupplier) -> {
                     ServerPlayer serverPlayer=contextSupplier.get().getSender();
                     ItemStack held=serverPlayer.getInventory().getSelected();
-                    if(held.is(KItems.MAGNET_UPGRADE.get()))
+                    if(held.is(KTItems.MAGNET_UPGRADE.get()))
                     {
                         held.getOrCreateTag().putBoolean(FILTER, magnetFilterState.state);
                         contextSupplier.get().setPacketHandled(true);

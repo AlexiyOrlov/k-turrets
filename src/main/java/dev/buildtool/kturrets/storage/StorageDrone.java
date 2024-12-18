@@ -4,7 +4,7 @@ import dev.buildtool.kturrets.Drone;
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.packets.PickupParticles;
 import dev.buildtool.kturrets.registers.KTEntities;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Functions;
 import dev.buildtool.satako.ItemHandler;
 import io.netty.buffer.Unpooled;
@@ -38,7 +38,7 @@ public class StorageDrone extends Drone {
     public ItemHandler itemHandler = new ItemHandler(27){
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return !stack.is(KItems.STORAGE_DRONE.get());
+            return !stack.is(KTItems.STORAGE_DRONE.get());
         }
     };
 
@@ -98,12 +98,12 @@ public class StorageDrone extends Drone {
     public void tick() {
         super.tick();
         if(!level().isClientSide) {
-            ItemStack magnet=Functions.findItem(KItems.MAGNET_UPGRADE.get(), upgrades);
-            if (magnet.is(KItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
+            ItemStack magnet=Functions.findItem(KTItems.MAGNET_UPGRADE.get(), upgrades);
+            if (magnet.is(KTItems.MAGNET_UPGRADE.get()) && isMagnetActive()) {
                 List<ItemEntity> itemEntities = level().getEntitiesOfClass(ItemEntity.class, getBoundingBox().inflate(32));
                 itemEntities.forEach(itemEntity -> {
                     ItemStack entityItem = itemEntity.getItem();
-                    if (!entityItem.is(KItems.STORAGE_DRONE.get())) {
+                    if (!entityItem.is(KTItems.STORAGE_DRONE.get())) {
                         magnet.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler ->{
                             if(magnet.getOrCreateTag().getBoolean(KTurrets.FILTER))
                             {

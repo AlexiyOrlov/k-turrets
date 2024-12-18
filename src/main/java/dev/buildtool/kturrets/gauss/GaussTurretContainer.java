@@ -2,7 +2,7 @@ package dev.buildtool.kturrets.gauss;
 
 import dev.buildtool.kturrets.KTurrets;
 import dev.buildtool.kturrets.registers.KTContainers;
-import dev.buildtool.kturrets.registers.KItems;
+import dev.buildtool.kturrets.registers.KTItems;
 import dev.buildtool.satako.Container2;
 import dev.buildtool.satako.ItemHandlerSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,7 +36,7 @@ public class GaussTurretContainer extends Container2 {
         if (index > KTurrets.turretSlotCount) {
             if (itemStack.is(KTurrets.GAUSS_UNIT_AMMO_TAG) && !moveItemStackTo(itemStack, 0, KTurrets.turretSlotCount -1, false))
                 return ItemStack.EMPTY;
-            if((itemStack.is(KItems.EXP_LINK.get()) || itemStack.is(KItems.FIRE_SHIELD.get()) || itemStack.is(KItems.LOOTING_LINK.get())) &&!moveItemStackTo(itemStack,KTurrets.turretSlotCount -KTurrets.turretUpgradeCount+1,KTurrets.turretSlotCount-1+KTurrets.turretUpgradeCount,false))
+            if((itemStack.is(KTItems.EXP_LINK.get()) || itemStack.is(KTItems.FIRE_SHIELD.get()) || itemStack.is(KTItems.LOOTING_LINK.get())) &&!moveItemStackTo(itemStack,KTurrets.turretSlotCount -KTurrets.turretUpgradeCount+1,KTurrets.turretSlotCount-1+KTurrets.turretUpgradeCount,false))
                 return ItemStack.EMPTY;
         } else {
             if (!moveItemStackTo(itemStack, KTurrets.turretSlotCount+1, slots.size(), false))
