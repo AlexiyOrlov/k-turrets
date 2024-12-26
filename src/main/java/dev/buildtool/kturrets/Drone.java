@@ -223,9 +223,6 @@ public abstract class Drone extends Turret {
     }
 
     @Override
-    protected abstract List<ItemHandler> getContainedItems();
-
-    @Override
     public void tick() {
         super.tick();
         if(!level().isClientSide)
