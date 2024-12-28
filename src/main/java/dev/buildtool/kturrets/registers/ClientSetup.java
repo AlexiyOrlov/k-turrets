@@ -22,7 +22,7 @@ public class ClientSetup {
     @SubscribeEvent
     public static void register(FMLClientSetupEvent clientSetupEvent) {
         MenuScreens.register(KTContainers.ARROW_TURRET.get(), (MenuScreens.ScreenConstructor<ArrowTurretContainer, ArrowTurretScreen>) (p_create_1_, p_create_2_, p_create_3_) -> new ArrowTurretScreen(p_create_1_, p_create_2_, p_create_3_, true));
-        MenuScreens.register(KTContainers.BULLET_TURRET.get(), (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletScreen>) (p1, p2, p3) -> new BulletScreen(p1, p2, p3, true));
+        MenuScreens.register(KTContainers.BULLET_TURRET.get(), (MenuScreens.ScreenConstructor<BulletTurretContainer, BulletTurretScreen>) (p1, p2, p3) -> new BulletTurretScreen(p1, p2, p3, true));
         MenuScreens.register(KTContainers.FIRE_CHARGE_TURRET.get(), (MenuScreens.ScreenConstructor<FireballTurretContainer, FireballTurretScreen>) (p1, p2, p3) -> new FireballTurretScreen(p1, p2, p3, true));
         MenuScreens.register(KTContainers.BRICK_TURRET.get(), (MenuScreens.ScreenConstructor<BrickTurretContainer, BrickTurretScreen>) (p1, p2, p3) -> new BrickTurretScreen(p1, p2, p3, true));
         MenuScreens.register(KTContainers.GAUSS_TURRET.get(), (MenuScreens.ScreenConstructor<GaussTurretContainer, GaussTurretScreen>) (p1, p2, p3) -> new GaussTurretScreen(p1, p2, p3, true));
