@@ -76,11 +76,6 @@ public class StorageDrone extends Drone {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
-        return super.mobInteract(playerEntity, interactionHand);
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag compoundNBT) {
         super.addAdditionalSaveData(compoundNBT);
         compoundNBT.put("Items", itemHandler.serializeNBT());
