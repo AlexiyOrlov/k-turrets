@@ -29,18 +29,18 @@ public class EventHandler {
     @SubscribeEvent
     public static void defendPlayer(LivingDamageEvent livingDamageEvent)
     {
-        LivingEntity livingEntity= livingDamageEvent.getEntity();
-        if(livingEntity instanceof ServerPlayer serverPlayer &&!livingDamageEvent.isCanceled())
-        {
-            Level level=serverPlayer.level();
-            List<Turret> turrets=level.getEntitiesOfClass(Turret.class,serverPlayer.getBoundingBox().inflate(128));
-            turrets.forEach(turret -> {
-                Entity directSource = livingDamageEvent.getSource().getEntity();
-                if(turret.isProtectingOwner() && turret.getTarget()==null && directSource instanceof LivingEntity living && turret.isArmed())
-                {
-                    turret.setTarget(living);
-                }
-            });
+        if(!livingDamageEvent.isCanceled()) {
+            LivingEntity livingEntity = livingDamageEvent.getEntity();
+            if (livingEntity instanceof ServerPlayer serverPlayer) {
+                Level level = serverPlayer.level();
+                List<Turret> turrets = level.getEntitiesOfClass(Turret.class, serverPlayer.getBoundingBox().inflate(128));
+                turrets.forEach(turret -> {
+                    Entity directSource = livingDamageEvent.getSource().getEntity();
+                    if (turret.isProtectingOwner() && turret.getTarget() == null && directSource instanceof LivingEntity living && turret.isArmed()) {
+                        turret.setTarget(living);
+                    }
+                });
+            }
         }
     }
 
