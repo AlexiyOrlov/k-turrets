@@ -20,7 +20,7 @@ public class RegisterCapability {
         Object o = attachCapabilitiesEvent.getObject();
         if (o instanceof ServerLevel) {
             attachCapabilitiesEvent.addCapability(new ResourceLocation(KTurrets.ID, "unit_limits"), new UnitLimitCapability.Provider());
-        } else if (o instanceof ItemStack itemStack && itemStack.getItem()== KTItems.MAGNET_UPGRADE.get()) {
+        } else if (o instanceof ItemStack itemStack && KTItems.MAGNET_UPGRADE.isPresent() && itemStack.getItem()== KTItems.MAGNET_UPGRADE.get()) {
             attachCapabilitiesEvent.addCapability(new ResourceLocation(KTurrets.ID,"magnet_inventory"), new MagnetInventoryProvider());
         }
     }
