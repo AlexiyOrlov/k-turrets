@@ -1,3 +1,7 @@
+3.0.37:
+removed some log lines;
+added units to Carry On entity blacklist;
+
 3.0.36:
 fixed possible crash with Tacz on Arclight;
 

@@ -7,7 +7,7 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '3.0.36-1.20.1'
+version = '3.0.37-1.20.1'
 group = 'dev.buildtool'
 archivesBaseName = 'K-Turrets'
 
@@ -98,6 +98,7 @@ dependencies {
     implementation(fg.deobf('dev.architectury:architectury-forge:9.0.8'))
     implementation fg.deobf("dev.ftb.mods:ftb-library-forge:2001.2.6")
     implementation(fg.deobf('curse.maven:spark-361579:4738952'))
+    implementation fg.deobf("curse.maven:carry-on-274259:4882500")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

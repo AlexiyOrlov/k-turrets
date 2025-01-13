@@ -563,6 +563,8 @@ public class KTurrets {
         }).getRight());
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        eventBus.addListener(this::sendMessage);
     }
 
     @SubscribeEvent
@@ -685,5 +687,23 @@ public class KTurrets {
                 serverUnitDeaths.removeAll(uuid);
             }
         }
+    }
+
+    private void sendMessage(InterModEnqueueEvent event)
+    {
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.ARROW_DRONE.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.ARROW_TURRET.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.BULLET_TURRET.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.BULLET_DRONE.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.COBBLE_DRONE.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.COBBLE_TURRET.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.BRICK_TURRET.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.BRICK_DRONE.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.GAUSS_TURRET.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.GAUSS_DRONE.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.FIRE_CHARGE_TURRET.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.FIRECHARGE_DRONE.getId().toString());
+        InterModComms.sendTo("carryon","blacklistEntity",() -> KTEntities.STORAGE_DRONE.getId().toString());
+
     }
 }
