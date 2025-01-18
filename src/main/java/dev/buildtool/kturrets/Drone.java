@@ -71,6 +71,7 @@ public abstract class Drone extends Turret {
         moveControl = new DroneMovementControl(this, 20, true);
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
+        setPathfindingMalus(BlockPathTypes.WATER,0);
     }
 
     public enum Behavior{
