@@ -38,7 +38,7 @@ public abstract class Drone extends Turret {
     private static final EntityDataAccessor<BlockPos> GUARD_POSITION = SynchedEntityData.defineId(Drone.class, EntityDataSerializers.BLOCK_POS);
 
     private static final EntityDataAccessor<Byte> BEHAVIOR=SynchedEntityData.defineId(Drone.class,EntityDataSerializers.BYTE);
-    private BlockPos previousPosition=BlockPos.ZERO;
+    public BlockPos previousPosition=BlockPos.ZERO;
 
     public ItemHandler upgrades=new ItemHandler(KTurrets.droneUpgradeCount)
     {

@@ -430,6 +430,10 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
                 }
             }
         });
+        if(this instanceof Drone drone && !Functions.findItem(KTItems.LIGHT_UPGRADE.get(), drone.upgrades).isEmpty())
+        {
+            level().removeBlock(drone.previousPosition,false);
+        }
     }
 
     protected abstract List<ItemHandler> getContainedItems();

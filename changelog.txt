@@ -2,6 +2,7 @@
 removed some log lines;
 added units to Carry On entity blacklist;
 drones can navigate underwater now;
+remove light block on drone death or dismantle;
 
 3.0.36:
 fixed possible crash with Tacz on Arclight;

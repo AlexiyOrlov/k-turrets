@@ -278,6 +278,10 @@ public class KTurrets {
                         }
                         contextSupplier.get().setPacketHandled(true);
                     }
+                    if(entity instanceof Drone drone && !Functions.findItem(KTItems.LIGHT_UPGRADE.get(), drone.upgrades).isEmpty())
+                    {
+                        serverWorld.removeBlock(drone.previousPosition,false);
+                    }
                 });
         channel.registerMessage(packetIndex++, ClaimTurret.class, (claimTurret, packetBuffer) -> {
                     packetBuffer.writeInt(claimTurret.id);
