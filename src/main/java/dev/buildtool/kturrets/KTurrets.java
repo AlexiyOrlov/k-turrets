@@ -77,7 +77,7 @@ import java.util.*;
 @Mod(KTurrets.ID)
 public class KTurrets {
     public static final String ID = "k_turrets";
-    public static final ResourceLocation TITANIUM_INGOT = new ResourceLocation("forge", "ingots/titanium");
+    public static final TagKey<Item> REPAIR_ITEMS = TagKey.create(Registries.ITEM, new ResourceLocation(ID, "unit_repair"));
     public static final IntegerColor upgradeSlotColor = new IntegerColor(0xffF5CE45);
     static private final String NP = "1.0";
     public static final Type TYPE = new TypeToken<ArrayListMultimap<UUID, String>>() {

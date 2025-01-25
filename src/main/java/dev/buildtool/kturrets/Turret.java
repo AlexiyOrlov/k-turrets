@@ -237,7 +237,7 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
     @Override
     protected InteractionResult mobInteract(Player playerEntity, InteractionHand interactionHand) {
         ItemStack itemInHand = playerEntity.getItemInHand(interactionHand);
-        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && itemInHand.is(KTItems.TITANIUM_INGOT.get())) {
+        if (getHealth() < getMaxHealth() && playerEntity.isCrouching() && itemInHand.is(KTurrets.REPAIR_ITEMS)) {
             heal(getHealthRecovered());
             itemInHand.shrink(1);
             return InteractionResult.SUCCESS;
