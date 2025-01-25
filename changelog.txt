@@ -1,3 +1,6 @@
+2.0.47:
+use dedicated tag for unit repair items;
+
 2.0.46:
 updated Chinese translation;
 reduced turret and drone limits;
