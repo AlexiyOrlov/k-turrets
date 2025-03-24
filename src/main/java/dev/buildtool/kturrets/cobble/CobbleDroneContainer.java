@@ -24,11 +24,11 @@ public class CobbleDroneContainer extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,0,2*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,1,3*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,2,4*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,3,5*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,4,6*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,0,2*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,1,3*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,2,4*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,3,5*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(cobbleDrone.upgrades,4,6*18,2*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
 
         addPlayerInventory(0, 4 * 18, playerInventory);
     }

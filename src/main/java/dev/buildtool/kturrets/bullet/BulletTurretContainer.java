@@ -23,9 +23,9 @@ public class BulletTurretContainer extends Container2 {
                 addSlot(new ItemHandlerSlot(bulletTurret.ammo, slot++, k * 18, j * 18));
             }
         }
-        addSlot(new ItemHandlerSlot(bulletTurret.upgrades, 0,3*18,3*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
-        addSlot(new ItemHandlerSlot(bulletTurret.upgrades, 1,4*18,3*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
-        addSlot(new ItemHandlerSlot(bulletTurret.upgrades, 2,5*18,3*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(bulletTurret.upgrades, 0,3*18,3*18).setTooltip(Component.translatable("k_turrets.upgrade.slot")).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(bulletTurret.upgrades, 1,4*18,3*18).setTooltip(Component.translatable("k_turrets.upgrade.slot")).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(bulletTurret.upgrades, 2,5*18,3*18).setTooltip(Component.translatable("k_turrets.upgrade.slot")).setColor(KTurrets.upgradeSlotColor));
         addPlayerInventory(0, 5 * 18, playerInventory);
     }
 

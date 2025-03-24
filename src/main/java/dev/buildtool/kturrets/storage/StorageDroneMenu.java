@@ -25,10 +25,10 @@ public class StorageDroneMenu extends Container2 {
             }
         }
 
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades,2,5*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
-        addSlot(new ItemHandlerSlot(storageDrone.upgrades,3,6*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 0,3*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades, 1,4*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades,2,5*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
+        addSlot(new ItemHandlerSlot(storageDrone.upgrades,3,6*18,3*18).setColor(KTurrets.upgradeSlotColor).setTooltip(Component.translatable("k_turrets.upgrade.slot")));
 
         addPlayerInventory(inventory.player, 0, 5 * 18);
     }

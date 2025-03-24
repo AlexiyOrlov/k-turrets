@@ -21,7 +21,7 @@ public class ArrowDroneContainer extends Container2 {
     public ArrowDroneContainer(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
         super(KTContainers.ARROW_DRONE.get(), i);
         ArrowDrone arrowDrone = (ArrowDrone) inventory.player.level().getEntity(friendlyByteBuf.readInt());
-        addSlot(new ItemHandlerSlot(arrowDrone.weapon, 0, 4 * 18, 0).setTooltip(List.of(Component.translatable("k_turrets.bow.or.crossbow"))).setColor(Constants.GREEN));
+        addSlot(new ItemHandlerSlot(arrowDrone.weapon, 0, 4 * 18, 0).setTooltip(Component.translatable("k_turrets.bow.or.crossbow")).setColor(Constants.GREEN));
         int slot = 0;
         for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 9; k++) {
@@ -30,11 +30,11 @@ public class ArrowDroneContainer extends Container2 {
         }
 
         MutableComponent upgrade = Component.translatable("k_turrets.upgrade.slot");
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,0,2*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,1,3*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,2,4*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,3,5*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
-        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,4,6*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(List.of(upgrade)));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,0,2*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(upgrade));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,1,3*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(upgrade));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,2,4*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(upgrade));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,3,5*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(upgrade));
+        addSlot(new ItemHandlerSlot(arrowDrone.upgrades,4,6*18,4*18).setColor(KTurrets.upgradeSlotColor).setTooltip(upgrade));
         addPlayerInventory(0, 6 * 18, inventory);
     }
 

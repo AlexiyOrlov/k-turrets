@@ -20,16 +20,16 @@ public class ArrowTurretContainer extends Container2 {
     public ArrowTurretContainer(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer) {
         super(KTContainers.ARROW_TURRET.get(), i);
         ArrowTurret turret = (ArrowTurret) playerInventory.player.level().getEntity(packetBuffer.readInt());
-        addSlot(new ItemHandlerSlot(turret.weapon, 0, 4 * 18, 0).setColor(Constants.GREEN).setTooltip(List.of(Component.translatable("k_turrets.bow.or.crossbow"))));
+        addSlot(new ItemHandlerSlot(turret.weapon, 0, 4 * 18, 0).setColor(Constants.GREEN).setTooltip(Component.translatable("k_turrets.bow.or.crossbow")));
         int slot = 0;
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 9; k++) {
                 addSlot(new ItemHandlerSlot(turret.ammo, slot++, k * 18, j * 18 + 18));
             }
         }
-        addSlot(new ItemHandlerSlot(turret.upgrades,0,3*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
-        addSlot(new ItemHandlerSlot(turret.upgrades,1,4*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
-        addSlot(new ItemHandlerSlot(turret.upgrades,2,5*18,4*18).setTooltip(List.of(Component.translatable("k_turrets.upgrade.slot"))).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,0,3*18,4*18).setTooltip(Component.translatable("k_turrets.upgrade.slot")).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,1,4*18,4*18).setTooltip(Component.translatable("k_turrets.upgrade.slot")).setColor(KTurrets.upgradeSlotColor));
+        addSlot(new ItemHandlerSlot(turret.upgrades,2,5*18,4*18).setTooltip(Component.translatable("k_turrets.upgrade.slot")).setColor(KTurrets.upgradeSlotColor));
 
         addPlayerInventory(0, 6* 18, playerInventory);
     }
