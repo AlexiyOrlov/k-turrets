@@ -7,7 +7,7 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '3.0.37-1.20.1'
+version = '3.0.38-1.20.1'
 group = 'dev.buildtool'
 archivesBaseName = 'K-Turrets'
 
