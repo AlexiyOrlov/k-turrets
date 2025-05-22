@@ -1,3 +1,7 @@
+3.0.39:
+new item textures;
+fixed range of config values;
+
 3.0.37:
 removed some log lines;
 added units to Carry On entity blacklist;
