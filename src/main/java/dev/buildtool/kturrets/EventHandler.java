@@ -70,12 +70,14 @@ public class EventHandler {
                         NumberProvider numberProvider=numberProviderPair.getRight();
                         if(numberProvider instanceof UniformGenerator uniformGenerator)
                         {
-                            if(Mth.nextFloat(level.random,uniformGenerator.min.getFloat(null),uniformGenerator.max.getFloat(null))<1)
+                            float rf = Mth.nextFloat(level.random, uniformGenerator.min.getFloat(null), 1);
+                            if(rf <uniformGenerator.max.getFloat(null))
                                 level.addFreshEntity(new ItemEntity(level,entity.getX(),entity.getY(),entity.getZ(),new ItemStack(numberProviderPair.getKey())));
                         }
                         else {
                             ConstantValue c= (ConstantValue) numberProvider;
-                            if (Mth.nextFloat(level.random, 0,c.getFloat(null))<1)
+                            float rf = Mth.nextFloat(level.random,0,1);
+                            if (rf <c.getFloat(null))
                                 level.addFreshEntity(new ItemEntity(level,entity.getX(),entity.getY(),entity.getZ(),new ItemStack(numberProviderPair.getKey())));
                         }
                     }
