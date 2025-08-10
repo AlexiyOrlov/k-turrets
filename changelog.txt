@@ -1,3 +1,6 @@
+3.0.41:
+fixed possible crash;
+
 3.0.40:
 fixed Looting link causing mobs always drop loot;
 
