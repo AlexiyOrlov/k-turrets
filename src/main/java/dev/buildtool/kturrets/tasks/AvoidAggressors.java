@@ -17,11 +17,13 @@ public class AvoidAggressors extends Goal {
 
     @Override
     public boolean canUse() {
-        Player owner=drone.level().getPlayerByUUID(drone.getOwnerUUID());
-        if(owner!=null) {
-            List<Mob> aggressors = drone.level().getEntitiesOfClass(Mob.class, drone.getBoundingBox().inflate(5), mob -> mob.getTarget() == owner);
-            Optional<Mob> aggressor = aggressors.stream().filter(mob -> mob.distanceTo(drone) < 3).findAny();
-            return aggressor.isPresent();
+        if(drone.getOwnerUUID()!=null) {
+            Player owner = drone.level().getPlayerByUUID(drone.getOwnerUUID());
+            if (owner != null) {
+                List<Mob> aggressors = drone.level().getEntitiesOfClass(Mob.class, drone.getBoundingBox().inflate(5), mob -> mob.getTarget() == owner);
+                Optional<Mob> aggressor = aggressors.stream().filter(mob -> mob.distanceTo(drone) < 3).findAny();
+                return aggressor.isPresent();
+            }
         }
         return false;
     }
