@@ -60,7 +60,10 @@ public class ClientSetup {
             definitions.registerLayerDefinition(CobbleTurretNew.LAYER_LOCATION,CobbleTurretNew::createBodyLayer);
         else
             definitions.registerLayerDefinition(CobbleTurretModelv4.LAYER_LOCATION, CobbleTurretModelv4::createBodyLayer);
-        definitions.registerLayerDefinition(FireballTurretModelv4.LAYER_LOCATION, FireballTurretModelv4::createBodyLayer);
+        if(KTurrets.useNewFireballTurretModel.get())
+            definitions.registerLayerDefinition(FireballTurretModelNew.LAYER_LOCATION,FireballTurretModelNew::createBodyLayer);
+        else
+            definitions.registerLayerDefinition(FireballTurretModelv4.LAYER_LOCATION, FireballTurretModelv4::createBodyLayer);
         definitions.registerLayerDefinition(GaussTurretModelv2.LAYER_LOCATION, GaussTurretModelv2::createBodyLayer);
         definitions.registerLayerDefinition(BrickModel.LAYER_LOCATION, BrickModel::createBodyLayer);
         definitions.registerLayerDefinition(BulletModel.LAYER_LOCATION, BulletModel::createBodyLayer);
@@ -92,7 +95,10 @@ public class ClientSetup {
             renderers.registerEntityRenderer(KTEntities.BRICK_TURRET.get(), context -> new EntityRenderer2<>(context,new BrickTurretModelNew<>(context.bakeLayer(BrickTurretModelNew.LAYER_LOCATION)),"brickturrettexture",0.4f));
         else
             renderers.registerEntityRenderer(KTEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", 0.4f));
-        renderers.registerEntityRenderer(KTEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FireballTurretModelv4<>(manager.bakeLayer(FireballTurretModelv4.LAYER_LOCATION)), "fireball_turret", 0.3f));
+        if(KTurrets.useNewFireballTurretModel.get())
+            renderers.registerEntityRenderer(KTEntities.FIRE_CHARGE_TURRET.get(), context -> new EntityRenderer2<>(context,new FireballTurretModelNew<>(context.bakeLayer(FireballTurretModelNew.LAYER_LOCATION)),"fireballturretnew",0.4f));
+        else
+            renderers.registerEntityRenderer(KTEntities.FIRE_CHARGE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new FireballTurretModelv4<>(manager.bakeLayer(FireballTurretModelv4.LAYER_LOCATION)), "fireball_turret", 0.3f));
         if(KTurrets.useNewBulletTurretModel.get())
             renderers.registerEntityRenderer(KTEntities.BULLET_TURRET.get(), context -> new EntityRenderer2<>(context,new BulletTurretModelNew<>(context.bakeLayer(BulletTurretModelNew.LAYER_LOCATION)),"bulletturrettexture",0.4f));
         else
