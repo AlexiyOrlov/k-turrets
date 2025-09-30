@@ -64,11 +64,13 @@ public class ClientEvents {
         Player player = Minecraft.getInstance().player;
         if (livingEntity instanceof Turret turret) {
             if (player.distanceTo(turret) < 23) {
-                if (turret.noAmmo && !(turret instanceof StorageDrone)) {PoseStack poseStack = renderLivingEvent.getPoseStack();
-                    poseStack.translate(0, -13, 0);                    Font font = renderLivingEvent.getRenderer().getFont();
+                if (turret.noAmmo && !(turret instanceof StorageDrone)) {
+                    PoseStack poseStack = renderLivingEvent.getPoseStack();
+                    Font font = renderLivingEvent.getRenderer().getFont();
                     Component noAmmo = Component.translatable("k_turrets.no.ammo");
                     if (turret.getOwner().isEmpty() || (turret.getOwner().isPresent() && (player.getUUID().equals(turret.getOwner().get()) || player.isAlliedTo(turret)))) {
                         poseStack.pushPose();
+                        poseStack.translate(0, -13, 0);
                         poseStack.scale(0.03f, 0.03f, 0.03f);
                         poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                         poseStack.mulPose(Axis.YP.rotationDegrees(180));

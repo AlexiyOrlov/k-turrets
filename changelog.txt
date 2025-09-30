@@ -1,3 +1,6 @@
+3.0.42:
+fixed bounding box not showing up if the turret has no ammo;
+
 3.0.41:
 fixed possible crash;
 
