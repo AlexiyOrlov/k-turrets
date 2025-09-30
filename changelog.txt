@@ -1,5 +1,6 @@
 3.0.42:
-fixed bounding box not showing up if the turret has no ammo;
+fixed bounding box not showing up if the unit has no ammo;
+added new turret models;
 
 3.0.41:
 fixed possible crash;
