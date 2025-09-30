@@ -44,7 +44,10 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions definitions) {
-        definitions.registerLayerDefinition(ArrowTurretModelv3.LAYER_LOCATION, ArrowTurretModelv3::createBodyLayer);
+        if(KTurrets.useNewArrowTurretModel.get())
+            definitions.registerLayerDefinition(ArrowTurretModelNew.LAYER_LOCATION,ArrowTurretModelNew::createBodyLayer);
+        else
+            definitions.registerLayerDefinition(ArrowTurretModelv3.LAYER_LOCATION, ArrowTurretModelv3::createBodyLayer);
         definitions.registerLayerDefinition(BrickTurretModelv2.LAYER_LOCATION, BrickTurretModelv2::createBodyLayer);
         definitions.registerLayerDefinition(BulletTurretModelv4.LAYER_LOCATION, BulletTurretModelv4::createBodyLayer);
         definitions.registerLayerDefinition(CobbleTurretModelv4.LAYER_LOCATION, CobbleTurretModelv4::createBodyLayer);
@@ -67,7 +70,10 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers renderers) {
-        renderers.registerEntityRenderer(KTEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretModelv3<>(manager.bakeLayer(ArrowTurretModelv3.LAYER_LOCATION)), "arrow_turret2", 0.4f));
+        if(KTurrets.useNewArrowTurretModel.get())
+            renderers.registerEntityRenderer(KTEntities.ARROW_TURRET.get(), context -> new EntityRenderer2<>(context,new ArrowTurretModelNew<>(context.bakeLayer(ArrowTurretModelNew.LAYER_LOCATION)),"arrowturretvariant1",0.4f));
+        else
+            renderers.registerEntityRenderer(KTEntities.ARROW_TURRET.get(), manager -> new EntityRenderer2<>(manager, new ArrowTurretModelv3<>(manager.bakeLayer(ArrowTurretModelv3.LAYER_LOCATION)), "arrow_turret2", 0.4f));
         renderers.registerEntityRenderer(KTEntities.COBBLE_TURRET.get(), manager -> new EntityRenderer2<>(manager, new CobbleTurretModelv4<>(manager.bakeLayer(CobbleTurretModelv4.LAYER_LOCATION)), "cobble_turret2", 0.2f));
         renderers.registerEntityRenderer(KTEntities.GAUSS_TURRET.get(), manager -> new EntityRenderer2<>(manager, new GaussTurretModelv2<>(manager.bakeLayer(GaussTurretModelv2.LAYER_LOCATION)), "gaussturret", 0.2f));
         renderers.registerEntityRenderer(KTEntities.BRICK_TURRET.get(), manager -> new EntityRenderer2<>(manager, new BrickTurretModelv2<>(manager.bakeLayer(BrickTurretModelv2.LAYER_LOCATION)), "brick_turret", 0.4f));

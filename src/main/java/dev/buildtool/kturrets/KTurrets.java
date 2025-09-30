@@ -128,6 +128,8 @@ public class KTurrets {
     public static ArrayListMultimap<String,String> serverUnitDeaths=ArrayListMultimap.create();
     public static final int turretSlotCount =29, turretUpgradeCount=3,droneSlotCount=23,droneUpgradeCount=5;
     public static HashMap<ResourceLocation,Pair<Item,NumberProvider>> playerDependentLoot=new HashMap<>();
+    public static ForgeConfigSpec.BooleanValue useNewArrowTurretModel;
+
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KTItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
             items.accept(KTItems.COBBLE_TURRET.get());
@@ -554,11 +556,14 @@ public class KTurrets {
                     }
                 });
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, new ForgeConfigSpec.Builder().configure(builder -> {
+        Pair<ForgeConfigSpec, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(builder -> {
             ENABLE_DRONE_SOUND = builder.define("Enable drone flying sound", false);
             SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
+            useNewArrowTurretModel = builder.define("Use new arrow turret model", true);
             return builder.build();
-        }).getRight());
+        });
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, specPair.getRight());
+        Methods.loadConfig(specPair,"k_turrets-client.toml");
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, new ForgeConfigSpec.Builder().configure(builder -> {
             TURRET_LIMIT_PER_PLAYER = builder.defineInRange("Turret limit per player", () -> 10, 1, 300);
