@@ -128,7 +128,8 @@ public class KTurrets {
     public static ArrayListMultimap<String,String> serverUnitDeaths=ArrayListMultimap.create();
     public static final int turretSlotCount =29, turretUpgradeCount=3,droneSlotCount=23,droneUpgradeCount=5;
     public static HashMap<ResourceLocation,Pair<Item,NumberProvider>> playerDependentLoot=new HashMap<>();
-    public static ForgeConfigSpec.BooleanValue useNewArrowTurretModel, useNewBulletTurretModel;
+    public static ForgeConfigSpec.BooleanValue useNewArrowTurretModel, useNewBulletTurretModel,
+        useNewBrickTurretModel;
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KTItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
@@ -561,6 +562,7 @@ public class KTurrets {
             SHOW_INTEGRITY = builder.define("Show turret and drone integrity", true);
             useNewArrowTurretModel = builder.define("Use new arrow turret model", true);
             useNewBulletTurretModel=builder.define("Use new bullet turret model",true);
+            useNewBrickTurretModel=builder.define("Use new brick turret model",true);
             return builder.build();
         });
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, specPair.getRight());
