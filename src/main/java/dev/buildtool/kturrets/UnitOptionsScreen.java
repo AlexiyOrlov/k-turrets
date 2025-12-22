@@ -348,7 +348,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
                 }
             }
             else {
-                List<EntityType<?>> targets = Turret.decodeTargets(turret.getTargets());
+                List<EntityType<?>> targets = turret.targetList;
                 if (state) {
                     targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(string)));
                     turret.setTargets(Turret.encodeTargets(targets));

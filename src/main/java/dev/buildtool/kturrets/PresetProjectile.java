@@ -83,7 +83,7 @@ public abstract class PresetProjectile extends AbstractHurtingProjectile {
             if (target.getType().getCategory().isFriendly()) {
                 return target == shooter.getTarget();
             } else {
-                return Turret.decodeTargets(shooter.getTargets()).contains(target.getType()) || target==shooter.getTarget();
+                return shooter.targetList.contains(target.getType()) || target==shooter.getTarget();
             }
         }
         return false;

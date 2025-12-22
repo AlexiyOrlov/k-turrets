@@ -89,6 +89,8 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
         }
     };
 
+    public List<EntityType<?>> targetList;
+
     /**
      * Players that are not allied to the owner
      */
@@ -148,6 +150,7 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
 
     public void setTargets(CompoundTag compoundNBT) {
         entityData.set(TARGETS, compoundNBT);
+        targetList=decodeTargets(compoundNBT);
     }
 
     public CompoundTag getTargets() {
