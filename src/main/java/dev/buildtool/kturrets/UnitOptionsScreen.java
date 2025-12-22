@@ -37,7 +37,7 @@ public class UnitOptionsScreen extends ButtonListScreen {
 
     public UnitOptionsScreen(Turret turret) {
         this.turret=turret;
-        targets=new UniqueList<>(Turret.decodeTargets(turret.getTargets()));
+        targets=new UniqueList<>(turret.targetList);
         showBottomPanel(false);
         initGui();
         setFullscreen();

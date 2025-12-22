@@ -122,13 +122,13 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
     protected void defineSynchedData() {
         super.defineSynchedData();
         CompoundTag compoundNBT = new CompoundTag();
-        List<EntityType<?>> targets = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList());
+        targetList = new ArrayList<>(ForgeRegistries.ENTITY_TYPES.getValues().stream().filter(entityType1 -> !entityType1.getCategory().isFriendly()).toList());
         List<String> exceptions = (List<String>) KTurrets.TARGET_EXCEPTIONS.get();
-        targets.removeIf(entityType -> exceptions.contains(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()));
-        for (int i = 0; i < targets.size(); i++) {
-            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(targets.get(i)).toString());
+        targetList.removeIf(entityType -> exceptions.contains(ForgeRegistries.ENTITY_TYPES.getKey(entityType).toString()));
+        for (int i = 0; i < targetList.size(); i++) {
+            compoundNBT.putString("Target#" + i, ForgeRegistries.ENTITY_TYPES.getKey(targetList.get(i)).toString());
         }
-        compoundNBT.putInt("Count", targets.size());
+        compoundNBT.putInt("Count", targetList.size());
         entityData.define(TARGETS, compoundNBT);
         entityData.define(OWNER, Optional.empty());
         entityData.define(MOVEABLE, false);
