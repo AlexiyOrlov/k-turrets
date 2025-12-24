@@ -204,6 +204,7 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
         targetSelector.addGoal(1, new RevengeTask(this));
     }
 
+    //prevent indiscriminate attack by wither or "johny" vindicator
     @Override
     public boolean attackable() {
         return false;
