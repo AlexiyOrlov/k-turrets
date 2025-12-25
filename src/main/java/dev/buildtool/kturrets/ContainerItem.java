@@ -1,5 +1,6 @@
 package dev.buildtool.kturrets;
 
+import dev.buildtool.kturrets.registers.KTEntities;
 import dev.buildtool.kturrets.registers.RegisterCapability;
 import dev.buildtool.kturrets.registers.UnitLimitCapability;
 import net.minecraft.core.BlockPos;
@@ -37,10 +38,12 @@ public class ContainerItem extends ForgeSpawnEggItem {
     }
 
     private final Unit unit;
+    private Supplier<? extends EntityType<? extends Mob>> unitType;
 
     public ContainerItem(Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor, Properties props, Unit kind) {
         super(type, backgroundColor, highlightColor, props);
         unit = kind;
+        unitType=type;
     }
 
     public InteractionResult useOn(UseOnContext context) {
@@ -61,7 +64,7 @@ public class ContainerItem extends ForgeSpawnEggItem {
                         unitLimitCapability.setTurretCount(playerUUID, unitLimitCapability.getTurretCount(playerUUID) + 1);
                         player.displayClientMessage(Component.translatable("k_turrets.turrets.remain",KTurrets.TURRET_LIMIT_PER_PLAYER.get()-unitLimitCapability.getTurretCount(playerUUID)),false);
                     }
-                } else if (unit == Unit.DRONE) {
+                } else if (unit == Unit.DRONE && unitType.get()!= KTEntities.STORAGE_DRONE.get()) {
                     if (unitLimitCapability.getDroneCount(playerUUID) >= KTurrets.DRONE_LIMIT_PER_PLAYER.get()) {
                         player.displayClientMessage(Component.translatable("k_turrets.reached.drone.limit",KTurrets.DRONE_LIMIT_PER_PLAYER.get()), false);
                         return InteractionResult.CONSUME;
