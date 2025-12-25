@@ -1,3 +1,6 @@
+3.0.44:
+don't count storage drones towards drone limit;
+
 3.0.43:
 small optimization in unit shooting;
 
