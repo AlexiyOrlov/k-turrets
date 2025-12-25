@@ -1,3 +1,6 @@
+3.0.43:
+small optimization in unit shooting;
+
 3.0.42:
 fixed bounding box not showing up if the unit has no ammo;
 added new turret models;
