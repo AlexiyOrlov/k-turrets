@@ -413,7 +413,10 @@ public abstract class Turret extends PathfinderMob implements RangedAttackMob, M
                     MinecraftServer server=level().getServer();
                     UnitLimitCapability unitLimitCapability = level().getCapability(RegisterCapability.unitCapability).orElse(null);
                     if(this instanceof Drone)
-                        unitLimitCapability.setDroneCount(uuid1, unitLimitCapability.getDroneCount(uuid1)-1);
+                    {
+                        if(!(this instanceof StorageDrone))
+                            unitLimitCapability.setDroneCount(uuid1, unitLimitCapability.getDroneCount(uuid1)-1);
+                    }
                     else
                         unitLimitCapability.setTurretCount(uuid1, unitLimitCapability.getTurretCount(uuid1)-1);
                     if(player==null)

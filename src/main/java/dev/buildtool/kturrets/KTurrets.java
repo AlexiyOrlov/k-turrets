@@ -274,8 +274,11 @@ public class KTurrets {
                         serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
                         if(FMLEnvironment.dist.isDedicatedServer()) {
                             UnitLimitCapability limitCapability = serverWorld.getCapability(RegisterCapability.unitCapability, null).orElse(null);
-                            if (entity instanceof Drone)
-                                limitCapability.setDroneCount(uuid, limitCapability.getDroneCount(uuid) - 1);
+                            if (entity instanceof Drone drone)
+                            {
+                                if(!(drone instanceof StorageDrone))
+                                    limitCapability.setDroneCount(uuid, limitCapability.getDroneCount(uuid) - 1);
+                            }
                             else
                                 limitCapability.setTurretCount(uuid, limitCapability.getTurretCount(uuid) - 1);
                         }
