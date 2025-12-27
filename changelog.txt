@@ -1,5 +1,5 @@
 3.0.44:
-don't count storage drones towards drone limit;
+storage drones don't count towards drone limit;
 fixed 2x2 item compression in storage drone;
 
 3.0.43:
