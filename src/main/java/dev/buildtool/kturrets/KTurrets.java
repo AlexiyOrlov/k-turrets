@@ -536,14 +536,17 @@ public class KTurrets {
                                     craftingContainerReverse.setItem(0,out);
                                     //check reverse crafting
                                     serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainerReverse,serverLevel).ifPresent(craftingRecipe1 -> {
-                                        int toMake=integer/4;
-                                        int toConsume=toMake*4;
-                                        for (int j = 0; j < toConsume; j++) {
-                                            Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
-                                        }
-                                        for (int i = 0; i < toMake; i++) {
-                                            if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
-                                                Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                        ItemStack reverseOut=craftingRecipe1.assemble(craftingContainerReverse,serverLevel.registryAccess());
+                                        if(reverseOut.is(item)) {
+                                            int toMake = integer / 4;
+                                            int toConsume = toMake * 4;
+                                            for (int j = 0; j < toConsume; j++) {
+                                                Functions.tryExtractItems(storageDrone.itemHandler, new ItemStack(item), false);
+                                            }
+                                            for (int i = 0; i < toMake; i++) {
+                                                if (Functions.canInsertItem(storageDrone.itemHandler, out)) {
+                                                    Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                                }
                                             }
                                         }
                                     });
