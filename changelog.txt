@@ -1,3 +1,7 @@
+3.0.45:
+fixed deepslate titanium ore's occurrence;
+added a config option to set titanium ore's light emission;
+
 3.0.44:
 storage drones don't count towards drone limit;
 fixed 2x2 item compression in storage drone;
