@@ -130,6 +130,7 @@ public class KTurrets {
     public static HashMap<ResourceLocation,Pair<Item,NumberProvider>> playerDependentLoot=new HashMap<>();
     public static ForgeConfigSpec.BooleanValue useNewArrowTurretModel, useNewBulletTurretModel,
         useNewBrickTurretModel, useNewCobbleTurretModel, useNewFireballTurretModel;
+    public static ForgeConfigSpec.BooleanValue highlightOre;
 
     public KTurrets() {
         CreativeModeTab creativeModeTab = CreativeModeTab.builder().title(Component.translatable(ID)).icon(() -> new ItemStack(KTItems.GAUSS_TURRET.get())).displayItems((p_270258_, items) -> {
@@ -185,6 +186,7 @@ public class KTurrets {
             TARGET_EXCEPTIONS = builder.comment("List of mob ids to be excluded from default targets").defineList("Target list exceptions", Collections.singletonList("minecraft:zombified_piglin"), o -> o instanceof String && ((String) o).contains(":"));
             SET_OWNER_AUTO = builder.define("Set ownership automatically", true);
             OWNER_FOLLOW_DISTANCE = builder.defineInRange("Drones will keep to the owner at such distance", 30, 1, 128);
+            highlightOre=builder.define("Titanium ore emits light",false);
             builder.pop();
 
             builder.push("Turret stats");
