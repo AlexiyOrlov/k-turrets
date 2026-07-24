@@ -42,7 +42,7 @@ public class KTItems {
     public static RegistryObject<Item> RELOADER;
     public static RegistryObject<Item> STORAGE_DRONE;
     public static RegistryObject<Item> LIGHT_UPGRADE,MAGNET_UPGRADE,RECALL_UPGRADE,EXP_LINK, FIRE_SHIELD,LOOTING_LINK;
-    public static RegistryObject<Item> PROPELLER,COPPER_PLATE;
+    public static RegistryObject<Item> COPPER_PLATE;
 
     static {
         ARROW_TURRET = ITEMS.register("arrow_turret_item", () -> new ContainerItem(KTEntities.ARROW_TURRET, 0x0CA207, 0xA2A009, defaults(), ContainerItem.Unit.TURRET){
