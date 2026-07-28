@@ -1,19 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "iii",
-    "iei",
-    "isi"
+    "bbb",
+    "beb",
+    "bbb"
   ],
   "key": {
-    "i": {
-      "item": "minecraft:iron_nugget"
-    },
     "e": {
       "item": "minecraft:ender_pearl"
     },
-    "s": {
-      "item": "k_turrets:titanium_ingot"
+    "b": {
+      "item": "k_turrets:bullet"
     }
   },
   "result": {
