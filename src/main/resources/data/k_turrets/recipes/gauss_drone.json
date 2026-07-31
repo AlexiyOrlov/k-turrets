@@ -10,7 +10,7 @@
       "item": "minecraft:dispenser"
     },
     "b": {
-      "item": "minecraft:ender_pearl"
+      "item": "k_turrets:gauss_bullet"
     },
     "s": {
       "item": "k_turrets:copper_plate"
