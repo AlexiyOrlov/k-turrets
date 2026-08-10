@@ -257,4 +257,9 @@ public abstract class Drone extends Turret {
     public boolean fireImmune() {
         return Functions.contains(KTItems.FIRE_SHIELD.get(), upgrades);
     }
+
+    @Override
+    public boolean startRiding(Entity pVehicle) {
+        return false;
+    }
 }
