@@ -1,5 +1,6 @@
 3.0.47:
 prevent drones from riding anything;
+fixed drones sticking on the pointed dripstone;
 
 3.0.46:
 made recipes of gauss bullet, gauss units and copper plate cheaper;
