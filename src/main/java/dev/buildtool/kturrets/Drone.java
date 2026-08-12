@@ -20,9 +20,12 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.FlyNodeEvaluator;
+import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -72,6 +75,7 @@ public abstract class Drone extends Turret {
         setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1);
         setPathfindingMalus(BlockPathTypes.WATER,0);
+        setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS,-1);
     }
 
     public enum Behavior{
@@ -182,7 +186,43 @@ public abstract class Drone extends Turret {
 
     @Override
     protected PathNavigation createNavigation(Level p_21480_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_21480_);
+        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_21480_){
+            @Override
+            protected PathFinder createPathFinder(int pMaxVisitedNodes) {
+                FlyNodeEvaluator flyNodeEvaluator=new FlyNodeEvaluator(){
+                    @Override
+                    public BlockPathTypes getBlockPathType(BlockGetter pLevel, int pX, int pY, int pZ) {
+                        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                        BlockPathTypes blockpathtypes = getBlockPathTypeRaw(pLevel, blockpos$mutableblockpos.set(pX, pY, pZ));
+                        if (blockpathtypes == BlockPathTypes.OPEN && pY >= pLevel.getMinBuildHeight() + 1) {
+                            BlockPathTypes blockpathtypes1 = getBlockPathTypeRaw(pLevel, blockpos$mutableblockpos.set(pX, pY - 1, pZ));
+                            if (blockpathtypes1 != BlockPathTypes.DAMAGE_FIRE && blockpathtypes1 != BlockPathTypes.LAVA) {
+                                if (blockpathtypes1 == BlockPathTypes.DAMAGE_OTHER) {
+                                    blockpathtypes = BlockPathTypes.DAMAGE_OTHER;
+                                } else if (blockpathtypes1 == BlockPathTypes.COCOA) {
+                                    blockpathtypes = BlockPathTypes.COCOA;
+                                } else if (blockpathtypes1 == BlockPathTypes.FENCE) {
+                                    if (!blockpos$mutableblockpos.equals(this.mob.blockPosition())) {
+                                        blockpathtypes = BlockPathTypes.FENCE;
+                                    }
+                                } else {
+                                    blockpathtypes = blockpathtypes1 != BlockPathTypes.WALKABLE && blockpathtypes1 != BlockPathTypes.OPEN && blockpathtypes1 != BlockPathTypes.WATER ? BlockPathTypes.WALKABLE : BlockPathTypes.OPEN;
+                                }
+                            } else {
+                                blockpathtypes = BlockPathTypes.DAMAGE_FIRE;
+                            }
+                        }
+
+
+
+                        return blockpathtypes;
+                    }
+                };
+                flyNodeEvaluator.setCanPassDoors(true);
+                nodeEvaluator=flyNodeEvaluator;
+                return new PathFinder(flyNodeEvaluator,pMaxVisitedNodes);
+            }
+        };
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
         flyingpathnavigation.setCanPassDoors(true);
