@@ -1,3 +1,6 @@
+3.0.48:
+fixed crash with Fastchunkgen when dismantling units;
+
 3.0.47:
 prevent drones from riding anything;
 fixed drones sticking on the pointed dripstone;
