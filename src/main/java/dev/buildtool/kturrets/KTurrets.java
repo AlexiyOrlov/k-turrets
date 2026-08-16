@@ -129,7 +129,7 @@ public class KTurrets {
     public static final int turretSlotCount =29, turretUpgradeCount=3,droneSlotCount=23,droneUpgradeCount=5;
     public static HashMap<ResourceLocation,Pair<Item,NumberProvider>> playerDependentLoot=new HashMap<>();
     public static ForgeConfigSpec.BooleanValue useNewArrowTurretModel, useNewBulletTurretModel,
-        useNewBrickTurretModel, useNewCobbleTurretModel, useNewFireballTurretModel;
+            useNewBrickTurretModel, useNewCobbleTurretModel, useNewFireballTurretModel;
     public static ForgeConfigSpec.BooleanValue highlightOre;
 
     public KTurrets() {
@@ -256,11 +256,14 @@ public class KTurrets {
             NetworkEvent.Context context = contextSupplier.get();
             ServerPlayer sender = context.getSender();
             ServerLevel serverWorld = sender.serverLevel();
-            Entity entity = serverWorld.getEntity(turretTargets.turretID);
-            if (entity instanceof Turret turret) {
-                turret.setTargets(turretTargets.targets);
-                context.setPacketHandled(true);
-            }
+            serverWorld.getServer().execute(() -> {
+                Entity entity = serverWorld.getEntity(turretTargets.turretID);
+                if (entity instanceof Turret turret) {
+                    turret.setTargets(turretTargets.targets);
+                    context.setPacketHandled(true);
+                }
+            });
+
         });
         channel.registerMessage(packetIndex++, DismantleTurret.class, (dismantleTurret, packetBuffer) -> packetBuffer.writeInt(dismantleTurret.id),
                 packetBuffer -> new DismantleTurret(packetBuffer.readInt()),
@@ -296,16 +299,19 @@ public class KTurrets {
                 }, packetBuffer -> new ClaimTurret(packetBuffer.readInt(), packetBuffer.readUUID()),
                 (claimTurret, contextSupplier) -> {
                     ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
-                    Entity entity = serverWorld.getEntity(claimTurret.id);
-                    if (entity instanceof Turret turret) {
-                        turret.setOwner(claimTurret.person);
-                        turret.setOwnerName(contextSupplier.get().getSender().getName().getString());
-                        if (turret instanceof Drone)
-                            contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.drone_claimed"), true);
-                        else
-                            contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.turret_claimed"), true);
-                        contextSupplier.get().setPacketHandled(true);
-                    }
+                    serverWorld.getServer().execute(() -> {
+                        Entity entity = serverWorld.getEntity(claimTurret.id);
+                        if (entity instanceof Turret turret) {
+                            turret.setOwner(claimTurret.person);
+                            turret.setOwnerName(contextSupplier.get().getSender().getName().getString());
+                            if (turret instanceof Drone)
+                                contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.drone_claimed"), true);
+                            else
+                                contextSupplier.get().getSender().displayClientMessage(Component.translatable("k_turrets.turret_claimed"), true);
+                            contextSupplier.get().setPacketHandled(true);
+                        }
+                    });
+
                 });
         channel.registerMessage(packetIndex++, ToggleMobility.class, (toggleMobility, packetBuffer) -> {
             packetBuffer.writeInt(toggleMobility.id);
@@ -316,11 +322,14 @@ public class KTurrets {
             return new ToggleMobility(mobile, id);
         }, (toggleMobility, contextSupplier) -> {
             ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
-            Entity entity = serverWorld.getEntity(toggleMobility.id);
-            if (entity instanceof Turret) {
-                ((Turret) entity).setMoveable(toggleMobility.mobile);
-                contextSupplier.get().setPacketHandled(true);
-            }
+            serverWorld.getServer().execute(() -> {
+                Entity entity = serverWorld.getEntity(toggleMobility.id);
+                if (entity instanceof Turret) {
+                    ((Turret) entity).setMoveable(toggleMobility.mobile);
+                    contextSupplier.get().setPacketHandled(true);
+                }
+            });
+
         });
         channel.registerMessage(packetIndex++, TogglePlayerProtection.class, (togglePlayerProtection, packetBuffer) -> {
                     packetBuffer.writeBoolean(togglePlayerProtection.protect);
@@ -328,22 +337,28 @@ public class KTurrets {
                 }, packetBuffer -> new TogglePlayerProtection(packetBuffer.readBoolean(), packetBuffer.readInt()),
                 (togglePlayerProtection, contextSupplier) -> {
                     ServerLevel serverWorld = contextSupplier.get().getSender().serverLevel();
-                    Entity entity = serverWorld.getEntity(togglePlayerProtection.id);
-                    if (entity instanceof Turret turret) {
-                        turret.setProtectionFromPlayers(togglePlayerProtection.protect);
-                        contextSupplier.get().setPacketHandled(true);
-                    }
+                    serverWorld.getServer().execute(() -> {
+                        Entity entity = serverWorld.getEntity(togglePlayerProtection.id);
+                        if (entity instanceof Turret turret) {
+                            turret.setProtectionFromPlayers(togglePlayerProtection.protect);
+                            contextSupplier.get().setPacketHandled(true);
+                        }
+                    });
+
                 });
         channel.registerMessage(packetIndex++, AddPlayerException.class, (e, friendlyByteBuf) -> {
             friendlyByteBuf.writeInt(e.turretId);
             friendlyByteBuf.writeUtf(e.playerName);
         }, friendlyByteBuf -> new AddPlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()), (e, contextSupplier) -> {
             ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
-            Entity entity = serverLevel.getEntity(e.turretId);
-            if (entity instanceof Turret turret) {
-                turret.addPlayerToExceptions(e.playerName);
-                contextSupplier.get().setPacketHandled(true);
-            }
+            serverLevel.getServer().execute(() -> {
+                Entity entity = serverLevel.getEntity(e.turretId);
+                if (entity instanceof Turret turret) {
+                    turret.addPlayerToExceptions(e.playerName);
+                    contextSupplier.get().setPacketHandled(true);
+                }
+            });
+
         });
         channel.registerMessage(packetIndex++, RemovePlayerException.class, (e, friendlyByteBuf) -> {
                     friendlyByteBuf.writeInt(e.turretId);
@@ -351,22 +366,28 @@ public class KTurrets {
                 }, friendlyByteBuf -> new RemovePlayerException(friendlyByteBuf.readInt(), friendlyByteBuf.readUtf()),
                 (e, contextSupplier) -> {
                     ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
-                    Entity entity = serverLevel.getEntity(e.turretId);
-                    if (entity instanceof Turret turret) {
-                        turret.removePlayerFromExceptions(e.playerName);
-                        contextSupplier.get().setPacketHandled(true);
-                    }
+                    serverLevel.getServer().execute(() -> {
+                        Entity entity = serverLevel.getEntity(e.turretId);
+                        if (entity instanceof Turret turret) {
+                            turret.removePlayerFromExceptions(e.playerName);
+                            contextSupplier.get().setPacketHandled(true);
+                        }
+                    });
+
                 });
         channel.registerMessage(packetIndex++, SetRefillInventory.class, (setRefillInventory, friendlyByteBuf) -> {
             friendlyByteBuf.writeBoolean(setRefillInventory.refill);
             friendlyByteBuf.writeInt(setRefillInventory.turretId);
         }, friendlyByteBuf -> new SetRefillInventory(friendlyByteBuf.readBoolean(), friendlyByteBuf.readInt()), (setRefillInventory, contextSupplier) -> {
             ServerLevel serverLevel = contextSupplier.get().getSender().serverLevel();
-            Entity entity = serverLevel.getEntity(setRefillInventory.turretId);
-            if (entity instanceof Turret turret) {
-                turret.setRefillInventory(setRefillInventory.refill);
-                contextSupplier.get().setPacketHandled(true);
-            }
+            serverLevel.getServer().execute(() -> {
+                Entity entity = serverLevel.getEntity(setRefillInventory.turretId);
+                if (entity instanceof Turret turret) {
+                    turret.setRefillInventory(setRefillInventory.refill);
+                    contextSupplier.get().setPacketHandled(true);
+                }
+            });
+
         });
         channel.registerMessage(packetIndex++, AmmoCheck.class, (ammoCheck, byteBuf) -> {
                     byteBuf.writeInt(ammoCheck.unit);
@@ -387,24 +408,29 @@ public class KTurrets {
         },byteBuf -> new SetMagnetState(byteBuf.readInt(),byteBuf.readBoolean()),(setMagnetState, contextSupplier) -> {
             contextSupplier.get().enqueueWork(() -> {
                 ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
-                Entity drone= serverLevel.getEntity(setMagnetState.droneId);
-                if(drone instanceof StorageDrone storageDrone)
-                {
-                    storageDrone.setMagnetActive(setMagnetState.state);
-                    contextSupplier.get().setPacketHandled(true);
-                }
+                serverLevel.getServer().execute(() -> {
+                    Entity drone= serverLevel.getEntity(setMagnetState.droneId);
+                    if(drone instanceof StorageDrone storageDrone)
+                    {
+                        storageDrone.setMagnetActive(setMagnetState.state);
+                        contextSupplier.get().setPacketHandled(true);
+                    }
+                });
+
             });
         });
         channel.registerMessage(packetIndex++, MagnetFilterState.class,(magnetFilterState, byteBuf) -> byteBuf.writeBoolean(magnetFilterState.state),
                 byteBuf -> new MagnetFilterState(byteBuf.readBoolean()),
                 (magnetFilterState, contextSupplier) -> {
-                    ServerPlayer serverPlayer=contextSupplier.get().getSender();
-                    ItemStack held=serverPlayer.getInventory().getSelected();
-                    if(held.is(KTItems.MAGNET_UPGRADE.get()))
-                    {
-                        held.getOrCreateTag().putBoolean(FILTER, magnetFilterState.state);
-                        contextSupplier.get().setPacketHandled(true);
-                    }
+                    contextSupplier.get().enqueueWork(() -> {
+                        ServerPlayer serverPlayer=contextSupplier.get().getSender();
+                        ItemStack held=serverPlayer.getInventory().getSelected();
+                        if(held.is(KTItems.MAGNET_UPGRADE.get()))
+                        {
+                            held.getOrCreateTag().putBoolean(FILTER, magnetFilterState.state);
+                            contextSupplier.get().setPacketHandled(true);
+                        }
+                    });
                 });
         channel.registerMessage(packetIndex++, SetTarget.class,(setTarget, byteBuf) -> {
             byteBuf.writeInt(setTarget.unit);
@@ -417,20 +443,23 @@ public class KTurrets {
             return new SetTarget(state,id,unit);
         },(setTarget, contextSupplier) -> {
             ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
-            Entity entity=serverLevel.getEntity(setTarget.unit);
-            if(entity instanceof Turret turret)
-            {
-                List<EntityType<?>> targets= Turret.decodeTargets(turret.getTargets());
-                if(setTarget.state)
+            serverLevel.getServer().execute(() -> {
+                Entity entity=serverLevel.getEntity(setTarget.unit);
+                if(entity instanceof Turret turret)
                 {
-                    targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+                    List<EntityType<?>> targets= Turret.decodeTargets(turret.getTargets());
+                    if(setTarget.state)
+                    {
+                        targets.add(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+                    }
+                    else {
+                        targets.remove(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
+                    }
+                    turret.setTargets(Turret.encodeTargets(targets));
+                    contextSupplier.get().setPacketHandled(true);
                 }
-                else {
-                    targets.remove(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(setTarget.id)));
-                }
-                turret.setTargets(Turret.encodeTargets(targets));
-                contextSupplier.get().setPacketHandled(true);
-            }
+            });
+
         });
 
         channel.registerMessage(packetIndex++, SetBehavior.class,(setBehavior, byteBuf) -> {
@@ -439,12 +468,15 @@ public class KTurrets {
                 },byteBuf -> new SetBehavior(byteBuf.readInt(),byteBuf.readEnum(Drone.Behavior.class)),
                 (setBehavior, contextSupplier) -> {
                     ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
-                    Entity entity=serverLevel.getEntity(setBehavior.drone);
-                    if(entity instanceof Drone drone)
-                    {
-                        drone.setBehavior(setBehavior.behavior);
-                        contextSupplier.get().setPacketHandled(true);
-                    }
+                    serverLevel.getServer().execute(() -> {
+                        Entity entity=serverLevel.getEntity(setBehavior.drone);
+                        if(entity instanceof Drone drone)
+                        {
+                            drone.setBehavior(setBehavior.behavior);
+                            contextSupplier.get().setPacketHandled(true);
+                        }
+                    });
+
                 });
 
         channel.registerMessage(packetIndex++, PickupParticles.class,(pickupParticles, byteBuf) -> {
@@ -464,104 +496,109 @@ public class KTurrets {
             byteBuf.writeBoolean(setProtectPlayer.protect);
         },byteBuf -> new SetProtectPlayer(byteBuf.readInt(),byteBuf.readBoolean()),(setProtectPlayer, contextSupplier) -> {
             ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
-            Entity entity=serverLevel.getEntity(setProtectPlayer.unitId);
-            if(entity instanceof Turret turret)
-            {
-                turret.setProtectOwner(setProtectPlayer.protect);
-                contextSupplier.get().setPacketHandled(true);
-            }
+            serverLevel.getServer().execute(() -> {
+                Entity entity=serverLevel.getEntity(setProtectPlayer.unitId);
+                if(entity instanceof Turret turret)
+                {
+                    turret.setProtectOwner(setProtectPlayer.protect);
+                    contextSupplier.get().setPacketHandled(true);
+                }
+            });
+
         });
         channel.registerMessage(packetIndex++,CompressItems.class,(compressItems, byteBuf) -> byteBuf.writeInt(compressItems.droneId),
                 byteBuf -> new CompressItems(byteBuf.readInt()),(compressItems, contextSupplier) -> {
                     ServerLevel serverLevel=contextSupplier.get().getSender().serverLevel();
-                    Entity entity=serverLevel.getEntity(compressItems.droneId);
-                    if(entity instanceof StorageDrone storageDrone)
-                    {
-                        HashMap<Item,Integer> itemCounts=new HashMap<>(27);
-                        for (ItemStack item : storageDrone.itemHandler.getItems()) {
-                            itemCounts.merge(item.getItem(),item.getCount(), Integer::sum);
-                        }
-                        CraftingMenu craftingMenu=new CraftingMenu(-1,contextSupplier.get().getSender().getInventory());
-                        TransientCraftingContainer craftingContainer=new TransientCraftingContainer(craftingMenu,3,3);
-                        itemCounts.forEach((item, integer) -> {
-                            ItemStack stack=new ItemStack(item);
-                            //try 3x3 recipe
-                            if(integer>8)
-                            {
+                    serverLevel.getServer().execute(() -> {
+                        Entity entity=serverLevel.getEntity(compressItems.droneId);
+                        if(entity instanceof StorageDrone storageDrone)
+                        {
+                            HashMap<Item,Integer> itemCounts=new HashMap<>(27);
+                            for (ItemStack item : storageDrone.itemHandler.getItems()) {
+                                itemCounts.merge(item.getItem(),item.getCount(), Integer::sum);
+                            }
+                            CraftingMenu craftingMenu=new CraftingMenu(-1,contextSupplier.get().getSender().getInventory());
+                            TransientCraftingContainer craftingContainer=new TransientCraftingContainer(craftingMenu,3,3);
+                            itemCounts.forEach((item, integer) -> {
+                                ItemStack stack=new ItemStack(item);
+                                //try 3x3 recipe
+                                if(integer>8)
+                                {
+                                    for (int i = 0; i < 9; i++) {
+                                        craftingContainer.setItem(i,stack);
+                                    }
+                                }
+                                serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
+                                    ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
+                                    if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty() && out.getCount()==1)
+                                    {
+                                        CraftingMenu craftingMenuReverse=new CraftingMenu(-2,contextSupplier.get().getSender().getInventory());
+                                        TransientCraftingContainer craftingContainerReverse=new TransientCraftingContainer(craftingMenuReverse,3,3);
+                                        craftingContainerReverse.setItem(0,out);
+                                        //check if crafting back makes the same item
+                                        serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainerReverse,serverLevel).ifPresent(craftingRecipe1 -> {
+                                            ItemStack reverseOut=craftingRecipe1.assemble(craftingContainerReverse,serverLevel.registryAccess());
+                                            if(reverseOut.is(item))
+                                            {
+                                                int toMake=integer/9;
+                                                int toConsume=toMake*9;
+                                                for (int j = 0; j < toConsume; j++) {
+                                                    Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
+                                                }
+                                                for (int i = 0; i < toMake; i++) {
+                                                    if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
+                                                        Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                });
                                 for (int i = 0; i < 9; i++) {
-                                    craftingContainer.setItem(i,stack);
+                                    craftingContainer.setItem(i,ItemStack.EMPTY);
                                 }
-                            }
-                            serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
-                                ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
-                                if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty() && out.getCount()==1)
+
+                                //try 2x2 recipe
+                                if(integer>3)
                                 {
-                                    CraftingMenu craftingMenuReverse=new CraftingMenu(-2,contextSupplier.get().getSender().getInventory());
-                                    TransientCraftingContainer craftingContainerReverse=new TransientCraftingContainer(craftingMenuReverse,3,3);
-                                    craftingContainerReverse.setItem(0,out);
-                                    //check if crafting back makes the same item
-                                    serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainerReverse,serverLevel).ifPresent(craftingRecipe1 -> {
-                                        ItemStack reverseOut=craftingRecipe1.assemble(craftingContainerReverse,serverLevel.registryAccess());
-                                        if(reverseOut.is(item))
-                                        {
-                                            int toMake=integer/9;
-                                            int toConsume=toMake*9;
-                                            for (int j = 0; j < toConsume; j++) {
-                                                Functions.tryExtractItems(storageDrone.itemHandler,new ItemStack(item),false);
-                                            }
-                                            for (int i = 0; i < toMake; i++) {
-                                                if(Functions.canInsertItem(storageDrone.itemHandler,out)) {
-                                                    Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                    craftingContainer.setItem(0,stack);
+                                    craftingContainer.setItem(1,stack);
+                                    craftingContainer.setItem(3,stack);
+                                    craftingContainer.setItem(4,stack);
+                                }
+                                serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
+                                    ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
+                                    if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty() && out.getCount()==1)
+                                    {
+                                        CraftingMenu craftingMenuReverse=new CraftingMenu(-2,contextSupplier.get().getSender().getInventory());
+                                        TransientCraftingContainer craftingContainerReverse=new TransientCraftingContainer(craftingMenuReverse,2,2);
+                                        craftingContainerReverse.setItem(0,out);
+                                        //check reverse crafting
+                                        serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainerReverse,serverLevel).ifPresent(craftingRecipe1 -> {
+                                            ItemStack reverseOut=craftingRecipe1.assemble(craftingContainerReverse,serverLevel.registryAccess());
+                                            if(reverseOut.is(item)) {
+                                                int toMake = integer / 4;
+                                                int toConsume = toMake * 4;
+                                                for (int j = 0; j < toConsume; j++) {
+                                                    Functions.tryExtractItems(storageDrone.itemHandler, new ItemStack(item), false);
+                                                }
+                                                for (int i = 0; i < toMake; i++) {
+                                                    if (Functions.canInsertItem(storageDrone.itemHandler, out)) {
+                                                        Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
+                                                    }
                                                 }
                                             }
-                                        }
-                                    });
-
+                                        });
+                                    }
+                                });
+                                for (int i = 0; i < 5; i++) {
+                                    craftingContainer.setItem(i,ItemStack.EMPTY);
                                 }
                             });
-                            for (int i = 0; i < 9; i++) {
-                                craftingContainer.setItem(i,ItemStack.EMPTY);
-                            }
-
-                            //try 2x2 recipe
-                            if(integer>3)
-                            {
-                                craftingContainer.setItem(0,stack);
-                                craftingContainer.setItem(1,stack);
-                                craftingContainer.setItem(3,stack);
-                                craftingContainer.setItem(4,stack);
-                            }
-                            serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainer,serverLevel).ifPresent(craftingRecipe -> {
-                                ItemStack out=craftingRecipe.assemble(craftingContainer,serverLevel.registryAccess());
-                                if(out.isItemEnabled(serverLevel.enabledFeatures()) &&!out.isEmpty() && out.getCount()==1)
-                                {
-                                    CraftingMenu craftingMenuReverse=new CraftingMenu(-2,contextSupplier.get().getSender().getInventory());
-                                    TransientCraftingContainer craftingContainerReverse=new TransientCraftingContainer(craftingMenuReverse,2,2);
-                                    craftingContainerReverse.setItem(0,out);
-                                    //check reverse crafting
-                                    serverLevel.getRecipeManager().getRecipeFor(RecipeType.CRAFTING,craftingContainerReverse,serverLevel).ifPresent(craftingRecipe1 -> {
-                                        ItemStack reverseOut=craftingRecipe1.assemble(craftingContainerReverse,serverLevel.registryAccess());
-                                        if(reverseOut.is(item)) {
-                                            int toMake = integer / 4;
-                                            int toConsume = toMake * 4;
-                                            for (int j = 0; j < toConsume; j++) {
-                                                Functions.tryExtractItems(storageDrone.itemHandler, new ItemStack(item), false);
-                                            }
-                                            for (int i = 0; i < toMake; i++) {
-                                                if (Functions.canInsertItem(storageDrone.itemHandler, out)) {
-                                                    Functions.tryInsertItem(storageDrone.itemHandler, out.copy());
-                                                }
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                            for (int i = 0; i < 5; i++) {
-                                craftingContainer.setItem(i,ItemStack.EMPTY);
-                            }
-                        });
-                        contextSupplier.get().setPacketHandled(true);
-                    }
+                            contextSupplier.get().setPacketHandled(true);
+                        }
+                    });
                 });
 
         Pair<ForgeConfigSpec, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(builder -> {
