@@ -267,29 +267,28 @@ public class KTurrets {
                 (dismantleTurret, contextSupplier) -> {
                     ServerPlayer serverPlayer = contextSupplier.get().getSender();
                     ServerLevel serverWorld = serverPlayer.serverLevel();
-                    Entity entity = serverWorld.getEntity(dismantleTurret.id);
-                    if (entity instanceof Turret turret) {
-                        turret.discard();
-                        UUID uuid=serverPlayer.getUUID();
-                        ItemStack egg = new ItemStack(Objects.requireNonNull(ForgeSpawnEggItem.fromEntityType(turret.getType())));
-                        egg.getOrCreateTag().put("Contained", turret.serializeNBT());
-                        serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
-                        if(FMLEnvironment.dist.isDedicatedServer()) {
-                            UnitLimitCapability limitCapability = serverWorld.getCapability(RegisterCapability.unitCapability, null).orElse(null);
-                            if (entity instanceof Drone drone)
-                            {
-                                if(!(drone instanceof StorageDrone))
-                                    limitCapability.setDroneCount(uuid, limitCapability.getDroneCount(uuid) - 1);
+                    serverWorld.getServer().execute(() -> {
+                        Entity entity = serverWorld.getEntity(dismantleTurret.id);
+                        if (entity instanceof Turret turret) {
+                            turret.discard();
+                            UUID uuid = serverPlayer.getUUID();
+                            ItemStack egg = new ItemStack(Objects.requireNonNull(ForgeSpawnEggItem.fromEntityType(turret.getType())));
+                            egg.getOrCreateTag().put("Contained", turret.serializeNBT());
+                            serverWorld.addFreshEntity(new ItemEntity(serverWorld, turret.getX(), turret.getY(), turret.getZ(), egg));
+                            if (FMLEnvironment.dist.isDedicatedServer()) {
+                                UnitLimitCapability limitCapability = serverWorld.getCapability(RegisterCapability.unitCapability, null).orElse(null);
+                                if (entity instanceof Drone drone) {
+                                    if (!(drone instanceof StorageDrone))
+                                        limitCapability.setDroneCount(uuid, limitCapability.getDroneCount(uuid) - 1);
+                                } else
+                                    limitCapability.setTurretCount(uuid, limitCapability.getTurretCount(uuid) - 1);
                             }
-                            else
-                                limitCapability.setTurretCount(uuid, limitCapability.getTurretCount(uuid) - 1);
+                            contextSupplier.get().setPacketHandled(true);
                         }
-                        contextSupplier.get().setPacketHandled(true);
-                    }
-                    if(entity instanceof Drone drone && Functions.contains(KTItems.LIGHT_UPGRADE.get(), drone.upgrades))
-                    {
-                        serverWorld.removeBlock(drone.previousPosition,false);
-                    }
+                        if (entity instanceof Drone drone && Functions.contains(KTItems.LIGHT_UPGRADE.get(), drone.upgrades)) {
+                            serverWorld.removeBlock(drone.previousPosition, false);
+                        }
+                    });
                 });
         channel.registerMessage(packetIndex++, ClaimTurret.class, (claimTurret, packetBuffer) -> {
                     packetBuffer.writeInt(claimTurret.id);
