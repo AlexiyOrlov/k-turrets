@@ -286,7 +286,7 @@ public class KTurrets {
                         }
                         contextSupplier.get().setPacketHandled(true);
                     }
-                    if(entity instanceof Drone drone && !Functions.findItem(KTItems.LIGHT_UPGRADE.get(), drone.upgrades).isEmpty())
+                    if(entity instanceof Drone drone && Functions.contains(KTItems.LIGHT_UPGRADE.get(), drone.upgrades))
                     {
                         serverWorld.removeBlock(drone.previousPosition,false);
                     }
